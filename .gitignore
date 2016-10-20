@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+inst/doc
+
+tests/testthat/Rplots.pdf
+
+.DS_Store
