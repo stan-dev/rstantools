@@ -6,8 +6,8 @@
 #' package for an example.
 #'
 #' @export
-#' @param object Fitted model object.
-#' @param ... Arguments passed to methods.
+#' @template args-object
+#' @template args-dots
 #' @return \code{posterior_sample} methods should return a a \eqn{S} by \eqn{P}
 #'   matrix (with all chains combined), where \eqn{S} is the size of the
 #'   posterior sample (or sample size specified by the user) and \eqn{P} is the

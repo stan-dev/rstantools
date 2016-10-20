@@ -7,7 +7,7 @@
 log_lik(object, ...)
 }
 \arguments{
-\item{object}{Fitted model object.}
+\item{object}{The object to use.}
 
 \item{...}{Arguments passed to methods.}
 }

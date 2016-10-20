@@ -4,8 +4,8 @@
 #' \pkg{\link{rstanarm}} package for an example.
 #'
 #' @export
-#' @param object Fitted model object.
-#' @param ... Arguments passed to methods.
+#' @template args-object
+#' @template args-dots
 #' @return \code{log_lik} methods should return a \eqn{S} by \eqn{N} matrix,
 #'   where \eqn{S} is the size of the posterior sample and \eqn{N} is the number
 #'   of data points.
