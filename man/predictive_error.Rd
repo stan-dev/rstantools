@@ -2,24 +2,38 @@
 % Please edit documentation in R/predictive_error.R
 \name{predictive_error}
 \alias{predictive_error}
+\alias{predictive_error.default}
 \title{Generic function for computing in-sample or out-of-sample predictive errors}
 \usage{
 predictive_error(object, ...)
+
+\method{predictive_error}{default}(object, y, ...)
 }
 \arguments{
 \item{object}{The object to use.}
 
 \item{...}{Arguments passed to methods.}
+
+\item{y}{For the default method, a vector of \eqn{y} values the same length
+as the number of columns in the matrix used as \code{object}.}
 }
 \value{
-\code{predictive_error} methods should return a \code{ndraws} by
-  \code{nobs} matrix.
+\code{predictive_error} methods should return a \eqn{D} by \eqn{N}
+  matrix, where \eqn{D} is the number of draws from the posterior predictive
+  distribution and \eqn{N} is the number of data points being predicted per
+  draw.
+
+  The default method just takes \code{object} to be a matrix and \code{y}
+  to be a vector.
 }
 \description{
 Generic function for computing predictive errors \eqn{y - y^{rep}}{y - yrep}
 (in-sample, for observed \eqn{y}) or \eqn{y - \tilde{y}}{y - ytilde}
 (out-of-sample, for new or held-out \eqn{y}). See
-\code{\link[rstanarm]{predictive_error.stanreg}} in the \pkg{\link{rstanarm}}
-package for an example.
+\code{predictive_error.stanreg} in the \pkg{rstanarm} package for an example.
+}
+\seealso{
+The \pkg{rstanarm} package for example methods
+  (\url{https://CRAN.R-project.org/package=rstanarm}).
 }
 

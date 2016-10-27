@@ -21,13 +21,21 @@ designed for source packages that want to include Stan Programs that can be
 built into binary versions.
 }
 \details{
-This function first calls \code{\link[utils]{package.skeleton}} and then adds
-the files listed in \code{stan_files} to an exec directory. Finally, it
-downloads several files from the \pkg{\link{rstanarm}} GitHub repository to
-facilitate building the resulting package. Note that \pkg{rstanarm} is
-licensed under the GPL >= 3, so package builders who do not want to be
-governed by that license should not use the downloaded files that contain R
-code. Otherwise, it may be worth considering whether it would be easier to
-include your \code{.stan} programs and supporting \R code in the rstanarm package.
+This function first calls \code{\link[utils]{package.skeleton}} and
+then adds the files listed in \code{stan_files} to an exec directory.
+Finally, it downloads several files from the \pkg{rstanarm} GitHub
+repository to facilitate building the resulting package. Note that
+\pkg{rstanarm} is licensed under the GPL >= 3, so package builders who do not
+want to be governed by that license should not use the downloaded files that
+contain R code. Otherwise, it may be worth considering whether it would be
+easier to include your \code{.stan} programs and supporting \R code in the
+\pkg{rstanarm} package.
+}
+\seealso{
+The \pkg{rstanarm} package for example methods
+  (\url{https://CRAN.R-project.org/package=rstanarm}).
+
+The \pkg{rstanarm} GitHub repository
+  (\url{https://github.com/stan-dev/rstanarm}).
 }
 

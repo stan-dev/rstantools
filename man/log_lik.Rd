@@ -2,7 +2,7 @@
 % Please edit documentation in R/log_lik.R
 \name{log_lik}
 \alias{log_lik}
-\title{Generic function for accessing the pointwise log-likelihood}
+\title{Generic function for computing the pointwise log-likelihood}
 \usage{
 log_lik(object, ...)
 }
@@ -17,7 +17,10 @@ log_lik(object, ...)
   of data points.
 }
 \description{
-See \code{\link[rstanarm]{log_lik.stanreg}} in the
-\pkg{\link{rstanarm}} package for an example.
+See \code{log_lik.stanreg} in the \pkg{rstanarm} package for an example.
+}
+\seealso{
+The \pkg{rstanarm} package for example methods
+  (\url{https://CRAN.R-project.org/package=rstanarm}).
 }
 

@@ -15,9 +15,7 @@ posterior_interval(object, ...)
 \item{...}{Arguments passed to methods.}
 
 \item{prob}{A number \eqn{p \in (0,1)}{p (0 < p < 1)} indicating the desired
-probability mass to include in the intervals. The default is to report
-\eqn{90}\% intervals (\code{prob=0.9}) rather than the traditionally used
-\eqn{95}\% (see Details).}
+probability mass to include in the intervals.}
 }
 \value{
 \code{posterior_interval} methods should return a matrix with two
@@ -29,14 +27,17 @@ probability mass to include in the intervals. The default is to report
   \eqn{90}\% interval), then the column names would be \code{"5\%"} and
   \code{"95\%"}, respectively.
 
-  The default method just takes \code{object} to be a vector or matrix and
-  computes quantiles.
+  The default method just takes \code{object} to be a matrix and computes
+  quantiles, with \code{prob} defaulting to 0.9.
 }
 \description{
 These intervals are often referred to as credible intervals, but we use the
 term uncertainty intervals to highlight the fact that wider intervals
-correspond to greater uncertainty. See
-\code{\link[rstanarm]{posterior_interval.stanreg}} in the
-\pkg{\link{rstanarm}} package for an example.
+correspond to greater uncertainty. #' See \code{posterior_interval.stanreg}
+in the \pkg{rstanarm} package for an example.
+}
+\seealso{
+The \pkg{rstanarm} package for example methods
+  (\url{https://CRAN.R-project.org/package=rstanarm}).
 }
 

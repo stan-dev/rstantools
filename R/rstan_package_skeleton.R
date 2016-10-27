@@ -27,15 +27,20 @@
 #' @param stan_files A character vector with paths to \code{.stan} files to
 #'   include in the package. Otherwise similar to \code{code_files}.
 #'
-#' @details
-#' This function first calls \code{\link[utils]{package.skeleton}} and then adds
-#' the files listed in \code{stan_files} to an exec directory. Finally, it
-#' downloads several files from the \pkg{\link{rstanarm}} GitHub repository to
-#' facilitate building the resulting package. Note that \pkg{rstanarm} is
-#' licensed under the GPL >= 3, so package builders who do not want to be
-#' governed by that license should not use the downloaded files that contain R
-#' code. Otherwise, it may be worth considering whether it would be easier to
-#' include your \code{.stan} programs and supporting \R code in the rstanarm package.
+#' @details This function first calls \code{\link[utils]{package.skeleton}} and
+#' then adds the files listed in \code{stan_files} to an exec directory.
+#' Finally, it downloads several files from the \pkg{rstanarm} GitHub
+#' repository to facilitate building the resulting package. Note that
+#' \pkg{rstanarm} is licensed under the GPL >= 3, so package builders who do not
+#' want to be governed by that license should not use the downloaded files that
+#' contain R code. Otherwise, it may be worth considering whether it would be
+#' easier to include your \code{.stan} programs and supporting \R code in the
+#' \pkg{rstanarm} package.
+#'
+#' @template seealso-rstanarm-pkg
+#' @seealso The \pkg{rstanarm} GitHub repository
+#'   (\url{https://github.com/stan-dev/rstanarm}).
+#'
 rstan_package_skeleton <-
   function(name = "anRpackage",
            list = character(),
@@ -53,34 +58,37 @@ rstan_package_skeleton <-
     mc[[1]] <- quote(utils::package.skeleton)
     eval(mc)
 
-    if (R.version$major < 3 ||
-        (R.version$major == 3 && R.version$minor < 2.2)) {
+    if (R.version[["major"]] < 3 ||
+        (R.version[["major"]] == 3 && R.version[["minor"]] < 2.2)) {
       warning(
-        "rstan_package_skeleton is only fully operational with R >= 3.2.2. ",
-        "Follow the package skeleton of the rstanarm package on GitHub."
+        "rstan_package_skeleton is only fully operational with R >= 3.2.2, ",
+        "but you can still follow the package skeleton of the rstanarm package ",
+        "on GitHub to set up the rest of your package."
       )
       return(invisible(NULL))
     }
 
     DIR <- file.path(path, name)
     download.file(
-      "https://raw.githubusercontent.com/stan-dev/rstanarm/master/cleanup",
+      .rstanarm_path("cleanup"),
       destfile = file.path(DIR, "cleanup"),
       quiet = TRUE
     )
     download.file(
-      "https://raw.githubusercontent.com/stan-dev/rstanarm/master/cleanup.win",
+      .rstanarm_path("cleanup.win"),
       destfile = file.path(DIR, "cleanup.win"),
       quiet = TRUE
     )
-    cat("cleanup*",
-        file = file.path(DIR, ".Rbuildignore"),
-        sep = "\n")
+    cat(
+      "cleanup*",
+      file = file.path(DIR, ".Rbuildignore"),
+      sep = "\n"
+    )
 
     TOOLS <- file.path(DIR, "tools")
     dir.create(TOOLS)
     download.file(
-      "https://raw.githubusercontent.com/stan-dev/rstanarm/master/tools/make_cpp.R",
+      .rstanarm_path("tools/make_cpp.R"),
       destfile = file.path(TOOLS, "make_cpp.R"),
       quiet = TRUE
     )
@@ -98,7 +106,7 @@ rstan_package_skeleton <-
     SRC <- file.path(DIR, "src")
     dir.create(SRC, showWarnings = FALSE)
     download.file(
-      "https://raw.githubusercontent.com/stan-dev/rstanarm/master/src/Makevars",
+      .rstanarm_path("src/Makevars"),
       destfile = file.path(SRC, "Makevars"),
       quiet = TRUE
     )
@@ -106,7 +114,7 @@ rstan_package_skeleton <-
     R <- file.path(DIR, "R")
     dir.create(R, showWarnings = FALSE)
     download.file(
-      "https://raw.githubusercontent.com/stan-dev/rstanarm/master/R/stanmodels.R",
+      .rstanarm_path("R/stanmodels.R"),
       destfile = file.path(R, "stanmodels.R"),
       quiet = TRUE
     )
@@ -124,14 +132,16 @@ rstan_package_skeleton <-
     if (!length(stan_files)) {
       module_names <- "NAME"
     } else {
-      module_names <- paste0("stan_fit4",
-                             sub("\\.stan$", "", basename(stan_files)),
-                             "_mod")
+      module_names <- paste0(
+        "stan_fit4",
+        sub("\\.stan$", "", basename(stan_files)),
+        "_mod"
+      )
     }
     cat(
-      "Depends: R (>= 3.0.2), Rcpp (>= 0.11.0)",
-      "Imports: rstan (>= 2.8.1)",
-      "LinkingTo: StanHeaders (>= 2.9.0), rstan (>= 2.9.0), BH (>= 1.60.0), Rcpp (>= 0.12.0), RcppEigen",
+      "Depends: R (>= 3.0.2), Rcpp (>= 0.12.0)",
+      "Imports: rstan (>= 2.12.1)",
+      "LinkingTo: StanHeaders (>= 2.12.0), rstan (>= 2.12.1), BH (>= 1.60.0), Rcpp (>= 0.12.0), RcppEigen",
       file = file.path(DIR, "DESCRIPTION"),
       sep = "\n",
       append = TRUE
@@ -150,3 +160,10 @@ rstan_package_skeleton <-
 
     return(invisible(NULL))
   }
+
+
+# internal ----------------------------------------------------------------
+.rstanarm_path <- function(relative_path) {
+  base_url <- "https://raw.githubusercontent.com/stan-dev/rstanarm/master"
+  file.path(base_url, relative_path)
+}
