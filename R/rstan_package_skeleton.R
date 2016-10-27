@@ -147,13 +147,13 @@ rstan_package_skeleton <-
       append = TRUE
     )
     cat(
-      "\n Stan specific notes:",
-      "Be sure to add useDynLib(mypackage, .registration = TRUE) to NAMESPACE.",
-      "You can put into inst/chunks/common_functions.stan any function that is needed by any .stan file, ",
+      "\n\nStan specific notes:\n",
+      "* Be sure to add useDynLib(mypackage, .registration = TRUE) to NAMESPACE.",
+      "* You can put into inst/chunks/common_functions.stan any function that is needed by any .stan file, ",
       "in which case any .stan file can have #include 'common_functions.stan' in its functions block.",
-      "The precompiled stanmodel objects will appear in a named list called 'stanmodels'.",
-      "The 'cleanup' and 'cleanup.win' scripts in the root of the directory must be made executable.",
-      file = file.path(DIR, "Read-me-and-delete-me"),
+      "* The precompiled stanmodel objects will appear in a named list called 'stanmodels'.",
+      "* The 'cleanup' and 'cleanup.win' scripts in the root of the directory must be made executable.",
+      file = file.path(DIR, "Read-and-delete-me"),
       sep = "\n",
       append = TRUE
     )
