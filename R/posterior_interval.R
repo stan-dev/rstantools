@@ -32,5 +32,5 @@ posterior_interval <- function(object, ...) {
 #' @rdname posterior_interval
 #' @export
 posterior_interval.default <- function(object, prob = 0.9, ...) {
-  central_intervals(object, prob)
+  .central_intervals(object, prob)
 }

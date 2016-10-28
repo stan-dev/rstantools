@@ -29,7 +29,7 @@ predictive_interval <- function(object, ...) {
 #' @rdname predictive_interval
 #' @export
 predictive_interval.default <- function(object, prob = 0.9, ...) {
-  central_intervals(object, prob)
+  .central_intervals(object, prob)
 }
 
 
@@ -37,14 +37,15 @@ predictive_interval.default <- function(object, prob = 0.9, ...) {
 
 # @param object A matrix
 # @param prob Probability mass to include in intervals (in (0,1))
-central_intervals <- function(object, prob) {
-  if (!identical(length(prob), 1L) || prob <= 0 || prob >= 1)
+.central_intervals <- function(object, prob) {
+  stopifnot(is.matrix(object))
+  if (length(prob) != 1L || prob <= 0 || prob >= 1)
     stop("'prob' should be a single number greater than 0 and less than 1.",
          call. = FALSE)
   alpha <- (1 - prob) / 2
   probs <- c(alpha, 1 - alpha)
   labs <- paste0(100 * probs, "%")
-  out <- t(apply(object, 2L, quantile, probs = probs))
+  out <- t(apply(object, 2, quantile, probs = probs))
   structure(out, dimnames = list(colnames(object), labs))
 }
 

@@ -27,7 +27,7 @@ predictive_error <- function(object, ...) {
 #' @param y For the default method, a vector of \eqn{y} values the same length
 #'   as the number of columns in the matrix used as \code{object}.
 predictive_error.default <- function(object, y, ...) {
-  compute_errors(object, y)
+  .pred_errors(object, y)
 }
 
 
@@ -35,7 +35,7 @@ predictive_error.default <- function(object, y, ...) {
 
 # @param object A matrix
 # @param y A vector the same length as ncol(object)
-compute_errors <- function(object, y) {
+.pred_errors <- function(object, y) {
   stopifnot(is.matrix(object), length(y) == ncol(object))
   sweep(-1 * object, MARGIN = 2, STATS = as.array(y), FUN = "+")
 }
