@@ -33,7 +33,7 @@ probability mass to include in the intervals.}
 \description{
 These intervals are often referred to as credible intervals, but we use the
 term uncertainty intervals to highlight the fact that wider intervals
-correspond to greater uncertainty. #' See \code{posterior_interval.stanreg}
+correspond to greater uncertainty. See \code{posterior_interval.stanreg}
 in the \pkg{rstanarm} package for an example.
 }
 \seealso{
