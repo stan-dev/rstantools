@@ -25,5 +25,8 @@ Suggests:
     rstanarm (>= 2.12.1),
     shinystan (>= 2.2.1),
     loo (>= 0.1.6),
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr

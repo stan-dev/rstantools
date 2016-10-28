@@ -12,4 +12,16 @@ The \pkg{stantools} package provides various tools for
   naming across Stan-based R packages, and other tools. To get started
   building a package see \code{\link{rstan_package_skeleton}}.
 }
+\seealso{
+The guidelines for developers of R packages interfacing with Stan, a
+  copy of which can be found in the package vignettes. See
+  \code{browseVignettes("stantools")} or \code{vignette(package =
+  "stantools")}.
+
+The Stan users mailing list
+  (\url{https://groups.google.com/forum/#!forum/stan-users}) and the issue
+  tracker for the \pkg{stantools} package
+  (\url{https://github.com/stan-dev/stantools/issues}) for assistance if you
+  have trouble setting up your package.
+}
 

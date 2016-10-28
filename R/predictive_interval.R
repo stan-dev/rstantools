@@ -35,8 +35,14 @@ predictive_interval.default <- function(object, prob = 0.9, ...) {
 
 # internal ----------------------------------------------------------------
 
-# @param object A matrix
+# Compute central intervals
+#
+#' @importFrom stats quantile
+#
+# @param object A numeric matrix
 # @param prob Probability mass to include in intervals (in (0,1))
+# @return See @return above. 
+#
 .central_intervals <- function(object, prob) {
   stopifnot(is.matrix(object))
   if (length(prob) != 1L || prob <= 0 || prob >= 1)
