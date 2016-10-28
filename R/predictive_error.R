@@ -36,6 +36,6 @@ predictive_error.default <- function(object, y, ...) {
 # @param object A matrix
 # @param y A vector the same length as ncol(object)
 compute_errors <- function(object, y) {
-  stopifnot(is.matrix(object), length(y) != ncol(object))
+  stopifnot(is.matrix(object), length(y) == ncol(object))
   sweep(-1 * object, MARGIN = 2, STATS = as.array(y), FUN = "+")
 }
