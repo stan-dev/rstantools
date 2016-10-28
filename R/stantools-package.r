@@ -15,7 +15,6 @@
 NULL
 
 
-
 # internal ----------------------------------------------------------------
 
 # release reminders (for devtools)
@@ -25,4 +24,3 @@ release_questions <- function() { # nocov start
     "Have you updated the developer guidelines in the vignette?"
   )
 } # nocov end
-
