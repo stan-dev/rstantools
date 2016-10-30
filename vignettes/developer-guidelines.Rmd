@@ -52,7 +52,7 @@ package should be an exception definitely let us know.
 
 ### General package structure and development
 
-* The __stantools__ package provides the `rstan_package_skeleton` function,
+* The __rstantools__ package provides the `rstan_package_skeleton` function,
 which you should use to create the basic structure of your package. If you have
 trouble setting up your package using `rstan_package_skeleton` please consult
 the [__rstanarm__](https://github.com/stan-dev/__rstanarm__) repository and use it as a
@@ -127,13 +127,13 @@ For example, `posterior_predict` to draw from the posterior predictive
 distribution, `posterior_interval` for posterior uncertainty intervals, etc. To 
 make this easier, these and similar __rstanarm__ functions have been converted 
 to S3 methods for the stanreg objects created by __rstanarm__ and the S3 generic
-functions are included here in the __stantools__ package. Your package should
-import the generics from __stantools__ for whichever functions you want to
+functions are included here in the __rstantools__ package. Your package should
+import the generics from __rstantools__ for whichever functions you want to
 include in your package and then provide methods for the fitted model objects
 returned by your model-fitting functions. For some other functions (e.g.
 `as.matrix`) the generics are already available in base R or core R packages. To
 be clear, we are not saying that the naming conventions used in
-__rstanarm__/__stantools__ are necessarily optimal. (If you think that one of 
+__rstanarm__/__rstantools__ are necessarily optimal. (If you think that one of 
 our function names should be changed please let us know and suggest an 
 alternative. If it is a substantial improvement we may consider renaming the 
 function and deprecating the current version.) Rather, this guideline is 
@@ -180,7 +180,7 @@ still a good resource.
 * If you need help setting up your package or have questions about these
 guidelines the best places to go are the [Stan users
 group](https://groups.google.com/forum/#!forum/stan-users) and the [GitHub issue
-tracker](https://github.com/stan-dev/stantools/issues) for the __stantools__
+tracker](https://github.com/stan-dev/rstantools/issues) for the __rstantools__
 package.
 
 
