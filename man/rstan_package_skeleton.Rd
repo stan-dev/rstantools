@@ -43,13 +43,13 @@ The \pkg{rstanarm} GitHub repository
 
 The guidelines for developers of R packages interfacing with Stan, a
   copy of which can be found in the package vignettes. See
-  \code{browseVignettes("stantools")} or \code{vignette(package =
-  "stantools")}.
+  \code{browseVignettes("rstantools")} or \code{vignette(package =
+  "rstantools")}.
 
 The Stan users mailing list
   (\url{https://groups.google.com/forum/#!forum/stan-users}) and the issue
-  tracker for the \pkg{stantools} package
-  (\url{https://github.com/stan-dev/stantools/issues}) for assistance if you
+  tracker for the \pkg{rstantools} package
+  (\url{https://github.com/stan-dev/rstantools/issues}) for assistance if you
   have trouble setting up your package.
 }
 

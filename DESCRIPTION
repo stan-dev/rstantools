@@ -1,4 +1,4 @@
-Package: stantools
+Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with Stan
 Version: 0.1.0
@@ -15,7 +15,7 @@ Description: Provides various tools for developers of R packages interfacing
     and other tools.
 License: GPL (>=3)
 URL: http://mc-stan.org/, https://groups.google.com/forum/#!forum/stan-users
-BugReports: https://github.com/stan-dev/stantools/issues
+BugReports: https://github.com/stan-dev/rstantools/issues
 Encoding: UTF-8
 LazyData: true
 Imports:

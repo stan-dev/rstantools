@@ -1,6 +1,6 @@
 library(testthat)
-library(stantools)
+library(rstantools)
 
 foo <- function(x) {"test function"}
 
-test_check("stantools")
+test_check("rstantools")
