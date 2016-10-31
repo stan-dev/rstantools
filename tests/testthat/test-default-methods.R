@@ -5,19 +5,34 @@ y <- rnorm(ncol(x))
 
 
 test_that("posterior_interval.default hasn't changed", {
-  expect_equal_to_reference(posterior_interval(x, prob = 0.5), "posterior_interval.RDS")
+  expect_equal_to_reference(
+    posterior_interval(x, prob = 0.5),
+    "posterior_interval.RDS"
+  )
 })
 test_that("predictive_interval.default hasn't changed", {
-  expect_equal_to_reference(predictive_interval(x, prob = 0.8), "predictive_interval.RDS")
+  expect_equal_to_reference(
+    predictive_interval(x, prob = 0.8),
+    "predictive_interval.RDS"
+  )
 })
 test_that("predictive_error.default works", {
-  expect_equal_to_reference(predictive_error(x, y), "predictive_error.RDS")
+  expect_equal_to_reference(
+    predictive_error(x, y),
+    "predictive_error.RDS"
+  )
 })
 test_that("prior_summary.default works", {
   obj <- list(prior.info = "prior info")
   expect_identical(prior_summary(obj), obj[[1]])
 
   expect_null(prior_summary(list(abc = "prior_info")))
+})
+
+test_that("default methods throw correct errors", {
+  expect_error(posterior_interval(1:10), "should be a matrix")
+  expect_error(predictive_interval(1:10), "should be a matrix")
+  expect_error(predictive_error(1:10, 1:10), "should be a matrix")
 })
 
 

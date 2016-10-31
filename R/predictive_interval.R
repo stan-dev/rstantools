@@ -29,6 +29,8 @@ predictive_interval <- function(object, ...) {
 #' @rdname predictive_interval
 #' @export
 predictive_interval.default <- function(object, prob = 0.9, ...) {
+  if (!is.matrix(object))
+    stop("For the default method 'object' should be a matrix.")
   .central_intervals(object, prob)
 }
 
@@ -41,7 +43,7 @@ predictive_interval.default <- function(object, prob = 0.9, ...) {
 #
 # @param object A numeric matrix
 # @param prob Probability mass to include in intervals (in (0,1))
-# @return See @return above. 
+# @return See @return above.
 #
 .central_intervals <- function(object, prob) {
   stopifnot(is.matrix(object))

@@ -27,6 +27,8 @@ predictive_error <- function(object, ...) {
 #' @param y For the default method, a vector of \eqn{y} values the same length
 #'   as the number of columns in the matrix used as \code{object}.
 predictive_error.default <- function(object, y, ...) {
+  if (!is.matrix(object))
+    stop("For the default method 'object' should be a matrix.")
   .pred_errors(object, y)
 }
 

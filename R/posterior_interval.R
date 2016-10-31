@@ -32,5 +32,7 @@ posterior_interval <- function(object, ...) {
 #' @rdname posterior_interval
 #' @export
 posterior_interval.default <- function(object, prob = 0.9, ...) {
+  if (!is.matrix(object))
+    stop("For the default method 'object' should be a matrix.")
   .central_intervals(object, prob)
 }
