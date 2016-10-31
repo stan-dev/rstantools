@@ -19,8 +19,8 @@ prior_summary(object, ...)
   information about the prior distribution(s) used for the given model.
   The structure of this object will depend on the method.
 
-  The default method just returns \code{object$prior.info} unless there is an
-  error.
+  The default method just returns \code{object$prior.info}, which is
+  \code{NULL} if there is no \code{'prior.info'} element.
 }
 \description{
 See \code{prior_summary.stanreg} in the \pkg{rstanarm} package for an

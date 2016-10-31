@@ -27,6 +27,9 @@ test_that(".travis.yml file included", {
   expect_false(any(grepl("rstanarm", travis)))
   expect_true(any(grepl("testPackage", travis)))
 })
+test_that(".Rbuildignore file included", {
+  expect_true(".Rbuildignore" %in% pkg_files)
+})
 test_that(".stan file included", {
   expect_true("exec/test.stan" %in% pkg_files)
 })

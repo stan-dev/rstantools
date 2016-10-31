@@ -19,12 +19,14 @@ BugReports: https://github.com/stan-dev/rstantools/issues
 Encoding: UTF-8
 LazyData: true
 Imports:
+    stats,
     utils
 Suggests:
     rstan (>= 2.12.1),
     rstanarm (>= 2.12.1),
     shinystan (>= 2.2.1),
     loo (>= 0.1.6),
+    devtools,
     testthat,
     covr,
     knitr,

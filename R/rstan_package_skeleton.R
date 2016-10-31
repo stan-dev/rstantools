@@ -48,7 +48,7 @@
 #' @template seealso-dev-guidelines
 #' @template seealso-get-help
 #'
-#' @importFrom utils download.file
+#' @importFrom utils download.file packageVersion
 #'
 rstan_package_skeleton <-
   function(name = "anRpackage",
@@ -95,7 +95,8 @@ rstan_package_skeleton <-
     cat(
       "cleanup*",
       file = file.path(DIR, ".Rbuildignore"),
-      sep = "\n"
+      sep = "\n",
+      append = TRUE
     )
 
     # travis
@@ -110,6 +111,12 @@ rstan_package_skeleton <-
       file = file.path(DIR, ".travis.yml"),
       sep = "\n",
       append = FALSE
+    )
+    cat(
+      "^\\.travis\\.yml$",
+      file = file.path(DIR, ".Rbuildignore"),
+      sep = "\n",
+      append = TRUE
     )
 
     # tools
@@ -172,9 +179,24 @@ rstan_package_skeleton <-
       )
     }
     cat(
-      "Depends: R (>= 3.0.2), Rcpp (>= 0.12.0)",
-      "Imports: rstan (>= 2.12.1)",
-      "LinkingTo: StanHeaders (>= 2.12.0), rstan (>= 2.12.1), BH (>= 1.60.0), Rcpp (>= 0.12.0), RcppEigen",
+      paste0(
+        "Depends: ",
+        "R (>= 3.0.2), ",
+        "Rcpp (>= ", packageVersion("Rcpp"), ")"
+      ),
+      paste0(
+        "Imports: ",
+        "rstan (>= ", packageVersion("rstan"), "), ",
+        "rstantools (>= ", packageVersion("rstantools"), ")"
+      ),
+      paste0(
+        "LinkingTo: ",
+        "StanHeaders (>= ", packageVersion("StanHeaders"), "), ",
+        "rstan (>= ", packageVersion("rstan"), "), ",
+        "BH (>= ", packageVersion("BH"), "), ",
+        "Rcpp (>= ", packageVersion("Rcpp"), "), ",
+        "RcppEigen (>= ", packageVersion("RcppEigen"), ")"
+      ),
       file = file.path(DIR, "DESCRIPTION"),
       sep = "\n",
       append = TRUE
