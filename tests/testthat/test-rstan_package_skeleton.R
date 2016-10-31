@@ -36,3 +36,22 @@ test_that(".stan file included", {
 test_that("R/stanmodels.R file included", {
   expect_true("R/stanmodels.R" %in% pkg_files)
 })
+
+test_that("messages are generated", {
+  expect_message(
+    rstan_package_skeleton(
+      path = tempdir(),
+      stan_files = c("test.stan"),
+      force = TRUE
+    ),
+    regexp = "Running package.skeleton"
+  )
+  expect_message(
+    rstan_package_skeleton(
+      path = tempdir(),
+      stan_files = c("test.stan"),
+      force = TRUE
+    ),
+    regexp = "Updating Read-and-delete-me"
+  )
+})

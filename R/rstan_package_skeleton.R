@@ -68,7 +68,9 @@ rstan_package_skeleton <-
     mc <- match.call()
     mc$stan_files <- NULL
     mc[[1]] <- quote(utils::package.skeleton)
-    eval(mc)
+
+    message("Running package.skeleton ...", domain = NA)
+    suppressMessages(eval(mc))
 
     # nocov start
     if (R.version[["major"]] < 3 ||
@@ -84,7 +86,7 @@ rstan_package_skeleton <-
 
     DIR <- file.path(path, name)
 
-    # cleanup and cleanup.win
+    message("Adding cleanup files ...", domain = NA)
     download.file(
       .rstanarm_path("cleanup"),
       destfile = file.path(DIR, "cleanup"),
@@ -104,6 +106,7 @@ rstan_package_skeleton <-
 
     # travis
     if (travis) {
+      message("Adding .travis.yml file ...", domain = NA)
       download.file(
         .rstanarm_path(".travis.yml"),
         destfile = file.path(DIR, ".travis.yml"),
@@ -125,7 +128,7 @@ rstan_package_skeleton <-
       )
     }
 
-    # tools
+    message("Creating tools directory ...", domain = NA)
     TOOLS <- file.path(DIR, "tools")
     dir.create(TOOLS)
     download.file(
@@ -134,12 +137,12 @@ rstan_package_skeleton <-
       quiet = TRUE
     )
 
-    # exec
+    message("Creating exec directory for .stan files ...", domain = NA)
     EXEC <- file.path(DIR, "exec")
     dir.create(EXEC)
     file.copy(stan_files, EXEC)
 
-    # inst
+    message("Creating inst directory for code chunks ...", domain = NA)
     INST <- file.path(DIR, "inst")
     dir.create(INST)
     CHUNKS <- file.path(DIR, "inst", "chunks")
@@ -147,7 +150,7 @@ rstan_package_skeleton <-
     file.create(file.path(CHUNKS, "common_functions.stan"))
     file.create(file.path(CHUNKS, "license.stan"))
 
-    # src
+    message("Creating src directory ...", domain = NA)
     SRC <- file.path(DIR, "src")
     dir.create(SRC, showWarnings = FALSE)
     download.file(
@@ -156,7 +159,7 @@ rstan_package_skeleton <-
       quiet = TRUE
     )
 
-    # R
+    message("Updating R directory ...", domain = NA)
     R <- file.path(DIR, "R")
     dir.create(R, showWarnings = FALSE)
     download.file(
@@ -175,6 +178,7 @@ rstan_package_skeleton <-
       append = TRUE
     )
 
+    # nocov start
     # FIXME: why this?
     if (!length(stan_files)) {
       module_names <- "NAME"
@@ -185,8 +189,9 @@ rstan_package_skeleton <-
         "_mod"
       )
     }
+    # nocov end
 
-    # update DESCRIPTION
+    message("Updating DESCRIPTION ...", domain = NA)
     cat(
       paste0("Depends: R (>= 3.0.2), ",
              .pkg_dependency("Rcpp", last=TRUE)),
@@ -204,7 +209,7 @@ rstan_package_skeleton <-
       append = TRUE
     )
 
-    # add notes to Read-and-delete-me
+    message("Updating Read-and-delete-me ...", domain = NA)
     cat(
       "\n\nStan specific notes:\n",
       "* Be sure to add useDynLib(mypackage, .registration = TRUE) to NAMESPACE.",
@@ -217,7 +222,14 @@ rstan_package_skeleton <-
       append = TRUE
     )
 
-    return(invisible(NULL))
+    message(
+      domain = NA,
+      sprintf(
+        "Further steps are described in '%s'.",
+        file.path(DIR, "Read-and-delete-me")
+      )
+    )
+    invisible(NULL)
   }
 
 
