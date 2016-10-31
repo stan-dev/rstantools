@@ -1,3 +1,7 @@
+<a href="http://mc-stan.org">
+<img src="https://raw.githubusercontent.com/stan-dev/logos/master/logo.png" width=200 alt="Stan Logo"/>
+</a>
+
 # rstantools
 
 [![Travis-CI Build Status](https://travis-ci.org/stan-dev/rstantools.svg?branch=master)](https://travis-ci.org/stan-dev/rstantools)
