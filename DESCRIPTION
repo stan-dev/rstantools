@@ -12,7 +12,7 @@ Maintainer: Jonah Gabry <jsg2201@columbia.edu>
 Description: Provides various tools for developers of R packages interfacing
     with Stan, including functions to set up the required package structure,
     S3 generic methods to unify function naming across Stan-based R packages,
-    and other tools.
+    and a vignette with guidelines for developers.
 License: GPL (>=3)
 URL: http://mc-stan.org/, https://groups.google.com/forum/#!forum/stan-users
 BugReports: https://github.com/stan-dev/rstantools/issues

@@ -4,6 +4,8 @@
 [![codecov](https://codecov.io/gh/stan-dev/rstantools/branch/master/graph/badge.svg)](https://codecov.io/gh/stan-dev/rstantools)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rstantools?color=blue)](http://cran.r-project.org/web/packages/rstantools)
 
+Tools for Developing R Packages Interfacing with Stan
+
 ## Installation
 
 You can install __rstantools__ from GitHub with:
