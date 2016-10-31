@@ -174,6 +174,7 @@ rstan_package_skeleton <-
       append = TRUE
     )
 
+    # FIXME: why this?
     if (!length(stan_files)) {
       module_names <- "NAME"
     } else {
@@ -183,29 +184,26 @@ rstan_package_skeleton <-
         "_mod"
       )
     }
+
+    # update DESCRIPTION
     cat(
-      paste0(
-        "Depends: ",
-        "R (>= 3.0.2), ",
-        "Rcpp (>= ", packageVersion("Rcpp"), ")"
-      ),
-      paste0(
-        "Imports: ",
-        "rstan (>= ", packageVersion("rstan"), "), ",
-        "rstantools (>= ", packageVersion("rstantools"), ")"
-      ),
-      paste0(
-        "LinkingTo: ",
-        "StanHeaders (>= ", packageVersion("StanHeaders"), "), ",
-        "rstan (>= ", packageVersion("rstan"), "), ",
-        "BH (>= ", packageVersion("BH"), "), ",
-        "Rcpp (>= ", packageVersion("Rcpp"), "), ",
-        "RcppEigen (>= ", packageVersion("RcppEigen"), ")"
-      ),
+      paste0("Depends: R (>= 3.0.2), ",
+             .pkg_dependency("Rcpp", last=TRUE)),
+      paste0("Imports: ",
+             .pkg_dependency("rstan"),
+             .pkg_dependency("rstantools", last=TRUE)),
+      paste0("LinkingTo: ",
+             .pkg_dependency("StanHeaders"),
+             .pkg_dependency("rstan"),
+             .pkg_dependency("BH"),
+             .pkg_dependency("Rcpp"),
+             .pkg_dependency("RcppEigen", last=TRUE)),
       file = file.path(DIR, "DESCRIPTION"),
       sep = "\n",
       append = TRUE
     )
+
+    # add notes to Read-and-delete-me
     cat(
       "\n\nStan specific notes:\n",
       "* Be sure to add useDynLib(mypackage, .registration = TRUE) to NAMESPACE.",
@@ -226,4 +224,8 @@ rstan_package_skeleton <-
 .rstanarm_path <- function(relative_path) {
   base_url <- "https://raw.githubusercontent.com/stan-dev/rstanarm/master"
   file.path(base_url, relative_path)
+}
+
+.pkg_dependency <- function(pkg, last_pkg = FALSE) {
+  paste0(pkg, " (>= ", packageVersion(pkg), ")", if (!last_pkg) ", ")
 }
