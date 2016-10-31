@@ -1,6 +1,10 @@
 #' Generic function for computing the pointwise log-likelihood
 #'
-#' See \code{log_lik.stanreg} in the \pkg{rstanarm} package for an example.
+#' We define a new function \code{log_lik} rather than a
+#' \code{\link[stats]{logLik}} method because (in addition to the conceptual
+#' difference) the documentation for \code{logLik} states that the return value
+#' will be a single number, whereas \code{log_lik} returns a matrix. See
+#' \code{log_lik.stanreg} in the \pkg{rstanarm} package for an example.
 #'
 #' @export
 #' @template args-object
