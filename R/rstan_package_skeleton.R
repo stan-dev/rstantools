@@ -226,6 +226,6 @@ rstan_package_skeleton <-
   file.path(base_url, relative_path)
 }
 
-.pkg_dependency <- function(pkg, last_pkg = FALSE) {
-  paste0(pkg, " (>= ", packageVersion(pkg), ")", if (!last_pkg) ", ")
+.pkg_dependency <- function(pkg, last = FALSE) {
+  paste0(pkg, " (>= ", packageVersion(pkg), ")", if (!last) ", ")
 }
