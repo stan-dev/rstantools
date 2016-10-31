@@ -110,6 +110,7 @@ rstan_package_skeleton <-
         quiet = TRUE
       )
       travis <- readLines(file.path(DIR, ".travis.yml"))
+      travis <- travis[!grepl("covr::codecov", travis)]
       cat(
         gsub("rstanarm", name, travis),
         file = file.path(DIR, ".travis.yml"),
