@@ -67,6 +67,7 @@ rstan_package_skeleton <-
     mc[[1]] <- quote(utils::package.skeleton)
     eval(mc)
 
+    # nocov start
     if (R.version[["major"]] < 3 ||
         (R.version[["major"]] == 3 && R.version[["minor"]] < 2.2)) {
       warning(
@@ -76,8 +77,11 @@ rstan_package_skeleton <-
       )
       return(invisible(NULL))
     }
+    # nocov end
 
     DIR <- file.path(path, name)
+
+    # cleanup and cleanup.win
     download.file(
       .rstanarm_path("cleanup"),
       destfile = file.path(DIR, "cleanup"),
@@ -94,6 +98,21 @@ rstan_package_skeleton <-
       sep = "\n"
     )
 
+    # travis
+    download.file(
+      .rstanarm_path(".travis.yml"),
+      destfile = file.path(DIR, ".travis.yml"),
+      quiet = TRUE
+    )
+    travis <- readLines(file.path(DIR, ".travis.yml"))
+    cat(
+      gsub("rstanarm", name, travis),
+      file = file.path(DIR, ".travis.yml"),
+      sep = "\n",
+      append = FALSE
+    )
+
+    # tools
     TOOLS <- file.path(DIR, "tools")
     dir.create(TOOLS)
     download.file(
@@ -101,10 +120,13 @@ rstan_package_skeleton <-
       destfile = file.path(TOOLS, "make_cpp.R"),
       quiet = TRUE
     )
+
+    # exec
     EXEC <- file.path(DIR, "exec")
     dir.create(EXEC)
     file.copy(stan_files, EXEC)
 
+    # inst
     INST <- file.path(DIR, "inst")
     dir.create(INST)
     CHUNKS <- file.path(DIR, "inst", "chunks")
@@ -112,6 +134,7 @@ rstan_package_skeleton <-
     file.create(file.path(CHUNKS, "common_functions.stan"))
     file.create(file.path(CHUNKS, "license.stan"))
 
+    # src
     SRC <- file.path(DIR, "src")
     dir.create(SRC, showWarnings = FALSE)
     download.file(
@@ -120,6 +143,7 @@ rstan_package_skeleton <-
       quiet = TRUE
     )
 
+    # R
     R <- file.path(DIR, "R")
     dir.create(R, showWarnings = FALSE)
     download.file(

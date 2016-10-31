@@ -13,6 +13,12 @@ test_that("predictive_interval.default hasn't changed", {
 test_that("predictive_error.default works", {
   expect_equal_to_reference(predictive_error(x, y), "predictive_error.RDS")
 })
+test_that("prior_summary.default works", {
+  obj <- list(prior.info = "prior info")
+  expect_identical(prior_summary(obj), obj[[1]])
+
+  expect_null(prior_summary(list(abc = "prior_info")))
+})
 
 
 # helper functions --------------------------------------------------------

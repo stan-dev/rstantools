@@ -7,7 +7,7 @@ rstan_package_skeleton(
   force = TRUE
 )
 pkg_path <- file.path(tempdir(), "testPackage")
-pkg_files <- list.files(pkg_path, recursive = TRUE)
+pkg_files <- list.files(pkg_path, recursive = TRUE, all.files = TRUE)
 
 test_that("package directory has correct name", {
   expect_true(dir.exists(pkg_path))
@@ -19,6 +19,13 @@ test_that("package directory has required structure", {
     sort(c("cleanup", "cleanup.win", "DESCRIPTION", "exec", "inst", "man",
       "NAMESPACE", "R", "Read-and-delete-me", "src", "tools"))
   )
+})
+test_that(".travis.yml file included", {
+  expect_true(".travis.yml" %in% pkg_files)
+
+  travis <- readLines(file.path(pkg_path, ".travis.yml"))
+  expect_false(any(grepl("rstanarm", travis)))
+  expect_true(any(grepl("testPackage", travis)))
 })
 test_that(".stan file included", {
   expect_true("exec/test.stan" %in% pkg_files)
