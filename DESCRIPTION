@@ -2,7 +2,7 @@ Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with Stan
 Version: 0.1.0
-Date: 2016-10-27
+Date: 2016-10-30
 Authors@R: c(person("Jonah", "Gabry", email = "jsg2201@columbia.edu",
                     role = c("aut", "cre")),
              person("Ben", "Goodrich", email = "benjamin.goodrich@columbia.edu",
@@ -26,6 +26,7 @@ Suggests:
     shinystan (>= 2.2.1),
     loo (>= 0.1.6),
     testthat,
+    covr,
     knitr,
     rmarkdown
 RoxygenNote: 5.0.1
