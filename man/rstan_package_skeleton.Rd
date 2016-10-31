@@ -6,7 +6,7 @@
 \usage{
 rstan_package_skeleton(name = "anRpackage", list = character(),
   environment = .GlobalEnv, path = ".", force = FALSE,
-  code_files = character(), stan_files = character())
+  code_files = character(), stan_files = character(), travis = TRUE)
 }
 \arguments{
 \item{name, list, environment, path, force, code_files}{Same as in
@@ -14,6 +14,9 @@ rstan_package_skeleton(name = "anRpackage", list = character(),
 
 \item{stan_files}{A character vector with paths to \code{.stan} files to
 include in the package. Otherwise similar to \code{code_files}.}
+
+\item{travis}{Should a \code{.travis.yml} file be added to the package
+directory? Defaults to \code{TRUE}.}
 }
 \description{
 This function is very similar to \code{\link[utils]{package.skeleton}} but is

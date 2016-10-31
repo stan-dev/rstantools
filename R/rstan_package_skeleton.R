@@ -26,6 +26,8 @@
 #'   \code{\link[utils]{package.skeleton}}.
 #' @param stan_files A character vector with paths to \code{.stan} files to
 #'   include in the package. Otherwise similar to \code{code_files}.
+#' @param travis Should a \code{.travis.yml} file be added to the package
+#'   directory? Defaults to \code{TRUE}.
 #'
 #' @details This function first calls \code{\link[utils]{package.skeleton}} and
 #'   then adds the files listed in \code{stan_files} to an exec directory.
@@ -57,7 +59,8 @@ rstan_package_skeleton <-
            path = ".",
            force = FALSE,
            code_files = character(),
-           stan_files = character()) {
+           stan_files = character(),
+           travis = TRUE) {
     if (length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files)))
       stop("All files named in 'stan_files' must end ",
            "with a '.stan' extension.")
@@ -100,24 +103,26 @@ rstan_package_skeleton <-
     )
 
     # travis
-    download.file(
-      .rstanarm_path(".travis.yml"),
-      destfile = file.path(DIR, ".travis.yml"),
-      quiet = TRUE
-    )
-    travis <- readLines(file.path(DIR, ".travis.yml"))
-    cat(
-      gsub("rstanarm", name, travis),
-      file = file.path(DIR, ".travis.yml"),
-      sep = "\n",
-      append = FALSE
-    )
-    cat(
-      "^\\.travis\\.yml$",
-      file = file.path(DIR, ".Rbuildignore"),
-      sep = "\n",
-      append = TRUE
-    )
+    if (travis) {
+      download.file(
+        .rstanarm_path(".travis.yml"),
+        destfile = file.path(DIR, ".travis.yml"),
+        quiet = TRUE
+      )
+      travis <- readLines(file.path(DIR, ".travis.yml"))
+      cat(
+        gsub("rstanarm", name, travis),
+        file = file.path(DIR, ".travis.yml"),
+        sep = "\n",
+        append = FALSE
+      )
+      cat(
+        "^\\.travis\\.yml$",
+        file = file.path(DIR, ".Rbuildignore"),
+        sep = "\n",
+        append = TRUE
+      )
+    }
 
     # tools
     TOOLS <- file.path(DIR, "tools")
