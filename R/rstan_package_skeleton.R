@@ -104,7 +104,6 @@ rstan_package_skeleton <-
       append = TRUE
     )
 
-    # travis
     if (travis) {
       message("Adding .travis.yml file ...", domain = NA)
       download.file(
@@ -177,19 +176,6 @@ rstan_package_skeleton <-
       sep = "\n",
       append = TRUE
     )
-
-    # nocov start
-    # FIXME: why this?
-    if (!length(stan_files)) {
-      module_names <- "NAME"
-    } else {
-      module_names <- paste0(
-        "stan_fit4",
-        sub("\\.stan$", "", basename(stan_files)),
-        "_mod"
-      )
-    }
-    # nocov end
 
     message("Updating DESCRIPTION ...", domain = NA)
     cat(
