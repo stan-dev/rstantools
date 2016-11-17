@@ -12,6 +12,7 @@
 #'   draw.
 #'
 #' @template seealso-rstanarm-pkg
+#' @template seealso-dev-guidelines
 #'
 posterior_predict <- function(object, ...) {
   UseMethod("posterior_predict")

@@ -15,6 +15,7 @@
 #'   \code{NULL} if there is no \code{'prior.info'} element.
 #'
 #' @template seealso-rstanarm-pkg
+#' @template seealso-dev-guidelines
 #'
 prior_summary <- function(object, ...) {
   UseMethod("prior_summary")

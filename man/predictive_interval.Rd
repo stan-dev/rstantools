@@ -3,7 +3,7 @@
 \name{predictive_interval}
 \alias{predictive_interval}
 \alias{predictive_interval.default}
-\title{Generic function for computing predictive intervals}
+\title{Generic function for predictive intervals}
 \usage{
 predictive_interval(object, ...)
 
@@ -36,5 +36,10 @@ example.
 \seealso{
 The \pkg{rstanarm} package for example methods
   (\url{https://CRAN.R-project.org/package=rstanarm}).
+
+The guidelines for developers of R packages interfacing with Stan, a
+  copy of which can be found in the package vignettes. See
+  \code{browseVignettes("rstantools")} or \code{vignette(package =
+  "rstantools")}.
 }
 

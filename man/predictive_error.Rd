@@ -3,7 +3,7 @@
 \name{predictive_error}
 \alias{predictive_error}
 \alias{predictive_error.default}
-\title{Generic function for computing in-sample or out-of-sample predictive errors}
+\title{Generic function for predictive errors}
 \usage{
 predictive_error(object, ...)
 
@@ -35,5 +35,10 @@ Generic function for computing predictive errors \eqn{y - y^{rep}}{y - yrep}
 \seealso{
 The \pkg{rstanarm} package for example methods
   (\url{https://CRAN.R-project.org/package=rstanarm}).
+
+The guidelines for developers of R packages interfacing with Stan, a
+  copy of which can be found in the package vignettes. See
+  \code{browseVignettes("rstantools")} or \code{vignette(package =
+  "rstantools")}.
 }
 

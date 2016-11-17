@@ -1,4 +1,4 @@
-#' Generic function for computing in-sample or out-of-sample predictive errors
+#' Generic function for predictive errors
 #'
 #' Generic function for computing predictive errors \eqn{y - y^{rep}}{y - yrep}
 #' (in-sample, for observed \eqn{y}) or \eqn{y - \tilde{y}}{y - ytilde}
@@ -17,6 +17,7 @@
 #'   to be a vector.
 #'
 #' @template seealso-rstanarm-pkg
+#' @template seealso-dev-guidelines
 #'
 predictive_error <- function(object, ...) {
   UseMethod("predictive_error")

@@ -1,4 +1,4 @@
-#' Generic function for computing posterior uncertainty intervals
+#' Generic function for posterior uncertainty intervals
 #'
 #' These intervals are often referred to as credible intervals, but we use the
 #' term uncertainty intervals to highlight the fact that wider intervals
@@ -24,6 +24,7 @@
 #'   quantiles, with \code{prob} defaulting to 0.9.
 #'
 #' @template seealso-rstanarm-pkg
+#' @template seealso-dev-guidelines
 #'
 posterior_interval <- function(object, ...) {
   UseMethod("posterior_interval")

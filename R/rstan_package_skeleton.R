@@ -207,7 +207,6 @@ rstan_package_skeleton <-
       sep = "\n",
       append = TRUE
     )
-
     message(
       domain = NA,
       sprintf(
@@ -215,6 +214,7 @@ rstan_package_skeleton <-
         file.path(DIR, "Read-and-delete-me")
       )
     )
+
     invisible(NULL)
   }
 

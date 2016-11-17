@@ -2,7 +2,7 @@
 % Please edit documentation in R/log_lik.R
 \name{log_lik}
 \alias{log_lik}
-\title{Generic function for computing the pointwise log-likelihood}
+\title{Generic function for pointwise log-likelihood}
 \usage{
 log_lik(object, ...)
 }
@@ -13,8 +13,8 @@ log_lik(object, ...)
 }
 \value{
 \code{log_lik} methods should return a \eqn{S} by \eqn{N} matrix,
-  where \eqn{S} is the size of the posterior sample and \eqn{N} is the number
-  of data points.
+  where \eqn{S} is the size of the posterior sample (the number of draws from
+  the posterior distribution) and \eqn{N} is the number of data points.
 }
 \description{
 We define a new function \code{log_lik} rather than a
@@ -26,5 +26,10 @@ will be a single number, whereas \code{log_lik} returns a matrix. See
 \seealso{
 The \pkg{rstanarm} package for example methods
   (\url{https://CRAN.R-project.org/package=rstanarm}).
+
+The guidelines for developers of R packages interfacing with Stan, a
+  copy of which can be found in the package vignettes. See
+  \code{browseVignettes("rstantools")} or \code{vignette(package =
+  "rstantools")}.
 }
 

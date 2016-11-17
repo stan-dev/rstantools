@@ -1,4 +1,4 @@
-#' Generic function for computing the pointwise log-likelihood
+#' Generic function for pointwise log-likelihood
 #'
 #' We define a new function \code{log_lik} rather than a
 #' \code{\link[stats]{logLik}} method because (in addition to the conceptual
@@ -11,10 +11,11 @@
 #' @template args-dots
 #'
 #' @return \code{log_lik} methods should return a \eqn{S} by \eqn{N} matrix,
-#'   where \eqn{S} is the size of the posterior sample and \eqn{N} is the number
-#'   of data points.
+#'   where \eqn{S} is the size of the posterior sample (the number of draws from
+#'   the posterior distribution) and \eqn{N} is the number of data points.
 #'
 #' @template seealso-rstanarm-pkg
+#' @template seealso-dev-guidelines
 #'
 log_lik <- function(object, ...) {
   UseMethod("log_lik")

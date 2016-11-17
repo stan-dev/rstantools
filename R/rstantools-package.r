@@ -21,7 +21,6 @@ NULL
 # release reminders (for devtools)
 release_questions <- function() { # nocov start
   c(
-    "Have you updated all pkg versions in DESCRIPTION file created by rstan_package_skeleton?",
     "Have you updated the developer guidelines in the vignette?"
   )
 } # nocov end

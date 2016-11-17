@@ -1,4 +1,4 @@
-#' Generic function for computing predictive intervals
+#' Generic function for predictive intervals
 #'
 #' See \code{predictive_interval.stanreg} in the \pkg{rstanarm} package for an
 #' example.
@@ -21,6 +21,7 @@
 #'   quantiles, with \code{prob} defaulting to 0.9.
 #'
 #' @template seealso-rstanarm-pkg
+#' @template seealso-dev-guidelines
 #'
 predictive_interval <- function(object, ...) {
   UseMethod("predictive_interval")
@@ -56,4 +57,3 @@ predictive_interval.default <- function(object, prob = 0.9, ...) {
   out <- t(apply(object, 2, quantile, probs = probs))
   structure(out, dimnames = list(colnames(object), labs))
 }
-
