@@ -1,6 +1,6 @@
 Package: rstantools
 Type: Package
-Title: Tools for Developing R Packages Interfacing with Stan
+Title: Tools for Developing R Packages Interfacing with 'Stan'
 Version: 1.0.0
 Date: 2016-11-18
 Authors@R: c(person("Jonah", "Gabry", email = "jsg2201@columbia.edu",
@@ -10,9 +10,10 @@ Authors@R: c(person("Jonah", "Gabry", email = "jsg2201@columbia.edu",
              person("Trustees of", "Columbia University", role = "cph"))
 Maintainer: Jonah Gabry <jsg2201@columbia.edu>
 Description: Provides various tools for developers of R packages interfacing
-    with Stan, including functions to set up the required package structure,
-    S3 generics and default methods to unify function naming across Stan-based 
-    R packages, and a vignette with recommendations for developers.
+    with 'Stan' <http://mc-stan.org>, including functions to set up the required 
+    package structure, S3 generics and default methods to unify function naming 
+    across Stan-based R packages, and a vignette with recommendations for 
+    developers.
 License: GPL (>=3)
 URL: http://mc-stan.org/, https://groups.google.com/forum/#!forum/stan-users
 BugReports: https://github.com/stan-dev/rstantools/issues
