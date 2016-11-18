@@ -33,6 +33,15 @@ probability mass to include in the intervals.}
 See \code{predictive_interval.stanreg} in the \pkg{rstanarm} package for an
 example.
 }
+\examples{
+# Default method takes a numeric matrix (of draws from posterior
+# predictive distribution)
+ytilde <- matrix(rnorm(100 * 5, sd = 2), 100, 5) # fake draws
+predictive_interval(ytilde, prob = 0.8)
+
+# Also see help("predictive_interval", package = "rstanarm")
+
+}
 \seealso{
 The \pkg{rstanarm} package for example methods
   (\url{https://CRAN.R-project.org/package=rstanarm}).

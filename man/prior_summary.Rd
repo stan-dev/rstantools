@@ -26,6 +26,10 @@ prior_summary(object, ...)
 See \code{prior_summary.stanreg} in the \pkg{rstanarm} package for an
 example.
 }
+\examples{
+# See help("prior_summary", package = "rstanarm")
+
+}
 \seealso{
 The \pkg{rstanarm} package for example methods
   (\url{https://CRAN.R-project.org/package=rstanarm}).

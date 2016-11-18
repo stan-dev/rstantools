@@ -23,6 +23,14 @@
 #' @template seealso-rstanarm-pkg
 #' @template seealso-dev-guidelines
 #'
+#' @examples
+#' # Default method takes a numeric matrix (of draws from posterior
+#' # predictive distribution)
+#' ytilde <- matrix(rnorm(100 * 5, sd = 2), 100, 5) # fake draws
+#' predictive_interval(ytilde, prob = 0.8)
+#'
+#' # Also see help("predictive_interval", package = "rstanarm")
+#'
 predictive_interval <- function(object, ...) {
   UseMethod("predictive_interval")
 }

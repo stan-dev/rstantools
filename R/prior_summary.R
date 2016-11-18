@@ -17,6 +17,9 @@
 #' @template seealso-rstanarm-pkg
 #' @template seealso-dev-guidelines
 #'
+#' @examples
+#' # See help("prior_summary", package = "rstanarm")
+#'
 prior_summary <- function(object, ...) {
   UseMethod("prior_summary")
 }

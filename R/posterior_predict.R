@@ -14,6 +14,19 @@
 #' @template seealso-rstanarm-pkg
 #' @template seealso-dev-guidelines
 #'
+#' @examples
+#' # Example using rstanarm package:
+#' # posterior_predict method for 'stanreg' objects
+#' if (require("rstanarm")) {
+#'   fit <- stan_glm(mpg ~ wt + am, data = mtcars)
+#'   yrep <- posterior_predict(fit)
+#'   all.equal(ncol(yrep), nobs(fit))
+#'
+#'   nd <- data.frame(wt = mean(mtcars$wt), am = c(0, 1))
+#'   ytilde <- posterior_predict(fit, newdata = nd)
+#'   all.equal(ncol(ytilde), nrow(nd))
+#' }
+#'
 posterior_predict <- function(object, ...) {
   UseMethod("posterior_predict")
 }

@@ -36,6 +36,26 @@ term uncertainty intervals to highlight the fact that wider intervals
 correspond to greater uncertainty. See \code{posterior_interval.stanreg}
 in the \pkg{rstanarm} package for an example.
 }
+\examples{
+# Default method takes a numeric matrix (of posterior draws)
+draws <- matrix(rnorm(100 * 5), 100, 5) # fake draws
+colnames(draws) <- paste0("theta_", 1:5)
+posterior_interval(draws)
+
+# Example using rstanarm package:
+# posterior_interval method for 'stanreg' objects
+if (require("rstanarm")) {
+  fit <- stan_glmer(
+    mpg ~ wt + am + (1|cyl),
+    data = mtcars,
+    QR = TRUE,
+    prior = normal(0, 1),
+    iter = 500 # to speed up example
+  )
+  posterior_interval(fit, prob = 0.5)
+}
+
+}
 \seealso{
 The \pkg{rstanarm} package for example methods
   (\url{https://CRAN.R-project.org/package=rstanarm}).

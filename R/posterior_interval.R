@@ -26,6 +26,25 @@
 #' @template seealso-rstanarm-pkg
 #' @template seealso-dev-guidelines
 #'
+#' @examples
+#' # Default method takes a numeric matrix (of posterior draws)
+#' draws <- matrix(rnorm(100 * 5), 100, 5) # fake draws
+#' colnames(draws) <- paste0("theta_", 1:5)
+#' posterior_interval(draws)
+#'
+#' # Example using rstanarm package:
+#' # posterior_interval method for 'stanreg' objects
+#' if (require("rstanarm")) {
+#'   fit <- stan_glmer(
+#'     mpg ~ wt + am + (1|cyl),
+#'     data = mtcars,
+#'     QR = TRUE,
+#'     prior = normal(0, 1),
+#'     iter = 500 # to speed up example
+#'   )
+#'   posterior_interval(fit, prob = 0.5)
+#' }
+#'
 posterior_interval <- function(object, ...) {
   UseMethod("posterior_interval")
 }
