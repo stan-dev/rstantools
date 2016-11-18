@@ -3,12 +3,17 @@
 #' @name rstantools
 #' @docType package
 #'
-#' @description The \pkg{rstantools} package provides various tools for
-#'   developers of R packages interfacing with Stan, including functions to set
-#'   up the required package structure, S3 generic methods to unify function
-#'   naming across Stan-based R packages, and a vignette with guidelines for
-#'   developers. To get started building a package see
-#'   \code{\link{rstan_package_skeleton}}.
+#' @description
+#' \if{html}{
+#'   \figure{stanlogo.png}{options: width="50px" alt="mc-stan.org"}
+#'   \emph{Stan Development Team}
+#' }
+#'
+#' The \pkg{rstantools} package provides various tools for developers of R
+#' packages interfacing with Stan, including functions to set up the required
+#' package structure, S3 generic methods to unify function naming across
+#' Stan-based R packages, and a vignette with guidelines for developers. To get
+#' started building a package see \code{\link{rstan_package_skeleton}}.
 #'
 #' @template seealso-dev-guidelines
 #' @template seealso-get-help
