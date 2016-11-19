@@ -38,6 +38,8 @@ y <- rnorm(10)
 ypred <- matrix(rnorm(500), 50, 10)
 predictive_error(ypred, y)
 
+# Also see help("predictive_error", package = "rstanarm")
+
 }
 \seealso{
 The \pkg{rstanarm} package for example methods

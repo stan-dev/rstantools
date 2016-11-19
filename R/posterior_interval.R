@@ -47,6 +47,8 @@
 #' }
 #' }
 #'
+#' # Also see help("posterior_interval", package = "rstanarm")
+#'
 posterior_interval <- function(object, ...) {
   UseMethod("posterior_interval")
 }

@@ -25,6 +25,8 @@
 #' ypred <- matrix(rnorm(500), 50, 10)
 #' predictive_error(ypred, y)
 #'
+#' # Also see help("predictive_error", package = "rstanarm")
+#'
 predictive_error <- function(object, ...) {
   UseMethod("predictive_error")
 }

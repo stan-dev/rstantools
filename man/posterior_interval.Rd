@@ -57,6 +57,8 @@ if (require("rstanarm")) {
 }
 }
 
+# Also see help("posterior_interval", package = "rstanarm")
+
 }
 \seealso{
 The \pkg{rstanarm} package for example methods
