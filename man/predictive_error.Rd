@@ -32,6 +32,13 @@ Generic function for computing predictive errors \eqn{y - y^{rep}}{y - yrep}
 (out-of-sample, for new or held-out \eqn{y}). See
 \code{predictive_error.stanreg} in the \pkg{rstanarm} package for an example.
 }
+\examples{
+# default method
+y <- rnorm(10)
+ypred <- matrix(rnorm(500), 50, 10)
+predictive_error(ypred, y)
+
+}
 \seealso{
 The \pkg{rstanarm} package for example methods
   (\url{https://CRAN.R-project.org/package=rstanarm}).

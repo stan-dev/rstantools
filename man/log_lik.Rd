@@ -26,6 +26,7 @@ will be a single number, whereas \code{log_lik} returns a matrix. See
 \examples{
 # Example using rstanarm package:
 # log_lik method for 'stanreg' objects
+\donttest{
 if (require("rstanarm")) {
   roaches$roach100 <- roaches$roach1 / 100
   fit <- stan_glm(
@@ -47,6 +48,7 @@ if (require("rstanarm")) {
   head(ll2)
   dim(ll2)
   all.equal(ncol(ll2), nrow(nd))
+}
 }
 
 }

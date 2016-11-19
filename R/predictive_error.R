@@ -19,6 +19,12 @@
 #' @template seealso-rstanarm-pkg
 #' @template seealso-dev-guidelines
 #'
+#' @examples
+#' # default method
+#' y <- rnorm(10)
+#' ypred <- matrix(rnorm(500), 50, 10)
+#' predictive_error(ypred, y)
+#'
 predictive_error <- function(object, ...) {
   UseMethod("predictive_error")
 }

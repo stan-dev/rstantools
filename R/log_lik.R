@@ -20,6 +20,7 @@
 #' @examples
 #' # Example using rstanarm package:
 #' # log_lik method for 'stanreg' objects
+#' \donttest{
 #' if (require("rstanarm")) {
 #'   roaches$roach100 <- roaches$roach1 / 100
 #'   fit <- stan_glm(
@@ -41,6 +42,7 @@
 #'   head(ll2)
 #'   dim(ll2)
 #'   all.equal(ncol(ll2), nrow(nd))
+#' }
 #' }
 #'
 log_lik <- function(object, ...) {

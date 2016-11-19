@@ -44,6 +44,7 @@ posterior_interval(draws)
 
 # Example using rstanarm package:
 # posterior_interval method for 'stanreg' objects
+\donttest{
 if (require("rstanarm")) {
   fit <- stan_glmer(
     mpg ~ wt + am + (1|cyl),
@@ -53,6 +54,7 @@ if (require("rstanarm")) {
     iter = 500 # to speed up example
   )
   posterior_interval(fit, prob = 0.5)
+}
 }
 
 }
