@@ -1,8 +1,8 @@
 Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
-Version: 1.0.0
-Date: 2016-11-18
+Version: 1.0.0.9000
+Date: 2016-11-19
 Authors@R: c(person("Jonah", "Gabry", email = "jsg2201@columbia.edu",
                     role = c("aut", "cre")),
              person("Ben", "Goodrich", email = "benjamin.goodrich@columbia.edu",
@@ -23,6 +23,7 @@ Imports:
     stats,
     utils
 Suggests:
+    bayesplot (>= 1.0.0),
     rstan (>= 2.12.1),
     rstanarm (>= 2.12.1),
     shinystan (>= 2.2.1),
