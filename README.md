@@ -12,7 +12,14 @@ Tools for Developing R Packages Interfacing with Stan
 
 ## Installation
 
-You can install __rstantools__ from GitHub with:
+
+* Install from CRAN:
+
+```{r}
+install.packages("rstantools")
+```
+
+* Install latest development version from GitHub (requires [devtools](https://github.com/hadley/devtools) package):
 
 ```r
 if (!require("devtools"))
