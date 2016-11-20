@@ -143,14 +143,14 @@ will improve the user experience for those users who want to take advantage of a
 variety of these packages. It will be a mess if every R package using Stan has 
 different names for the same functionality.
 
-* The new [__bayesplot__](github.com/stan-dev/bayesplot) package will soon serve
-as the back-end for plotting for our various R packages and we hope developers 
-of other Stan-based R packages will also use it. For any plot you intend to 
-include in your package, if it is already available in __bayesplot__ then we 
-recommend using the available version or suggesting (or contributing) a better 
-version. If it is not already available then there is a good chance we will be 
-interested in including it in __bayesplot__ if the plot would also be useful for
-other developers.
+* The new [__bayesplot__](https://github.com/stan-dev/bayesplot) package will
+soon serve as the back-end for plotting for our various R packages and we hope
+developers of other Stan-based R packages will also use it. For any plot you
+intend to include in your package, if it is already available in __bayesplot__
+then we recommend using the available version or suggesting (or contributing) a
+better version. If it is not already available then there is a good chance we
+will be interested in including it in __bayesplot__ if the plot would also be
+useful for other developers.
 
 * Provide thorough and clear documentation. The documentation won't be perfect 
 (we've found many holes in our __rstanarm__ documentation already and there are 
