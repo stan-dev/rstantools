@@ -144,13 +144,14 @@ variety of these packages. It will be a mess if every R package using Stan has
 different names for the same functionality.
 
 * The new [__bayesplot__](https://github.com/stan-dev/bayesplot) package will
-soon serve as the back-end for plotting for our various R packages and we hope
-developers of other Stan-based R packages will also use it. For any plot you
-intend to include in your package, if it is already available in __bayesplot__
-then we recommend using the available version or suggesting (or contributing) a
-better version. If it is not already available then there is a good chance we
-will be interested in including it in __bayesplot__ if the plot would also be
-useful for other developers.
+serve as the back-end for plotting for our various R packages (see for example
+`pp_check.stanreg` and `plot.stanreg` in __rstanarm__ version `>= 2.13.1`) and
+we hope developers of other Stan-based R packages will also use it. For any plot
+you intend to include in your package, if it is already available in
+__bayesplot__ then we recommend using the available version or suggesting (or
+contributing) a better version. If it is not already available then there is a
+good chance we will be interested in including it in __bayesplot__ if the plot
+would also be useful for other developers.
 
 * Provide thorough and clear documentation. The documentation won't be perfect 
 (we've found many holes in our __rstanarm__ documentation already and there are 
@@ -160,10 +161,9 @@ poor quality of the documentation in many (though certainly not all) R packages
 is insulting to users and an impediment to high quality research. In no way is 
 the current state of R package documentation a reason to insufficiently document
 your own package. It is unfortunate that this needs to be said, but even a 
-cursory review of core and contributed R packages immediately reveals the 
-necessity for guidelines like this one. Some of our own documentation does not 
-always meet this high standard, but we are consistently making efforts to 
-improve this.
+cursory review of popular R packages immediately reveals the necessity for
+guidelines like this one. Some of our own documentation does not always meet
+this high standard, but we are consistently making efforts to improve this.
 
 
 ### Recommended resources
