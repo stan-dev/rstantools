@@ -168,9 +168,8 @@ rstan_package_skeleton <-
     )
     cat(
       '.onLoad <- function(libname, pkgname) {',
-      'if (!("methods" %in% .packages())) attachNamespace("methods")',
-      'modules <- paste0("stan_fit4", names(stanmodels), "_mod")',
-      'for (m in modules) loadModule(m, what = TRUE)',
+      '  modules <- paste0("stan_fit4", names(stanmodels), "_mod")',
+      '  for (m in modules) loadModule(m, what = TRUE)',
       '}',
       file = file.path(R, "zzz.R"),
       sep = "\n",
@@ -180,7 +179,8 @@ rstan_package_skeleton <-
     message("Updating DESCRIPTION ...", domain = NA)
     cat(
       paste0("Depends: R (>= 3.0.2), ",
-             .pkg_dependency("Rcpp", last=TRUE)),
+             .pkg_dependency("Rcpp", last=TRUE),
+             .pkg_dependency("methods", last=FALSE)),
       paste0("Imports: ",
              .pkg_dependency("rstan"),
              .pkg_dependency("rstantools", last=TRUE)),
@@ -198,7 +198,8 @@ rstan_package_skeleton <-
     message("Updating Read-and-delete-me ...", domain = NA)
     cat(
       "\n\nStan specific notes:\n",
-      "* Be sure to add useDynLib(mypackage, .registration = TRUE) to NAMESPACE.",
+      "* Be sure to add useDynLib(mypackage, .registration = TRUE) to the NAMESPACE file.",
+      "* Be sure to import all of Rcpp and methods in the NAMESPACE file.",
       "* You can put into inst/chunks/common_functions.stan any function that is needed by any .stan file, ",
       "in which case any .stan file can have #include 'common_functions.stan' in its functions block.",
       "* The precompiled stanmodel objects will appear in a named list called 'stanmodels'.",
