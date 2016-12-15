@@ -179,8 +179,8 @@ rstan_package_skeleton <-
     message("Updating DESCRIPTION ...", domain = NA)
     cat(
       paste0("Depends: R (>= 3.0.2), ",
-             .pkg_dependency("Rcpp", last=TRUE),
-             .pkg_dependency("methods", last=FALSE)),
+             .pkg_dependency("Rcpp"),
+             .pkg_dependency("methods", last=TRUE)),
       paste0("Imports: ",
              .pkg_dependency("rstan"),
              .pkg_dependency("rstantools", last=TRUE)),
