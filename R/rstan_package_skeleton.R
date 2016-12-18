@@ -157,7 +157,12 @@ rstan_package_skeleton <-
       destfile = file.path(SRC, "Makevars"),
       quiet = TRUE
     )
-
+    download.file(
+      .rstanarm_path("src/Makevars.win"),
+      destfile = file.path(SRC, "Makevars.win"),
+      quiet = TRUE
+    )
+      
     message("Updating R directory ...", domain = NA)
     R <- file.path(DIR, "R")
     dir.create(R, showWarnings = FALSE)
