@@ -8,7 +8,10 @@
 [![codecov](https://codecov.io/gh/stan-dev/rstantools/branch/master/graph/badge.svg)](https://codecov.io/gh/stan-dev/rstantools)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rstantools?color=blue)](http://cran.r-project.org/web/packages/rstantools)
 
-Tools for Developing R Packages Interfacing with Stan
+ The __rstantools__ package provides tools for developing R packages interfacing with [Stan](http://mc-stan.org/).   
+ Guidelines for developers are included with the package as a vignette:
+
+* [Guidelines for Developers of R Packages Interfacing with Stan](https://cran.r-project.org/package=rstantools/vignettes/developer-guidelines.html)
 
 ## Installation
 
