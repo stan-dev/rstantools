@@ -12,7 +12,8 @@ prior_summary(object, ...)
 \arguments{
 \item{object}{The object to use.}
 
-\item{...}{Arguments passed to methods.}
+\item{...}{Arguments passed to methods. See the methods in the \pkg{rstanarm}
+package for examples.}
 }
 \value{
 \code{prior_summary} methods should return an object containing

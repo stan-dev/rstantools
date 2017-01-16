@@ -12,7 +12,8 @@ predictive_error(object, ...)
 \arguments{
 \item{object}{The object to use.}
 
-\item{...}{Arguments passed to methods.}
+\item{...}{Arguments passed to methods. See the methods in the \pkg{rstanarm}
+package for examples.}
 
 \item{y}{For the default method, a vector of \eqn{y} values the same length
 as the number of columns in the matrix used as \code{object}.}

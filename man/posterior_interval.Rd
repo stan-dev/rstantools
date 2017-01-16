@@ -12,7 +12,8 @@ posterior_interval(object, ...)
 \arguments{
 \item{object}{The object to use.}
 
-\item{...}{Arguments passed to methods.}
+\item{...}{Arguments passed to methods. See the methods in the \pkg{rstanarm}
+package for examples.}
 
 \item{prob}{A number \eqn{p \in (0,1)}{p (0 < p < 1)} indicating the desired
 probability mass to include in the intervals.}
