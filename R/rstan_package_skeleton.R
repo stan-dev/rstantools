@@ -185,7 +185,7 @@ rstan_package_skeleton <-
     cat(
       paste0("Depends: R (>= 3.0.2), ",
              .pkg_dependency("Rcpp"),
-             .pkg_dependency("methods", last=TRUE)),
+             "methods"),
       paste0("Imports: ",
              .pkg_dependency("rstan"),
              .pkg_dependency("rstantools", last=TRUE)),
