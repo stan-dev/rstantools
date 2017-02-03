@@ -81,7 +81,7 @@ tests, but it's a good first step.
 .stan files that are compiled when the package is built (see the exec directory
 in the __rstanarm__ repo for examples). You can also use the inst directory to
 include code chunks to be used in multiple .stan files (again see the __rstanarm__
-repo for examples). If you set of your package using `rstan_package_skeleton`
+repo for examples). If you set up your package using `rstan_package_skeleton`
 this structure will be created for you. This means that your package should NOT
 write a Stan program when the user calls a model fitting function in your
 package, but rather use only Stan programs you have written by hand in advance
