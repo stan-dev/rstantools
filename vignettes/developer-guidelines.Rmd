@@ -64,7 +64,16 @@ group](https://groups.google.com/forum/#!forum/stan-users).
 * Unless you are developing proprietary private software, organize your code in 
 a repository that is _public_ on [GitHub](https://github.com/) (or a similar
 service, but preferably GitHub). It should be public even at early stages of
-development, not only when officially released.
+development, not only when officially released.  We recommend you add a note to
+your README file on how to install the development version of your package, like
+in the [__rstanarm__
+README](https://github.com/stan-dev/rstanarm#development-version):
+
+        if (!require(devtools)) {
+          install.packages("devtools")
+          library(devtools)
+        }
+        install_github("stan-dev/rstanarm", args = "--preclean", build_vignettes = FALSE)
 
 * Unit testing is essential. There are several R packages that make it 
 relatively easy to write tests for your package. __rstanarm__ uses the 
