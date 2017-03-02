@@ -105,9 +105,10 @@ following this recommendation. And most importantly, although pre-written static
 Stan programs can still contain bugs, it is much easier to test programs that do
 not change depending on actions taken by the user. To provide flexibility to
 users, your Stan programs can include branching logic (conditional statements)
-so that even with a number of .stan files you can still allow for many different
-specifications to made by the user (see .stan files in
-[__rstanarm__](https://github.com/stan-dev/rstanarm) for examples).
+so that even with a small number of .stan files you can still allow for many 
+different specifications to made by the user (see the .stan files in
+[__rstanarm__](https://github.com/stan-dev/rstanarm/tree/master/exec) for 
+examples).
 
 * Use best practices for Stan code. If the models you intend to implement are
 discussed in the Stan manual or on the Stan users forum then you should follow
