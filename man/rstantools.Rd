@@ -29,4 +29,3 @@ The Stan users mailing list
   (\url{https://github.com/stan-dev/rstantools/issues}) for assistance if you
   have trouble setting up your package.
 }
-
