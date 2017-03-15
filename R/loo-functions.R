@@ -1,7 +1,7 @@
 #' Generic functions for LOO predictions
 #'
-#' See \code{loo_predict.stanreg} in the \pkg{rstanarm} package for an
-#' example.
+#' Examples of methods for these generics will appear in a future release
+#' of the \pkg{rstanarm} package.
 #'
 #' @name LOO-prediction
 #'
@@ -15,14 +15,6 @@
 #'
 #' @template seealso-rstanarm-pkg
 #' @template seealso-dev-guidelines
-#'
-#' @examples
-#' # Default method takes a numeric matrix (of draws from posterior
-#' # predictive distribution)
-#' ytilde <- matrix(rnorm(100 * 5, sd = 2), 100, 5) # fake draws
-#' predictive_interval(ytilde, prob = 0.8)
-#'
-#' # Also see help("predictive_interval", package = "rstanarm")
 #'
 
 #' @rdname LOO-prediction
