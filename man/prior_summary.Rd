@@ -40,4 +40,3 @@ The guidelines for developers of R packages interfacing with Stan, a
   \code{browseVignettes("rstantools")} or \code{vignette(package =
   "rstantools")}.
 }
-
