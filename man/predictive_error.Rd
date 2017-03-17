@@ -56,7 +56,7 @@ predictive_error(ypred, y)
   \code{browseVignettes("rstantools")} or \code{vignette(package =
   "rstantools")}. The document is also available online at the
   \pkg{rstantools} page on the
-  \href{https://cran.r-project.org/web/packages/rstantools/vignettes/developer-guidelines.html}{CRAN
+  \href{https://CRAN.R-project.org/package=rstantools/vignettes/developer-guidelines.html}{CRAN
   website}.
 }
 }
