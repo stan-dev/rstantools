@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
-#' Create a skeleton for a new source package with Stan programs
+#' Create a skeleton for a new \R package with Stan programs
 #'
 #' This function is very similar to \code{\link[utils]{package.skeleton}} but is
 #' designed for source packages that want to include Stan Programs that can be
@@ -35,9 +35,9 @@
 #'   \href{http://github.com/stan-dev/rstanarm}{GitHub repository} to facilitate
 #'   building the resulting package. Note that \pkg{\link[rstanarm]{rstanarm}}
 #'   is licensed under the GPL >= 3, so package builders who do not want to be
-#'   governed by that license should not use the downloaded files that contain R
-#'   code. Otherwise, it may be worth considering whether it would be easier to
-#'   include your \code{.stan} programs and supporting \R code in the
+#'   governed by that license should not use the downloaded files that contain
+#'   \R code. Otherwise, it may be worth considering whether it would be easier
+#'   to include your \code{.stan} programs and supporting \R code in the
 #'   \pkg{rstanarm} package.
 #'
 #'   After running \code{rstan_package_skeleton} see the

@@ -4,7 +4,7 @@
 \name{rstantools}
 \alias{rstantools}
 \alias{rstantools-package}
-\title{Tools for Developing R Packages Interfacing with Stan}
+\title{Tools for Developing \R Packages Interfacing with Stan}
 \description{
 \if{html}{
   \figure{stanlogo.png}{options: width="50px" alt="mc-stan.org"}

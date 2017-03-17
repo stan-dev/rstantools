@@ -2,7 +2,7 @@
 % Please edit documentation in R/rstan_package_skeleton.R
 \name{rstan_package_skeleton}
 \alias{rstan_package_skeleton}
-\title{Create a skeleton for a new source package with Stan programs}
+\title{Create a skeleton for a new \R package with Stan programs}
 \usage{
 rstan_package_skeleton(name = "anRpackage", list = character(),
   environment = .GlobalEnv, path = ".", force = FALSE,
@@ -30,9 +30,9 @@ This function first calls \code{\link[utils]{package.skeleton}} and
   \href{http://github.com/stan-dev/rstanarm}{GitHub repository} to facilitate
   building the resulting package. Note that \pkg{\link[rstanarm]{rstanarm}}
   is licensed under the GPL >= 3, so package builders who do not want to be
-  governed by that license should not use the downloaded files that contain R
-  code. Otherwise, it may be worth considering whether it would be easier to
-  include your \code{.stan} programs and supporting \R code in the
+  governed by that license should not use the downloaded files that contain
+  \R code. Otherwise, it may be worth considering whether it would be easier
+  to include your \code{.stan} programs and supporting \R code in the
   \pkg{rstanarm} package.
 
   After running \code{rstan_package_skeleton} see the

@@ -1,4 +1,4 @@
-#' Tools for Developing R Packages Interfacing with Stan
+#' Tools for Developing \R Packages Interfacing with Stan
 #'
 #' @name rstantools
 #' @docType package
