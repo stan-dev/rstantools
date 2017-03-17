@@ -162,7 +162,7 @@ rstan_package_skeleton <-
       destfile = file.path(SRC, "Makevars.win"),
       quiet = TRUE
     )
-      
+
     message("Updating R directory ...", domain = NA)
     R <- file.path(DIR, "R")
     dir.create(R, showWarnings = FALSE)
@@ -182,37 +182,11 @@ rstan_package_skeleton <-
     )
 
     message("Updating DESCRIPTION ...", domain = NA)
-    cat(
-      paste0("Depends: R (>= 3.0.2), ",
-             .pkg_dependency("Rcpp"),
-             "methods"),
-      paste0("Imports: ",
-             .pkg_dependency("rstan"),
-             .pkg_dependency("rstantools", last=TRUE)),
-      paste0("LinkingTo: ",
-             .pkg_dependency("StanHeaders"),
-             .pkg_dependency("rstan"),
-             .pkg_dependency("BH"),
-             .pkg_dependency("Rcpp"),
-             .pkg_dependency("RcppEigen", last=TRUE)),
-      file = file.path(DIR, "DESCRIPTION"),
-      sep = "\n",
-      append = TRUE
-    )
+    .update_description_file(DIR)
 
-    message("Updating Read-and-delete-me ...", domain = NA)
-    cat(
-      "\n\nStan specific notes:\n",
-      "* Be sure to add useDynLib(mypackage, .registration = TRUE) to the NAMESPACE file.",
-      "* Be sure to import all of Rcpp and methods in the NAMESPACE file.",
-      "* You can put into inst/chunks/common_functions.stan any function that is needed by any .stan file, ",
-      "in which case any .stan file can have #include 'common_functions.stan' in its functions block.",
-      "* The precompiled stanmodel objects will appear in a named list called 'stanmodels'.",
-      "* The 'cleanup' and 'cleanup.win' scripts in the root of the directory must be made executable.",
-      file = file.path(DIR, "Read-and-delete-me"),
-      sep = "\n",
-      append = TRUE
-    )
+    message("Updating Read-and-delete-me with Stan-specific notes...", domain = NA)
+    .update_read_and_delete_me(DIR)
+
     message(
       domain = NA,
       sprintf(
@@ -233,4 +207,41 @@ rstan_package_skeleton <-
 
 .pkg_dependency <- function(pkg, last = FALSE) {
   paste0(pkg, " (>= ", packageVersion(pkg), ")", if (!last) ", ")
+}
+
+.update_read_and_delete_me <- function(dir) {
+  cat(
+    "\n\nStan specific notes:\n",
+    "* Be sure to add useDynLib(mypackage, .registration = TRUE) to the NAMESPACE file, ",
+    "which you can do by placing the line   #' @useDynLib rstanarm, .registration = TRUE ",
+    "in one of your .R files (e.g., see rstanarm's 'rstanarm-package.R' file).",
+    "* Be sure to import all of Rcpp and methods in the NAMESPACE file.",
+    "* You can put into inst/chunks/common_functions.stan any function that is needed by any .stan file, ",
+    "in which case any .stan file can have #include 'common_functions.stan' in its functions block.",
+    "* The precompiled stanmodel objects will appear in a named list called 'stanmodels'.",
+    "* The 'cleanup' and 'cleanup.win' scripts in the root of the directory must be made executable.",
+    file = file.path(dir, "Read-and-delete-me"),
+    sep = "\n",
+    append = TRUE
+  )
+}
+
+.update_description_file <- function(dir) {
+  cat(
+    paste0("Depends: R (>= 3.0.2), ",
+           .pkg_dependency("Rcpp"),
+           "methods"),
+    paste0("Imports: ",
+           .pkg_dependency("rstan"),
+           .pkg_dependency("rstantools", last=TRUE)),
+    paste0("LinkingTo: ",
+           .pkg_dependency("StanHeaders"),
+           .pkg_dependency("rstan"),
+           .pkg_dependency("BH"),
+           .pkg_dependency("Rcpp"),
+           .pkg_dependency("RcppEigen", last=TRUE)),
+    file = file.path(dir, "DESCRIPTION"),
+    sep = "\n",
+    append = TRUE
+  )
 }

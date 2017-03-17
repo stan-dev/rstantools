@@ -40,6 +40,7 @@ test_that("R/stanmodels.R file included", {
 test_that("messages are generated", {
   expect_message(
     rstan_package_skeleton(
+      name = "testPackage2",
       path = tempdir(),
       stan_files = c("test.stan"),
       force = TRUE
@@ -48,6 +49,7 @@ test_that("messages are generated", {
   )
   expect_message(
     rstan_package_skeleton(
+      name = "testPackage3",
       path = tempdir(),
       stan_files = c("test.stan"),
       force = TRUE
