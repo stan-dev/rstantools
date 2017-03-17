@@ -5,7 +5,7 @@
 * Minor fixes to `rstan_package_skeleton` for better Windows compatibility. (#1, #2)
 * Fix some typos in the developer guidelines vignette. (#3, #4)
 * Add `loo_predict`, `loo_linpred`, and `loo_predictive_interval` generics in 
-preparation for adding methods to the __rstanarm__ package.
+preparation for adding methods to the __rstanarm__ package. (#5)
 
 # rstantools 1.1.0
 

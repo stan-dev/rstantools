@@ -2,27 +2,42 @@
 % Please edit documentation in R/loo-functions.R
 \name{LOO-prediction}
 \alias{LOO-prediction}
-\alias{loo_predict}
 \alias{loo_linpred}
+\alias{loo_predict}
 \alias{loo_predictive_interval}
+\alias{loo_pit}
+\alias{loo_pit.default}
 \title{Generic functions for LOO predictions}
 \usage{
-loo_predict(object, ...)
-
 loo_linpred(object, ...)
 
+loo_predict(object, ...)
+
 loo_predictive_interval(object, ...)
+
+loo_pit(object, ...)
+
+\method{loo_pit}{default}(object, y, lw, ...)
 }
 \arguments{
 \item{object}{The object to use.}
 
 \item{...}{Arguments passed to methods. See the methods in the \pkg{rstanarm}
 package for examples.}
+
+\item{y}{For the default method of \code{loo_pit}, a vector of \eqn{y} values
+the same length as the number of columns in the matrix used as
+\code{object}.}
+
+\item{lw}{For the default method of \code{loo_pit}, a matrix of log-weights
+of the same length as the number of columns in the matrix used as
+\code{object}.}
 }
 \value{
-\code{loo_predict} and \code{loo_linpred} methods should return a vector
-and \code{loo_predictive_interval} methods should return a two-column
-matrix similar to \code{\link{predictive_interval}}.
+\code{loo_predict}, \code{loo_linpred}, and \code{loo_pit}
+(probability integral transform) methods should return a vector.
+\code{loo_predictive_interval} methods should return a two-column matrix
+formatted in the same way as for \code{\link{predictive_interval}}.
 }
 \description{
 Examples of methods for these generics will appear in a future release
