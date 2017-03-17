@@ -57,14 +57,17 @@ loo_pit.default <- function(object, y, lw, ...) {
     is.numeric(object), is.numeric(y), length(y) == ncol(object),
     is.matrix(lw), identical(dim(lw), dim(object))
   )
-  vapply(seq_len(ncol(object)), function(j) {
-    sel <- object[, j] <= y[j]
-    .exp_log_sum_exp(lw[sel, j])
-  }, FUN.VALUE = 1)
+  .loo_pit(y = y, yrep = object, lw = lw)
 }
 
 
 # internal ----------------------------------------------------------------
+.loo_pit <- function(y, yrep, lw) {
+  vapply(seq_len(ncol(yrep)), function(j) {
+    sel <- yrep[, j] <= y[j]
+    .exp_log_sum_exp(lw[sel, j])
+  }, FUN.VALUE = 1)
+}
 .exp_log_sum_exp <- function(x) {
   m <- suppressWarnings(max(x))
   exp(m + log(sum(exp(x - m))))
