@@ -28,6 +28,13 @@ test_that("prior_summary.default works", {
 
   expect_null(prior_summary(list(abc = "prior_info")))
 })
+test_that("loo_pit.default works", {
+  lw <- matrix(rnorm(150), 50, 3)
+  expect_equal_to_reference(
+    loo_pit(x, y, lw),
+    "loo_pit.RDS"
+  )
+})
 
 test_that("default methods throw correct errors", {
   expect_error(posterior_interval(1:10), "should be a matrix")
