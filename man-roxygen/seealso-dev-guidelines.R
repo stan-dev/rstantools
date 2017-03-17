@@ -1,4 +1,10 @@
-#' @seealso The guidelines for developers of R packages interfacing with Stan, a
+#' @seealso
+#' \itemize{
+#'   \item The guidelines for developers of \R packages interfacing with Stan, a
 #'   copy of which can be found in the package vignettes. See
 #'   \code{browseVignettes("rstantools")} or \code{vignette(package =
-#'   "rstantools")}.
+#'   "rstantools")}. The document is also available online at the
+#'   \pkg{rstantools} page on the
+#'   \href{https://cran.r-project.org/web/packages/rstantools/vignettes/developer-guidelines.html}{CRAN
+#'   website}.
+#' }

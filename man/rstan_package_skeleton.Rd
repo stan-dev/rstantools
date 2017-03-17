@@ -26,32 +26,39 @@ built into binary versions.
 \details{
 This function first calls \code{\link[utils]{package.skeleton}} and
   then adds the files listed in \code{stan_files} to an exec directory.
-  Finally, it downloads several files from the \pkg{rstanarm} GitHub
-  repository to facilitate building the resulting package. Note that
-  \pkg{rstanarm} is licensed under the GPL >= 3, so package builders who do
-  not want to be governed by that license should not use the downloaded files
-  that contain R code. Otherwise, it may be worth considering whether it
-  would be easier to include your \code{.stan} programs and supporting \R
-  code in the \pkg{rstanarm} package.
+  Finally, it downloads several files from the \pkg{rstanarm} package's
+  \href{http://github.com/stan-dev/rstanarm}{GitHub repository} to facilitate
+  building the resulting package. Note that \pkg{\link[rstanarm]{rstanarm}}
+  is licensed under the GPL >= 3, so package builders who do not want to be
+  governed by that license should not use the downloaded files that contain R
+  code. Otherwise, it may be worth considering whether it would be easier to
+  include your \code{.stan} programs and supporting \R code in the
+  \pkg{rstanarm} package.
 
   After running \code{rstan_package_skeleton} see the
   \code{Read-and-delete-me} file created in the package directory. The
   content in that file contains the content of the \code{Read-and-delete-me}
-  file created by \code{package.skeleton} plus additional Stan-specific
-  instructions.
+  file created by \code{\link[utils]{package.skeleton}} plus additional
+  Stan-specific instructions.
 }
 \seealso{
-The \pkg{rstanarm} GitHub repository
+The \pkg{rstanarm} repository on GitHub
   (\url{https://github.com/stan-dev/rstanarm}).
 
-The guidelines for developers of R packages interfacing with Stan, a
+\itemize{
+  \item The guidelines for developers of \R packages interfacing with Stan, a
   copy of which can be found in the package vignettes. See
   \code{browseVignettes("rstantools")} or \code{vignette(package =
-  "rstantools")}.
+  "rstantools")}. The document is also available online at the
+  \pkg{rstantools} page on the
+  \href{https://cran.r-project.org/web/packages/rstantools/vignettes/developer-guidelines.html}{CRAN
+  website}.
+}
 
-The Stan users mailing list
-  (\url{https://groups.google.com/forum/#!forum/stan-users}) and the issue
-  tracker for the \pkg{rstantools} package
-  (\url{https://github.com/stan-dev/rstantools/issues}) for assistance if you
-  have trouble setting up your package.
+\itemize{
+  \item The \href{https://groups.google.com/forum/#!forum/stan-users}{Stan
+  users mailing list} and the
+  \href{https://github.com/stan-dev/rstantools/issues}{\pkg{rstantools} issue
+  tracker} for assistance if you have trouble setting up your package.
+}
 }

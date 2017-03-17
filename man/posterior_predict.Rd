@@ -19,8 +19,9 @@ package for examples.}
   draw.
 }
 \description{
-See \code{posterior_predict.stanreg} in the \pkg{rstanarm} package for an
-example.
+Draw from the posterior predictive distribution of the outcome. See
+\code{\link[rstanarm]{posterior_predict.stanreg}} in the
+\pkg{\link[rstanarm]{rstanarm}} package for an example.
 }
 \examples{
 # Example using rstanarm package:
@@ -41,11 +42,19 @@ if (require("rstanarm")) {
 
 }
 \seealso{
-The \pkg{rstanarm} package for example methods
-  (\url{https://CRAN.R-project.org/package=rstanarm}).
+\itemize{
+  \item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
+  (\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
+  \href{https://github.com/stan-dev/rstanarm}{GitHub}).
+}
 
-The guidelines for developers of R packages interfacing with Stan, a
+\itemize{
+  \item The guidelines for developers of \R packages interfacing with Stan, a
   copy of which can be found in the package vignettes. See
   \code{browseVignettes("rstantools")} or \code{vignette(package =
-  "rstantools")}.
+  "rstantools")}. The document is also available online at the
+  \pkg{rstantools} page on the
+  \href{https://cran.r-project.org/web/packages/rstantools/vignettes/developer-guidelines.html}{CRAN
+  website}.
+}
 }

@@ -1,47 +1,48 @@
 #' Generic functions for LOO predictions
 #'
 #' Examples of methods for these generics will appear in a future release
-#' of the \pkg{rstanarm} package.
+#' of the \pkg{\link[rstanarm]{rstanarm}} package.
 #'
-#' @name LOO-prediction
+#' @name loo-prediction
 #'
 #' @template args-object
 #' @template args-dots
 #'
 #' @return \code{loo_predict}, \code{loo_linpred}, and \code{loo_pit}
-#' (probability integral transform) methods should return a vector.
-#' \code{loo_predictive_interval} methods should return a two-column matrix
-#' formatted in the same way as for \code{\link{predictive_interval}}.
+#'   (probability integral transform) methods should return a vector with length
+#'   equal to the number of observations in the data.
+#'   \code{loo_predictive_interval} methods should return a two-column matrix
+#'   formatted in the same way as for \code{\link{predictive_interval}}.
 #'
 #' @template seealso-rstanarm-pkg
 #' @template seealso-dev-guidelines
 #'
 
-#' @rdname LOO-prediction
+#' @rdname loo-prediction
 #' @export
 loo_linpred <- function(object, ...) {
   UseMethod("loo_linpred")
 }
 
-#' @rdname LOO-prediction
+#' @rdname loo-prediction
 #' @export
 loo_predict <- function(object, ...) {
   UseMethod("loo_predict")
 }
 
-#' @rdname LOO-prediction
+#' @rdname loo-prediction
 #' @export
 loo_predictive_interval <- function(object, ...) {
   UseMethod("loo_predictive_interval")
 }
 
-#' @rdname LOO-prediction
+#' @rdname loo-prediction
 #' @export
 loo_pit <- function(object, ...) {
   UseMethod("loo_pit")
 }
 
-#' @rdname LOO-prediction
+#' @rdname loo-prediction
 #' @export
 #' @param y For the default method of \code{loo_pit}, a vector of \eqn{y} values
 #'   the same length as the number of columns in the matrix used as

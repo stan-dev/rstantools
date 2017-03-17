@@ -31,21 +31,22 @@
 #'
 #' @details This function first calls \code{\link[utils]{package.skeleton}} and
 #'   then adds the files listed in \code{stan_files} to an exec directory.
-#'   Finally, it downloads several files from the \pkg{rstanarm} GitHub
-#'   repository to facilitate building the resulting package. Note that
-#'   \pkg{rstanarm} is licensed under the GPL >= 3, so package builders who do
-#'   not want to be governed by that license should not use the downloaded files
-#'   that contain R code. Otherwise, it may be worth considering whether it
-#'   would be easier to include your \code{.stan} programs and supporting \R
-#'   code in the \pkg{rstanarm} package.
+#'   Finally, it downloads several files from the \pkg{rstanarm} package's
+#'   \href{http://github.com/stan-dev/rstanarm}{GitHub repository} to facilitate
+#'   building the resulting package. Note that \pkg{\link[rstanarm]{rstanarm}}
+#'   is licensed under the GPL >= 3, so package builders who do not want to be
+#'   governed by that license should not use the downloaded files that contain R
+#'   code. Otherwise, it may be worth considering whether it would be easier to
+#'   include your \code{.stan} programs and supporting \R code in the
+#'   \pkg{rstanarm} package.
 #'
 #'   After running \code{rstan_package_skeleton} see the
 #'   \code{Read-and-delete-me} file created in the package directory. The
 #'   content in that file contains the content of the \code{Read-and-delete-me}
-#'   file created by \code{package.skeleton} plus additional Stan-specific
-#'   instructions.
+#'   file created by \code{\link[utils]{package.skeleton}} plus additional
+#'   Stan-specific instructions.
 #'
-#' @seealso The \pkg{rstanarm} GitHub repository
+#' @seealso The \pkg{rstanarm} repository on GitHub
 #'   (\url{https://github.com/stan-dev/rstanarm}).
 #' @template seealso-dev-guidelines
 #' @template seealso-get-help

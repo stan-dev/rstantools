@@ -1,7 +1,7 @@
 #' Generic function for predictive intervals
 #'
-#' See \code{predictive_interval.stanreg} in the \pkg{rstanarm} package for an
-#' example.
+#' See \code{\link[rstanarm]{predictive_interval.stanreg}} in the
+#' \pkg{\link[rstanarm]{rstanarm}} package for an example.
 #'
 #' @export
 #' @template args-object

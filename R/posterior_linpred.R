@@ -2,8 +2,9 @@
 #' predictor
 #'
 #' Extract the posterior draws of the linear predictor, possibly transformed by
-#' the inverse-link function. See \code{posterior_linpred.stanreg} in the
-#' \pkg{rstanarm} package for an example.
+#' the inverse-link function. See
+#' \code{\link[rstanarm]{posterior_linpred.stanreg}} in the
+#' \pkg{\link[rstanarm]{rstanarm}} package for an example.
 #'
 #' @export
 #' @template args-object

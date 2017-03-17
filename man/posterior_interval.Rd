@@ -34,8 +34,9 @@ probability mass to include in the intervals.}
 \description{
 These intervals are often referred to as credible intervals, but we use the
 term uncertainty intervals to highlight the fact that wider intervals
-correspond to greater uncertainty. See \code{posterior_interval.stanreg}
-in the \pkg{rstanarm} package for an example.
+correspond to greater uncertainty. See
+\code{\link[rstanarm]{posterior_interval.stanreg}} in the
+\pkg{\link[rstanarm]{rstanarm}} package for an example.
 }
 \examples{
 # Default method takes a numeric matrix (of posterior draws)
@@ -62,11 +63,19 @@ if (require("rstanarm")) {
 
 }
 \seealso{
-The \pkg{rstanarm} package for example methods
-  (\url{https://CRAN.R-project.org/package=rstanarm}).
+\itemize{
+  \item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
+  (\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
+  \href{https://github.com/stan-dev/rstanarm}{GitHub}).
+}
 
-The guidelines for developers of R packages interfacing with Stan, a
+\itemize{
+  \item The guidelines for developers of \R packages interfacing with Stan, a
   copy of which can be found in the package vignettes. See
   \code{browseVignettes("rstantools")} or \code{vignette(package =
-  "rstantools")}.
+  "rstantools")}. The document is also available online at the
+  \pkg{rstantools} page on the
+  \href{https://cran.r-project.org/web/packages/rstantools/vignettes/developer-guidelines.html}{CRAN
+  website}.
+}
 }
