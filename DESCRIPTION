@@ -27,7 +27,7 @@ Suggests:
     rstan (>= 2.14.1),
     rstanarm (>= 2.14.1),
     shinystan (>= 2.2.1),
-    loo (>= 1.0.0),
+    loo (>= 1.1.0),
     testthat,
     covr,
     knitr,
