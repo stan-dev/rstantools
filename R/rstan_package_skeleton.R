@@ -1,5 +1,5 @@
 # This file is part of rstantools
-# Copyright (C) 2015, 2016 Trustees of Columbia University
+# Copyright (C) 2015, 2016, 2017 Trustees of Columbia University
 #
 # rstantools is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -163,6 +163,8 @@ rstan_package_skeleton <-
       destfile = file.path(SRC, "Makevars.win"),
       quiet = TRUE
     )
+    # register cpp (src/init.cpp)
+    init_cpp(name, path = DIR)
 
     message("Updating R directory ...", domain = NA)
     R <- file.path(DIR, "R")

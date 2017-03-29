@@ -1,8 +1,8 @@
 Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
-Version: 1.2.0
-Date: 2017-03-17
+Version: 1.2.1
+Date: 2017-03-29
 Authors@R: c(person("Jonah", "Gabry", email = "jsg2201@columbia.edu",
                     role = c("aut", "cre")),
              person("Ben", "Goodrich", email = "benjamin.goodrich@columbia.edu",
@@ -27,7 +27,7 @@ Suggests:
     rstan (>= 2.14.1),
     rstanarm (>= 2.14.1),
     shinystan (>= 2.2.1),
-    loo (>= 1.0.0),
+    loo (>= 1.1.0),
     testthat,
     covr,
     knitr,
