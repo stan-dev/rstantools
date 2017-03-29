@@ -1,3 +1,9 @@
+# rstantools 1.2.1
+(Github issue/PR numbers in parentheses)
+
+* Add `init_cpp` function for generating `src/init.cpp` in order to pass R CMD
+check in R 3.4.x. `rstan_package_skeleton` calls `init_cpp` internally. (#6)
+
 # rstantools 1.2.0
 
 (Github issue/PR numbers in parentheses)
