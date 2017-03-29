@@ -36,6 +36,11 @@ test_that(".stan file included", {
 test_that("R/stanmodels.R file included", {
   expect_true("R/stanmodels.R" %in% pkg_files)
 })
+test_that("src/init.cpp file included", {
+  expect_true("src/init.cpp" %in% pkg_files)
+  init <- readLines(file.path(pkg_path, "src/init.cpp"))
+  expect_true(any(grepl("R_init_testPackage", init)))
+})
 
 test_that("messages are generated", {
   expect_message(
