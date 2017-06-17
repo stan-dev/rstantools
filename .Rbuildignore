@@ -7,3 +7,5 @@ LICENSE
 ^cran-comments\.md$
 ^revdep$
 man-roxygen/*
+^docs$
+^_pkgdown\.yml$
