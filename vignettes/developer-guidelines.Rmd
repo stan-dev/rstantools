@@ -56,8 +56,8 @@ package should be an exception definitely let us know.
 which you should use to create the basic structure of your package. If you have 
 trouble setting up your package using `rstan_package_skeleton` please consult 
 the [__rstanarm__](https://github.com/stan-dev/rstanarm) repository and use it
-as a template and/or ask us for help on the [Stan users 
-group](https://groups.google.com/forum/#!forum/stan-users).
+as a template and/or ask us for help on the [Stan Forums 
+group](http://discourse.mc-stan.org).
 
 * Use version control (e.g., git).
 
@@ -186,10 +186,10 @@ experienced package developer, we recommend Hadley's book, which is free to read
 online. Even if you are an experienced developer of R packages, Hadley's book is
 still a great resource.
 
-* If you need help setting up your package or have questions about these
-guidelines the best places to go are the [Stan users
-group](https://groups.google.com/forum/#!forum/stan-users) and the [GitHub issue
-tracker](https://github.com/stan-dev/rstantools/issues) for the __rstantools__
+* If you need help setting up your package or have questions about these 
+guidelines the best places to go are the [Stan
+Forums](http://discourse.mc-stan.org) and the [GitHub issue 
+tracker](https://github.com/stan-dev/rstantools/issues) for the __rstantools__ 
 package.
 
 
