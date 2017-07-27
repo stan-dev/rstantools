@@ -8,4 +8,4 @@ env:
   - _R_CHECK_FORCE_SUGGESTS_=false
 
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'covr::codecov(function_exclusions = c("rstan_package_skeleton", "init_cpp"))'

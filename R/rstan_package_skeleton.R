@@ -62,6 +62,7 @@ rstan_package_skeleton <-
            code_files = character(),
            stan_files = character(),
            travis = TRUE) {
+
     if (length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files)))
       stop("All files named in 'stan_files' must end ",
            "with a '.stan' extension.")
