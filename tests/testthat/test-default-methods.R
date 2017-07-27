@@ -3,7 +3,6 @@ set.seed(1111)
 x <- matrix(rnorm(150), 50, 3)
 y <- rnorm(ncol(x))
 
-
 test_that("posterior_interval.default hasn't changed", {
   expect_equal_to_reference(
     posterior_interval(x, prob = 0.5),
@@ -35,11 +34,21 @@ test_that("loo_pit.default works", {
     "loo_pit.RDS"
   )
 })
+test_that("bayes_R2.default hasn't changed", {
+  expect_equal_to_reference(
+    bayes_R2(x, y),
+    "bayes_R2.RDS"
+  )
+})
 
 test_that("default methods throw correct errors", {
   expect_error(posterior_interval(1:10), "should be a matrix")
   expect_error(predictive_interval(1:10), "should be a matrix")
   expect_error(predictive_error(1:10, 1:10), "should be a matrix")
+  expect_error(bayes_R2(1:10, 1:10), "should be a matrix")
+  expect_error(bayes_R2(cbind(1:10, 1:10), 1:9),
+               "ncol(object) == length(y) is not TRUE",
+               fixed = TRUE)
 })
 
 
