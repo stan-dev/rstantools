@@ -3,7 +3,7 @@
 \name{posterior_interval}
 \alias{posterior_interval}
 \alias{posterior_interval.default}
-\title{Generic function for posterior uncertainty intervals}
+\title{Generic function and default method for posterior uncertainty intervals}
 \usage{
 posterior_interval(object, ...)
 
@@ -28,8 +28,8 @@ probability mass to include in the intervals.}
   \eqn{90}\% interval), then the column names would be \code{"5\%"} and
   \code{"95\%"}, respectively.
 
-  The default method just takes \code{object} to be a matrix and computes
-  quantiles, with \code{prob} defaulting to 0.9.
+  The default method just takes \code{object} to be a matrix (one column per
+  parameter) and computes quantiles, with \code{prob} defaulting to 0.9.
 }
 \description{
 These intervals are often referred to as credible intervals, but we use the

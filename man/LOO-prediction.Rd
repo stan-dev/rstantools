@@ -41,8 +41,7 @@ of the same length as the number of columns in the matrix used as
   formatted in the same way as for \code{\link{predictive_interval}}.
 }
 \description{
-Examples of methods for these generics will appear in a future release
-of the \pkg{\link[rstanarm]{rstanarm}} package.
+See the methods in the \pkg{\link[rstanarm]{rstanarm}} package for examples.
 }
 \seealso{
 \itemize{

@@ -1,7 +1,6 @@
 #' Generic functions for LOO predictions
 #'
-#' Examples of methods for these generics will appear in a future release
-#' of the \pkg{\link[rstanarm]{rstanarm}} package.
+#' See the methods in the \pkg{\link[rstanarm]{rstanarm}} package for examples.
 #'
 #' @name loo-prediction
 #'
