@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generic function for posterior uncertainty intervals — posterior_interval • rstantools</title>
+<title>Generic function and default method for posterior uncertainty intervals — posterior_interval • rstantools</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -65,19 +65,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="http://mc-stan.org/users/interfaces/rstan.html">rstan</a>
+      <a href="http://mc-stan.org/rstan">rstan</a>
     </li>
     <li>
-      <a href="http://mc-stan.org/users/interfaces/rstanarm.html">rstanarm</a>
+      <a href="http://mc-stan.org/rstanarm">rstanarm</a>
     </li>
     <li>
-      <a href="http://mc-stan.org/users/interfaces/bayesplot.html">bayesplot</a>
+      <a href="http://mc-stan.org/bayesplot">bayesplot</a>
     </li>
     <li>
-      <a href="http://mc-stan.org/users/interfaces/shinystan.html">shinystan</a>
+      <a href="http://mc-stan.org/shinystan">shinystan</a>
     </li>
     <li>
-      <a href="http://mc-stan.org/users/interfaces/loo.html">loo</a>
+      <a href="http://mc-stan.org/loo">loo</a>
     </li>
   </ul>
 </li>
@@ -99,6 +99,12 @@
      
   </a>
 </li>
+<li>
+  <a href="http://discourse.mc-stan.org/">
+    <span class="fa fa-users"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -110,7 +116,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generic function for posterior uncertainty intervals</h1>
+    <h1>Generic function and default method for posterior uncertainty intervals</h1>
     </div>
 
     
@@ -155,8 +161,8 @@ probability mass to include in the intervals.</p></td>
   \(\alpha = 1-p\). For example, if <code>prob=0.9</code> is specified (a
   \(90\)% interval), then the column names would be <code>"5%"</code> and
   <code>"95%"</code>, respectively.</p>
-<p>The default method just takes <code>object</code> to be a matrix and computes
-  quantiles, with <code>prob</code> defaulting to 0.9.</p>
+<p>The default method just takes <code>object</code> to be a matrix (one column per
+  parameter) and computes quantiles, with <code>prob</code> defaulting to 0.9.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -198,82 +204,107 @@ probability mass to include in the intervals.</p></td>
     <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>500</span> <span class='co'># to speed up example</span>
   )
   <span class='fu'>posterior_interval</span>(<span class='no'>fit</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
-}</div><div class='output co'>#&gt; 
+}</div><div class='output co'>#&gt; <span class='message'>trying deprecated constructor; please alert package maintainer</span></div><div class='output co'>#&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 1).
 #&gt; 
-#&gt; Chain 1, Iteration:   1 / 500 [  0%]  (Warmup)
-#&gt; Chain 1, Iteration:  50 / 500 [ 10%]  (Warmup)
-#&gt; Chain 1, Iteration: 100 / 500 [ 20%]  (Warmup)
-#&gt; Chain 1, Iteration: 150 / 500 [ 30%]  (Warmup)
-#&gt; Chain 1, Iteration: 200 / 500 [ 40%]  (Warmup)
-#&gt; Chain 1, Iteration: 250 / 500 [ 50%]  (Warmup)
-#&gt; Chain 1, Iteration: 251 / 500 [ 50%]  (Sampling)
-#&gt; Chain 1, Iteration: 300 / 500 [ 60%]  (Sampling)
-#&gt; Chain 1, Iteration: 350 / 500 [ 70%]  (Sampling)
-#&gt; Chain 1, Iteration: 400 / 500 [ 80%]  (Sampling)
-#&gt; Chain 1, Iteration: 450 / 500 [ 90%]  (Sampling)
-#&gt; Chain 1, Iteration: 500 / 500 [100%]  (Sampling)
-#&gt;  Elapsed Time: 0.115518 seconds (Warm-up)
-#&gt;                0.094151 seconds (Sampling)
-#&gt;                0.209669 seconds (Total)
+#&gt; Gradient evaluation took 4.4e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.44 seconds.
+#&gt; Adjust your expectations accordingly!
+#&gt; 
+#&gt; 
+#&gt; Iteration:   1 / 500 [  0%]  (Warmup)
+#&gt; Iteration:  50 / 500 [ 10%]  (Warmup)
+#&gt; Iteration: 100 / 500 [ 20%]  (Warmup)
+#&gt; Iteration: 150 / 500 [ 30%]  (Warmup)
+#&gt; Iteration: 200 / 500 [ 40%]  (Warmup)
+#&gt; Iteration: 250 / 500 [ 50%]  (Warmup)
+#&gt; Iteration: 251 / 500 [ 50%]  (Sampling)
+#&gt; Iteration: 300 / 500 [ 60%]  (Sampling)
+#&gt; Iteration: 350 / 500 [ 70%]  (Sampling)
+#&gt; Iteration: 400 / 500 [ 80%]  (Sampling)
+#&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
+#&gt; Iteration: 500 / 500 [100%]  (Sampling)
+#&gt; 
+#&gt;  Elapsed Time: 0.146546 seconds (Warm-up)
+#&gt;                0.087869 seconds (Sampling)
+#&gt;                0.234415 seconds (Total)
 #&gt; 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 2).
 #&gt; 
-#&gt; Chain 2, Iteration:   1 / 500 [  0%]  (Warmup)
-#&gt; Chain 2, Iteration:  50 / 500 [ 10%]  (Warmup)
-#&gt; Chain 2, Iteration: 100 / 500 [ 20%]  (Warmup)
-#&gt; Chain 2, Iteration: 150 / 500 [ 30%]  (Warmup)
-#&gt; Chain 2, Iteration: 200 / 500 [ 40%]  (Warmup)
-#&gt; Chain 2, Iteration: 250 / 500 [ 50%]  (Warmup)
-#&gt; Chain 2, Iteration: 251 / 500 [ 50%]  (Sampling)
-#&gt; Chain 2, Iteration: 300 / 500 [ 60%]  (Sampling)
-#&gt; Chain 2, Iteration: 350 / 500 [ 70%]  (Sampling)
-#&gt; Chain 2, Iteration: 400 / 500 [ 80%]  (Sampling)
-#&gt; Chain 2, Iteration: 450 / 500 [ 90%]  (Sampling)
-#&gt; Chain 2, Iteration: 500 / 500 [100%]  (Sampling)
-#&gt;  Elapsed Time: 0.180486 seconds (Warm-up)
-#&gt;                0.121596 seconds (Sampling)
-#&gt;                0.302082 seconds (Total)
+#&gt; Gradient evaluation took 2.6e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.26 seconds.
+#&gt; Adjust your expectations accordingly!
+#&gt; 
+#&gt; 
+#&gt; Iteration:   1 / 500 [  0%]  (Warmup)
+#&gt; Iteration:  50 / 500 [ 10%]  (Warmup)
+#&gt; Iteration: 100 / 500 [ 20%]  (Warmup)
+#&gt; Iteration: 150 / 500 [ 30%]  (Warmup)
+#&gt; Iteration: 200 / 500 [ 40%]  (Warmup)
+#&gt; Iteration: 250 / 500 [ 50%]  (Warmup)
+#&gt; Iteration: 251 / 500 [ 50%]  (Sampling)
+#&gt; Iteration: 300 / 500 [ 60%]  (Sampling)
+#&gt; Iteration: 350 / 500 [ 70%]  (Sampling)
+#&gt; Iteration: 400 / 500 [ 80%]  (Sampling)
+#&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
+#&gt; Iteration: 500 / 500 [100%]  (Sampling)
+#&gt; 
+#&gt;  Elapsed Time: 0.144382 seconds (Warm-up)
+#&gt;                0.078796 seconds (Sampling)
+#&gt;                0.223178 seconds (Total)
 #&gt; 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 3).
 #&gt; 
-#&gt; Chain 3, Iteration:   1 / 500 [  0%]  (Warmup)
-#&gt; Chain 3, Iteration:  50 / 500 [ 10%]  (Warmup)
-#&gt; Chain 3, Iteration: 100 / 500 [ 20%]  (Warmup)
-#&gt; Chain 3, Iteration: 150 / 500 [ 30%]  (Warmup)
-#&gt; Chain 3, Iteration: 200 / 500 [ 40%]  (Warmup)
-#&gt; Chain 3, Iteration: 250 / 500 [ 50%]  (Warmup)
-#&gt; Chain 3, Iteration: 251 / 500 [ 50%]  (Sampling)
-#&gt; Chain 3, Iteration: 300 / 500 [ 60%]  (Sampling)
-#&gt; Chain 3, Iteration: 350 / 500 [ 70%]  (Sampling)
-#&gt; Chain 3, Iteration: 400 / 500 [ 80%]  (Sampling)
-#&gt; Chain 3, Iteration: 450 / 500 [ 90%]  (Sampling)
-#&gt; Chain 3, Iteration: 500 / 500 [100%]  (Sampling)
-#&gt;  Elapsed Time: 0.119155 seconds (Warm-up)
-#&gt;                0.109761 seconds (Sampling)
-#&gt;                0.228916 seconds (Total)
+#&gt; Gradient evaluation took 4.1e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.41 seconds.
+#&gt; Adjust your expectations accordingly!
+#&gt; 
+#&gt; 
+#&gt; Iteration:   1 / 500 [  0%]  (Warmup)
+#&gt; Iteration:  50 / 500 [ 10%]  (Warmup)
+#&gt; Iteration: 100 / 500 [ 20%]  (Warmup)
+#&gt; Iteration: 150 / 500 [ 30%]  (Warmup)
+#&gt; Iteration: 200 / 500 [ 40%]  (Warmup)
+#&gt; Iteration: 250 / 500 [ 50%]  (Warmup)
+#&gt; Iteration: 251 / 500 [ 50%]  (Sampling)
+#&gt; Iteration: 300 / 500 [ 60%]  (Sampling)
+#&gt; Iteration: 350 / 500 [ 70%]  (Sampling)
+#&gt; Iteration: 400 / 500 [ 80%]  (Sampling)
+#&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
+#&gt; Iteration: 500 / 500 [100%]  (Sampling)
+#&gt; 
+#&gt;  Elapsed Time: 0.146288 seconds (Warm-up)
+#&gt;                0.140794 seconds (Sampling)
+#&gt;                0.287082 seconds (Total)
 #&gt; 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 4).
 #&gt; 
-#&gt; Chain 4, Iteration:   1 / 500 [  0%]  (Warmup)
-#&gt; Chain 4, Iteration:  50 / 500 [ 10%]  (Warmup)
-#&gt; Chain 4, Iteration: 100 / 500 [ 20%]  (Warmup)
-#&gt; Chain 4, Iteration: 150 / 500 [ 30%]  (Warmup)
-#&gt; Chain 4, Iteration: 200 / 500 [ 40%]  (Warmup)
-#&gt; Chain 4, Iteration: 250 / 500 [ 50%]  (Warmup)
-#&gt; Chain 4, Iteration: 251 / 500 [ 50%]  (Sampling)
-#&gt; Chain 4, Iteration: 300 / 500 [ 60%]  (Sampling)
-#&gt; Chain 4, Iteration: 350 / 500 [ 70%]  (Sampling)
-#&gt; Chain 4, Iteration: 400 / 500 [ 80%]  (Sampling)
-#&gt; Chain 4, Iteration: 450 / 500 [ 90%]  (Sampling)
-#&gt; Chain 4, Iteration: 500 / 500 [100%]  (Sampling)
-#&gt;  Elapsed Time: 0.148191 seconds (Warm-up)
-#&gt;                0.100452 seconds (Sampling)
-#&gt;                0.248643 seconds (Total)
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in posterior_interval.default(fit, prob = 0.5): For the default method 'object' should be a matrix.</span></div><div class='input'>
+#&gt; Gradient evaluation took 4.8e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.48 seconds.
+#&gt; Adjust your expectations accordingly!
+#&gt; 
+#&gt; 
+#&gt; Iteration:   1 / 500 [  0%]  (Warmup)
+#&gt; Iteration:  50 / 500 [ 10%]  (Warmup)
+#&gt; Iteration: 100 / 500 [ 20%]  (Warmup)
+#&gt; Iteration: 150 / 500 [ 30%]  (Warmup)
+#&gt; Iteration: 200 / 500 [ 40%]  (Warmup)
+#&gt; Iteration: 250 / 500 [ 50%]  (Warmup)
+#&gt; Iteration: 251 / 500 [ 50%]  (Sampling)
+#&gt; Iteration: 300 / 500 [ 60%]  (Sampling)
+#&gt; Iteration: 350 / 500 [ 70%]  (Sampling)
+#&gt; Iteration: 400 / 500 [ 80%]  (Sampling)
+#&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
+#&gt; Iteration: 500 / 500 [100%]  (Sampling)
+#&gt; 
+#&gt;  Elapsed Time: 0.126421 seconds (Warm-up)
+#&gt;                0.070249 seconds (Sampling)
+#&gt;                0.19667 seconds (Total)
+#&gt; </div><div class='output co'>#&gt; <span class='warning'>Warning: There were 2 divergent transitions after warmup. Increasing adapt_delta above 0.95 may help. See</span>
+#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Examine the pairs() plot to diagnose sampling problems</span></div><div class='output co'>#&gt; <span class='error'>Error in posterior_interval.default(fit, prob = 0.5): For the default method 'object' should be a matrix.</span></div><div class='input'>
 
 <span class='co'># Also see help("posterior_interval", package = "rstanarm")</span></div></pre>
   </div>

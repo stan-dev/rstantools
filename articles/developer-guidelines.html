@@ -42,19 +42,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="http://mc-stan.org/users/interfaces/rstan.html">rstan</a>
+      <a href="http://mc-stan.org/rstan">rstan</a>
     </li>
     <li>
-      <a href="http://mc-stan.org/users/interfaces/rstanarm.html">rstanarm</a>
+      <a href="http://mc-stan.org/rstanarm">rstanarm</a>
     </li>
     <li>
-      <a href="http://mc-stan.org/users/interfaces/bayesplot.html">bayesplot</a>
+      <a href="http://mc-stan.org/bayesplot">bayesplot</a>
     </li>
     <li>
-      <a href="http://mc-stan.org/users/interfaces/shinystan.html">shinystan</a>
+      <a href="http://mc-stan.org/shinystan">shinystan</a>
     </li>
     <li>
-      <a href="http://mc-stan.org/users/interfaces/loo.html">loo</a>
+      <a href="http://mc-stan.org/loo">loo</a>
     </li>
   </ul>
 </li>
@@ -75,6 +75,12 @@
      
   </a>
 </li>
+<li>
+  <a href="http://discourse.mc-stan.org/">
+    <span class="fa fa-users"></span>
+     
+  </a>
+</li>
       </ul>
 </div>
 <!--/.nav-collapse -->
@@ -90,7 +96,7 @@
       <h1>Guidelines for Developers of R Packages Interfacing with Stan</h1>
                         <h4 class="author">Stan Development Team</h4>
             
-            <h4 class="date">2017-06-17</h4>
+            <h4 class="date">2017-08-03</h4>
           </div>
 
     
@@ -115,7 +121,7 @@
 <h3 class="hasAnchor">
 <a href="#general-package-structure-and-development" class="anchor"></a>General package structure and development</h3>
 <ul>
-<li><p>The <strong>rstantools</strong> package provides the <code>rstan_package_skeleton</code> function, which you should use to create the basic structure of your package. If you have trouble setting up your package using <code>rstan_package_skeleton</code> please consult the <a href="https://github.com/stan-dev/rstanarm"><strong>rstanarm</strong></a> repository and use it as a template and/or ask us for help on the <a href="https://groups.google.com/forum/#!forum/stan-users">Stan users group</a>.</p></li>
+<li><p>The <strong>rstantools</strong> package provides the <code>rstan_package_skeleton</code> function, which you should use to create the basic structure of your package. If you have trouble setting up your package using <code>rstan_package_skeleton</code> please consult the <a href="https://github.com/stan-dev/rstanarm"><strong>rstanarm</strong></a> repository and use it as a template and/or ask us for help on the <a href="http://discourse.mc-stan.org">Stan Forums group</a>.</p></li>
 <li><p>Use version control (e.g., git).</p></li>
 <li><p>Unless you are developing proprietary private software, organize your code in a repository that is <em>public</em> on <a href="https://github.com/">GitHub</a> (or a similar service, but preferably GitHub). It should be public even at early stages of development, not only when officially released. We recommend you add a note to your README file on how to install the development version of your package, like in the <a href="https://github.com/stan-dev/rstanarm#development-version"><strong>rstanarm</strong> README</a>:</p></li>
 </ul>
@@ -151,7 +157,7 @@
 <a href="#recommended-resources" class="anchor"></a>Recommended resources</h3>
 <ul>
 <li><p>Hadley Wickham’s <a href="http://r-pkgs.had.co.nz/">book on R packages</a>. If you are interested in developing an R package that interfaces with Stan but are not an experienced package developer, we recommend Hadley’s book, which is free to read online. Even if you are an experienced developer of R packages, Hadley’s book is still a great resource.</p></li>
-<li><p>If you need help setting up your package or have questions about these guidelines the best places to go are the <a href="https://groups.google.com/forum/#!forum/stan-users">Stan users group</a> and the <a href="https://github.com/stan-dev/rstantools/issues">GitHub issue tracker</a> for the <strong>rstantools</strong> package.</p></li>
+<li><p>If you need help setting up your package or have questions about these guidelines the best places to go are the <a href="http://discourse.mc-stan.org">Stan Forums</a> and the <a href="https://github.com/stan-dev/rstantools/issues">GitHub issue tracker</a> for the <strong>rstantools</strong> package.</p></li>
 </ul>
 </div>
 </div>

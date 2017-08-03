@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generic function for extracting information about prior distributions — prior_summary • rstantools</title>
+<title>Generic function and default method for Bayesian R-squared — bayes_R2 • rstantools</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -116,18 +116,19 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generic function for extracting information about prior distributions</h1>
+    <h1>Generic function and default method for Bayesian R-squared</h1>
     </div>
 
     
-    <p>See <code><a href='http://www.rdocumentation.org/packages/rstanarm/topics/prior_summary.stanreg'>prior_summary.stanreg</a></code> in the
-<span class="pkg"><a href='http://www.rdocumentation.org/packages/rstanarm/topics/rstanarm-package'>rstanarm</a></span> package for an example.</p>
+    <p>Generic function and default method for Bayesian version of R-squared for
+regression models. See <code>bayes_R2.stanreg</code> in the
+<span class="pkg"><a href='http://www.rdocumentation.org/packages/rstanarm/topics/rstanarm-package'>rstanarm</a></span> package for an example of defining a method.</p>
     
 
-    <pre class="usage"><span class='fu'>prior_summary</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>bayes_R2</span>(<span class='no'>object</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>prior_summary</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>bayes_R2</span>(<span class='no'>object</span>, <span class='no'>y</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -141,15 +142,20 @@
       <td><p>Arguments passed to methods. See the methods in the <span class="pkg">rstanarm</span>
 package for examples.</p></td>
     </tr>
+    <tr>
+      <th>y</th>
+      <td><p>For the default method, a vector of \(y\) values the same length
+as the number of columns in the matrix used as <code>object</code>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>prior_summary</code> methods should return an object containing
-  information about the prior distribution(s) used for the given model.
-  The structure of this object will depend on the method.</p>
-<p>The default method just returns <code>object$prior.info</code>, which is
-  <code>NULL</code> if there is no <code>'prior.info'</code> element.</p>
+    <p><code>bayes_R2</code> methods should return a vector of length equal to the
+  posterior sample size.</p>
+<p>The default method just takes <code>object</code> to be a matrix of y-hat values
+  (one column per observation, one row per posterior draw) and <code>y</code> to be
+  a vector with length equal to <code>ncol(object)</code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -169,8 +175,6 @@ package for examples.</p></td>
 </ul>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># See help("prior_summary", package = "rstanarm")</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -180,9 +184,7 @@ package for examples.</p></td>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>
