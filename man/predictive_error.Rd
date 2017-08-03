@@ -3,7 +3,7 @@
 \name{predictive_error}
 \alias{predictive_error}
 \alias{predictive_error.default}
-\title{Generic function for predictive errors}
+\title{Generic function and default method for predictive errors}
 \usage{
 predictive_error(object, ...)
 
@@ -28,10 +28,10 @@ as the number of columns in the matrix used as \code{object}.}
   to be a vector.
 }
 \description{
-Generic function for computing predictive errors \eqn{y - y^{rep}}{y - yrep}
-(in-sample, for observed \eqn{y}) or \eqn{y - \tilde{y}}{y - ytilde}
-(out-of-sample, for new or held-out \eqn{y}). See
-\code{\link[rstanarm]{predictive_error.stanreg}} in the
+Generic function and default method for computing predictive errors
+\eqn{y - y^{rep}}{y - yrep} (in-sample, for observed \eqn{y}) or
+\eqn{y - \tilde{y}}{y - ytilde} (out-of-sample, for new or held-out \eqn{y}).
+See \code{\link[rstanarm]{predictive_error.stanreg}} in the
 \pkg{\link[rstanarm]{rstanarm}} package for an example.
 }
 \examples{

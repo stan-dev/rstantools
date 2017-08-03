@@ -18,7 +18,7 @@
 
 * Install from CRAN:
 
-```{r}
+```r
 install.packages("rstantools")
 ```
 
@@ -30,3 +30,8 @@ if (!require("devtools"))
   
 devtools::install_github("stan-dev/rstantools", build_vignettes = TRUE)
 ```
+
+## Getting help
+
+* [File an issue on GitHub](https://github.com/stan-dev/rstantools/issues)
+* [Ask a question at The Stan Forums](http://discourse.mc-stan.org)

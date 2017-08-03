@@ -1,8 +1,8 @@
 Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
-Version: 1.2.1
-Date: 2017-03-29
+Version: 1.3.0
+Date: 2017-08-01
 Authors@R: c(person("Jonah", "Gabry", email = "jsg2201@columbia.edu",
                     role = c("aut", "cre")),
              person("Ben", "Goodrich", email = "benjamin.goodrich@columbia.edu",
@@ -15,7 +15,7 @@ Description: Provides various tools for developers of R packages interfacing
     across 'Stan'-based R packages, and a vignette with recommendations for 
     developers.
 License: GPL (>=3)
-URL: http://mc-stan.org/, https://groups.google.com/forum/#!forum/stan-users
+URL: http://mc-stan.org/, http://discourse.mc-stan.org
 BugReports: https://github.com/stan-dev/rstantools/issues
 Encoding: UTF-8
 LazyData: true
@@ -23,10 +23,10 @@ Imports:
     stats,
     utils
 Suggests:
-    bayesplot (>= 1.1.0),
-    rstan (>= 2.14.1),
-    rstanarm (>= 2.14.1),
-    shinystan (>= 2.2.1),
+    bayesplot (>= 1.2.0),
+    rstan (>= 2.16.0),
+    rstanarm (>= 2.15.3),
+    shinystan (>= 2.3.0),
     loo (>= 1.1.0),
     testthat,
     covr,
