@@ -47,7 +47,6 @@ reference:
     desc: >
       Creating the basic structure of a Stan-based R package.
     contents:
-      - rstantools-package
       - rstan_package_skeleton
       - init_cpp
   - title: "Generics"
