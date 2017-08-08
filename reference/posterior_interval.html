@@ -52,7 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/developer-guidelines.html">Guidelines</a>
+  <a href="../articles/index.html">Vignettes</a>
 </li>
 <li>
   <a href="../reference/index.html">Functions</a>
@@ -168,16 +168,16 @@ probability mass to include in the intervals.</p></td>
 
     <ul>
 <li><p>The <span class="pkg"><a href='http://www.rdocumentation.org/packages/rstanarm/topics/rstanarm-package'>rstanarm</a></span> package for example methods
-  (<a href = 'https://CRAN.R-project.org/package=rstanarm'>CRAN</a>,
-  <a href = 'https://github.com/stan-dev/rstanarm'>GitHub</a>).</p></li>
+  (<a href='https://CRAN.R-project.org/package=rstanarm'>CRAN</a>,
+  <a href='https://github.com/stan-dev/rstanarm'>GitHub</a>).</p></li>
 </ul>
     <ul>
 <li><p>The guidelines for developers of <span style="R">R</span> packages interfacing with Stan, a
   copy of which can be found in the package vignettes. See
-  <code>browseVignettes("rstantools")</code> or <code><a href='../articles/rstantools.html'>vignette(package =
-  "rstantools")</a></code>. The document is also available online at the
+  <code>browseVignettes("rstantools")</code> or <code>vignette(package =
+  "rstantools")</code>. The document is also available online at the
   <span class="pkg">rstantools</span> page on the
-  <a href = 'https://CRAN.R-project.org/package=rstantools/vignettes/developer-guidelines.html'>CRAN
+  <a href='https://CRAN.R-project.org/package=rstantools/vignettes/developer-guidelines.html'>CRAN
   website</a>.</p></li>
 </ul>
     
@@ -192,23 +192,22 @@ probability mass to include in the intervals.</p></td>
 #&gt; theta_3 -1.568718 1.618074
 #&gt; theta_4 -1.397015 1.842534
 #&gt; theta_5 -1.774352 1.521312</div><div class='input'>
-<span class='co'># Example using rstanarm package:</span>
-<span class='co'># posterior_interval method for 'stanreg' objects</span>
-
-<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"rstanarm"</span>)) {
-  <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'>stan_glmer</span>(
+# Example using rstanarm package:
+# posterior_interval method for 'stanreg' objects
+</div><div class='input'><span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"rstanarm"</span>)) {
+  <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/rstanarm/topics/stan_glmer'>stan_glmer</a></span>(
     <span class='no'>mpg</span> ~ <span class='no'>wt</span> + <span class='no'>am</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>cyl</span>),
     <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>,
     <span class='kw'>QR</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-    <span class='kw'>prior</span> <span class='kw'>=</span> <span class='fu'>normal</span>(<span class='fl'>0</span>, <span class='fl'>1</span>),
+    <span class='kw'>prior</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/rstanarm/topics/priors'>normal</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>),
     <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>500</span> <span class='co'># to speed up example</span>
   )
   <span class='fu'>posterior_interval</span>(<span class='no'>fit</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
 }</div><div class='output co'>#&gt; <span class='message'>trying deprecated constructor; please alert package maintainer</span></div><div class='output co'>#&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 1).
 #&gt; 
-#&gt; Gradient evaluation took 4.4e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.44 seconds.
+#&gt; Gradient evaluation took 5e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.5 seconds.
 #&gt; Adjust your expectations accordingly!
 #&gt; 
 #&gt; 
@@ -225,15 +224,15 @@ probability mass to include in the intervals.</p></td>
 #&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
 #&gt; Iteration: 500 / 500 [100%]  (Sampling)
 #&gt; 
-#&gt;  Elapsed Time: 0.146546 seconds (Warm-up)
-#&gt;                0.087869 seconds (Sampling)
-#&gt;                0.234415 seconds (Total)
+#&gt;  Elapsed Time: 0.139477 seconds (Warm-up)
+#&gt;                0.083054 seconds (Sampling)
+#&gt;                0.222531 seconds (Total)
 #&gt; 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 2).
 #&gt; 
-#&gt; Gradient evaluation took 2.6e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.26 seconds.
+#&gt; Gradient evaluation took 3.9e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.39 seconds.
 #&gt; Adjust your expectations accordingly!
 #&gt; 
 #&gt; 
@@ -250,15 +249,15 @@ probability mass to include in the intervals.</p></td>
 #&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
 #&gt; Iteration: 500 / 500 [100%]  (Sampling)
 #&gt; 
-#&gt;  Elapsed Time: 0.144382 seconds (Warm-up)
-#&gt;                0.078796 seconds (Sampling)
-#&gt;                0.223178 seconds (Total)
+#&gt;  Elapsed Time: 0.136508 seconds (Warm-up)
+#&gt;                0.077175 seconds (Sampling)
+#&gt;                0.213683 seconds (Total)
 #&gt; 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 3).
 #&gt; 
-#&gt; Gradient evaluation took 4.1e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.41 seconds.
+#&gt; Gradient evaluation took 3.9e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.39 seconds.
 #&gt; Adjust your expectations accordingly!
 #&gt; 
 #&gt; 
@@ -275,15 +274,15 @@ probability mass to include in the intervals.</p></td>
 #&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
 #&gt; Iteration: 500 / 500 [100%]  (Sampling)
 #&gt; 
-#&gt;  Elapsed Time: 0.146288 seconds (Warm-up)
-#&gt;                0.140794 seconds (Sampling)
-#&gt;                0.287082 seconds (Total)
+#&gt;  Elapsed Time: 0.133082 seconds (Warm-up)
+#&gt;                0.129483 seconds (Sampling)
+#&gt;                0.262565 seconds (Total)
 #&gt; 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 4).
 #&gt; 
-#&gt; Gradient evaluation took 4.8e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.48 seconds.
+#&gt; Gradient evaluation took 4e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.4 seconds.
 #&gt; Adjust your expectations accordingly!
 #&gt; 
 #&gt; 
@@ -300,13 +299,14 @@ probability mass to include in the intervals.</p></td>
 #&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
 #&gt; Iteration: 500 / 500 [100%]  (Sampling)
 #&gt; 
-#&gt;  Elapsed Time: 0.126421 seconds (Warm-up)
-#&gt;                0.070249 seconds (Sampling)
-#&gt;                0.19667 seconds (Total)
+#&gt;  Elapsed Time: 0.120831 seconds (Warm-up)
+#&gt;                0.067358 seconds (Sampling)
+#&gt;                0.188189 seconds (Total)
 #&gt; </div><div class='output co'>#&gt; <span class='warning'>Warning: There were 2 divergent transitions after warmup. Increasing adapt_delta above 0.95 may help. See</span>
 #&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Examine the pairs() plot to diagnose sampling problems</span></div><div class='output co'>#&gt; <span class='error'>Error in posterior_interval.default(fit, prob = 0.5): For the default method 'object' should be a matrix.</span></div><div class='input'>
+# Also see help("posterior_interval", package = "rstanarm")
 
-<span class='co'># Also see help("posterior_interval", package = "rstanarm")</span></div></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -29,7 +29,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../articles/developer-guidelines.html">Guidelines</a>
+  <a href="../articles/index.html">Vignettes</a>
 </li>
 <li>
   <a href="../reference/index.html">Functions</a>
@@ -96,7 +96,7 @@
       <h1>Guidelines for Developers of R Packages Interfacing with Stan</h1>
                         <h4 class="author">Stan Development Team</h4>
             
-            <h4 class="date">2017-08-03</h4>
+            <h4 class="date">2017-08-08</h4>
           </div>
 
     
@@ -129,7 +129,7 @@
   <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
   <span class="kw">library</span>(<span class="st">"devtools"</span>)
 }
-<span class="kw">install_github</span>(<span class="st">"stan-dev/rstanarm"</span>, <span class="dt">args =</span> <span class="st">"--preclean"</span>, <span class="dt">build_vignettes =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"stan-dev/rstanarm"</span>, <span class="dt">args =</span> <span class="st">"--preclean"</span>, <span class="dt">build_vignettes =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <ul>
 <li>Unit testing is essential. There are several R packages that make it relatively easy to write tests for your package. <strong>rstanarm</strong> uses the <a href="https://github.com/hadley/testthat"><strong>testthat</strong></a> package for this purpose, but if you prefer a different testing framework that’s fine. The <a href="https://github.com/jimhester/covr"><strong>covr</strong></a> package is useful for calculating the line coverage of your tests, and we recommend reaching at least 90% coverage before releasing a package. Good line coverage does not guarantee high quality tests, but it’s a good first step.</li>
 </ul>

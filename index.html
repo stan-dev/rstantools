@@ -29,7 +29,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="articles/developer-guidelines.html">Guidelines</a>
+  <a href="articles/index.html">Vignettes</a>
 </li>
 <li>
   <a href="reference/index.html">Functions</a>
@@ -100,17 +100,19 @@
 <img src="https://raw.githubusercontent.com/stan-dev/logos/master/logo.png" width="200" alt="Stan Logo"></a>
 </div>
 <p><br></p>
-<p>The <strong>rstantools</strong> package provides tools for developing R packages interfacing with <a href="http://mc-stan.org/">Stan</a>. Guidelines for developers are included with the package as a <a href="https://cran.r-project.org/package=rstantools/vignettes/developer-guidelines.html">vignette</a>:</p>
+<p>The <strong>rstantools</strong> package provides various tools for developers of R packages interfacing with <a href="http://mc-stan.org">Stan</a>, including functions to set up the required package structure, S3 generic methods to unify function naming across Stan-based R packages, and vignettes with guidelines for developers.</p>
+<p>To get started building a package see the <a href="http://mc-stan.org/rstantools/articles/developer-guidelines.html">Guidelines for Developers of R Packages Interfacing with Stan</a> vignette.</p>
+<p><br></p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install from <strong>CRAN</strong>:</p>
-<pre class="{r}"><code>install.packages("rstantools")</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"rstantools"</span>)</code></pre></div>
 <p>Install latest development version from <strong>GitHub</strong> (requires <a href="https://github.com/hadley/devtools">devtools</a> package):</p>
-<pre class="{r}"><code>if (!require("devtools"))
-  install.packages("devtools")
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (!<span class="kw">require</span>(<span class="st">"devtools"</span>))
+  <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
 
-devtools::install_github("stan-dev/rstantools", build_vignettes = TRUE)</code></pre>
+devtools::<span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"stan-dev/rstantools"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</code></pre></div>
 </div>
 
   </div>

@@ -6,8 +6,8 @@ template:
 navbar:
   title: "rstantools"
   left:
-    - text: "Guidelines"
-      href: articles/developer-guidelines.html
+    - text: "Vignettes"
+      href: articles/index.html
     - text: "Functions"
       href: reference/index.html
     - text: "Other Packages"
@@ -31,3 +31,33 @@ navbar:
      href: https://github.com/stan-dev/rstantools
    - icon: fa-users
      href: http://discourse.mc-stan.org/
+
+
+articles:
+  - title: "Getting Started"
+    desc: >
+      The documents below provide guidelines for developing R packages interfacing with Stan.
+    contents:
+      - developer-guidelines
+
+reference:
+  - title: "Package structure"
+    desc: >
+      Creating the basic structure of a Stan-based R package.
+    contents:
+      - rstantools-package
+      - rstan_package_skeleton
+      - init_cpp
+  - title: "Generics"
+    desc: >
+      S3 generics (and some default methods) for adding functionality to your package using the same naming conventions as **rstanarm**.
+    contents:
+      - bayes_R2
+      - log_lik
+      - loo-prediction
+      - posterior_interval
+      - posterior_linpred
+      - posterior_predict
+      - predictive_error
+      - predictive_interval
+      - prior_summary

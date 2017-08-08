@@ -52,7 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/developer-guidelines.html">Guidelines</a>
+  <a href="../articles/index.html">Vignettes</a>
 </li>
 <li>
   <a href="../reference/index.html">Functions</a>
@@ -133,8 +133,34 @@
       <tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
+            <h2 id="section-package-structure" class="hasAnchor"><a href="#section-package-structure" class="anchor"></a>Package structure</h2>
+            <p class="section-desc"><p>Creating the basic structure of a Stan-based R package.</p></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p></p>
+          </td>
+          <td><p>Tools for Developing <span style="R">R</span> Packages Interfacing with Stan</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="rstan_package_skeleton.html">rstan_package_skeleton</a></code> </p>
+          </td>
+          <td><p>Create a skeleton for a new <span style="R">R</span> package with Stan programs</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="init_cpp.html">init_cpp</a></code> </p>
+          </td>
+          <td><p>Register functions implemented in C++</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-generics" class="hasAnchor"><a href="#section-generics" class="anchor"></a>Generics</h2>
+            <p class="section-desc"><p>S3 generics (and some default methods) for adding functionality to your package using the same naming conventions as <strong>rstanarm</strong>.</p></p>
           </th>
         </tr>
         <tr>
@@ -146,19 +172,13 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="init_cpp.html">init_cpp</a></code> </p>
-          </td>
-          <td><p>Register functions implemented in C++</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
             <p><code><a href="log_lik.html">log_lik</a></code> </p>
           </td>
           <td><p>Generic function for pointwise log-likelihood</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="LOO-prediction.html">loo_linpred</a></code> <code><a href="LOO-prediction.html">loo_predict</a></code> <code><a href="LOO-prediction.html">loo_predictive_interval</a></code> <code><a href="LOO-prediction.html">loo_pit</a></code> </p>
+            <p><code><a href="loo-prediction.html">loo_linpred</a></code> <code><a href="loo-prediction.html">loo_predict</a></code> <code><a href="loo-prediction.html">loo_predictive_interval</a></code> <code><a href="loo-prediction.html">loo_pit</a></code> </p>
           </td>
           <td><p>Generic functions for LOO predictions</p></td>
         </tr><tr>
@@ -198,18 +218,6 @@ predictor</p></td>
             <p><code><a href="prior_summary.html">prior_summary</a></code> </p>
           </td>
           <td><p>Generic function for extracting information about prior distributions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rstan_package_skeleton.html">rstan_package_skeleton</a></code> </p>
-          </td>
-          <td><p>Create a skeleton for a new <span style="R">R</span> package with Stan programs</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rstantools-package.html">rstantools-package</a></code> </p>
-          </td>
-          <td><p>Tools for Developing <span style="R">R</span> Packages Interfacing with Stan</p></td>
         </tr>
       </tbody>
       </table>
@@ -219,7 +227,8 @@ predictor</p></td>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-package-structure">Package structure</a></li>
+      <li><a href="#section-generics">Generics</a></li>
     </ul>
   </div>
 </div>

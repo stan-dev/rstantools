@@ -12,20 +12,28 @@
 
 <br>
 
- The __rstantools__ package provides tools for developing R packages interfacing with [Stan](http://mc-stan.org/). Guidelines for developers are included with the package as a [vignette](https://cran.r-project.org/package=rstantools/vignettes/developer-guidelines.html):
+The **rstantools** package provides various tools for developers of R packages
+interfacing with [Stan](http://mc-stan.org), including functions to set up the
+required package structure, S3 generic methods to unify function naming across
+Stan-based R packages, and vignettes with guidelines for developers.
+
+To get started building a package see the 
+[Guidelines for Developers of R Packages Interfacing with Stan](http://mc-stan.org/rstantools/articles/developer-guidelines.html)
+vignette.
+
+<br>
 
 ## Installation
 
-
 Install from **CRAN**:
 
-```{r}
+```r
 install.packages("rstantools")
 ```
 
 Install latest development version from **GitHub** (requires [devtools](https://github.com/hadley/devtools) package):
 
-```{r}
+```r
 if (!require("devtools"))
   install.packages("devtools")
 
