@@ -13,7 +13,13 @@
 
 * [Guidelines for Developers of R Packages Interfacing with Stan](https://cran.r-project.org/package=rstantools/vignettes/developer-guidelines.html)
 
-## Installation
+### Resources
+
+* [mc-stan.org/rstantools](http://mc-stan.org/bayesplot) (online documentation, vignettes)
+* [Ask a question](http://discourse.mc-stan.org) (Stan Forums on Discourse)
+* [Open an issue](https://github.com/stan-dev/rstantools/issues) (GitHub issues for bug reports, feature requests)
+
+### Installation
 
 
 * Install from CRAN:
@@ -31,7 +37,3 @@ if (!require("devtools"))
 devtools::install_github("stan-dev/rstantools", build_vignettes = TRUE)
 ```
 
-## Getting help
-
-* [File an issue on GitHub](https://github.com/stan-dev/rstantools/issues)
-* [Ask a question at The Stan Forums](http://discourse.mc-stan.org)
