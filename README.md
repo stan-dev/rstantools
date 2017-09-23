@@ -11,7 +11,7 @@
  The __rstantools__ package provides tools for developing R packages interfacing with [Stan](http://mc-stan.org/).   
  Guidelines for developers are included with the package as a vignette:
 
-* [Guidelines for Developers of R Packages Interfacing with Stan](https://cran.r-project.org/package=rstantools/vignettes/developer-guidelines.html)
+* [Guidelines for Developers of R Packages Interfacing with Stan](http://mc-stan.org/rstantools/articles/developer-guidelines.html)
 
 ### Resources
 
