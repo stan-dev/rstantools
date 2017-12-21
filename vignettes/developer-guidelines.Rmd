@@ -44,7 +44,7 @@ choose not to, and
 2. refraining from promoting packages that ignore them. 
 
 That said, we are open to some limited exceptions (e.g., the __brms__ package is
-a sanctioned exception to one of guidelines about Stan code). If you think your 
+a sensible exception to one of guidelines about Stan code). If you think your 
 package should be an exception definitely let us know.
 
 
@@ -74,7 +74,7 @@ if (!require("devtools")) {
   install.packages("devtools")
   library("devtools")
 }
-install_github("stan-dev/rstanarm", args = "--preclean", build_vignettes = FALSE)
+install_github("stan-dev/rstanarm")
 ```
 
 * Unit testing is essential. There are several R packages that make it 
@@ -89,25 +89,30 @@ tests, but it's a good first step.
 ### Stan code
 
 * All Stan code for estimating models should be included in pre-written static
-.stan files that are compiled when the package is built (see the exec directory
-in the __rstanarm__ repo for examples). You can also use the inst directory to
+.stan files that are compiled when the package is built (see the src/stan_files directory
+in the __rstanarm__ repo for examples). You can also use its chunks subdirectory to
 include code chunks to be used in multiple .stan files (again see the __rstanarm__
 repo for examples). If you set up your package using `rstan_package_skeleton`
 this structure will be created for you. This means that your package should NOT
 write a Stan program when the user calls a model fitting function in your
 package, but rather use only Stan programs you have written by hand in advance
 (if you are working on a model for which you don't think this is possible please
-let us know). There are several reasons for this. One reason to use pre-compiled
-Stan programs is that models will run immediately when called, avoiding
-compilation time. Second, if you want us to give advice on your Stan code (which
-we are happy to do) it will be easier for us if you write your programs
-following this recommendation. And most importantly, although pre-written static
-Stan programs can still contain bugs, it is much easier to test programs that do
-not change depending on actions taken by the user. To provide flexibility to
-users, your Stan programs can include branching logic (conditional statements)
-so that even with a small number of .stan files you can still allow for many 
-different specifications to made by the user (see the .stan files in
-[__rstanarm__](https://github.com/stan-dev/rstanarm/tree/master/exec) for 
+let us know). There are several reasons for this. 
+
+* Pre-compiled Stan programs can be run by users of Windows or Mac OSX without
+  having to install a C++ compiler, which dramatically expands the universe of
+  potential users for your package.
+* Pre-compiled Stan program will run immediately when called, avoiding compilation time. 
+* CRAN policy permits long installation times but imposes restrictions on the
+  time consumed by examples and unit tests that are much shorter than the time 
+  that it takes to compile even a simple Stan program. Thus, it is only possible
+  to adequately test your package if it has pre-compiled Stan programs.
+* Pre-compiled Stan programs can use custom C++ functions.  
+
+To provide flexibility to users, your Stan programs can include branching logic 
+(conditional statements) so that even with a small number of .stan files you can still 
+allow for many different specifications to made by the user (see the .stan files in
+[__rstanarm__](https://github.com/stan-dev/rstanarm/tree/master/src/stan_files) for 
 examples).
 
 * Use best practices for Stan code. If the models you intend to implement are

@@ -17,8 +17,7 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
   test_that("package directory has required structure", {
     expect_equal(
       sort(list.files(pkg_path)),
-      sort(c("cleanup", "cleanup.win", "DESCRIPTION", "exec", "inst", "man",
-             "NAMESPACE", "R", "Read-and-delete-me", "src", "tools"))
+      sort(c("DESCRIPTION", "inst", "man", "NAMESPACE", "R", "Read-and-delete-me", "src", "tools"))
     )
   })
   test_that(".travis.yml file included", {
@@ -32,7 +31,7 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
     expect_true(".Rbuildignore" %in% pkg_files)
   })
   test_that(".stan file included", {
-    expect_true("exec/test.stan" %in% pkg_files)
+    expect_true("src/stan_files/test.stan" %in% pkg_files)
   })
   test_that("R/stanmodels.R file included", {
     expect_true("R/stanmodels.R" %in% pkg_files)

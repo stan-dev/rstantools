@@ -47,7 +47,8 @@
 #'   Stan-specific instructions.
 #'
 #' @seealso The \pkg{rstanarm} repository on GitHub
-#'   (\url{https://github.com/stan-dev/rstanarm}).
+#'   (\url{https://github.com/stan-dev/rstanarm}) and a useR2016 presentation
+#'   (\url{https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages}).
 #' @template seealso-dev-guidelines
 #' @template seealso-get-help
 #'
@@ -88,24 +89,6 @@ rstan_package_skeleton <-
 
     DIR <- file.path(path, name)
 
-    message("Adding cleanup files ...", domain = NA)
-    download.file(
-      .rstanarm_path("cleanup"),
-      destfile = file.path(DIR, "cleanup"),
-      quiet = TRUE
-    )
-    download.file(
-      .rstanarm_path("cleanup.win"),
-      destfile = file.path(DIR, "cleanup.win"),
-      quiet = TRUE
-    )
-    cat(
-      "cleanup*",
-      file = file.path(DIR, ".Rbuildignore"),
-      sep = "\n",
-      append = TRUE
-    )
-
     if (travis) {
       message("Adding .travis.yml file ...", domain = NA)
       download.file(
@@ -133,23 +116,10 @@ rstan_package_skeleton <-
     TOOLS <- file.path(DIR, "tools")
     dir.create(TOOLS)
     download.file(
-      .rstanarm_path("tools/make_cpp.R"),
-      destfile = file.path(TOOLS, "make_cpp.R"),
+      .rstanarm_path("tools/make_cc.R"),
+      destfile = file.path(TOOLS, "make_cc.R"),
       quiet = TRUE
     )
-
-    message("Creating exec directory for .stan files ...", domain = NA)
-    EXEC <- file.path(DIR, "exec")
-    dir.create(EXEC)
-    file.copy(stan_files, EXEC)
-
-    message("Creating inst directory for code chunks ...", domain = NA)
-    INST <- file.path(DIR, "inst")
-    dir.create(INST)
-    CHUNKS <- file.path(DIR, "inst", "chunks")
-    dir.create(CHUNKS)
-    file.create(file.path(CHUNKS, "common_functions.stan"))
-    file.create(file.path(CHUNKS, "license.stan"))
 
     message("Creating src directory ...", domain = NA)
     SRC <- file.path(DIR, "src")
@@ -159,13 +129,49 @@ rstan_package_skeleton <-
       destfile = file.path(SRC, "Makevars"),
       quiet = TRUE
     )
+    system2("sed", args = paste0("-i.bak 's@^SOURCES.*@", "SOURCES = ",
+                                 paste("stan_files", stan_files, sep = "/", collapse = " "),
+                                 "@g' ", file.path(SRC, "Makevars")),
+            stdout = FALSE, stderr = FALSE)
+    file.remove(file.path(SRC, "Makevars.bak"))
     download.file(
       .rstanarm_path("src/Makevars.win"),
       destfile = file.path(SRC, "Makevars.win"),
       quiet = TRUE
     )
+    system2("sed", args = paste0("-i.bak 's@^SOURCES.*@", "SOURCES = ",
+                                 paste("stan_files", stan_files, sep = "/", collapse = " "),
+                                 "@g' ", file.path(SRC, "Makevars.win")),
+            stdout = FALSE, stderr = FALSE)
+    file.remove(file.path(SRC, "Makevars.win.bak"))
     # register cpp (src/init.cpp)
     init_cpp(name, path = DIR)
+
+    message("Creating directory for .stan files ...", domain = NA)
+    STAN_FILES <- file.path(SRC, "stan_files")
+    dir.create(STAN_FILES)
+    file.copy(stan_files, STAN_FILES)
+
+    message("Creating directory for Stan code chunks ...", domain = NA)
+    CHUNKS <- file.path(STAN_FILES, "chunks")
+    dir.create(CHUNKS)
+    download.file(
+      .rstanarm_path("src/stan_files/pre/license.stan"),
+      destfile = file.path(CHUNKS, "license.stan"),
+      quiet = TRUE
+    )
+    system2("sed", args = paste0("-i.bak 's@rstanarm@", name, "@g' ",
+                                 file.path(CHUNKS, "license.stan")),
+            stdout = FALSE, stderr = FALSE)
+    file.remove(file.path(CHUNKS, "license.stan.bak"))
+
+    message("Creating directory for custom C++ functions ...", domain = NA)
+    INST <- file.path(DIR, "inst")
+    dir.create(INST)
+    INCLUDE <- file.path(INST, "include")
+    dir.create(INCLUDE)
+    cat("// Insert all #include<foo.hpp> statements here",
+        file = file.path(INCLUDE, "meta_header.hpp"), sep = "\n")
 
     message("Updating R directory ...", domain = NA)
     R <- file.path(DIR, "R")
@@ -175,6 +181,10 @@ rstan_package_skeleton <-
       destfile = file.path(R, "stanmodels.R"),
       quiet = TRUE
     )
+    system2("sed", args = paste0("-i.bak 's@rstanarm@", name, "@g' ",
+                                 file.path(R, "stanmodels.R")),
+            stdout = FALSE, stderr = FALSE)
+    file.remove(file.path(R, "stanmodels.R.bak"))
     cat(
       '.onLoad <- function(libname, pkgname) {',
       '  modules <- paste0("stan_fit4", names(stanmodels), "_mod")',
@@ -217,13 +227,14 @@ rstan_package_skeleton <-
   cat(
     "\n\nStan specific notes:\n",
     "* Be sure to add useDynLib(mypackage, .registration = TRUE) to the NAMESPACE file, ",
-    "which you can do by placing the line   #' @useDynLib rstanarm, .registration = TRUE ",
+    "which you can do by placing the line   #' @useDynLib anRpackage .registration = TRUE ",
     "in one of your .R files (e.g., see rstanarm's 'rstanarm-package.R' file).",
     "* Be sure to import all of Rcpp and methods in the NAMESPACE file.",
-    "* You can put into inst/chunks/common_functions.stan any function that is needed by any .stan file, ",
-    "in which case any .stan file can have #include 'common_functions.stan' in its functions block.",
-    "* The precompiled stanmodel objects will appear in a named list called 'stanmodels'.",
-    "* The 'cleanup' and 'cleanup.win' scripts in the root of the directory must be made executable.",
+    "* You can put into src/stan_files/chunks any file that is needed by any .stan file in src/stan_files, ",
+    "* You can put into inst/include any C++ files that are needed by any .stan file in src/stan_files, ",
+    "but be sure to #include your C++ files in inst/include/meta_header.hpp",
+    "* The precompiled stanmodel objects will appear in a named list called 'stanmodels', ",
+    "and you can call them with something like rstan::sampling(stanmodels$foo, ...)",
     file = file.path(dir, "Read-and-delete-me"),
     sep = "\n",
     append = TRUE
@@ -232,7 +243,7 @@ rstan_package_skeleton <-
 
 .update_description_file <- function(dir) {
   cat(
-    paste0("Depends: R (>= 3.0.2), ",
+    paste0("Depends: R (>= 3.3.0), ",
            .pkg_dependency("Rcpp"),
            "methods"),
     paste0("Imports: ",
