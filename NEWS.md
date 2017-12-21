@@ -1,3 +1,8 @@
+# rstantools 1.4.0
+(Github issue/PR numbers in parentheses)
+
+* Update `rstan_package_skeleton` to correspond to rstanarm 2.17.2.
+
 # rstantools 1.3.0
 (Github issue/PR numbers in parentheses)
 

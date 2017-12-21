@@ -43,7 +43,8 @@ This function first calls \code{\link[utils]{package.skeleton}} and
 }
 \seealso{
 The \pkg{rstanarm} repository on GitHub
-  (\url{https://github.com/stan-dev/rstanarm}).
+  (\url{https://github.com/stan-dev/rstanarm}) and a useR2016 presentation
+  (\url{https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages}).
 
 \itemize{
   \item The guidelines for developers of \R packages interfacing with Stan, a
