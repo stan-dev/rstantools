@@ -227,7 +227,7 @@ rstan_package_skeleton <-
   cat(
     "\n\nStan specific notes:\n",
     "* Be sure to add useDynLib(mypackage, .registration = TRUE) to the NAMESPACE file, ",
-    "which you can do by placing the line   #' @useDynLib anRpackage .registration = TRUE ",
+    "which you can do by placing the line   #' @useDynLib anRpackage, .registration = TRUE ",
     "in one of your .R files (e.g., see rstanarm's 'rstanarm-package.R' file).",
     "* Be sure to import all of Rcpp and methods in the NAMESPACE file.",
     "* You can put into src/stan_files/chunks any file that is needed by any .stan file in src/stan_files, ",
