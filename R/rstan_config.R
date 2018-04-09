@@ -1,0 +1,171 @@
+#' Configure system files for compiling Stan source code
+#'
+#' Creates or update package-specific system files to compile \code{.stan} files in \code{src/stan_files}.
+#'
+#' @template args-pkgdir
+#' @details The Stan source files for the package should be stored in:
+#' \itemize{
+#'   \item \code{inst/stan/src} for \code{.stan} files containing instructions to build a \code{stanmodel} object.
+#'   \item \code{inst/stan/include} for files to be included via the \code{#include "mylib.stan"} directive.
+#'   \item \code{inst/stan/include} for a \code{license.stan} file.
+#'   \item \code{inst/stan/include} for the \code{meta_header.hpp} file, to be used for directly interacting with the Stan C++ libraries.
+#' }
+#' @export
+rstan_config <- function(pkgdir = ".") {
+  pkgdir <- .check_pkgdir(pkgdir) # check if package root directory
+  # convert .stan files to .cc/.hpp pairs and put these in src/stan_files
+  stan_files <- list.files(file.path(pkgdir, "inst", "stan"),
+                           full.names = TRUE, pattern = "*[.]stan$")
+  sapply(stan_files, .make_cc, pkgdir = pkgdir)
+  .add_staninit(pkgdir) # add stan_init.cpp to trigger compile mechanism
+  ## # update stanc
+  ## add_stanc(pkgdir)
+  # update makevars
+  .add_Makevars(pkgdir)
+  .add_Makevars(pkgdir, win = TRUE)
+  # update R/stanmodels.R with current set of models
+  stanmodels <- .update_stanmodels(pkgdir)
+  .add_stanfile(stanmodels, pkgdir, "R", "stanmodels.R")
+}
+
+#--- helper functions ----------------------------------------------------------
+
+# init file required for Makevars to compile Stan cc/hpp files
+.add_staninit <- function(pkgdir) {
+  init_file <- readLines(.system_file("stan_init.cpp"))
+  init_file <- gsub("RSTAN_PACKAGE_NAME", basename(pkgdir), init_file)
+  .add_stanfile(init_file, pkgdir, "src", "stan_init.cpp")
+}
+
+# creates Makevars[.win] file with Stan-specific compile instructions
+# namely, location of StanHeaders and BH libraries,
+# and subfolder compile instructions.
+.add_Makevars <- function(pkgdir = ".", win = FALSE) {
+  mkv_name <- paste0("Makevars", if(win) ".win" else "")
+  makevars <- readLines(.system_file(mkv_name))
+  # replace generic line "SOURCES = ..." with package-specific line
+  src_line <- list.files(file.path(pkgdir, "inst", "stan"),
+                         pattern = "*[.]stan$")
+  src_line <- gsub("[.]stan$", ".cc", file.path("stan_files", src_line))
+  makevars[grep("^SOURCES", makevars)] <- paste0(c("SOURCES =", src_line),
+                                                 collapse = " ")
+  .add_stanfile(makevars, pkgdir, "src", mkv_name)
+  invisible(makevars)
+}
+
+# create .cc/.hpp pair from .stan file
+# the .hpp file contains the C++ level class definition of the given stanmodel
+# the .cc file contains the module definition which Rcpp uses to construct
+# the corresponding R ReferenceClass.
+.make_cc <- function(file_name, pkgdir) {
+  model_name <- sub("[.]stan$", "", basename(file_name)) # model name
+  stan_path <- file.path(pkgdir, "src", "stan_files") # path to src/stan_files
+  # path to temporary location: only overwrite .cc/.hpp files if they changed
+  stan_tmpdir <- tempfile("rstantools_")
+  dir.create(stan_tmpdir, recursive = TRUE)
+  # create c++ code
+  # shouldn't this be stanc_builder for additional includes?
+  cppcode <- rstan::stanc(file_name, allow_undefined = TRUE,
+                          obfuscate_model_name = FALSE)$cppcode
+  cppcode <- sub("(class[[:space:]]+[A-Za-z_][A-Za-z0-9_]*[[:space:]]*: public prob_grad \\{)",
+                 paste("#include <stan_meta_header.hpp>\n", "\\1"), cppcode)
+  # get license file (if any)
+  stan_license <- .read_license(dirname(file_name))
+  # create stanmodel class definition header file in temporary directory
+  tmp_file <- file.path(stan_tmpdir, paste0(model_name, ".hpp"))
+  cat(stan_license,
+      "#ifndef MODELS_HPP",
+      "#define MODELS_HPP",
+      "#define STAN__SERVICES__COMMAND_HPP",
+      "#include <rstan/rstaninc.hpp>",
+      cppcode, "#endif",
+      file = tmp_file,
+      sep = "\n")
+  # overwrite in src/stan_files if necessary
+  .move_file(file.path(stan_path, paste0(model_name, ".hpp")), tmp_file)
+  # create Rcpp module exposing C++ class as R ReferenceClass
+  tmp_file <- file.path(stan_tmpdir, paste0(model_name, ".cc"))
+  suppressMessages({
+    Rcpp::exposeClass(class = paste0("model_", model_name),
+                      constructors = list(c("SEXP", "SEXP", "SEXP")),
+                      fields = character(),
+                      methods = c("call_sampler",
+                                  "param_names",
+                                  "param_names_oi",
+                                  "param_fnames_oi",
+                                  "param_dims",
+                                  "param_dims_oi",
+                                  "update_param_oi",
+                                  "param_oi_tidx",
+                                  "grad_log_prob",
+                                  "log_prob",
+                                  "unconstrain_pars",
+                                  "constrain_pars",
+                                  "num_pars_unconstrained",
+                                  "unconstrained_param_names",
+                                  "constrained_param_names"),
+                      file = tmp_file,
+                      header = paste0('#include "', model_name, '.hpp"'),
+                      module = paste0("stan_fit4", model_name, "_mod"),
+                      CppClass = "rstan::stan_fit<stan_model, boost::random::ecuyer1988> ",
+                      Rfile = FALSE)
+  })
+  # overwrite in src/stan_files if necessary
+  .move_file(file.path(stan_path, paste0(model_name, ".cc")), tmp_file)
+  return(invisible(NULL))
+}
+
+# read license file (if any)
+.read_license <- function(stan_path) {
+  stan_license <- dir(stan_path,
+                      pattern = "license[.]stan$", recursive = TRUE,
+                      full.names = TRUE)
+  if(length(stan_license) > 1) {
+    stop("Multiple license.stan files detected.")
+  } else if(length(stan_license) == 0) {
+    stan_license <- NULL
+  } else {
+    stan_license <- readLines(stan_license)
+  }
+  stan_license
+}
+
+# rewrites stanmodels.R reflecting current list of stan files
+.update_stanmodels <- function(pkgdir) {
+  stanmodels <- readLines(.system_file("stanmodels.R"))
+  model_names <- list.files(file.path(pkg_name, "inst", "stan"),
+                            pattern = "*.stan$")
+  model_names <- gsub("[.]stan$", "", model_names)
+  # lines for Rcpp::loadModule
+  load_line <- grep("^# load each stan module$", stanmodels)
+  load_module <- sapply(model_names, gsub,
+                        pattern = "STAN_MODEL_NAME",
+                        x = stanmodels[load_line+1],
+                        USE.NAMES = FALSE)
+  # line for stanmodels assignment
+  model_names <- paste0("\"", model_names, "\"")
+  model_names <- paste0(model_names, collapse = ", ")
+  model_names <- paste0("c(", model_names, ")", collapse = "")
+  model_line <- grep("^# names of stan models$", stanmodels)
+  model_names <- gsub("\"STAN_MODEL_NAME\"", model_names,
+                      stanmodels[model_line+1])
+  # add new lines to stanmodels
+  nlines <- length(stanmodels)
+  stanmodels <- c(stanmodels[1:model_line],
+                  model_names,
+                  stanmodels[(model_line+2):load_line],
+                  load_module,
+                  stanmodels[(load_line+2):nlines])
+  stanmodels
+}
+
+# replace old_file by new_file if new_file != old_file, otherwise leave as-is.
+# then, delete new_file
+.move_file <- function(old_file, new_file) {
+  if(!file.exists(old_file) ||
+     (tools::md5sum(old_file) != tools::md5sum(new_file))) {
+    # new_file != old_file
+    file.copy(from = new_file, to = old_file, overwrite = TRUE)
+  }
+  file.remove(new_file)
+}

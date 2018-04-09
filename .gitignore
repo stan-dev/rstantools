@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 inst/doc
+old/
 
 tests/testthat/Rplots.pdf
 .DS_Store
