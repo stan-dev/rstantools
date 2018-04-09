@@ -4,6 +4,7 @@
 .Ruserdata
 inst/doc
 vignettes/rstanlm
+old/
 
 tests/testthat/Rplots.pdf
 .DS_Store
