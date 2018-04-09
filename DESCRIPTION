@@ -12,10 +12,10 @@ Maintainer: Jonah Gabry <jsg2201@columbia.edu>
 Description: Provides various tools for developers of R packages interfacing
     with 'Stan' <http://mc-stan.org>, including functions to set up the required 
     package structure, S3 generics and default methods to unify function naming 
-    across 'Stan'-based R packages, and a vignette with recommendations for 
+    across 'Stan'-based R packages, and vignettes with recommendations for 
     developers.
 License: GPL (>=3)
-URL: http://mc-stan.org/, http://discourse.mc-stan.org
+URL: http://discourse.mc-stan.org/, http://mc-stan.org/, http://mc-stan.org/rstantools/
 BugReports: https://github.com/stan-dev/rstantools/issues
 Encoding: UTF-8
 LazyData: true

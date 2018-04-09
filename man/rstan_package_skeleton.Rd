@@ -42,23 +42,27 @@ This function first calls \code{\link[utils]{package.skeleton}} and
   Stan-specific instructions.
 }
 \seealso{
-The \pkg{rstanarm} repository on GitHub
-  (\url{https://github.com/stan-dev/rstanarm}) and a useR2016 presentation
-  (\url{https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages}).
-
 \itemize{
-  \item The guidelines for developers of \R packages interfacing with Stan, a
-  copy of which can be found in the package vignettes. See
-  \code{browseVignettes("rstantools")} or \code{vignette(package =
-  "rstantools")}. The document is also available online at the
-  \pkg{rstantools} page on the
-  \href{https://CRAN.R-project.org/package=rstantools/vignettes/developer-guidelines.html}{CRAN
-  website}.
+  \item \href{https://github.com/stan-dev/rstanarm}{The \pkg{rstanarm} repository on GitHub.}
 }
 
 \itemize{
-  \item The \href{http://discourse.mc-stan.org}{Stan Forums} and the
+  \item Guidelines for developers of \R packages interfacing with Stan can be
+  found in the vignettes included with \pkg{rstantools} and at
+  \url{http://mc-stan.org/rstantools/articles/}.
+}
+
+\itemize{
+  \item After reading the guidelines for developers, if you have trouble
+  setting up your package let us know on the the
+  \href{http://discourse.mc-stan.org}{Stan Forums} or at
   \href{https://github.com/stan-dev/rstantools/issues}{\pkg{rstantools} issue
-  tracker} for assistance if you have trouble setting up your package.
+  tracker}.
+}
+
+\itemize{
+  \item The useR2016 presentation
+  \href{https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages}{How
+  to Use (R)Stan to Estimate Models in External R Packages.}
 }
 }

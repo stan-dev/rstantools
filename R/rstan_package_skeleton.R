@@ -15,6 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
+
 #' Create a skeleton for a new \R package with Stan programs
 #'
 #' This function is very similar to \code{\link[utils]{package.skeleton}} but is
@@ -46,11 +47,13 @@
 #'   file created by \code{\link[utils]{package.skeleton}} plus additional
 #'   Stan-specific instructions.
 #'
-#' @seealso The \pkg{rstanarm} repository on GitHub
-#'   (\url{https://github.com/stan-dev/rstanarm}) and a useR2016 presentation
-#'   (\url{https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages}).
+#' @seealso
+#' \itemize{
+#'   \item \href{https://github.com/stan-dev/rstanarm}{The \pkg{rstanarm} repository on GitHub.}
+#' }
 #' @template seealso-dev-guidelines
 #' @template seealso-get-help
+#' @template seealso-useR2016-video
 #'
 #' @importFrom utils download.file packageVersion
 #'
