@@ -4,7 +4,7 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
   rstan_package_skeleton(
     name = "testPackage",
     path = tempdir(),
-    stan_files = c("test.stan"),
+    stan_files = test_path("test.stan"),
     force = TRUE
   )
   pkg_path <- file.path(tempdir(), "testPackage")
@@ -47,10 +47,10 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
       rstan_package_skeleton(
         name = "testPackage2",
         path = tempdir(),
-        stan_files = c("test.stan"),
+        stan_files = test_path("test.stan"),
         force = TRUE
       ),
-      regexp = "Running package.skeleton"
+      regexp = "Creating package skeleton for package: testPackage2"
     )
     expect_message(
       rstan_package_skeleton(
@@ -59,7 +59,7 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
         stan_files = c("test.stan"),
         force = TRUE
       ),
-      regexp = "Updating Read-and-delete-me"
+      regexp = "Finished skeleton for package: testPackage3"
     )
   })
 }

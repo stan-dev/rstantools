@@ -1,3 +1,9 @@
+# rstantools 1.5.0
+
+* Update `rstan_package_skeleton` so that it creates the necessary content 
+in NAMESPACE for the user.
+* Simplify instructions in Read-and-delete-me.
+
 # rstantools 1.4.0
 (Github issue/PR numbers in parentheses)
 

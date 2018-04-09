@@ -1,8 +1,8 @@
 Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
-Version: 1.4.0
-Date: 2017-12-21
+Version: 1.5.0
+Date: 2017-04-09
 Authors@R: c(person("Jonah", "Gabry", email = "jsg2201@columbia.edu",
                     role = c("aut", "cre")),
              person("Ben", "Goodrich", email = "benjamin.goodrich@columbia.edu",
@@ -31,6 +31,7 @@ Suggests:
     testthat,
     covr,
     knitr,
+    roxygen2 (>= 6.0.1),
     rmarkdown
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr

@@ -9,11 +9,13 @@ rstan_package_skeleton(name = "anRpackage", list = character(),
   code_files = character(), stan_files = character(), travis = TRUE)
 }
 \arguments{
-\item{name, list, environment, path, force, code_files}{Same as in
+\item{name, list, environment, path, force, code_files}{See
 \code{\link[utils]{package.skeleton}}.}
 
 \item{stan_files}{A character vector with paths to \code{.stan} files to
-include in the package. Otherwise similar to \code{code_files}.}
+include in the package (these files will be included in the
+\code{src/stan_files} directory). Otherwise similar to the
+\code{code_files} argument.}
 
 \item{travis}{Should a \code{.travis.yml} file be added to the package
 directory? Defaults to \code{TRUE}.}
@@ -21,25 +23,33 @@ directory? Defaults to \code{TRUE}.}
 \description{
 This function is very similar to \code{\link[utils]{package.skeleton}} but is
 designed for source packages that want to include Stan Programs that can be
-built into binary versions.
+built into binary versions. See \strong{Details} for a few ways that it
+differs from \code{package.skeleton}.
 }
 \details{
 This function first calls \code{\link[utils]{package.skeleton}} and
-  then adds the files listed in \code{stan_files} to an exec directory.
-  Finally, it downloads several files from the \pkg{rstanarm} package's
+  then adds the files listed in \code{stan_files} to the
+  \code{src/stan_files} directory. Finally, it downloads several files from
+  the \pkg{rstanarm} package's
   \href{http://github.com/stan-dev/rstanarm}{GitHub repository} to facilitate
   building the resulting package. Note that \pkg{\link[rstanarm]{rstanarm}}
   is licensed under the GPL >= 3, so package builders who do not want to be
   governed by that license should not use the downloaded files that contain
-  \R code. Otherwise, it may be worth considering whether it would be easier
-  to include your \code{.stan} programs and supporting \R code in the
-  \pkg{rstanarm} package.
+  \R code (that said, \pkg{Rcpp} is GPL, so not using the \pkg{rstanarm}
+  files is not the only thing impeding use of other licenses). Otherwise, it
+  may be worth considering whether it would be easier to include your
+  \code{.stan} programs and supporting \R code in the \pkg{rstanarm} package.
+
+  Unlike \code{package.skeleton}, \code{rstan_package_skeleton} also creates
+  a file in the \code{R/} directory called "\code{name}-package.R", where
+  \code{name} is the package name. In this file \code{rstan_package_skeleton}
+  writes lines (using \pkg{roxygen2} tags) for ensuring that some necessary
+  content makes it into the \code{NAMESPACE} file. Before terminating,
+  \code{rstan_package_skeleton} will run \code{roxygen2::roxygenise} so that
+  the NAMESPACE is created.
 
   After running \code{rstan_package_skeleton} see the
-  \code{Read-and-delete-me} file created in the package directory. The
-  content in that file contains the content of the \code{Read-and-delete-me}
-  file created by \code{\link[utils]{package.skeleton}} plus additional
-  Stan-specific instructions.
+  \code{Read-and-delete-me} file created in the package directory.
 }
 \seealso{
 \itemize{

@@ -66,22 +66,14 @@ a repository that is _public_ on [GitHub](https://github.com/) (or a similar
 service, but preferably GitHub). It should be public even at early stages of
 development, not only when officially released.  We recommend you add a note to
 your README file on how to install the development version of your package, like
-in the [__rstanarm__
-README](https://github.com/stan-dev/rstanarm#development-version):
-
-```{r, eval=FALSE}
-if (!require("devtools")) {
-  install.packages("devtools")
-  library("devtools")
-}
-install_github("stan-dev/rstanarm")
-```
+in the [__bayesplot__
+README](https://github.com/stan-dev/bayesplot#installation)
 
 * Unit testing is essential. There are several R packages that make it 
-relatively easy to write tests for your package. __rstanarm__ uses the 
-[__testthat__](https://github.com/hadley/testthat) package for this purpose, but
+relatively easy to write tests for your package. Most of our R packages (e.g., __rstanarm__, __bayesplot__, __shinystan__, __loo__) use the 
+[__testthat__](https://github.com/r-lib/testthat) package for this purpose, but
 if you prefer a different testing framework that's fine. The 
-[__covr__](https://github.com/jimhester/covr) package is useful for calculating 
+[__covr__](https://github.com/r-lib/covr) package is useful for calculating 
 the line coverage of your tests, and we recommend reaching at least 90% coverage
 before releasing a package. Good line coverage does not guarantee high quality
 tests, but it's a good first step.
@@ -89,20 +81,20 @@ tests, but it's a good first step.
 ### Stan code
 
 * All Stan code for estimating models should be included in pre-written static
-.stan files that are compiled when the package is built (see the src/stan_files directory
-in the __rstanarm__ repo for examples). You can also use its chunks subdirectory to
-include code chunks to be used in multiple .stan files (again see the __rstanarm__
-repo for examples). If you set up your package using `rstan_package_skeleton`
-this structure will be created for you. This means that your package should NOT
-write a Stan program when the user calls a model fitting function in your
-package, but rather use only Stan programs you have written by hand in advance
-(if you are working on a model for which you don't think this is possible please
-let us know). There are several reasons for this. 
+.stan files that are compiled when the package is built (see the src/stan_files
+directory in the __rstanarm__ repo for examples). You can also use
+subdirectories to include code chunks to be used in multiple .stan files (again
+see the __rstanarm__ repo for examples). If you set up your package using
+`rstan_package_skeleton` this structure will be created for you. This means that
+__your package should NOT write a Stan program when the user calls a model
+fitting function in your package__, but rather use only Stan programs you have
+written by hand in advance (if you are working on a model for which you don't
+think this is possible please let us know). There are several reasons for this.
 
 * Pre-compiled Stan programs can be run by users of Windows or Mac OSX without
   having to install a C++ compiler, which dramatically expands the universe of
   potential users for your package.
-* Pre-compiled Stan program will run immediately when called, avoiding compilation time. 
+* Pre-compiled Stan programs will run immediately when called, avoiding compilation time. 
 * CRAN policy permits long installation times but imposes restrictions on the
   time consumed by examples and unit tests that are much shorter than the time 
   that it takes to compile even a simple Stan program. Thus, it is only possible
@@ -160,15 +152,18 @@ will improve the user experience for those users who want to take advantage of a
 variety of these packages. It will be a mess if every R package using Stan has 
 different names for the same functionality.
 
-* The new [__bayesplot__](https://github.com/stan-dev/bayesplot) package will
-serve as the back-end for plotting for our various R packages (see for example
-`pp_check.stanreg` and `plot.stanreg` in __rstanarm__ version `>= 2.13.1`) and
-we hope developers of other Stan-based R packages will also use it. For any plot
-you intend to include in your package, if it is already available in
-__bayesplot__ then we recommend using the available version or suggesting (or
-contributing) a better version. If it is not already available then there is a
-good chance we will be interested in including it in __bayesplot__ if the plot
-would also be useful for other developers.
+* The [__bayesplot__](http://mc-stan.org/bayesplot/) package serves as the
+back-end for plotting for __rstanarm__ (see for example `pp_check.stanreg` and
+`plot.stanreg`) and many other packages and we hope developers of other
+Stan-based R packages will also use it. You can see all the other R packages
+using __bayesplot__ (including __rstanarm__, __brms__, and many more) in the
+_Reverse dependencies_ section of the __bayesplot__ [CRAN
+page](https://CRAN.R-project.org/package=bayesplot). For any plot you intend to
+include in your package, if it is already available in __bayesplot__ then we
+recommend using the available version or suggesting (or contributing) a better
+version. If it is not already available then there is a good chance we will be
+interested in including it in __bayesplot__ if the plot would also be useful for
+other developers.
 
 * Provide thorough and clear documentation. The documentation won't be perfect 
 (we've found many holes in our __rstanarm__ documentation already and there are 
@@ -202,6 +197,6 @@ package.
 
 These guidelines are not set in stone. We expect them to evolve and we very much
 appreciate feedback on how they can be improved. And, of course, we look forward
-to seeing the packages you develop using Stan!
+to seeing the packages you develop using Stan, so please let us know about them!
 
 -- The Stan Development Team
