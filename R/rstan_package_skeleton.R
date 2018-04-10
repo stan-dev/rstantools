@@ -240,8 +240,6 @@ rstan_package_skeleton <-
 
 .write_read_and_delete_me <- function(dir) {
   cat(
-    "* Delete the file at 'data/delete_data.rda' if it exists ",
-    "(this file is created to avoid an error from package.skeleton called with an empty environment).",
     "* The precompiled stanmodel objects will appear in a named list called 'stanmodels', ",
     "and you can call them with something like rstan::sampling(stanmodels$foo, ...)",
     "* You can put into src/stan_files/chunks any file that is needed by any .stan file in src/stan_files, ",
@@ -327,11 +325,13 @@ rstan_package_skeleton <-
   }
 
   DATA <- file.path(dir, "data")
-  if (file.exists(file.path(DATA, "delete_data.rds"))) {
-    file.remove(file.path(DATA, "delete_data.rds"))
-  }
-  if (!length(list.files(DATA))) {
-    file.remove(DATA)
+  if (file.exists(DATA)) {
+    if (file.exists(file.path(DATA, "delete_data.rda"))) {
+      file.remove(file.path(DATA, "delete_data.rda"))
+    }
+    if (!length(list.files(DATA))) {
+      file.remove(DATA)
+    }
   }
 
   MAN <- file.path(dir, "man")
