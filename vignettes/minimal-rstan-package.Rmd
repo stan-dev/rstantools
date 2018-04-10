@@ -5,28 +5,33 @@ date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
     toc: true
+params:
+  EVAL: !r identical(Sys.getenv("NOT_CRAN"), "true")
 vignette: >
   %\VignetteIndexEntry{Step by step guide}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, echo=FALSE, eval=TRUE}
-knitr::opts_chunk$set(eval=TRUE, comment = NA)
+```{r, SETTINGS-knitr, include=FALSE}
+stopifnot(require(knitr))
+opts_chunk$set(
+  comment=NA,
+  eval = params$EVAL
+)
 ```
 
 ## Introduction
 
 In this vignette we will walk through the steps necessary for creating an 
-R package that depends on Stan. Before continuing, we recommend that you first
-read the vignette [_Guidelines for Developers of R Packages Interfacing with Stan_](http://mc-stan.org/rstantools/articles/developer-guidelines.html).
-
+R package that depends on Stan by creating a package with one function 
+that fits a simple linear regression. Before continuing, we recommend that you first read the other vignette [_Guidelines for Developers of R Packages Interfacing with Stan_](http://mc-stan.org/rstantools/articles/developer-guidelines.html).
 
 ## Creating the package skeleton
 
 To start off, we use `rstan_package_skeleton` to initialise a bare-bones
 package directory. The name of our demo package will be __rstanlm__; it will fit
-a simple linear regression model using Stan. 
+a simple linear regression model using Stan.
 
 ```{r, eval=FALSE}
 library("rstantools")
@@ -46,13 +51,21 @@ optional `stan_files` argument to `rstan_package_skeleton` to include them.
 Another option, which we'll use below, is to add the Stan files once the 
 basic structure of the package is in place. 
 
-The newly created package directory has the name of the package:
+The newly created package directory has the name of the package and 
+its contents are:
 
-```{r}
-list.files("rstanlm")
+```{r, eval=FALSE}
+list.files(all.files = TRUE)
+```
+```{r, echo=FALSE}
+list.files("rstanlm", all.files = TRUE)
 ```
 
-```{r}
+```{r, eval=FALSE}
+DES <- readLines("DESCRIPTION")
+cat(DES, sep = "\n")
+```
+```{r, echo=FALSE}
 DES <- readLines("rstanlm/DESCRIPTION")
 cat(DES, sep = "\n")
 ```
@@ -72,7 +85,8 @@ important instructions about customizing your package:
 cat(readLines("rstanlm/Read-and-delete-me"), sep = "\n")
 ```
 
-You can then safely delete the file or moved it out of the directory.
+You can move this file out of the directory, delete it, or list it in the
+`.Rbuildignore` file if you want to keep it in the directory.
 
 ```{r}
 file.remove('rstanlm/Read-and-delete-me')
@@ -191,7 +205,7 @@ already been included.
 ## Documentation
 
 To update the `NAMESPACE` file and the rest of the documentation to include
-`lm_stan` we need to regenerate the documentation using `roxygenise()`: 
+`lm_stan` we need to regenerate the documentation using `roxygen2::roxygenise` (or `devtools::document`): 
 
 ```{r, eval=FALSE}
 roxygen2::roxygenise(clean=TRUE)
@@ -214,9 +228,9 @@ devtools::load_all("rstanlm", recompile=TRUE)
 
 The argument `local=FALSE` is necessary if you want to recompile the Stan
 models. If you only made a small change to the R code or the documentation, you
-can set `local=TRUE` to speed up the installation process.
+can set `local=TRUE` to speed up the process.
 
-The package is now ready to be used:
+The package can now be loaded and used like any other R package:
 
 ```{r, eval=FALSE}
 library("rstanlm")
@@ -230,4 +244,13 @@ print(fit)
 ```{r, echo=FALSE}
 unlink("rstanlm", recursive = TRUE)
 ```
+
+## Links
+
+* [R packages](http://r-pkgs.had.co.nz/) by Hadley Wickham provides a solid
+foundation in R package development as well as the release process.
+
+* [_Guidelines for Developers of R Packages Interfacing with Stan_](http://mc-stan.org/rstantools/articles/developer-guidelines.html)
+
+* Ask a question at the [Stan Forums](http://discourse.mc-stan.org/)
 
