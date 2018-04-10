@@ -214,7 +214,8 @@ probability mass to include in the intervals.</p></td>
 #&gt; theta_5 -1.774352 1.521312</div><div class='input'>
 # Example using rstanarm package:
 # posterior_interval method for 'stanreg' objects
-</div><div class='input'><span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"rstanarm"</span>)) {
+</div><span class='co'># NOT RUN {</span>
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"rstanarm"</span>)) {
   <span class='no'>fit</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/rstanarm/topics/stan_glmer'>stan_glmer</a></span>(
     <span class='no'>mpg</span> ~ <span class='no'>wt</span> + <span class='no'>am</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>cyl</span>),
     <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>mtcars</span>,
@@ -222,107 +223,9 @@ probability mass to include in the intervals.</p></td>
     <span class='kw'>prior</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/rstanarm/topics/priors'>normal</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>),
     <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>500</span> <span class='co'># to speed up example</span>
   )
-  <span class='fu'>posterior_interval</span>(<span class='no'>fit</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
-}</div><div class='output co'>#&gt; 
-#&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 1).
-#&gt; 
-#&gt; Gradient evaluation took 8.4e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.84 seconds.
-#&gt; Adjust your expectations accordingly!
-#&gt; 
-#&gt; 
-#&gt; Iteration:   1 / 500 [  0%]  (Warmup)
-#&gt; Iteration:  50 / 500 [ 10%]  (Warmup)
-#&gt; Iteration: 100 / 500 [ 20%]  (Warmup)
-#&gt; Iteration: 150 / 500 [ 30%]  (Warmup)
-#&gt; Iteration: 200 / 500 [ 40%]  (Warmup)
-#&gt; Iteration: 250 / 500 [ 50%]  (Warmup)
-#&gt; Iteration: 251 / 500 [ 50%]  (Sampling)
-#&gt; Iteration: 300 / 500 [ 60%]  (Sampling)
-#&gt; Iteration: 350 / 500 [ 70%]  (Sampling)
-#&gt; Iteration: 400 / 500 [ 80%]  (Sampling)
-#&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
-#&gt; Iteration: 500 / 500 [100%]  (Sampling)
-#&gt; 
-#&gt;  Elapsed Time: 0.119861 seconds (Warm-up)
-#&gt;                0.085531 seconds (Sampling)
-#&gt;                0.205392 seconds (Total)
-#&gt; 
-#&gt; 
-#&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 2).
-#&gt; 
-#&gt; Gradient evaluation took 2.8e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.28 seconds.
-#&gt; Adjust your expectations accordingly!
-#&gt; 
-#&gt; 
-#&gt; Iteration:   1 / 500 [  0%]  (Warmup)
-#&gt; Iteration:  50 / 500 [ 10%]  (Warmup)
-#&gt; Iteration: 100 / 500 [ 20%]  (Warmup)
-#&gt; Iteration: 150 / 500 [ 30%]  (Warmup)
-#&gt; Iteration: 200 / 500 [ 40%]  (Warmup)
-#&gt; Iteration: 250 / 500 [ 50%]  (Warmup)
-#&gt; Iteration: 251 / 500 [ 50%]  (Sampling)
-#&gt; Iteration: 300 / 500 [ 60%]  (Sampling)
-#&gt; Iteration: 350 / 500 [ 70%]  (Sampling)
-#&gt; Iteration: 400 / 500 [ 80%]  (Sampling)
-#&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
-#&gt; Iteration: 500 / 500 [100%]  (Sampling)
-#&gt; 
-#&gt;  Elapsed Time: 0.135687 seconds (Warm-up)
-#&gt;                0.106804 seconds (Sampling)
-#&gt;                0.242491 seconds (Total)
-#&gt; 
-#&gt; 
-#&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 3).
-#&gt; 
-#&gt; Gradient evaluation took 3.9e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.39 seconds.
-#&gt; Adjust your expectations accordingly!
-#&gt; 
-#&gt; 
-#&gt; Iteration:   1 / 500 [  0%]  (Warmup)
-#&gt; Iteration:  50 / 500 [ 10%]  (Warmup)
-#&gt; Iteration: 100 / 500 [ 20%]  (Warmup)
-#&gt; Iteration: 150 / 500 [ 30%]  (Warmup)
-#&gt; Iteration: 200 / 500 [ 40%]  (Warmup)
-#&gt; Iteration: 250 / 500 [ 50%]  (Warmup)
-#&gt; Iteration: 251 / 500 [ 50%]  (Sampling)
-#&gt; Iteration: 300 / 500 [ 60%]  (Sampling)
-#&gt; Iteration: 350 / 500 [ 70%]  (Sampling)
-#&gt; Iteration: 400 / 500 [ 80%]  (Sampling)
-#&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
-#&gt; Iteration: 500 / 500 [100%]  (Sampling)
-#&gt; 
-#&gt;  Elapsed Time: 0.131535 seconds (Warm-up)
-#&gt;                0.063969 seconds (Sampling)
-#&gt;                0.195504 seconds (Total)
-#&gt; 
-#&gt; 
-#&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 4).
-#&gt; 
-#&gt; Gradient evaluation took 3.7e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.37 seconds.
-#&gt; Adjust your expectations accordingly!
-#&gt; 
-#&gt; 
-#&gt; Iteration:   1 / 500 [  0%]  (Warmup)
-#&gt; Iteration:  50 / 500 [ 10%]  (Warmup)
-#&gt; Iteration: 100 / 500 [ 20%]  (Warmup)
-#&gt; Iteration: 150 / 500 [ 30%]  (Warmup)
-#&gt; Iteration: 200 / 500 [ 40%]  (Warmup)
-#&gt; Iteration: 250 / 500 [ 50%]  (Warmup)
-#&gt; Iteration: 251 / 500 [ 50%]  (Sampling)
-#&gt; Iteration: 300 / 500 [ 60%]  (Sampling)
-#&gt; Iteration: 350 / 500 [ 70%]  (Sampling)
-#&gt; Iteration: 400 / 500 [ 80%]  (Sampling)
-#&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
-#&gt; Iteration: 500 / 500 [100%]  (Sampling)
-#&gt; 
-#&gt;  Elapsed Time: 0.12427 seconds (Warm-up)
-#&gt;                0.102822 seconds (Sampling)
-#&gt;                0.227092 seconds (Total)
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in posterior_interval.default(fit, prob = 0.5): For the default method 'object' should be a matrix.</span></div><div class='input'>
+  <span class='kw pkg'>rstanarm</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rstanarm/topics/posterior_interval.stanreg'>posterior_interval</a></span>(<span class='no'>fit</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
+}
+<span class='co'># }</span><div class='input'>
 # Also see help("posterior_interval", package = "rstanarm")
 
 </div></pre>
