@@ -9,3 +9,4 @@ LICENSE
 man-roxygen/*
 ^docs$
 ^_pkgdown\.yml$
+vignettes/rstanlm

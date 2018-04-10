@@ -4,7 +4,7 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
   rstan_package_skeleton(
     name = "testPackage",
     path = tempdir(),
-    stan_files = c("test.stan"),
+    stan_files = test_path("test.stan"),
     force = TRUE
   )
   pkg_path <- file.path(tempdir(), "testPackage")
@@ -15,11 +15,13 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
   })
 
   test_that("package directory has required structure", {
-    expect_equal(
-      sort(list.files(pkg_path)),
-      sort(c("cleanup", "cleanup.win", "DESCRIPTION", "exec", "inst", "man",
-             "NAMESPACE", "R", "Read-and-delete-me", "src", "tools"))
-    )
+    nms <- c("DESCRIPTION", "inst", "man", "NAMESPACE", "R",
+             "Read-and-delete-me", "src", "tools", "testPackage.Rproj")
+    ans <- list.files(pkg_path)
+    if ("data" %in% ans) {
+      nms <- c(nms, "data")
+    }
+    expect_equal(sort(nms), sort(ans))
   })
   test_that(".travis.yml file included", {
     expect_true(".travis.yml" %in% pkg_files)
@@ -32,7 +34,7 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
     expect_true(".Rbuildignore" %in% pkg_files)
   })
   test_that(".stan file included", {
-    expect_true("exec/test.stan" %in% pkg_files)
+    expect_true("src/stan_files/test.stan" %in% pkg_files)
   })
   test_that("R/stanmodels.R file included", {
     expect_true("R/stanmodels.R" %in% pkg_files)
@@ -48,10 +50,10 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
       rstan_package_skeleton(
         name = "testPackage2",
         path = tempdir(),
-        stan_files = c("test.stan"),
+        stan_files = test_path("test.stan"),
         force = TRUE
       ),
-      regexp = "Running package.skeleton"
+      regexp = "Creating package skeleton for package: testPackage2"
     )
     expect_message(
       rstan_package_skeleton(
@@ -60,7 +62,31 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
         stan_files = c("test.stan"),
         force = TRUE
       ),
-      regexp = "Updating Read-and-delete-me"
+      regexp = "Finished skeleton for package: testPackage3"
+    )
+  })
+
+  test_that("error if stan_files specified incorrectly", {
+    expect_error(
+      rstan_package_skeleton(
+        name = "testPackage4",
+        path = tempdir(),
+        stan_files = c("test"),
+        force = TRUE
+      ),
+      regexp = "must end with a '.stan' extension",
+      fixed = TRUE
+    )
+
+    expect_error(
+      rstan_package_skeleton(
+        name = "testPackage4",
+        path = tempdir(),
+        stan_files = c("test.stan", "test"),
+        force = TRUE
+      ),
+      regexp = "must end with a '.stan' extension",
+      fixed = TRUE
     )
   })
 }
