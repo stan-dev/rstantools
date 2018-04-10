@@ -55,7 +55,7 @@ if (require("rstanarm")) {
     prior = normal(0, 1),
     iter = 500 # to speed up example
   )
-  posterior_interval(fit, prob = 0.5)
+  rstanarm::posterior_interval(fit, prob = 0.5)
 }
 }
 

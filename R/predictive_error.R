@@ -24,7 +24,9 @@
 #' # default method
 #' y <- rnorm(10)
 #' ypred <- matrix(rnorm(500), 50, 10)
-#' predictive_error(ypred, y)
+#' pred_errors <- predictive_error(ypred, y)
+#' dim(pred_errors)
+#' head(pred_errors)
 #'
 #' # Also see help("predictive_error", package = "rstanarm")
 #'
