@@ -7,5 +7,6 @@ vignettes/rstanlm
 
 tests/testthat/Rplots.pdf
 .DS_Store
-
 cran-comments.md
+/revdep/.cache.rds
+/revdep/
