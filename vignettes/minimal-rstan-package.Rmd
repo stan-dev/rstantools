@@ -55,6 +55,7 @@ The newly created package directory has the name of the package and
 its contents are:
 
 ```{r, eval=FALSE}
+setwd("rstanlm")
 list.files(all.files = TRUE)
 ```
 ```{r, echo=FALSE}
@@ -81,14 +82,20 @@ Before deleting the `Read-and-delete-me` file in the new package
 directory make sure to read it because it contains some 
 important instructions about customizing your package:
 
-```{r}
+```{r, eval=FALSE}
+cat(readLines("Read-and-delete-me"), sep = "\n")
+```
+```{r, echo=FALSE}
 cat(readLines("rstanlm/Read-and-delete-me"), sep = "\n")
 ```
 
 You can move this file out of the directory, delete it, or list it in the
 `.Rbuildignore` file if you want to keep it in the directory.
 
-```{r}
+```{r, eval=FALSE}
+file.remove('Read-and-delete-me')
+```
+```{r, echo=FALSE}
 file.remove('rstanlm/Read-and-delete-me')
 ```
 
@@ -102,7 +109,7 @@ After writing the necessary Stan program, the file should be saved with a
 following program to `src/stan_files/lm.stan`:
 
 ```
-// Save this file as rstanlm/src/stan_files/lm.stan
+// Save this file as src/stan_files/lm.stan
 data {
   int<lower=1> N;
   vector[N] x;
@@ -155,7 +162,7 @@ which our compiled Stan model is being used. A comment block in
 ensures that the function has a help file and that it is added to the NAMESPACE:
 
 ```{r}
-# Save this file as `rstanlm/R/lm_stan.R`
+# Save this file as `R/lm_stan.R`
 
 #' Bayesian linear regression with Stan
 #'
@@ -192,9 +199,12 @@ The top-level package file `R/rstanlm-package.R` has already been created by
 `rstan_package_skeleton()` but needs to be modified to decribe the functionality
 of our package:
 
-```{r}
+```{r, eval=FALSE}
 pkg_file <- readLines(file.path("rstanlm", "R", "rstanlm-package.R"))
 cat(pkg_file, sep = "\n")
+```
+```{r, echo=FALSE}
+cat(readLines(file.path("rstanlm", "R", "rstanlm-package.R")), sep = "\n")
 ```
 
 The description section needs to be manually edited but the necessary
