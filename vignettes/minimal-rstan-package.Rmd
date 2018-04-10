@@ -169,11 +169,12 @@ ensures that the function has a help file and that it is added to the NAMESPACE:
 #' @export
 #' @param x Numeric vector of input values.
 #' @param y Numberic vector of output values.
+#' @param ... Arguments passed to `rstan::sampling` (e.g. iter, chains).
 #' @return An object of class `stanfit` returned by `rstan::sampling`
 #'
-lm_stan <- function(x, y) {
+lm_stan <- function(x, y, ...) {
   standata <- list(x = x, y = y, N = length(y))
-  out <- rstan::sampling(stanmodels$lm, data = standata)
+  out <- rstan::sampling(stanmodels$lm, data = standata, ...)
   return(out)
 }
 ```
@@ -186,6 +187,7 @@ Rcode <- "
 #' @export
 #' @param x Numeric vector of input values.
 #' @param y Numberic vector of output values.
+#' @param ... Arguments passed to `rstan::sampling`.
 #' @return An object of class `stanfit` returned by `rstan::sampling`
 lm_stan <- function(x, y) {
   out <- rstan::sampling(stanmodels$lm, data=list(x=x, y=y, N=length(y)))
@@ -247,7 +249,7 @@ library("rstanlm")
 ```
 
 ```{r}
-fit <- lm_stan(y = rnorm(10), x = rnorm(10))
+fit <- lm_stan(y = rnorm(10), x = rnorm(10), iter = 500)
 print(fit)
 ```
 
