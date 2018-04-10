@@ -48,6 +48,10 @@ This function first calls \code{\link[utils]{package.skeleton}} and
   \code{rstan_package_skeleton} will run \code{roxygen2::roxygenise} so that
   the NAMESPACE is created.
 
+  \code{rstan_package_skeleton} will also create a RStudio project file
+  for the package with a \code{.Rproj} extension. If not using RStudio
+  this file can be deleted or ignored.
+
   After running \code{rstan_package_skeleton} see the
   \code{Read-and-delete-me} file created in the package directory.
 }

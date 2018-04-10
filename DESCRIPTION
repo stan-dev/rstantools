@@ -7,6 +7,7 @@ Authors@R: c(person("Jonah", "Gabry", email = "jsg2201@columbia.edu",
                     role = c("aut", "cre")),
              person("Ben", "Goodrich", email = "benjamin.goodrich@columbia.edu",
                     role = "aut"),
+             person("Stefan", "Siegert", role = "ctb"),
              person("Trustees of", "Columbia University", role = "cph"))
 Maintainer: Jonah Gabry <jsg2201@columbia.edu>
 Description: Provides various tools for developers of R packages interfacing
@@ -31,6 +32,7 @@ Suggests:
     testthat,
     covr,
     knitr,
+    devtools,
     roxygen2 (>= 6.0.1),
     rmarkdown
 RoxygenNote: 6.0.1

@@ -54,6 +54,10 @@
 #'   \code{rstan_package_skeleton} will run \code{roxygen2::roxygenise} so that
 #'   the NAMESPACE is created.
 #'
+#'   \code{rstan_package_skeleton} will also create a RStudio project file
+#'   for the package with a \code{.Rproj} extension. If not using RStudio
+#'   this file can be deleted or ignored.
+#'
 #'   After running \code{rstan_package_skeleton} see the
 #'   \code{Read-and-delete-me} file created in the package directory.
 #'
@@ -66,6 +70,7 @@
 #' @template seealso-useR2016-video
 #'
 #' @importFrom utils download.file packageVersion available.packages
+#'
 #'
 rstan_package_skeleton <-
   function(name = "anRpackage",
@@ -83,9 +88,10 @@ rstan_package_skeleton <-
 
     message("Creating package skeleton for package: ", name, domain = NA)
 
-    if (length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files)))
+    if (length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files))) {
       stop("All files named in 'stan_files' must end ",
            "with a '.stan' extension.")
+    }
 
     mc <- match.call()
     mc$stan_files <- NULL
@@ -101,43 +107,7 @@ rstan_package_skeleton <-
 
     message("Running package.skeleton ...", domain = NA)
     suppressMessages(eval(mc))
-
-    # nocov start
-    if (R.version[["major"]] < 3 ||
-        (R.version[["major"]] == 3 && R.version[["minor"]] < 2.2)) {
-      warning(
-        "rstan_package_skeleton is only fully operational with R >= 3.2.2, ",
-        "but you can still follow the package skeleton of the rstanarm package ",
-        "on GitHub to set up the rest of your package."
-      )
-      return(invisible(NULL))
-    }
-    # nocov end
-
     DIR <- file.path(path, name)
-
-    if (travis) {
-      message("Adding .travis.yml file ...", domain = NA)
-      download.file(
-        .rstanarm_path(".travis.yml"),
-        destfile = file.path(DIR, ".travis.yml"),
-        quiet = TRUE
-      )
-      travis <- readLines(file.path(DIR, ".travis.yml"))
-      travis <- travis[!grepl("covr::codecov", travis)]
-      cat(
-        gsub("rstanarm", name, travis),
-        file = file.path(DIR, ".travis.yml"),
-        sep = "\n",
-        append = FALSE
-      )
-      cat(
-        "^\\.travis\\.yml$",
-        file = file.path(DIR, ".Rbuildignore"),
-        sep = "\n",
-        append = TRUE
-      )
-    }
 
     message("Creating tools directory ...", domain = NA)
     TOOLS <- file.path(DIR, "tools")
@@ -206,9 +176,12 @@ rstan_package_skeleton <-
       destfile = file.path(R, "stanmodels.R"),
       quiet = TRUE
     )
-    system2("sed", args = paste0("-i.bak 's@rstanarm@", name, "@g' ",
-                                 file.path(R, "stanmodels.R")),
-            stdout = FALSE, stderr = FALSE)
+    system2(
+      "sed",
+      args = paste0("-i.bak 's@rstanarm@", name, "@g' ", file.path(R, "stanmodels.R")),
+      stdout = FALSE,
+      stderr = FALSE
+    )
     file.remove(file.path(R, "stanmodels.R.bak"))
     cat(
       '.onLoad <- function(libname, pkgname) {',
@@ -220,6 +193,14 @@ rstan_package_skeleton <-
       append = TRUE
     )
     .write_main_package_R_file(DIR)
+
+    if (travis) {
+      message("Adding .travis.yml file ...", domain = NA)
+      .create_travis_file(DIR)
+    }
+
+    # rstudio project file
+    .create_rproj(DIR)
 
     message("Updating NAMESPACE ...", domain=NA)
     suppressMessages(roxygen2::roxygenise(package.dir = DIR, clean = TRUE))
@@ -249,6 +230,8 @@ rstan_package_skeleton <-
 
 .write_read_and_delete_me <- function(dir) {
   cat(
+    "* Delete the file at 'data/delete_data.rda' if it exists ",
+    "(this file is created to avoid an error from package.skeleton called with an empty environment).",
     "* The precompiled stanmodel objects will appear in a named list called 'stanmodels', ",
     "and you can call them with something like rstan::sampling(stanmodels$foo, ...)",
     "* You can put into src/stan_files/chunks any file that is needed by any .stan file in src/stan_files, ",
@@ -359,5 +342,49 @@ rstan_package_skeleton <-
     "RStan: the R interface to Stan. ",
     "R package version ", has_version, ". ",
     "http://mc-stan.org"
+  )
+}
+
+.create_rproj <- function(dir) {
+  pkgname <- basename(dir)
+  if (!file.exists(file.path(dir, paste0(pkgname, ".Rproj")))) {
+    message("Creating .Rproj file ...")
+    download.file(
+      "https://raw.githubusercontent.com/rstudio/ptexamples/master/ptexamples.Rproj",
+      destfile = file.path(dir, paste0(pkgname, ".Rproj")),
+      quiet = TRUE
+    )
+  }
+  cat(
+    "^.*\\.Rproj$",
+    "^\\.Rproj\\.user$",
+    file = file.path(dir, ".Rbuildignore"),
+    sep = "\n",
+    append = TRUE
+  )
+}
+
+.create_travis_file <- function(dir) {
+  pkgname <- basename(dir)
+  download.file(
+    .rstanarm_path(".travis.yml"),
+    destfile = file.path(dir, ".travis.yml"),
+    quiet = TRUE
+  )
+
+  travis <- readLines(file.path(dir, ".travis.yml"))
+  travis <- travis[!grepl("covr::codecov|/covr|r_github_packages", travis)]
+  travis <- travis[!grepl("r_build_args|r_check_args", travis)]
+  cat(
+    gsub("rstanarm", pkgname, travis),
+    file = file.path(dir, ".travis.yml"),
+    sep = "\n",
+    append = FALSE
+  )
+  cat(
+    "^\\.travis\\.yml$",
+    file = file.path(dir, ".Rbuildignore"),
+    sep = "\n",
+    append = TRUE
   )
 }

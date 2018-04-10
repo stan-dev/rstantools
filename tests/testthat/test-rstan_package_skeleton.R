@@ -17,7 +17,7 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
   test_that("package directory has required structure", {
     expect_equal(
       sort(list.files(pkg_path)),
-      sort(c("DESCRIPTION", "inst", "man", "NAMESPACE", "R", "Read-and-delete-me", "src", "tools"))
+      sort(c("data", "DESCRIPTION", "inst", "man", "NAMESPACE", "R", "Read-and-delete-me", "src", "tools", "testPackage.Rproj"))
     )
   })
   test_that(".travis.yml file included", {
