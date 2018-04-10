@@ -325,11 +325,12 @@ rstan_package_skeleton <-
   }
 
   DATA <- file.path(dir, "data")
+  DATA_files <- list.files(DATA)
   if (file.exists(DATA)) {
     if (file.exists(file.path(DATA, "delete_data.rda"))) {
       file.remove(file.path(DATA, "delete_data.rda"))
     }
-    if (!length(list.files(DATA))) {
+    if (!length(DATA_files)) {
       file.remove(DATA)
     }
   }
@@ -340,6 +341,15 @@ rstan_package_skeleton <-
   }
   if (file.exists(file.path(MAN, paste0(pkgname, "-package.Rd")))) {
     file.remove(file.path(MAN, paste0(pkgname, "-package.Rd")))
+  }
+
+  if (length(DATA_files)) {
+    # remove man files for data objects (can have missing content that messes up
+    # devtools::install)
+    MAN_files <- file.path(MAN, gsub(".rda", ".Rd", DATA_files))
+    for (j in seq_along(MAN_files)) {
+      if (file.exists(MAN_files[j])) file.remove(MAN_files[j])
+    }
   }
 }
 
