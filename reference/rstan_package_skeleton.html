@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a skeleton for a new <span style="R">R</span> package with Stan programs — rstan_package_skeleton • rstantools</title>
+<title>Create the skeleton of a new <span style="R">R</span> package with Stan programs — rstan_package_skeleton • rstantools</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -18,13 +18,31 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Create the skeleton of a new <span style="R">R</span> package with Stan programs — rstan_package_skeleton" />
+
+<meta property="og:description" content="
+  The rstan_package_skeleton function helps get you started developing
+  R packages that interface with Stan via the rstan package.
+  rstan_package_skeleton is very similar to
+  package.skeleton but is designed for source packages
+  that want to include Stan Programs that can be built into binary versions
+  (i.e., pre-compiled like rstanarm). See Details for a few
+  ways that it differs from package.skeleton.
+See the See Also section below for links to recommendations for
+  developers and a step by step walkthrough of what to do after running
+  rstan_package_skeleton." />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +50,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +67,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">rstantools</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">rstantools</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -109,6 +133,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -116,76 +141,102 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a skeleton for a new <span style="R">R</span> package with Stan programs</h1>
+    <h1>Create the skeleton of a new <span style="R">R</span> package with Stan programs</h1>
+    
     </div>
 
     
-    <p>This function is very similar to <code><a href='http://www.rdocumentation.org/packages/utils/topics/package.skeleton'>package.skeleton</a></code> but is
-designed for source packages that want to include Stan Programs that can be
-built into binary versions.</p>
+    <p><img src='figures/stanlogo.png' width="50px" alt="http://mc-stan.org/about/logo/" />
+  The <code>rstan_package_skeleton</code> function helps get you started developing
+  <span style="R">R</span> packages that interface with Stan via the <span class="pkg">rstan</span> package.
+  <code>rstan_package_skeleton</code> is very similar to
+  <code><a href='http://www.rdocumentation.org/packages/utils/topics/package.skeleton'>package.skeleton</a></code> but is designed for source packages
+  that want to include Stan Programs that can be built into binary versions
+  (i.e., pre-compiled like <span class="pkg">rstanarm</span>). See <strong>Details</strong> for a few
+  ways that it differs from <code>package.skeleton</code>.</p>
+<p>See the <strong>See Also</strong> section below for links to recommendations for
+  developers and a step by step walkthrough of what to do after running
+  <code>rstan_package_skeleton</code>.</p>
     
 
     <pre class="usage"><span class='fu'>rstan_package_skeleton</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"anRpackage"</span>, <span class='kw'>list</span> <span class='kw'>=</span> <span class='fu'>character</span>(),
   <span class='kw'>environment</span> <span class='kw'>=</span> <span class='no'>.GlobalEnv</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>code_files</span> <span class='kw'>=</span> <span class='fu'>character</span>(), <span class='kw'>stan_files</span> <span class='kw'>=</span> <span class='fu'>character</span>(), <span class='kw'>travis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>name, list, environment, path, force, code_files</th>
-      <td><p>Same as in
+      <td><p>Same as
 <code><a href='http://www.rdocumentation.org/packages/utils/topics/package.skeleton'>package.skeleton</a></code>.</p></td>
     </tr>
     <tr>
       <th>stan_files</th>
       <td><p>A character vector with paths to <code>.stan</code> files to
-include in the package. Otherwise similar to <code>code_files</code>.</p></td>
+include in the package (these files will be included in the
+<code>src/stan_files</code> directory). Otherwise similar to the
+<code>code_files</code> argument.</p></td>
     </tr>
     <tr>
       <th>travis</th>
       <td><p>Should a <code>.travis.yml</code> file be added to the package
-directory? Defaults to <code>TRUE</code>.</p></td>
+directory? Defaults to <code>TRUE</code>. The file has some settings already set
+to help with compilation issues, but we do not guarantee that it will work
+on <a href='https://travis-ci.org/'>travis-ci</a>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function first calls <code><a href='http://www.rdocumentation.org/packages/utils/topics/package.skeleton'>package.skeleton</a></code> and
-  then adds the files listed in <code>stan_files</code> to an exec directory.
-  Finally, it downloads several files from the <span class="pkg">rstanarm</span> package's
+  then adds the files listed in <code>stan_files</code> to the
+  <code>src/stan_files</code> directory. Finally, it downloads several files from
+  <span class="pkg">rstanarm</span> package's
   <a href='http://github.com/stan-dev/rstanarm'>GitHub repository</a> to facilitate
   building the resulting package. Note that <span class="pkg"><a href='http://www.rdocumentation.org/packages/rstanarm/topics/rstanarm-package'>rstanarm</a></span>
   is licensed under the GPL &gt;= 3, so package builders who do not want to be
   governed by that license should not use the downloaded files that contain
-  <span style="R">R</span> code. Otherwise, it may be worth considering whether it would be easier
-  to include your <code>.stan</code> programs and supporting <span style="R">R</span> code in the
-  <span class="pkg">rstanarm</span> package.</p>
-<p>After running <code>rstan_package_skeleton</code> see the
-  <code>Read-and-delete-me</code> file created in the package directory. The
-  content in that file contains the content of the <code>Read-and-delete-me</code>
-  file created by <code><a href='http://www.rdocumentation.org/packages/utils/topics/package.skeleton'>package.skeleton</a></code> plus additional
-  Stan-specific instructions.</p>
+  <span style="R">R</span> code (that said, <span class="pkg">Rcpp</span> is GPL, so not using the <span class="pkg">rstanarm</span>
+  files is not the only thing impeding use of other licenses). Otherwise, it
+  may be worth considering whether it would be easier to include your
+  <code>.stan</code> programs and supporting <span style="R">R</span> code in the <span class="pkg">rstanarm</span> package.</p>
+<p>Unlike <code>package.skeleton</code>, <code>rstan_package_skeleton</code> also creates
+  a file in the <code>R/</code> directory called "<code>name</code>-package.R", where
+  <code>name</code> is the package name. In this file <code>rstan_package_skeleton</code>
+  writes lines (using <span class="pkg">roxygen2</span> tags) for ensuring that some necessary
+  content makes it into the <code>NAMESPACE</code> file. Before terminating,
+  <code>rstan_package_skeleton</code> will run <code><a href='http://www.rdocumentation.org/packages/roxygen2/topics/roxygenize'>roxygen2::roxygenise</a></code> so that
+  the NAMESPACE is created.</p>
+<p><code>rstan_package_skeleton</code> will also create an RStudio project file
+  for the package with a <code>.Rproj</code> extension. If not using RStudio
+  this file can be deleted or ignored.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>The <span class="pkg">rstanarm</span> repository on GitHub
-  (<a href='https://github.com/stan-dev/rstanarm'>https://github.com/stan-dev/rstanarm</a>).</p><ul>
-<li><p>The guidelines for developers of <span style="R">R</span> packages interfacing with Stan, a
-  copy of which can be found in the package vignettes. See
-  <code>browseVignettes("rstantools")</code> or <code>vignette(package =
-  "rstantools")</code>. The document is also available online at the
-  <span class="pkg">rstantools</span> page on the
-  <a href='https://CRAN.R-project.org/package=rstantools/vignettes/developer-guidelines.html'>CRAN
-  website</a>.</p></li>
+    <ul>
+<li><p><a href='https://github.com/stan-dev/rstanarm'>The <span class="pkg">rstanarm</span> repository on GitHub.</a></p></li>
 </ul>
     <ul>
-<li><p>The <a href='http://discourse.mc-stan.org'>Stan Forums</a> and the
+<li><p>Guidelines and recommendations for developers of <span style="R">R</span> packages
+  interfacing with Stan and a demonstration getting a simple package working
+  can be found in the vignettes included with <span class="pkg">rstantools</span> and at
+  <a href='http://mc-stan.org/rstantools/articles/'>http://mc-stan.org/rstantools/articles/</a>.</p></li>
+</ul>
+    <ul>
+<li><p>After reading the guidelines for developers, if you have trouble
+  setting up your package let us know on the the
+  <a href='http://discourse.mc-stan.org'>Stan Forums</a> or at
   <a href='https://github.com/stan-dev/rstantools/issues'><span class="pkg">rstantools</span> issue
-  tracker</a> for assistance if you have trouble setting up your package.</p></li>
+  tracker</a>.</p></li>
+</ul>
+    <ul>
+<li><p>The useR2016 presentation
+  <a href='https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages'>How
+  to Use (R)Stan to Estimate Models in External R Packages.</a></p></li>
 </ul>
     
 
@@ -209,11 +260,14 @@ directory? Defaults to <code>TRUE</code>.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

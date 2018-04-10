@@ -18,13 +18,25 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Generic function and default method for posterior uncertainty intervals — posterior_interval" />
+
+<meta property="og:description" content="These intervals are often referred to as credible intervals, but we use the
+term uncertainty intervals to highlight the fact that wider intervals
+correspond to greater uncertainty. See
+posterior_interval.stanreg in the
+rstanarm package for an example." />
+
+<meta property="og:image" content="/logo.png" />
+<meta name="twitter:card" content="summary" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -32,6 +44,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
 
 
   </head>
@@ -47,8 +61,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">rstantools</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">rstantools</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">1.5.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -109,6 +127,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -116,10 +135,11 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generic function and default method for posterior uncertainty intervals</h1>
+    
     </div>
 
     
@@ -135,7 +155,7 @@ correspond to greater uncertainty. See
 <span class='co'># S3 method for default</span>
 <span class='fu'>posterior_interval</span>(<span class='no'>object</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -175,13 +195,10 @@ probability mass to include in the intervals.</p></td>
   <a href='https://github.com/stan-dev/rstanarm'>GitHub</a>).</p></li>
 </ul>
     <ul>
-<li><p>The guidelines for developers of <span style="R">R</span> packages interfacing with Stan, a
-  copy of which can be found in the package vignettes. See
-  <code>browseVignettes("rstantools")</code> or <code>vignette(package =
-  "rstantools")</code>. The document is also available online at the
-  <span class="pkg">rstantools</span> page on the
-  <a href='https://CRAN.R-project.org/package=rstantools/vignettes/developer-guidelines.html'>CRAN
-  website</a>.</p></li>
+<li><p>Guidelines and recommendations for developers of <span style="R">R</span> packages
+  interfacing with Stan and a demonstration getting a simple package working
+  can be found in the vignettes included with <span class="pkg">rstantools</span> and at
+  <a href='http://mc-stan.org/rstantools/articles/'>http://mc-stan.org/rstantools/articles/</a>.</p></li>
 </ul>
     
 
@@ -206,11 +223,11 @@ probability mass to include in the intervals.</p></td>
     <span class='kw'>iter</span> <span class='kw'>=</span> <span class='fl'>500</span> <span class='co'># to speed up example</span>
   )
   <span class='fu'>posterior_interval</span>(<span class='no'>fit</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
-}</div><div class='output co'>#&gt; <span class='message'>trying deprecated constructor; please alert package maintainer</span></div><div class='output co'>#&gt; 
+}</div><div class='output co'>#&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 1).
 #&gt; 
-#&gt; Gradient evaluation took 3.2e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.32 seconds.
+#&gt; Gradient evaluation took 8.4e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.84 seconds.
 #&gt; Adjust your expectations accordingly!
 #&gt; 
 #&gt; 
@@ -227,15 +244,15 @@ probability mass to include in the intervals.</p></td>
 #&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
 #&gt; Iteration: 500 / 500 [100%]  (Sampling)
 #&gt; 
-#&gt;  Elapsed Time: 0.134439 seconds (Warm-up)
-#&gt;                0.086881 seconds (Sampling)
-#&gt;                0.22132 seconds (Total)
+#&gt;  Elapsed Time: 0.119861 seconds (Warm-up)
+#&gt;                0.085531 seconds (Sampling)
+#&gt;                0.205392 seconds (Total)
 #&gt; 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 2).
 #&gt; 
-#&gt; Gradient evaluation took 3.7e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.37 seconds.
+#&gt; Gradient evaluation took 2.8e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.28 seconds.
 #&gt; Adjust your expectations accordingly!
 #&gt; 
 #&gt; 
@@ -252,9 +269,9 @@ probability mass to include in the intervals.</p></td>
 #&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
 #&gt; Iteration: 500 / 500 [100%]  (Sampling)
 #&gt; 
-#&gt;  Elapsed Time: 0.13981 seconds (Warm-up)
-#&gt;                0.067828 seconds (Sampling)
-#&gt;                0.207638 seconds (Total)
+#&gt;  Elapsed Time: 0.135687 seconds (Warm-up)
+#&gt;                0.106804 seconds (Sampling)
+#&gt;                0.242491 seconds (Total)
 #&gt; 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 3).
@@ -277,15 +294,15 @@ probability mass to include in the intervals.</p></td>
 #&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
 #&gt; Iteration: 500 / 500 [100%]  (Sampling)
 #&gt; 
-#&gt;  Elapsed Time: 0.13173 seconds (Warm-up)
-#&gt;                0.126392 seconds (Sampling)
-#&gt;                0.258122 seconds (Total)
+#&gt;  Elapsed Time: 0.131535 seconds (Warm-up)
+#&gt;                0.063969 seconds (Sampling)
+#&gt;                0.195504 seconds (Total)
 #&gt; 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 4).
 #&gt; 
-#&gt; Gradient evaluation took 2.7e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.27 seconds.
+#&gt; Gradient evaluation took 3.7e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.37 seconds.
 #&gt; Adjust your expectations accordingly!
 #&gt; 
 #&gt; 
@@ -302,11 +319,10 @@ probability mass to include in the intervals.</p></td>
 #&gt; Iteration: 450 / 500 [ 90%]  (Sampling)
 #&gt; Iteration: 500 / 500 [100%]  (Sampling)
 #&gt; 
-#&gt;  Elapsed Time: 0.113335 seconds (Warm-up)
-#&gt;                0.06704 seconds (Sampling)
-#&gt;                0.180375 seconds (Total)
-#&gt; </div><div class='output co'>#&gt; <span class='warning'>Warning: There were 2 divergent transitions after warmup. Increasing adapt_delta above 0.95 may help. See</span>
-#&gt; <span class='warning'>http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Examine the pairs() plot to diagnose sampling problems</span></div><div class='output co'>#&gt; <span class='error'>Error in posterior_interval.default(fit, prob = 0.5): For the default method 'object' should be a matrix.</span></div><div class='input'>
+#&gt;  Elapsed Time: 0.12427 seconds (Warm-up)
+#&gt;                0.102822 seconds (Sampling)
+#&gt;                0.227092 seconds (Total)
+#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in posterior_interval.default(fit, prob = 0.5): For the default method 'object' should be a matrix.</span></div><div class='input'>
 # Also see help("posterior_interval", package = "rstanarm")
 
 </div></pre>
@@ -332,11 +348,14 @@ probability mass to include in the intervals.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+
   </body>
 </html>
+

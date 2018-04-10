@@ -17,9 +17,12 @@ interfacing with [Stan](http://mc-stan.org), including functions to set up the
 required package structure, S3 generic methods to unify function naming across
 Stan-based R packages, and vignettes with guidelines for developers.
 
-To get started building a package see the 
-[Guidelines for Developers of R Packages Interfacing with Stan](http://mc-stan.org/rstantools/articles/developer-guidelines.html)
-vignette.
+To get started building a package see the two __rstantools__ vignettes for
+developers:
+
+* [Guidelines for Developers of R Packages Interfacing with Stan](http://mc-stan.org/rstantools/articles/developer-guidelines.html)
+
+* [Step by step guide for creating a package that depends on RStan](http://mc-stan.org/rstantools/articles/minimal-rstan-package.html)
 
 <br>
 
@@ -34,8 +37,9 @@ install.packages("rstantools")
 Install latest development version from **GitHub** (requires [devtools](https://github.com/hadley/devtools) package):
 
 ```r
-if (!require("devtools"))
+if (!require("devtools")) {
   install.packages("devtools")
+}
 
 devtools::install_github("stan-dev/rstantools", build_vignettes = TRUE)
 ```
