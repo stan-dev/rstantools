@@ -39,7 +39,8 @@ regression models. See \code{bayes_R2.stanreg} in the
 }
 
 \itemize{
-  \item Guidelines and for developers of \R packages interfacing with Stan
+  \item Guidelines and recommendations for developers of \R packages
+  interfacing with Stan and a demonstration getting a simple package working
   can be found in the vignettes included with \pkg{rstantools} and at
   \url{http://mc-stan.org/rstantools/articles/}.
 }

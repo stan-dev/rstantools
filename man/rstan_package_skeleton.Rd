@@ -2,14 +2,14 @@
 % Please edit documentation in R/rstan_package_skeleton.R
 \name{rstan_package_skeleton}
 \alias{rstan_package_skeleton}
-\title{Create a skeleton for a new \R package with Stan programs}
+\title{Create the skeleton of a new \R package with Stan programs}
 \usage{
 rstan_package_skeleton(name = "anRpackage", list = character(),
   environment = .GlobalEnv, path = ".", force = FALSE,
   code_files = character(), stan_files = character(), travis = TRUE)
 }
 \arguments{
-\item{name, list, environment, path, force, code_files}{See
+\item{name, list, environment, path, force, code_files}{Same as
 \code{\link[utils]{package.skeleton}}.}
 
 \item{stan_files}{A character vector with paths to \code{.stan} files to
@@ -18,19 +18,29 @@ include in the package (these files will be included in the
 \code{code_files} argument.}
 
 \item{travis}{Should a \code{.travis.yml} file be added to the package
-directory? Defaults to \code{TRUE}.}
+directory? Defaults to \code{TRUE}. The file has some settings already set
+to help with compilation issues, but we do not guarantee that it will work
+on \href{https://travis-ci.org/}{travis-ci}.}
 }
 \description{
-This function is very similar to \code{\link[utils]{package.skeleton}} but is
-designed for source packages that want to include Stan Programs that can be
-built into binary versions. See \strong{Details} for a few ways that it
-differs from \code{package.skeleton}.
+\if{html}{\figure{stanlogo.png}{options: width="50px" alt="http://mc-stan.org/about/logo/"}}
+  The \code{rstan_package_skeleton} function helps get you started developing
+  \R packages that interface with Stan via the \pkg{rstan} package.
+  \code{rstan_package_skeleton} is very similar to
+  \code{\link[utils]{package.skeleton}} but is designed for source packages
+  that want to include Stan Programs that can be built into binary versions
+  (i.e., pre-compiled like \pkg{rstanarm}). See \strong{Details} for a few
+  ways that it differs from \code{package.skeleton}.
+
+  See the \strong{See Also} section below for links to recommendations for
+  developers and a step by step walkthrough of what to do after running
+  \code{rstan_package_skeleton}.
 }
 \details{
 This function first calls \code{\link[utils]{package.skeleton}} and
   then adds the files listed in \code{stan_files} to the
   \code{src/stan_files} directory. Finally, it downloads several files from
-  the \pkg{rstanarm} package's
+  \pkg{rstanarm} package's
   \href{http://github.com/stan-dev/rstanarm}{GitHub repository} to facilitate
   building the resulting package. Note that \pkg{\link[rstanarm]{rstanarm}}
   is licensed under the GPL >= 3, so package builders who do not want to be
@@ -48,12 +58,9 @@ This function first calls \code{\link[utils]{package.skeleton}} and
   \code{rstan_package_skeleton} will run \code{roxygen2::roxygenise} so that
   the NAMESPACE is created.
 
-  \code{rstan_package_skeleton} will also create a RStudio project file
+  \code{rstan_package_skeleton} will also create an RStudio project file
   for the package with a \code{.Rproj} extension. If not using RStudio
   this file can be deleted or ignored.
-
-  After running \code{rstan_package_skeleton} see the
-  \code{Read-and-delete-me} file created in the package directory.
 }
 \seealso{
 \itemize{
@@ -61,7 +68,8 @@ This function first calls \code{\link[utils]{package.skeleton}} and
 }
 
 \itemize{
-  \item Guidelines and for developers of \R packages interfacing with Stan
+  \item Guidelines and recommendations for developers of \R packages
+  interfacing with Stan and a demonstration getting a simple package working
   can be found in the vignettes included with \pkg{rstantools} and at
   \url{http://mc-stan.org/rstantools/articles/}.
 }

@@ -2,8 +2,8 @@
 
 (Github issue/PR numbers in parentheses)
 
-* Update `rstan_package_skeleton()` so that it creates the necessary content 
-in NAMESPACE for the user (related to #19).
+* Update `rstan_package_skeleton()` for latest build process (#19)
+* `rstan_package_skeleton` now does a bit more work for the user to make sure the the NAMESPACE file is correct.
 * Simplify instructions in Read-and-delete-me (related to #19).
 * New vignette walking through the package creation process. (#9) (thanks to Stefan Siegert)
 

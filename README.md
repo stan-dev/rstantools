@@ -6,10 +6,14 @@
 [![codecov](https://codecov.io/gh/stan-dev/rstantools/branch/master/graph/badge.svg)](https://codecov.io/gh/stan-dev/rstantools)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rstantools?color=blue)](http://cran.r-project.org/web/packages/rstantools)
 
- The __rstantools__ package provides tools for developing R packages interfacing with [Stan](http://mc-stan.org/).   
- Guidelines for developers are included with the package as a vignette:
-
+The __rstantools__ package provides tools for developing R packages interfacing
+with [Stan](http://mc-stan.org/). The package vignettes provides guidelines and
+recommendations for developers as well as a demonstration of creating a working
+package with a pre-compiled Stan program.
+ 
 * [Guidelines for Developers of R Packages Interfacing with Stan](http://mc-stan.org/rstantools/articles/developer-guidelines.html)
+
+* [Step by step guide for creating a package that depends on RStan](http://mc-stan.org/rstantools/articles/minimal-rstan-package.html)
 
 ### Resources
 
@@ -29,9 +33,11 @@ install.packages("rstantools")
 * Install latest development version from GitHub (requires [devtools](https://github.com/hadley/devtools) package):
 
 ```r
-if (!require("devtools"))
+if (!require("devtools")) {
   install.packages("devtools")
+}
   
 devtools::install_github("stan-dev/rstantools", build_vignettes = TRUE)
 ```
+
 

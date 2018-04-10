@@ -16,27 +16,38 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
 
-#' Create a skeleton for a new \R package with Stan programs
+#' Create the skeleton of a new \R package with Stan programs
 #'
-#' This function is very similar to \code{\link[utils]{package.skeleton}} but is
-#' designed for source packages that want to include Stan Programs that can be
-#' built into binary versions. See \strong{Details} for a few ways that it
-#' differs from \code{package.skeleton}.
+#' @description
+#'   \if{html}{\figure{stanlogo.png}{options: width="50px" alt="http://mc-stan.org/about/logo/"}}
+#'   The \code{rstan_package_skeleton} function helps get you started developing
+#'   \R packages that interface with Stan via the \pkg{rstan} package.
+#'   \code{rstan_package_skeleton} is very similar to
+#'   \code{\link[utils]{package.skeleton}} but is designed for source packages
+#'   that want to include Stan Programs that can be built into binary versions
+#'   (i.e., pre-compiled like \pkg{rstanarm}). See \strong{Details} for a few
+#'   ways that it differs from \code{package.skeleton}.
+#'
+#'   See the \strong{See Also} section below for links to recommendations for
+#'   developers and a step by step walkthrough of what to do after running
+#'   \code{rstan_package_skeleton}.
 #'
 #' @export
-#' @param name,list,environment,path,force,code_files See
+#' @param name,list,environment,path,force,code_files Same as
 #'   \code{\link[utils]{package.skeleton}}.
 #' @param stan_files A character vector with paths to \code{.stan} files to
 #'   include in the package (these files will be included in the
 #'   \code{src/stan_files} directory). Otherwise similar to the
 #'   \code{code_files} argument.
 #' @param travis Should a \code{.travis.yml} file be added to the package
-#'   directory? Defaults to \code{TRUE}.
+#'   directory? Defaults to \code{TRUE}. The file has some settings already set
+#'   to help with compilation issues, but we do not guarantee that it will work
+#'   on \href{https://travis-ci.org/}{travis-ci}.
 #'
 #' @details This function first calls \code{\link[utils]{package.skeleton}} and
 #'   then adds the files listed in \code{stan_files} to the
 #'   \code{src/stan_files} directory. Finally, it downloads several files from
-#'   the \pkg{rstanarm} package's
+#'   \pkg{rstanarm} package's
 #'   \href{http://github.com/stan-dev/rstanarm}{GitHub repository} to facilitate
 #'   building the resulting package. Note that \pkg{\link[rstanarm]{rstanarm}}
 #'   is licensed under the GPL >= 3, so package builders who do not want to be
@@ -54,12 +65,9 @@
 #'   \code{rstan_package_skeleton} will run \code{roxygen2::roxygenise} so that
 #'   the NAMESPACE is created.
 #'
-#'   \code{rstan_package_skeleton} will also create a RStudio project file
+#'   \code{rstan_package_skeleton} will also create an RStudio project file
 #'   for the package with a \code{.Rproj} extension. If not using RStudio
 #'   this file can be deleted or ignored.
-#'
-#'   After running \code{rstan_package_skeleton} see the
-#'   \code{Read-and-delete-me} file created in the package directory.
 #'
 #' @seealso
 #' \itemize{
@@ -89,8 +97,10 @@ rstan_package_skeleton <-
     message("Creating package skeleton for package: ", name, domain = NA)
 
     if (length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files))) {
-      stop("All files named in 'stan_files' must end ",
-           "with a '.stan' extension.")
+      stop(
+        "All files named in 'stan_files' must end with a ",
+        "'.stan' extension."
+      )
     }
 
     mc <- match.call()
