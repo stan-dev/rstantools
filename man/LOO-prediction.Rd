@@ -51,8 +51,8 @@ See the methods in the \pkg{\link[rstanarm]{rstanarm}} package for examples.
 }
 
 \itemize{
-  \item Guidelines for developers of \R packages interfacing with Stan can be
-  found in the vignettes included with \pkg{rstantools} and at
+  \item Guidelines and for developers of \R packages interfacing with Stan
+  can be found in the vignettes included with \pkg{rstantools} and at
   \url{http://mc-stan.org/rstantools/articles/}.
 }
 }
