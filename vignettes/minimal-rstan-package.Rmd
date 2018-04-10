@@ -202,7 +202,7 @@ The top-level package file `R/rstanlm-package.R` has already been created by
 of our package:
 
 ```{r, eval=FALSE}
-pkg_file <- readLines(file.path("rstanlm", "R", "rstanlm-package.R"))
+pkg_file <- readLines(file.path("R", "rstanlm-package.R"))
 cat(pkg_file, sep = "\n")
 ```
 ```{r, echo=FALSE}
