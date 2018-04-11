@@ -22,32 +22,30 @@
 #'   \if{html}{\figure{stanlogo.png}{options: width="50px" alt="http://mc-stan.org/about/logo/"}}
 #'   The \code{rstan_package_skeleton} function helps get you started developing
 #'   \R packages that interface with Stan via the \pkg{rstan} package.
-#'   \code{rstan_package_skeleton} is very similar to
-#'   \code{\link[utils]{package.skeleton}} but is designed for source packages
-#'   that want to include Stan Programs that can be built into binary versions
-#'   (i.e., pre-compiled like \pkg{rstanarm}). See \strong{Details} for a few
-#'   ways that it differs from \code{package.skeleton}.
+#'   As of \pkg{rstantools} v1.5.0, \code{rstan_package_skeleton}
+#'   calls \code{usethis::create_package} (instead of \code{utils::package.skeleton})
+#'   and then makes necessary adjustments so that the package can include Stan Programs that can be built into binary versions
+#'   (i.e., pre-compiled like \pkg{rstanarm}).
 #'
 #'   See the \strong{See Also} section below for links to recommendations for
 #'   developers and a step by step walkthrough of what to do after running
 #'   \code{rstan_package_skeleton}.
 #'
 #' @export
-#' @param name,list,environment,path,force,code_files Same as
-#'   \code{\link[utils]{package.skeleton}}.
+#' @param path A relative or absolute path to the new package to be created
+#'   (terminating in the package name).
+#' @param fields,rstudio,open See \code{usethis::create_package}.
 #' @param stan_files A character vector with paths to \code{.stan} files to
 #'   include in the package (these files will be included in the
-#'   \code{src/stan_files} directory). Otherwise similar to the
-#'   \code{code_files} argument.
+#'   \code{src/stan_files} directory). If not specified then the \code{.stan}
+#'   files for the package can be manually placed into the appropriate directory
+#'   later.
 #' @param travis Should a \code{.travis.yml} file be added to the package
 #'   directory? Defaults to \code{TRUE}. The file has some settings already set
 #'   to help with compilation issues, but we do not guarantee that it will work
-#'   on \href{https://travis-ci.org/}{travis-ci}.
+#'   on \href{https://travis-ci.org/}{travis-ci} without manual adjustments.
 #'
-#' @details This function first calls \code{\link[utils]{package.skeleton}} and
-#'   then adds the files listed in \code{stan_files} to the
-#'   \code{src/stan_files} directory. Finally, it downloads several files from
-#'   \pkg{rstanarm} package's
+#' @note This function downloads several files from \pkg{rstanarm} package's
 #'   \href{http://github.com/stan-dev/rstanarm}{GitHub repository} to facilitate
 #'   building the resulting package. Note that \pkg{\link[rstanarm]{rstanarm}}
 #'   is licensed under the GPL >= 3, so package builders who do not want to be
@@ -56,18 +54,6 @@
 #'   files is not the only thing impeding use of other licenses). Otherwise, it
 #'   may be worth considering whether it would be easier to include your
 #'   \code{.stan} programs and supporting \R code in the \pkg{rstanarm} package.
-#'
-#'   Unlike \code{package.skeleton}, \code{rstan_package_skeleton} also creates
-#'   a file in the \code{R/} directory called "\code{name}-package.R", where
-#'   \code{name} is the package name. In this file \code{rstan_package_skeleton}
-#'   writes lines (using \pkg{roxygen2} tags) for ensuring that some necessary
-#'   content makes it into the \code{NAMESPACE} file. Before terminating,
-#'   \code{rstan_package_skeleton} will run \code{roxygen2::roxygenise} so that
-#'   the NAMESPACE is created.
-#'
-#'   \code{rstan_package_skeleton} will also create an RStudio project file
-#'   for the package with a \code{.Rproj} extension. If not using RStudio
-#'   this file can be deleted or ignored.
 #'
 #' @seealso
 #' \itemize{
@@ -81,19 +67,28 @@
 #'
 #'
 rstan_package_skeleton <-
-  function(name = "anRpackage",
-           list = character(),
-           environment = .GlobalEnv,
-           path = ".",
-           force = FALSE,
-           code_files = character(),
+  function(path,
+           fields = getOption("devtools.desc"),
+           rstudio = TRUE,
+           open = TRUE,
            stan_files = character(),
            travis = TRUE) {
 
+    if (!requireNamespace("usethis", quietly = TRUE)) {
+      stop("Please install the 'usethis' package to use this function.")
+    }
+    if (!requireNamespace("rstudioapi", quietly = TRUE)) {
+      stop("Please install the 'rstudioapi' package to use this function.")
+    }
     if (!requireNamespace("roxygen2", quietly = TRUE)) {
       stop("Please install the 'roxygen2' package to use this function.")
     }
 
+    rstudio <- rstudio && rstudioapi::isAvailable()
+    if (file.exists(path)) {
+      stop("Directory ", normalizePath(path), " already exists.")
+    }
+    name <- basename(path)
     message("Creating package skeleton for package: ", name, domain = NA)
 
     if (length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files))) {
@@ -103,123 +98,125 @@ rstan_package_skeleton <-
       )
     }
 
-    mc <- match.call()
-    mc$stan_files <- NULL
-    mc[[1]] <- quote(utils::package.skeleton)
+    message("Running usethis::create_package ...", domain = NA)
+    usethis::create_package(
+        path = path,
+        fields = fields,
+        rstudio = rstudio,
+        open = FALSE
+      )
 
-    if (is.null(mc$environment)) {
-      has_objects <- length(ls(envir = environment))
-      if (!has_objects) {
-        mc$environment <- new.env(parent = emptyenv())
-        mc$environment$delete_data <- "placeholder data to avoid package.skeleton error"
-      }
+    DIR <- normalizePath(path)
+    if (open && rstudio) {
+      on.exit(rstudioapi::openProject(DIR, newSession = TRUE))
     }
 
-    message("Running package.skeleton ...", domain = NA)
-    suppressMessages(eval(mc))
-    DIR <- file.path(path, name)
 
-    message("Creating tools directory ...", domain = NA)
-    TOOLS <- file.path(DIR, "tools")
-    dir.create(TOOLS)
+    # tools
+    usethis::use_directory("tools")
     download.file(
       .rstanarm_path("tools/make_cc.R"),
-      destfile = file.path(TOOLS, "make_cc.R"),
+      destfile = file.path(DIR, "tools", "make_cc.R"),
       quiet = TRUE
     )
 
-    message("Creating src directory ...", domain = NA)
-    SRC <- file.path(DIR, "src")
-    dir.create(SRC, showWarnings = FALSE)
+
+    # src
+    usethis::use_directory("src")
     download.file(
       .rstanarm_path("src/Makevars"),
-      destfile = file.path(SRC, "Makevars"),
+      destfile = file.path(DIR, "src", "Makevars"),
       quiet = TRUE
     )
     download.file(
       .rstanarm_path("src/Makevars.win"),
-      destfile = file.path(SRC, "Makevars.win"),
+      destfile = file.path(DIR, "src", "Makevars.win"),
       quiet = TRUE
     )
 
     # register cpp (src/init.cpp)
     init_cpp(name, path = DIR)
 
-    message("Creating directory for .stan files ...", domain = NA)
-    STAN_FILES <- file.path(SRC, "stan_files")
-    dir.create(STAN_FILES)
+    usethis::use_directory(file.path("src", "stan_files"))
+    STAN_FILES <- file.path(DIR, "src", "stan_files")
     file.copy(stan_files, STAN_FILES)
 
-    message("Creating directory for Stan code chunks ...", domain = NA)
-    CHUNKS <- file.path(STAN_FILES, "chunks")
-    dir.create(CHUNKS)
+    usethis::use_directory(file.path("src", "stan_files", "chunks"))
     download.file(
       .rstanarm_path("src/stan_files/pre/license.stan"),
-      destfile = file.path(CHUNKS, "license.stan"),
-      quiet = TRUE
-    )
-    system2("sed", args = paste0("-i.bak 's@rstanarm@", name, "@g' ",
-                                 file.path(CHUNKS, "license.stan")),
-            stdout = FALSE, stderr = FALSE)
-    file.remove(file.path(CHUNKS, "license.stan.bak"))
-
-    message("Creating directory for custom C++ functions ...", domain = NA)
-    INST <- file.path(DIR, "inst")
-    dir.create(INST)
-    INCLUDE <- file.path(INST, "include")
-    dir.create(INCLUDE)
-    cat("// Insert all #include<foo.hpp> statements here",
-        file = file.path(INCLUDE, "meta_header.hpp"), sep = "\n")
-
-
-    message("Cleaning up unused files ...", domain = NA)
-    .remove_unused_files(DIR)
-
-    message("Updating DESCRIPTION ...", domain = NA)
-    .update_description_file(DIR)
-
-    message("Updating R directory ...", domain = NA)
-    R <- file.path(DIR, "R")
-    dir.create(R, showWarnings = FALSE)
-    download.file(
-      .rstanarm_path("R/stanmodels.R"),
-      destfile = file.path(R, "stanmodels.R"),
+      destfile = file.path(STAN_FILES, "chunks", "license.stan"),
       quiet = TRUE
     )
     system2(
       "sed",
-      args = paste0("-i.bak 's@rstanarm@", name, "@g' ", file.path(R, "stanmodels.R")),
+      args = paste0(
+        "-i.bak 's@rstanarm@", name, "@g' ",
+        file.path(STAN_FILES, "chunks", "license.stan")
+      ),
       stdout = FALSE,
       stderr = FALSE
     )
-    file.remove(file.path(R, "stanmodels.R.bak"))
+    file.remove(file.path(STAN_FILES, "chunks", "license.stan.bak"))
+
+
+    # inst
+    usethis::use_directory("inst")
+    usethis::use_directory(file.path("inst", "include"))
+    cat("// Insert all #include<foo.hpp> statements here",
+        file = file.path(DIR, "inst", "include", "meta_header.hpp"), sep = "\n")
+
+
+    # R
+    message("Updating R directory ...", domain = NA)
+    download.file(
+      .rstanarm_path("R/stanmodels.R"),
+      destfile = file.path(DIR, "R", "stanmodels.R"),
+      quiet = TRUE
+    )
+    system2(
+      "sed",
+      args = paste0("-i.bak 's@rstanarm@", name, "@g' ",
+                    file.path(DIR, "R", "stanmodels.R")),
+      stdout = FALSE,
+      stderr = FALSE
+    )
+    file.remove(file.path(DIR, "R", "stanmodels.R.bak"))
     cat(
       '.onLoad <- function(libname, pkgname) {',
       '  modules <- paste0("stan_fit4", names(stanmodels), "_mod")',
       '  for (m in modules) loadModule(m, what = TRUE)',
       '}',
-      file = file.path(R, "zzz.R"),
+      file = file.path(DIR, "R", "zzz.R"),
       sep = "\n",
       append = TRUE
     )
     .write_main_package_R_file(DIR)
 
+
+    # travis (experimental feature)
     if (travis) {
       message("Adding .travis.yml file ...", domain = NA)
       .create_travis_file(DIR)
     }
 
-    # rstudio project file
-    .create_rproj(DIR)
+
+    # description, namespace, read-and-delete-me
+    message("Updating DESCRIPTION with necessary dependencies ...", domain = NA)
+    .update_description_file(DIR)
 
     message("Updating NAMESPACE ...", domain=NA)
+    NAMESPACE <- file.path(DIR, "NAMESPACE")
+    if (file.exists(NAMESPACE)) {
+      file.remove(NAMESPACE)
+    }
     suppressMessages(roxygen2::roxygenise(package.dir = DIR, clean = TRUE))
 
     message("Writing Read-and-delete-me file with additional instructions ...",
             domain = NA)
     .write_read_and_delete_me(DIR)
 
-    message("Finished skeleton for package: ", name, ".\n")
+
+    message("\nFinished skeleton for package: ", name)
     message(
       domain = NA,
       sprintf(
@@ -228,8 +225,9 @@ rstan_package_skeleton <-
       )
     )
 
-    invisible(NULL)
+    invisible(TRUE)
   }
+
 
 
 # internal ----------------------------------------------------------------
@@ -317,42 +315,6 @@ rstan_package_skeleton <-
   )
 }
 
-.remove_unused_files <- function(dir) {
-  pkgname <- basename(dir)
-
-  if (file.exists(file.path(dir, "NAMESPACE"))) {
-    file.remove(file.path(dir, "NAMESPACE"))
-  }
-
-  DATA <- file.path(dir, "data")
-  DATA_files <- list.files(DATA)
-  if (file.exists(DATA)) {
-    if (file.exists(file.path(DATA, "delete_data.rda"))) {
-      file.remove(file.path(DATA, "delete_data.rda"))
-    }
-    if (!length(DATA_files)) {
-      file.remove(DATA)
-    }
-  }
-
-  MAN <- file.path(dir, "man")
-  if (file.exists(file.path(MAN, "delete_data.Rd"))) {
-    file.remove(file.path(MAN, "delete_data.Rd"))
-  }
-  if (file.exists(file.path(MAN, paste0(pkgname, "-package.Rd")))) {
-    file.remove(file.path(MAN, paste0(pkgname, "-package.Rd")))
-  }
-
-  if (length(DATA_files)) {
-    # remove man files for data objects (can have missing content that messes up
-    # devtools::install)
-    MAN_files <- file.path(MAN, gsub(".rda", ".Rd", DATA_files))
-    for (j in seq_along(MAN_files)) {
-      if (file.exists(MAN_files[j])) file.remove(MAN_files[j])
-    }
-  }
-}
-
 
 .rstan_reference <- function() {
   has_version <- utils::packageDescription("rstan", fields = "Version")
@@ -362,25 +324,6 @@ rstan_package_skeleton <-
     "RStan: the R interface to Stan. ",
     "R package version ", has_version, ". ",
     "http://mc-stan.org"
-  )
-}
-
-.create_rproj <- function(dir) {
-  pkgname <- basename(dir)
-  if (!file.exists(file.path(dir, paste0(pkgname, ".Rproj")))) {
-    message("Creating .Rproj file ...")
-    download.file(
-      "https://raw.githubusercontent.com/rstudio/ptexamples/master/ptexamples.Rproj",
-      destfile = file.path(dir, paste0(pkgname, ".Rproj")),
-      quiet = TRUE
-    )
-  }
-  cat(
-    "^.*\\.Rproj$",
-    "^\\.Rproj\\.user$",
-    file = file.path(dir, ".Rbuildignore"),
-    sep = "\n",
-    append = TRUE
   )
 }
 
