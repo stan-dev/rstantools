@@ -37,7 +37,7 @@ a simple linear regression model using Stan.
 library("rstantools")
 rstan_package_skeleton(name = 'rstanlm')
 ```
-```{r, results='hold', echo=FALSE,warning=FALSE,message=FALSE}
+```{r, results='hold', echo=FALSE,warning=FALSE}
 library("rstantools")
 if (file.exists("rstanlm")) {
   unlink("rstanlm", recursive = TRUE)
@@ -63,8 +63,7 @@ list.files("rstanlm", all.files = TRUE)
 ```
 
 ```{r, eval=FALSE}
-DES <- readLines("DESCRIPTION")
-cat(DES, sep = "\n")
+file.show("DESCRIPTION")
 ```
 ```{r, echo=FALSE}
 DES <- readLines("rstanlm/DESCRIPTION")
@@ -83,7 +82,7 @@ directory make sure to read it because it contains some
 important instructions about customizing your package:
 
 ```{r, eval=FALSE}
-cat(readLines("Read-and-delete-me"), sep = "\n")
+file.show("Read-and-delete-me")
 ```
 ```{r, echo=FALSE}
 cat(readLines("rstanlm/Read-and-delete-me"), sep = "\n")
@@ -202,8 +201,7 @@ The top-level package file `R/rstanlm-package.R` has already been created by
 of our package:
 
 ```{r, eval=FALSE}
-pkg_file <- readLines(file.path("R", "rstanlm-package.R"))
-cat(pkg_file, sep = "\n")
+file.show(file.path("R", "rstanlm-package.R"))
 ```
 ```{r, echo=FALSE}
 cat(readLines(file.path("rstanlm", "R", "rstanlm-package.R")), sep = "\n")
