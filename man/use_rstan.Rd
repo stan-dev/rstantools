@@ -11,6 +11,9 @@ use_rstan(pkgdir = ".", license = TRUE)
 
 \item{license}{Logical or character; whether or not to paste the contents of a \code{license.stan} file at the top of all Stan code, or path to such a file.  If \code{TRUE} adds the default \code{GPL (>= 3)} license provided by \pkg{rstantools}.}
 }
+\value{
+Invisibly, whether or not any files or folders where created or modified.
+}
 \description{
 Add Stan infrastructure to an existing package.
 }

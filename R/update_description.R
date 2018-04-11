@@ -1,6 +1,9 @@
 # update DESCRIPTION file to include all packages required to compile Stan code.
-.update_description <- function(pkgdir) {
+# msg: display message if attempt to create is made
+# return value: whether or not file was modified
+.update_description <- function(pkgdir, msg = TRUE) {
   desc_pkg <- read.dcf(file.path(pkgdir, "DESCRIPTION"))
+  desc_old <- desc_pkg
   desc_rstan <- read.dcf(.system_file("DESCRIPTION"))
   dep_fields <- c("Depends", "Imports", "LinkingTo", "Suggests", "Enhances")
   pkg_fields <- dep_fields[dep_fields %in% colnames(desc_rstan)]
@@ -14,10 +17,15 @@
     }
   }
   desc_pkg <- .format_description(desc_pkg)
-  dep_fields <- dep_fields[dep_fields %in% colnames(desc_pkg)]
-  write.dcf(desc_pkg, file = file.path(pkgdir, "DESCRIPTION"),
-            keep.white = dep_fields)
-  invisible(NULL)
+  # check if description has changed
+  acc <- !identical(desc_pkg, .format_description(desc_old))
+  if(acc) {
+    if(msg) message("Updating DESCRIPTION ...")
+    dep_fields <- dep_fields[dep_fields %in% colnames(desc_pkg)]
+    write.dcf(desc_pkg, file = file.path(pkgdir, "DESCRIPTION"),
+              keep.white = dep_fields)
+  }
+  invisible(acc)
 }
 
 #--- helper functions ----------------------------------------------------------
@@ -39,7 +47,7 @@
 
 # recombine into single string
 .version_comb <- function(ver) {
-  pkgs <- apply(ver, 1, paste0, collapse = " ")
+  pkgs <- apply(ver, 1, function(vv) paste0(vv[vv != ""], collapse = " "))
   setNames(paste0(pkgs, collapse = ", "), NULL)
 }
 

@@ -98,20 +98,22 @@ rstan_package_skeleton_plus <- function(name = "anRpackage",
   # add stan compile + export functionality
   # add travis file
   if(travis) {
-    message("Adding .travis.yml file ...", domain = NA)
     travis_file <- readLines(.system_file(".travis.yml"))
     .add_stanfile(gsub("RSTAN_PACKAGE_NAME", basename(pkgdir), travis_file),
-                  pkgdir, ".travis.yml", noedit = FALSE)
+                  pkgdir, ".travis.yml",
+                  noedit = FALSE, msg = TRUE, warn = FALSE)
     # also create an .Rbuildignore for travis file
     .add_stanfile("^\\.travis\\.yml$", pkgdir, ".Rbuildignore",
                   noedit = FALSE)
   }
-  # add useDynlib to namespace
-  message("Adding import(Rcpp, methods) and useDynLib to NAMESPACE ...")
-  cat("import(Rcpp, methods)",
-      paste0("useDynLib(", basename(pkgdir), ", .registration = TRUE)"),
-      file = file.path(pkgdir, "NAMESPACE"),
-      sep = "\n", append = TRUE)
+  ## if(length(stan_files) > 0) {
+  ##   # add useDynlib to namespace
+  ##   message("Adding import(Rcpp, methods) and useDynLib to NAMESPACE ...")
+  ##   cat("import(Rcpp, methods)",
+  ##       paste0("useDynLib(", basename(pkgdir), ", .registration = TRUE)"),
+  ##       file = file.path(pkgdir, "NAMESPACE"),
+  ##       sep = "\n", append = TRUE)
+  ## }
   # add stan folder structure
   use_rstan(pkgdir, license = license)
   # add user's stan files
@@ -129,3 +131,54 @@ rstan_package_skeleton_plus <- function(name = "anRpackage",
                   file.path(basename(pkgdir), "Read-and-delete-me")))
   invisible(NULL)
 }
+
+#-------------------------------------------------------------------------------
+
+## outline of steps:
+
+## 1. run package skeleton.
+##    - rm man files
+
+## 2. create stan_dirs.
+##    - inst/stan
+##    - inst/stan/include
+##    - inst/include
+##    - src/stan_files
+##    - if(!exists) message
+
+## 3. add default files.
+##    - src/stan_init.cpp
+##    - inst/include/stan_meta_header.cpp
+
+## 4. update NAMESPACE
+##    - if(default) modify else message(remaining steps)
+
+## 5. update DESCRIPTION
+##    - if(modified) message else do_nothing
+
+## 4. add stan_files
+
+## 5. configure build
+##    - make src/stan_files/*.{cc/hpp}
+##      only overwrite if different
+##    - add src/Makevars[.win]
+##      only overwrite if different
+##    - add R/stanmodels.R
+##    - if(is_empty(inst/stan)) no Makevars, empty stanmodels.R
+
+## messages:
+##   - when creating directories
+##   - when updating DESCRIPTION or NAMESPACE
+##   - when adding files? sometimes
+
+## warnings:
+##   - when attempting to overwrite non-stan file with stan file of same name
+
+## error:
+##   - when {dir/file}.create fails even though it doesn't exist
+
+
+## ok stan_meta_header.hpp is problematic, because want to warn if already exists, but only if it's there from before...
+
+## so .add_stanfile(file_lines, pkgdir, ...,
+##                  noedit = TRUE, msg = FALSE, warn = TRUE)
