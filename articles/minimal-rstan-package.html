@@ -107,7 +107,7 @@
       <h1>Step by step guide for creating a package that depends on RStan</h1>
                         <h4 class="author">Stefan Siegert, Jonah Gabry, and Ben Goodrich</h4>
             
-            <h4 class="date">2018-04-10</h4>
+            <h4 class="date">2018-04-11</h4>
       
       
 
@@ -125,29 +125,48 @@
 <a href="#creating-the-package-skeleton" class="anchor"></a>Creating the package skeleton</h2>
 <p>To start off, we use <code>rstan_package_skeleton</code> to initialise a bare-bones package directory. The name of our demo package will be <strong>rstanlm</strong>; it will fit a simple linear regression model using Stan.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">"rstantools"</span>)
-<span class="kw"><a href="../reference/rstan_package_skeleton.html">rstan_package_skeleton</a></span>(<span class="dt">name =</span> <span class="st">'rstanlm'</span>)</code></pre></div>
+<span class="kw"><a href="../reference/rstan_package_skeleton.html">rstan_package_skeleton</a></span>(<span class="dt">path =</span> <span class="st">'rstanlm'</span>)</code></pre></div>
+<pre><code>This is rstantools version 1.5.0</code></pre>
+<pre><code>Creating package skeleton for package: rstanlm</code></pre>
+<pre><code>Running usethis::create_package ...</code></pre>
+<pre><code>Changing active project to rstanlm
+✔ Creating 'R/'
+✔ Creating 'man/'
+✔ Writing 'DESCRIPTION'
+✔ Writing 'NAMESPACE'
+✔ Creating 'tools/'
+✔ Creating 'src/'
+✔ Creating 'src/stan_files/'
+✔ Creating 'src/stan_files/chunks/'
+✔ Creating 'inst/'
+✔ Creating 'inst/include/'</code></pre>
+<pre><code>Updating R directory ...</code></pre>
+<pre><code>Adding .travis.yml file ...</code></pre>
+<pre><code>Updating DESCRIPTION with necessary dependencies ...</code></pre>
+<pre><code>Updating NAMESPACE ...</code></pre>
 <pre><code>Writing NAMESPACE
 Writing rstanlm-package.Rd</code></pre>
+<pre><code>Writing Read-and-delete-me file with additional instructions ...</code></pre>
+<pre><code>Finished skeleton for package: rstanlm</code></pre>
+<pre><code>Further steps are described in '/private/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/RtmpPSP3Sk/rstanlm/Read-and-delete-me'.</code></pre>
 <p>If we had existing <code>.stan</code> files to include with the package we could use the optional <code>stan_files</code> argument to <code>rstan_package_skeleton</code> to include them. Another option, which we’ll use below, is to add the Stan files once the basic structure of the package is in place.</p>
-<p>The newly created package directory has the name of the package and its contents are:</p>
+<p>We can now set the new working directory to the new package directory and view the contents. (Note: if using RStudio then by default the newly created project for the package will be opened in a new session and you will not need the call to <code>setwd()</code>.)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">"rstanlm"</span>)
 <span class="kw">list.files</span>(<span class="dt">all.files =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code> [1] "."                  ".."                 ".Rbuildignore"     
- [4] ".travis.yml"        "data"               "DESCRIPTION"       
- [7] "inst"               "man"                "NAMESPACE"         
-[10] "R"                  "Read-and-delete-me" "rstanlm.Rproj"     
-[13] "src"                "tools"             </code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DES &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="st">"DESCRIPTION"</span>)
-<span class="kw">cat</span>(DES, <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</code></pre></div>
+ [4] ".travis.yml"        "DESCRIPTION"        "inst"              
+ [7] "man"                "NAMESPACE"          "R"                 
+[10] "Read-and-delete-me" "src"                "tools"             </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.show</span>(<span class="st">"DESCRIPTION"</span>)</code></pre></div>
 <pre><code>Package: rstanlm
-Type: Package
-Title: What the package does (short line)
-Version: 1.0
-Date: 2018-04-10
-Author: Who wrote it
-Maintainer: Who to complain to &lt;yourfault@somewhere.net&gt;
-Description: More about what it does (maybe more than one line)
+Version: 0.0.0.9000
+Title: What the Package Does (One Line, Title Case)
+Description: What the package does (one paragraph).
+Authors@R: person("First", "Last", , "first.last@example.com", c("aut", "cre"))
 License: GPL (&gt;=3)
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
 Depends: R (&gt;= 3.4.0), Rcpp (&gt;= 0.12.16), methods
 Imports: rstan (&gt;= 2.17.3), rstantools (&gt;= 1.4.0)
 LinkingTo: StanHeaders (&gt;= 2.17.2), rstan (&gt;= 2.17.3), BH (&gt;= 1.66.0-1), Rcpp (&gt;= 0.12.16), RcppEigen (&gt;= 0.3.3.4.0)
@@ -160,7 +179,7 @@ RoxygenNote: 6.0.1</code></pre>
 <h2 class="hasAnchor">
 <a href="#read-and-delete-me-file" class="anchor"></a>Read-and-delete-me file</h2>
 <p>Before deleting the <code>Read-and-delete-me</code> file in the new package directory make sure to read it because it contains some important instructions about customizing your package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cat</span>(<span class="kw">readLines</span>(<span class="st">"Read-and-delete-me"</span>), <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.show</span>(<span class="st">"Read-and-delete-me"</span>)</code></pre></div>
 <pre><code>* The precompiled stanmodel objects will appear in a named list called 'stanmodels', 
 and you can call them with something like rstan::sampling(stanmodels$foo, ...)
 * You can put into src/stan_files/chunks any file that is needed by any .stan file in src/stan_files, 
@@ -214,8 +233,7 @@ lm_stan &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, ...
   <span class="kw">return</span>(out)
 }</code></pre></div>
 <p>The top-level package file <code>R/rstanlm-package.R</code> has already been created by <code><a href="../reference/rstan_package_skeleton.html">rstan_package_skeleton()</a></code> but needs to be modified to decribe the functionality of our package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pkg_file &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="kw">file.path</span>(<span class="st">"rstanlm"</span>, <span class="st">"R"</span>, <span class="st">"rstanlm-package.R"</span>))
-<span class="kw">cat</span>(pkg_file, <span class="dt">sep =</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.show</span>(<span class="kw">file.path</span>(<span class="st">"R"</span>, <span class="st">"rstanlm-package.R"</span>))</code></pre></div>
 <pre><code>#' The 'rstanlm' package.
 #' 
 #' @description A DESCRIPTION OF THE PACKAGE
@@ -253,8 +271,8 @@ Writing rstanlm-package.Rd</code></pre>
 <pre><code>Re-compiling rstanlm</code></pre>
 <pre><code>'/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
-  '/Users/jgabry/Documents/Stan/rstantools/vignettes/rstanlm'  \
-  --library='/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T//Rtmp8GPxxp/devtools_install_ebfd46c068b0'  \
+  '/private/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/RtmpPSP3Sk/rstanlm'  \
+  --library='/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T//RtmpPSP3Sk/devtools_install_10c9a922e76c'  \
   --no-R --no-data --no-help --no-demo --no-inst --no-docs --no-exec  \
   --no-multiarch --no-test-load --preclean </code></pre>
 <pre><code></code></pre>
@@ -265,8 +283,8 @@ Writing rstanlm-package.Rd</code></pre>
 <pre><code>
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 1).
 
-Gradient evaluation took 1.7e-05 seconds
-1000 transitions using 10 leapfrog steps per transition would take 0.17 seconds.
+Gradient evaluation took 1.6e-05 seconds
+1000 transitions using 10 leapfrog steps per transition would take 0.16 seconds.
 Adjust your expectations accordingly!
 
 
@@ -283,15 +301,15 @@ Iteration: 400 / 500 [ 80%]  (Sampling)
 Iteration: 450 / 500 [ 90%]  (Sampling)
 Iteration: 500 / 500 [100%]  (Sampling)
 
- Elapsed Time: 0.009055 seconds (Warm-up)
-               0.006746 seconds (Sampling)
-               0.015801 seconds (Total)
+ Elapsed Time: 0.008849 seconds (Warm-up)
+               0.00646 seconds (Sampling)
+               0.015309 seconds (Total)
 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 2).
 
-Gradient evaluation took 6e-06 seconds
-1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
+Gradient evaluation took 5e-06 seconds
+1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
 Adjust your expectations accordingly!
 
 
@@ -308,9 +326,9 @@ Iteration: 400 / 500 [ 80%]  (Sampling)
 Iteration: 450 / 500 [ 90%]  (Sampling)
 Iteration: 500 / 500 [100%]  (Sampling)
 
- Elapsed Time: 0.008218 seconds (Warm-up)
-               0.006169 seconds (Sampling)
-               0.014387 seconds (Total)
+ Elapsed Time: 0.007233 seconds (Warm-up)
+               0.005468 seconds (Sampling)
+               0.012701 seconds (Total)
 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 3).
@@ -333,15 +351,15 @@ Iteration: 400 / 500 [ 80%]  (Sampling)
 Iteration: 450 / 500 [ 90%]  (Sampling)
 Iteration: 500 / 500 [100%]  (Sampling)
 
- Elapsed Time: 0.008128 seconds (Warm-up)
-               0.005895 seconds (Sampling)
-               0.014023 seconds (Total)
+ Elapsed Time: 0.007015 seconds (Warm-up)
+               0.00617 seconds (Sampling)
+               0.013185 seconds (Total)
 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 4).
 
-Gradient evaluation took 5e-06 seconds
-1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
+Gradient evaluation took 6e-06 seconds
+1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
 Adjust your expectations accordingly!
 
 
@@ -358,21 +376,21 @@ Iteration: 400 / 500 [ 80%]  (Sampling)
 Iteration: 450 / 500 [ 90%]  (Sampling)
 Iteration: 500 / 500 [100%]  (Sampling)
 
- Elapsed Time: 0.007504 seconds (Warm-up)
-               0.006933 seconds (Sampling)
-               0.014437 seconds (Total)</code></pre>
+ Elapsed Time: 0.006617 seconds (Warm-up)
+               0.005103 seconds (Sampling)
+               0.01172 seconds (Total)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(fit)</code></pre></div>
 <pre><code>Inference for Stan model: lm.
 4 chains, each with iter=500; warmup=250; thin=1; 
 post-warmup draws per chain=250, total post-warmup draws=1000.
 
            mean se_mean   sd   2.5%   25%   50%   75% 97.5% n_eff Rhat
-intercept  0.29    0.03 0.56  -0.84 -0.06  0.29  0.62  1.42   455 1.01
-beta      -0.13    0.03 0.77  -1.63 -0.60 -0.14  0.33  1.46   530 1.00
-sigma      1.48    0.02 0.45   0.87  1.18  1.39  1.72  2.57   455 1.00
-lp__      -7.62    0.07 1.36 -11.00 -8.36 -7.30 -6.56 -5.95   363 1.01
+intercept  0.51    0.02 0.44  -0.40  0.25  0.53  0.80  1.32   377 1.01
+beta      -0.01    0.02 0.51  -1.03 -0.32 -0.01  0.29  1.01   529 1.01
+sigma      1.30    0.02 0.44   0.74  1.01  1.21  1.50  2.37   417 1.00
+lp__      -6.43    0.08 1.49 -10.33 -7.08 -6.12 -5.32 -4.70   389 1.00
 
-Samples were drawn using NUTS(diag_e) at Tue Apr 10 12:39:50 2018.
+Samples were drawn using NUTS(diag_e) at Wed Apr 11 15:24:34 2018.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>

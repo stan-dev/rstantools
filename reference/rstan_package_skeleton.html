@@ -30,11 +30,10 @@
 <meta property="og:description" content="
   The rstan_package_skeleton function helps get you started developing
   R packages that interface with Stan via the rstan package.
-  rstan_package_skeleton is very similar to
-  package.skeleton but is designed for source packages
-  that want to include Stan Programs that can be built into binary versions
-  (i.e., pre-compiled like rstanarm). See Details for a few
-  ways that it differs from package.skeleton.
+  As of rstantools v1.5.0, rstan_package_skeleton
+  calls usethis::create_package (instead of utils::package.skeleton)
+  and then makes necessary adjustments so that the package can include Stan Programs that can be built into binary versions
+  (i.e., pre-compiled like rstanarm).
 See the See Also section below for links to recommendations for
   developers and a step by step walkthrough of what to do after running
   rstan_package_skeleton." />
@@ -152,50 +151,50 @@ See the See Also section below for links to recommendations for
     <p><img src='figures/stanlogo.png' width="50px" alt="http://mc-stan.org/about/logo/" />
   The <code>rstan_package_skeleton</code> function helps get you started developing
   <span style="R">R</span> packages that interface with Stan via the <span class="pkg">rstan</span> package.
-  <code>rstan_package_skeleton</code> is very similar to
-  <code><a href='http://www.rdocumentation.org/packages/utils/topics/package.skeleton'>package.skeleton</a></code> but is designed for source packages
-  that want to include Stan Programs that can be built into binary versions
-  (i.e., pre-compiled like <span class="pkg">rstanarm</span>). See <strong>Details</strong> for a few
-  ways that it differs from <code>package.skeleton</code>.</p>
+  As of <span class="pkg">rstantools</span> v1.5.0, <code>rstan_package_skeleton</code>
+  calls <code><a href='http://www.rdocumentation.org/packages/usethis/topics/create_package'>usethis::create_package</a></code> (instead of <code><a href='http://www.rdocumentation.org/packages/utils/topics/package.skeleton'>utils::package.skeleton</a></code>)
+  and then makes necessary adjustments so that the package can include Stan Programs that can be built into binary versions
+  (i.e., pre-compiled like <span class="pkg">rstanarm</span>).</p>
 <p>See the <strong>See Also</strong> section below for links to recommendations for
   developers and a step by step walkthrough of what to do after running
   <code>rstan_package_skeleton</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>rstan_package_skeleton</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"anRpackage"</span>, <span class='kw'>list</span> <span class='kw'>=</span> <span class='fu'>character</span>(),
-  <span class='kw'>environment</span> <span class='kw'>=</span> <span class='no'>.GlobalEnv</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>code_files</span> <span class='kw'>=</span> <span class='fu'>character</span>(), <span class='kw'>stan_files</span> <span class='kw'>=</span> <span class='fu'>character</span>(), <span class='kw'>travis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>rstan_package_skeleton</span>(<span class='no'>path</span>, <span class='kw'>fields</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"devtools.desc"</span>),
+  <span class='kw'>rstudio</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>stan_files</span> <span class='kw'>=</span> <span class='fu'>character</span>(), <span class='kw'>travis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name, list, environment, path, force, code_files</th>
-      <td><p>Same as
-<code><a href='http://www.rdocumentation.org/packages/utils/topics/package.skeleton'>package.skeleton</a></code>.</p></td>
+      <th>path</th>
+      <td><p>A relative or absolute path to the new package to be created
+(terminating in the package name).</p></td>
+    </tr>
+    <tr>
+      <th>fields, rstudio, open</th>
+      <td><p>See <code><a href='http://www.rdocumentation.org/packages/usethis/topics/create_package'>usethis::create_package</a></code>.</p></td>
     </tr>
     <tr>
       <th>stan_files</th>
       <td><p>A character vector with paths to <code>.stan</code> files to
 include in the package (these files will be included in the
-<code>src/stan_files</code> directory). Otherwise similar to the
-<code>code_files</code> argument.</p></td>
+<code>src/stan_files</code> directory). If not specified then the <code>.stan</code>
+files for the package can be manually placed into the appropriate directory
+later.</p></td>
     </tr>
     <tr>
       <th>travis</th>
       <td><p>Should a <code>.travis.yml</code> file be added to the package
 directory? Defaults to <code>TRUE</code>. The file has some settings already set
 to help with compilation issues, but we do not guarantee that it will work
-on <a href='https://travis-ci.org/'>travis-ci</a>.</p></td>
+on <a href='https://travis-ci.org/'>travis-ci</a> without manual adjustments.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>This function first calls <code><a href='http://www.rdocumentation.org/packages/utils/topics/package.skeleton'>package.skeleton</a></code> and
-  then adds the files listed in <code>stan_files</code> to the
-  <code>src/stan_files</code> directory. Finally, it downloads several files from
-  <span class="pkg">rstanarm</span> package's
+    <p>This function downloads several files from <span class="pkg">rstanarm</span> package's
   <a href='http://github.com/stan-dev/rstanarm'>GitHub repository</a> to facilitate
   building the resulting package. Note that <span class="pkg"><a href='http://www.rdocumentation.org/packages/rstanarm/topics/rstanarm-package'>rstanarm</a></span>
   is licensed under the GPL &gt;= 3, so package builders who do not want to be
@@ -204,16 +203,6 @@ on <a href='https://travis-ci.org/'>travis-ci</a>.</p></td>
   files is not the only thing impeding use of other licenses). Otherwise, it
   may be worth considering whether it would be easier to include your
   <code>.stan</code> programs and supporting <span style="R">R</span> code in the <span class="pkg">rstanarm</span> package.</p>
-<p>Unlike <code>package.skeleton</code>, <code>rstan_package_skeleton</code> also creates
-  a file in the <code>R/</code> directory called "<code>name</code>-package.R", where
-  <code>name</code> is the package name. In this file <code>rstan_package_skeleton</code>
-  writes lines (using <span class="pkg">roxygen2</span> tags) for ensuring that some necessary
-  content makes it into the <code>NAMESPACE</code> file. Before terminating,
-  <code>rstan_package_skeleton</code> will run <code><a href='http://www.rdocumentation.org/packages/roxygen2/topics/roxygenize'>roxygen2::roxygenise</a></code> so that
-  the NAMESPACE is created.</p>
-<p><code>rstan_package_skeleton</code> will also create an RStudio project file
-  for the package with a <code>.Rproj</code> extension. If not using RStudio
-  this file can be deleted or ignored.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -246,7 +235,7 @@ on <a href='https://travis-ci.org/'>travis-ci</a>.</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#details">Details</a></li>
+      <li><a href="#note">Note</a></li>
 
       <li><a href="#see-also">See also</a></li>
           </ul>

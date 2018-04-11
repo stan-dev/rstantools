@@ -203,20 +203,20 @@ as the number of columns in the matrix used as <code>object</code>.</p></td>
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>)
 <span class='no'>ypred</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fu'>rnorm</span>(<span class='fl'>500</span>), <span class='fl'>50</span>, <span class='fl'>10</span>)
 <span class='no'>pred_errors</span> <span class='kw'>&lt;-</span> <span class='fu'>predictive_error</span>(<span class='no'>ypred</span>, <span class='no'>y</span>)
-<span class='fu'>dim</span>(<span class='no'>pred_errors</span>)</div><div class='output co'>#&gt; [1] 50 10</div><div class='input'><span class='fu'>head</span>(<span class='no'>pred_errors</span>)</div><div class='output co'>#&gt;            [,1]        [,2]     [,3]       [,4]       [,5]        [,6]
-#&gt; [1,]  0.5273861  0.07515823 1.513581  1.4204596 -3.4765209 -0.40151181
-#&gt; [2,] -3.3664225  0.81258188 2.744778 -0.8234573 -1.3396243 -1.43882134
-#&gt; [3,] -0.5546069  2.37300064 1.780391 -0.2672072  0.7954730 -0.41251601
-#&gt; [4,] -0.2880340 -0.76885376 0.723278 -0.5925147 -0.7830652  1.52582725
-#&gt; [5,] -0.5131371  3.30739106 1.233684  0.3282228 -0.8251587  0.01187749
-#&gt; [6,]  0.1832783  1.69463620 0.412581  1.1282433 -2.4243409 -0.55389915
-#&gt;            [,7]      [,8]      [,9]      [,10]
-#&gt; [1,]  0.3291168 0.7518855 1.0182404  2.1367075
-#&gt; [2,] -0.9216418 1.3862216 0.6818612  1.1718269
-#&gt; [3,] -0.7428718 2.1940964 0.7415774 -1.0785962
-#&gt; [4,]  1.6353221 1.0977800 2.3479025  0.9887451
-#&gt; [5,] -0.3287231 2.4549490 0.3920619  2.0133653
-#&gt; [6,]  0.6492479 0.7439346 0.9827939  2.3187384</div><div class='input'>
+<span class='fu'>dim</span>(<span class='no'>pred_errors</span>)</div><div class='output co'>#&gt; [1] 50 10</div><div class='input'><span class='fu'>head</span>(<span class='no'>pred_errors</span>)</div><div class='output co'>#&gt;            [,1]       [,2]       [,3]       [,4]        [,5]       [,6]
+#&gt; [1,] -0.5400646  1.3020274  2.5600526  0.9661728  0.07949737 -0.7102301
+#&gt; [2,]  0.6952266 -0.3674099 -0.4719183 -1.3003471  0.64684982 -1.0993494
+#&gt; [3,] -0.3649592  2.5053808  1.0491349  0.1963977 -1.24283882 -2.5689540
+#&gt; [4,] -1.3429619  0.9198894  1.0047786 -1.7057847  1.49603017 -1.9388405
+#&gt; [5,] -0.7264570  2.5225765  1.0206039 -0.2930924 -0.39807364 -3.8865347
+#&gt; [6,]  0.5623556  0.6836610  0.2684403 -0.9655164  1.47557637 -0.6337609
+#&gt;           [,7]       [,8]       [,9]      [,10]
+#&gt; [1,] 1.6223973 -0.5463827 0.08287481 -0.8168099
+#&gt; [2,] 1.3163446 -1.0743115 0.75951041 -0.5249164
+#&gt; [3,] 0.3023123 -0.5161648 1.34965341 -0.3619807
+#&gt; [4,] 0.7529829 -0.6488716 1.50221535  0.1451705
+#&gt; [5,] 1.1420892 -1.6094962 1.05305340 -0.4466365
+#&gt; [6,] 2.5112725 -1.3519139 1.46851236 -1.5980189</div><div class='input'>
 # Also see help("predictive_error", package = "rstanarm")
 
 </div></pre>

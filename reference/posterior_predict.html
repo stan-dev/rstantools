@@ -195,11 +195,11 @@ package for examples.</p></td>
   <span class='no'>nd</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>wt</span> <span class='kw'>=</span> <span class='fu'>mean</span>(<span class='no'>mtcars</span>$<span class='no'>wt</span>), <span class='kw'>am</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>1</span>))
   <span class='no'>ytilde</span> <span class='kw'>&lt;-</span> <span class='fu'>posterior_predict</span>(<span class='no'>fit</span>, <span class='kw'>newdata</span> <span class='kw'>=</span> <span class='no'>nd</span>)
   <span class='fu'>all.equal</span>(<span class='fu'>ncol</span>(<span class='no'>ytilde</span>), <span class='fu'>nrow</span>(<span class='no'>nd</span>))
-}</div><div class='output co'>#&gt; 
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: rstanarm</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: Rcpp</span></div><div class='output co'>#&gt; <span class='message'>rstanarm (Version 2.17.4, packaged: )</span></div><div class='output co'>#&gt; <span class='message'>- Do not expect the default priors to remain the same in future rstanarm versions.</span></div><div class='output co'>#&gt; <span class='message'>Thus, R scripts should specify priors explicitly, even if they are just the defaults.</span></div><div class='output co'>#&gt; <span class='message'>- For execution on a local, multicore CPU with excess RAM we recommend calling</span></div><div class='output co'>#&gt; <span class='message'>options(mc.cores = parallel::detectCores())</span></div><div class='output co'>#&gt; <span class='message'>- Plotting theme set to bayesplot::theme_default().</span></div><div class='output co'>#&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 1).
 #&gt; 
-#&gt; Gradient evaluation took 3.7e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.37 seconds.
+#&gt; Gradient evaluation took 0.000129 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 1.29 seconds.
 #&gt; Adjust your expectations accordingly!
 #&gt; 
 #&gt; 
@@ -216,15 +216,15 @@ package for examples.</p></td>
 #&gt; Iteration: 1800 / 2000 [ 90%]  (Sampling)
 #&gt; Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; 
-#&gt;  Elapsed Time: 0.08684 seconds (Warm-up)
-#&gt;                0.069581 seconds (Sampling)
-#&gt;                0.156421 seconds (Total)
+#&gt;  Elapsed Time: 0.080267 seconds (Warm-up)
+#&gt;                0.072953 seconds (Sampling)
+#&gt;                0.15322 seconds (Total)
 #&gt; 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 2).
 #&gt; 
-#&gt; Gradient evaluation took 1.6e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.16 seconds.
+#&gt; Gradient evaluation took 2.6e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.26 seconds.
 #&gt; Adjust your expectations accordingly!
 #&gt; 
 #&gt; 
@@ -241,15 +241,15 @@ package for examples.</p></td>
 #&gt; Iteration: 1800 / 2000 [ 90%]  (Sampling)
 #&gt; Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; 
-#&gt;  Elapsed Time: 0.092474 seconds (Warm-up)
-#&gt;                0.072853 seconds (Sampling)
-#&gt;                0.165327 seconds (Total)
+#&gt;  Elapsed Time: 0.080577 seconds (Warm-up)
+#&gt;                0.066425 seconds (Sampling)
+#&gt;                0.147002 seconds (Total)
 #&gt; 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 3).
 #&gt; 
-#&gt; Gradient evaluation took 1.4e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.14 seconds.
+#&gt; Gradient evaluation took 1.3e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.13 seconds.
 #&gt; Adjust your expectations accordingly!
 #&gt; 
 #&gt; 
@@ -266,15 +266,15 @@ package for examples.</p></td>
 #&gt; Iteration: 1800 / 2000 [ 90%]  (Sampling)
 #&gt; Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; 
-#&gt;  Elapsed Time: 0.089116 seconds (Warm-up)
-#&gt;                0.079294 seconds (Sampling)
-#&gt;                0.16841 seconds (Total)
+#&gt;  Elapsed Time: 0.077831 seconds (Warm-up)
+#&gt;                0.081245 seconds (Sampling)
+#&gt;                0.159076 seconds (Total)
 #&gt; 
 #&gt; 
 #&gt; SAMPLING FOR MODEL 'continuous' NOW (CHAIN 4).
 #&gt; 
-#&gt; Gradient evaluation took 1.2e-05 seconds
-#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.12 seconds.
+#&gt; Gradient evaluation took 1.5e-05 seconds
+#&gt; 1000 transitions using 10 leapfrog steps per transition would take 0.15 seconds.
 #&gt; Adjust your expectations accordingly!
 #&gt; 
 #&gt; 
@@ -291,10 +291,10 @@ package for examples.</p></td>
 #&gt; Iteration: 1800 / 2000 [ 90%]  (Sampling)
 #&gt; Iteration: 2000 / 2000 [100%]  (Sampling)
 #&gt; 
-#&gt;  Elapsed Time: 0.079796 seconds (Warm-up)
-#&gt;                0.071695 seconds (Sampling)
-#&gt;                0.151491 seconds (Total)
-#&gt; </div><div class='output co'>#&gt; <span class='error'>Error in UseMethod("posterior_predict"): no applicable method for 'posterior_predict' applied to an object of class "c('stanreg', 'glm', 'lm')"</span></div><div class='input'>
+#&gt;  Elapsed Time: 0.078357 seconds (Warm-up)
+#&gt;                0.072326 seconds (Sampling)
+#&gt;                0.150683 seconds (Total)
+#&gt; </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 # Also see help("posterior_predict", package = "rstanarm")
 
 </div></pre>

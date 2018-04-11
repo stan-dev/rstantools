@@ -200,11 +200,11 @@ probability mass to include in the intervals.</p></td>
 <span class='co'># predictive distribution)</span>
 <span class='no'>ytilde</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fu'>rnorm</span>(<span class='fl'>100</span> * <span class='fl'>5</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>2</span>), <span class='fl'>100</span>, <span class='fl'>5</span>) <span class='co'># fake draws</span>
 <span class='fu'>predictive_interval</span>(<span class='no'>ytilde</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.8</span>)</div><div class='output co'>#&gt;            10%      90%
-#&gt; [1,] -2.462452 1.875353
-#&gt; [2,] -2.003644 1.919153
-#&gt; [3,] -2.383818 2.475257
-#&gt; [4,] -3.157015 2.554874
-#&gt; [5,] -2.848931 2.617529</div><div class='input'>
+#&gt; [1,] -1.948534 2.675655
+#&gt; [2,] -3.016328 2.452565
+#&gt; [3,] -3.076360 2.039258
+#&gt; [4,] -2.768003 3.183375
+#&gt; [5,] -1.868467 2.633965</div><div class='input'>
 # Also see help("predictive_interval", package = "rstanarm")
 
 </div></pre>
