@@ -1,4 +1,4 @@
-Package: rstanTest
+Package: RStanTest
 Type: Package
 Title: What the package does (short line)
 Version: 1.0
@@ -10,4 +10,3 @@ License: What license is it under?
 Depends: R (>= 3.3.0), Rcpp (>= 0.12.16), methods
 Imports: rstan (>= 2.17.3), rstantools (>= 1.4.0)
 LinkingTo: StanHeaders (>= 2.17.2), rstan (>= 2.17.3), BH (>= 1.66.0.1), Rcpp (>= 0.12.16), RcppEigen (>= 0.3.3.4.0)
-RoxygenNote: 6.0.1

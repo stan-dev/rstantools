@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 inst/doc
+inst/include/sys/devel/
 old/
 
 tests/testthat/Rplots.pdf

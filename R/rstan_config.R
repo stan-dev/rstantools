@@ -125,61 +125,74 @@ rstan_config <- function(pkgdir = ".") {
 .make_cc <- function(file_name, pkgdir) {
   model_name <- sub("[.]stan$", "", basename(file_name)) # model name
   stan_path <- file.path(pkgdir, "src", "stan_files") # path to src/stan_files
-  # path to temporary location: only overwrite .cc/.hpp files if they changed
-  stan_tmpdir <- tempfile("rstantools_")
-  dir.create(stan_tmpdir, recursive = TRUE)
+  ## # path to temporary location: only overwrite .cc/.hpp files if they changed
+  ## stan_tmpdir <- tempfile("rstantools_")
+  ## dir.create(stan_tmpdir, recursive = TRUE)
   # create c++ code
-  # shouldn't this be stanc_builder for additional includes?
-  cppcode <- rstan::stanc(file_name, allow_undefined = TRUE,
-                          obfuscate_model_name = FALSE)$cppcode
+  cppcode <- rstan::stanc_builder(file_name, allow_undefined = TRUE,
+                                  obfuscate_model_name = FALSE)$cppcode
   cppcode <- sub("(class[[:space:]]+[A-Za-z_][A-Za-z0-9_]*[[:space:]]*: public prob_grad \\{)",
                  paste("#include <stan_meta_header.hpp>\n", "\\1"), cppcode)
   # get license file (if any)
   stan_license <- .read_license(dirname(file_name))
+  .add_stanfile(file_lines = c(stan_license,
+                               "#ifndef MODELS_HPP",
+                               "#define MODELS_HPP",
+                               "#define STAN__SERVICES__COMMAND_HPP",
+                               "#include <rstan/rstaninc.hpp>",
+                               cppcode, "#endif"),
+                pkgdir = pkgdir,
+                "src", "stan_files", paste0(model_name, ".hpp"),
+                noedit = TRUE, msg = FALSE, warn = TRUE)
   # create stanmodel class definition header file in temporary directory
   # don't want to trigger recompile unless its necessary
   # first create in tmpdir then move, because .cc created by exposeClass
   # does not give readLines output, i.e., copies
-  tmp_file <- file.path(stan_tmpdir, paste0(model_name, ".hpp"))
-  cat(stan_license,
-      "#ifndef MODELS_HPP",
-      "#define MODELS_HPP",
-      "#define STAN__SERVICES__COMMAND_HPP",
-      "#include <rstan/rstaninc.hpp>",
-      cppcode, "#endif",
-      file = tmp_file,
-      sep = "\n")
-  # overwrite in src/stan_files if necessary
-  .move_file(file.path(stan_path, paste0(model_name, ".hpp")), tmp_file)
+  ## tmp_file <- file.path(stan_tmpdir, paste0(model_name, ".hpp"))
+  ## cat(stan_license,
+  ##     "#ifndef MODELS_HPP",
+  ##     "#define MODELS_HPP",
+  ##     "#define STAN__SERVICES__COMMAND_HPP",
+  ##     "#include <rstan/rstaninc.hpp>",
+  ##     cppcode, "#endif",
+  ##     file = tmp_file,
+  ##     sep = "\n")
+  ## # overwrite in src/stan_files if necessary
+  ## .move_file(file.path(stan_path, paste0(model_name, ".hpp")), tmp_file)
   # create Rcpp module exposing C++ class as R ReferenceClass
-  tmp_file <- file.path(stan_tmpdir, paste0(model_name, ".cc"))
+  ## tmp_file <- file.path(stan_tmpdir, paste0(model_name, ".cc"))
   suppressMessages({
-    Rcpp::exposeClass(class = paste0("model_", model_name),
-                      constructors = list(c("SEXP", "SEXP", "SEXP")),
-                      fields = character(),
-                      methods = c("call_sampler",
-                                  "param_names",
-                                  "param_names_oi",
-                                  "param_fnames_oi",
-                                  "param_dims",
-                                  "param_dims_oi",
-                                  "update_param_oi",
-                                  "param_oi_tidx",
-                                  "grad_log_prob",
-                                  "log_prob",
-                                  "unconstrain_pars",
-                                  "constrain_pars",
-                                  "num_pars_unconstrained",
-                                  "unconstrained_param_names",
-                                  "constrained_param_names"),
-                      file = tmp_file,
-                      header = paste0('#include "', model_name, '.hpp"'),
-                      module = paste0("stan_fit4", model_name, "_mod"),
-                      CppClass = "rstan::stan_fit<stan_model, boost::random::ecuyer1988> ",
-                      Rfile = FALSE)
+    cpp_lines <-
+      capture.output(Rcpp::exposeClass(class = paste0("model_", model_name),
+                                       constructors = list(c("SEXP", "SEXP", "SEXP")),
+                                       fields = character(),
+                                       methods = c("call_sampler",
+                                                   "param_names",
+                                                   "param_names_oi",
+                                                   "param_fnames_oi",
+                                                   "param_dims",
+                                                   "param_dims_oi",
+                                                   "update_param_oi",
+                                                   "param_oi_tidx",
+                                                   "grad_log_prob",
+                                                   "log_prob",
+                                                   "unconstrain_pars",
+                                                   "constrain_pars",
+                                                   "num_pars_unconstrained",
+                                                   "unconstrained_param_names",
+                                                   "constrained_param_names"),
+                                       file = stdout(),
+                                       header = paste0('#include "', model_name, '.hpp"'),
+                                       module = paste0("stan_fit4", model_name, "_mod"),
+                                       CppClass = "rstan::stan_fit<stan_model, boost::random::ecuyer1988> ",
+                                       Rfile = FALSE))
   })
-  # overwrite in src/stan_files if necessary
-  .move_file(file.path(stan_path, paste0(model_name, ".cc")), tmp_file)
+  .add_stanfile(file_lines = cpp_lines,
+                pkgdir = pkgdir,
+                "src", "stan_files", paste0(model_name, ".cc"),
+                noedit = TRUE, msg = FALSE, warn = TRUE)
+  ## # overwrite in src/stan_files if necessary
+  ## .move_file(file.path(stan_path, paste0(model_name, ".cc")), tmp_file)
   return(invisible(NULL))
 }
 
@@ -200,7 +213,7 @@ rstan_config <- function(pkgdir = ".") {
 
 # rewrites stanmodels.R reflecting current list of stan files
 .update_stanmodels <- function(pkgdir) {
-  model_names <- list.files(file.path(pkg_name, "inst", "stan"),
+  model_names <- list.files(file.path(pkgdir, "inst", "stan"),
                             pattern = "*.stan$")
   model_names <- gsub("[.]stan$", "", model_names)
   if(length(model_names) == 0) {
