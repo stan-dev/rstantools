@@ -4,10 +4,13 @@
 #' @template args-license
 #' @details Prepares a package to compile and use Stan code by performing the following steps:
 #' \enumerate{
-#'   \item Update \code{DESCRIPTION} file to contain all needed dependencies.
-#'   \item If \code{src} folder does not exist, create system file \code{src/init.cpp} to ensure Stan C++ modules are recognized by \R.
-#'   \item Create system file \code{src/stan_files/chunks/license.stan} containing default license information.
-#'   \item Create system file \code{inst/include/meta_header.hpp} for C++ headers used by Stan code.
+#'   \item Create \code{inst/stan} folder where all \code{.stan} files defining Stan models should be stored.
+#'   \item Create \code{inst/stan/include} where optional \code{license.stan} file is stored.
+#'   \item Create \code{inst/include/stan_meta_header.hpp} to include optional header files used by Stan code.
+#'   \item Create \code{src} folder (if it doesn't exist) to contain the Stan C++ code.
+#'   \item Create \code{R} folder (if it doesn't exist) to contain wrapper code to expose Stan C++ classes to \R.
+#'   \item Update \code{DESCRIPTION} file to contain all needed dependencies to compile Stan C++ code.
+#'   \item If \code{NAMESPACE} file is generic, i.e., only contains the line \code{exportPattern(\"^[[:alpha:]]+\")}, add \code{import(Rcpp, methods)} and \code{useDynLib} directives.  If \code{NAMESPACE} is not generic, display message telling user what to add to \code{NAMESPACE} themselves.
 #' }
 #' @return Invisibly, whether or not any files or folders where created or modified.
 #' @export
@@ -18,7 +21,9 @@ use_rstan <- function(pkgdir = ".", license = TRUE) {
                       msg = TRUE, warn = FALSE)
   acc <- acc | .add_standir(pkgdir, "inst", "include",
                             msg = TRUE, warn = FALSE)
-  acc <- acc | .add_standir(pkgdir, "src", "stan_files",
+  acc <- acc | .add_standir(pkgdir, "src",
+                            msg = TRUE, warn = FALSE)
+  acc <- acc | .add_standir(pkgdir, "R",
                             msg = TRUE, warn = FALSE)
   # add license.stan
   license <- .make_license(pkgdir, license)
@@ -33,7 +38,8 @@ use_rstan <- function(pkgdir = ".", license = TRUE) {
                 "inst", "include", "stan_meta_header.hpp",
                 noedit = FALSE, msg = FALSE, warn = FALSE)
   # add stan_init.cpp
-  acc <- acc | .add_staninit(pkgdir)
+  # not needed for compiling without src/stan_files subdirectory
+  ## acc <- acc | .add_staninit(pkgdir)
   # add packages to DESCRIPTION file
   acc <- acc | .update_description(pkgdir, msg = TRUE)
   # modify NAMESPACE, or output instructions for how to do so
