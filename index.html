@@ -109,25 +109,31 @@
   <div class="contents col-md-9">
     
 
-<p><br></p>
-<div style="text-align:center">
-<a href="http://mc-stan.org">
-<img src="https://raw.githubusercontent.com/stan-dev/logos/master/logo.png" width="200" alt="Stan Logo"></a>
+<p><br><br></p>
+<div style="text-align:left">
+<br><a href="http://mc-stan.org">
+<img src="https://raw.githubusercontent.com/stan-dev/logos/master/logo.png" width="100" alt="Stan Logo"></a><h2>
+<strong>rstantools</strong>
+<h4>Tools for developers of R packages interfacing with Stan</h4>
+</h2>
 </div>
-<p><br></p>
-<p>The <strong>rstantools</strong> package provides various tools for developers of R packages interfacing with <a href="http://mc-stan.org">Stan</a>, including functions to set up the required package structure, S3 generic methods to unify function naming across Stan-based R packages, and vignettes with guidelines for developers.</p>
+<p><br> The <strong>rstantools</strong> package provides various tools for developers of R packages interfacing with <a href="http://mc-stan.org">Stan</a>, including functions to set up the required package structure, S3 generic methods to unify function naming across Stan-based R packages, and vignettes with guidelines for developers.</p>
+<div id="getting-started" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a>Getting Started</h2>
 <p>To get started building a package see the two <strong>rstantools</strong> vignettes for developers:</p>
 <ul>
 <li><p><a href="http://mc-stan.org/rstantools/articles/developer-guidelines.html">Guidelines for Developers of R Packages Interfacing with Stan</a></p></li>
 <li><p><a href="http://mc-stan.org/rstantools/articles/minimal-rstan-package.html">Step by step guide for creating a package that depends on RStan</a></p></li>
 </ul>
 <p><br></p>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>Install from <strong>CRAN</strong>:</p>
+<p>Install the latest release from <strong>CRAN</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"rstantools"</span>)</code></pre></div>
-<p>Install latest development version from <strong>GitHub</strong> (requires <a href="https://github.com/hadley/devtools">devtools</a> package):</p>
+<p>Install the latest development version from <strong>GitHub</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">"devtools"</span>)) {
   <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
 }

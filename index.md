@@ -2,20 +2,22 @@
 [![codecov](https://codecov.io/gh/stan-dev/rstantools/branch/master/graph/badge.svg)](https://codecov.io/gh/stan-dev/rstantools)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rstantools?color=blue)](http://cran.r-project.org/web/packages/rstantools)
 
-<br>
+<br><br>
 
-<div style="text-align:center">
+<div style="text-align:left">
+<br>
 <a href="http://mc-stan.org">
-<img src="https://raw.githubusercontent.com/stan-dev/logos/master/logo.png" width=200 alt="Stan Logo"/>
-</a>
+<img src="https://raw.githubusercontent.com/stan-dev/logos/master/logo.png" width=100 alt="Stan Logo"/> </a><h2><strong>rstantools</strong></h1>
+<h4>Tools for developers of R packages interfacing with Stan</h4>
 </div>
 
 <br>
-
 The **rstantools** package provides various tools for developers of R packages
 interfacing with [Stan](http://mc-stan.org), including functions to set up the
 required package structure, S3 generic methods to unify function naming across
 Stan-based R packages, and vignettes with guidelines for developers.
+
+## Getting Started
 
 To get started building a package see the two __rstantools__ vignettes for
 developers:
@@ -28,13 +30,13 @@ developers:
 
 ## Installation
 
-Install from **CRAN**:
+Install the latest release from **CRAN**
 
 ```r
 install.packages("rstantools")
 ```
 
-Install latest development version from **GitHub** (requires [devtools](https://github.com/hadley/devtools) package):
+Install the latest development version from **GitHub**
 
 ```r
 if (!require("devtools")) {
