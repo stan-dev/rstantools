@@ -84,7 +84,8 @@
     if(is_stanfile) {
       # stan file found: check if it needs to be overwritten
       old_lines <- readLines(dest_file)
-      acc <- !identical(old_lines, file_lines)
+      acc <- !identical(paste0(old_lines, collapse = "\n"),
+                        paste0(file_lines, collapse = "\n"))
     } else acc <- TRUE
     if(acc) {
       # create/overwrite file
