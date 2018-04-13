@@ -3,6 +3,7 @@
 # return value: whether or not file was modified
 .update_description <- function(pkgdir, msg = TRUE) {
   desc_pkg <- read.dcf(file.path(pkgdir, "DESCRIPTION"))
+  desc_pkg <- gsub("\n", " ", desc_pkg)
   desc_old <- desc_pkg
   desc_rstan <- read.dcf(.system_file("DESCRIPTION"))
   dep_fields <- c("Depends", "Imports", "LinkingTo", "Suggests", "Enhances")
@@ -16,6 +17,7 @@
       colnames(desc_pkg)[ncol(desc_pkg)] <- fname
     }
   }
+  # TODO: make sure all packages listed more than once have the same version
   desc_pkg <- .format_description(desc_pkg)
   # check if description has changed
   acc <- !identical(desc_pkg, .format_description(desc_old))
@@ -81,9 +83,10 @@
 # then everything else, unordered.
 .format_description <- function(desc) {
   field_names <- colnames(desc)
-  field_set <- c("Package", "Type", "Title", "Version", "Date", "Author",
-                  "Maintainer", "Description", "License",
-                  "Depends", "Imports", "LinkingTo", "Suggests", "Enhances")
+  field_set <- c("Package", "Type", "Title", "Version", "Date",
+                 "Author", "Maintainer", "Authors@R",
+                 "Description", "License",
+                 "Depends", "Imports", "LinkingTo", "Suggests", "Enhances")
   ordered_fields <- field_set[field_set %in% field_names]
   ordered_fields <- c(ordered_fields, field_names[!field_names %in% field_set])
   desc <- desc[,ordered_fields,drop=FALSE]
