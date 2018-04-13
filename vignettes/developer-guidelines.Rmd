@@ -1,5 +1,5 @@
 ---
-title: "Guidelines for Developers of R Packages Interfacing with Stan"
+title: "Guidelines for developers of R packages interfacing with Stan"
 author: "Stan Development Team"
 date: "`r Sys.Date()`"
 output: 
