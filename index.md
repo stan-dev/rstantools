@@ -5,10 +5,8 @@
 <br>
 
 <div style="text-align:left">
-<br>
 <span><a href="http://mc-stan.org">
-<img src="https://raw.githubusercontent.com/stan-dev/logos/master/logo_tm.png" width=100 alt="Stan Logo"/> </a><h2><strong>rstantools</strong></h2>
-<h4>Tools for developers of R packages interfacing with Stan</h4></span>
+<img src="https://raw.githubusercontent.com/stan-dev/logos/master/logo_tm.png" width=100 alt="Stan Logo"/> </a><h2><strong>rstantools</strong></h2><h4>Tools for developers of R packages interfacing with Stan</h4></span>
 </div>
 
 <br>
