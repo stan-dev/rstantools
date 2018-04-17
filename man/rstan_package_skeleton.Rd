@@ -25,13 +25,14 @@ to help with compilation issues, but we do not guarantee that it will work
 on \href{https://travis-ci.org/}{travis-ci} without manual adjustments.}
 }
 \description{
-\if{html}{\figure{stanlogo.png}{options: width="50px" alt="http://mc-stan.org/about/logo/"}}
+\if{html}{\figure{stanlogo.png}{options: width="25px" alt="http://mc-stan.org/about/logo/"}}
   The \code{rstan_package_skeleton} function helps get you started developing
-  \R packages that interface with Stan via the \pkg{rstan} package.
-  As of \pkg{rstantools} v1.5.0, \code{rstan_package_skeleton}
-  calls \code{usethis::create_package} (instead of \code{utils::package.skeleton})
-  and then makes necessary adjustments so that the package can include Stan Programs that can be built into binary versions
-  (i.e., pre-compiled like \pkg{rstanarm}).
+  \R packages that interface with Stan via the \pkg{rstan} package. As of
+  \pkg{rstantools} v1.5.0, \code{rstan_package_skeleton} calls
+  \code{usethis::create_package} (instead of \code{utils::package.skeleton})
+  and then makes necessary adjustments so that the package can include Stan
+  Programs that can be built into binary versions (i.e., pre-compiled like
+  \pkg{rstanarm}).
 
   See the \strong{See Also} section below for links to recommendations for
   developers and a step by step walkthrough of what to do after running

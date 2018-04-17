@@ -16,18 +16,16 @@ Description: Provides various tools for developers of R packages interfacing
     across 'Stan'-based R packages, and vignettes with recommendations for 
     developers.
 License: GPL (>=3)
-URL: http://discourse.mc-stan.org/, http://mc-stan.org/, http://mc-stan.org/rstantools/
+URL: http://discourse.mc-stan.org/, http://mc-stan.org/rstantools/
 BugReports: https://github.com/stan-dev/rstantools/issues
 Encoding: UTF-8
 LazyData: true
-Imports:
-    stats,
-    utils
+Imports: stats, utils
 Suggests:
     bayesplot (>= 1.5.0),
     rstan (>= 2.17.2),
     rstanarm (>= 2.17.4),
-    shinystan (>= 2.3.0),
+    shinystan (>= 2.4.0),
     loo (>= 2.0.0),
     testthat,
     covr,

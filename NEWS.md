@@ -2,11 +2,15 @@
 
 (Github issue/PR numbers in parentheses)
 
-* `rstan_package_skeleton` now calls `usethis::create_package` instead of `utils::package.skeleton`. (#28)
-* Update `rstan_package_skeleton()` for latest build process (#19)
-* `rstan_package_skeleton` now does a bit more work for the user to make sure the the NAMESPACE file is correct.
-* Simplify instructions in Read-and-delete-me (related to #19).
 * New [vignette](http://mc-stan.org/rstantools/articles/) walking through the package creation process. (#9) (thanks to Stefan Siegert)
+
+* `rstan_package_skeleton()` now calls `usethis::create_package()` instead of `utils::package.skeleton()`. (#28)
+
+* Update `rstan_package_skeleton()` for latest build process (#19)
+
+* `rstan_package_skeleton()` now does a bit more work for the user to make sure the the NAMESPACE file is correct.
+
+* Simplify instructions in Read-and-delete-me (related to #19).
 
 # rstantools 1.4.0
 

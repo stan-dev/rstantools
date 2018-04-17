@@ -19,13 +19,14 @@
 #' Create the skeleton of a new \R package with Stan programs
 #'
 #' @description
-#'   \if{html}{\figure{stanlogo.png}{options: width="50px" alt="http://mc-stan.org/about/logo/"}}
+#'   \if{html}{\figure{stanlogo.png}{options: width="25px" alt="http://mc-stan.org/about/logo/"}}
 #'   The \code{rstan_package_skeleton} function helps get you started developing
-#'   \R packages that interface with Stan via the \pkg{rstan} package.
-#'   As of \pkg{rstantools} v1.5.0, \code{rstan_package_skeleton}
-#'   calls \code{usethis::create_package} (instead of \code{utils::package.skeleton})
-#'   and then makes necessary adjustments so that the package can include Stan Programs that can be built into binary versions
-#'   (i.e., pre-compiled like \pkg{rstanarm}).
+#'   \R packages that interface with Stan via the \pkg{rstan} package. As of
+#'   \pkg{rstantools} v1.5.0, \code{rstan_package_skeleton} calls
+#'   \code{usethis::create_package} (instead of \code{utils::package.skeleton})
+#'   and then makes necessary adjustments so that the package can include Stan
+#'   Programs that can be built into binary versions (i.e., pre-compiled like
+#'   \pkg{rstanarm}).
 #'
 #'   See the \strong{See Also} section below for links to recommendations for
 #'   developers and a step by step walkthrough of what to do after running
@@ -114,13 +115,13 @@ rstan_package_skeleton <-
 
     # tools
     usethis::use_directory("tools")
-    .download_rstanarm_file("tools/make_cc.R", pkg_dir = DIR)
+    use_rstanarm_file("tools/make_cc.R")
 
 
     # src
     usethis::use_directory("src")
-    .download_rstanarm_file("src/Makevars", pkg_dir = DIR)
-    .download_rstanarm_file("src/Makevars.win", pkg_dir = DIR)
+    use_rstanarm_file("src/Makevars")
+    use_rstanarm_file("src/Makevars.win")
 
     # register cpp (src/init.cpp)
     init_cpp(name, path = DIR)
@@ -156,7 +157,7 @@ rstan_package_skeleton <-
 
     # R
     message("Updating R directory ...", domain = NA)
-    .download_rstanarm_file("R/stanmodels.R", pkg_dir = DIR)
+    use_rstanarm_file("R/stanmodels.R")
     system2(
       "sed",
       args = paste0("-i.bak 's@rstanarm@", name, "@g' ",
@@ -197,7 +198,7 @@ rstan_package_skeleton <-
 
     message("Writing Read-and-delete-me file with additional instructions ...",
             domain = NA)
-    .write_read_and_delete_me(DIR)
+    use_read_and_delete_me(DIR)
 
 
     message("\nFinished skeleton for package: ", name)
@@ -215,21 +216,22 @@ rstan_package_skeleton <-
 
 
 # internal ----------------------------------------------------------------
+use_rstanarm_file <- function(rstanarm_relative_path) {
+  proj <- usethis::proj_get()
+  utils::download.file(
+    url = .rstanarm_path(rstanarm_relative_path),
+    destfile = file.path(proj, rstanarm_relative_path),
+    quiet = TRUE
+  )
+}
+
 .rstanarm_path <- function(relative_path) {
   base_url <- "https://raw.githubusercontent.com/stan-dev/rstanarm/master"
   file.path(base_url, relative_path)
 }
 
-.download_rstanarm_file <- function(rstanarm_relative_path, pkg_dir) {
-  utils::download.file(
-    url = .rstanarm_path(rstanarm_relative_path),
-    destfile = file.path(pkg_dir, rstanarm_relative_path),
-    quiet = TRUE
-  )
-}
 
-
-.write_read_and_delete_me <- function(pkg_dir) {
+use_read_and_delete_me <- function(pkg_dir) {
   cat(
     "* The precompiled stanmodel objects will appear in a named list called 'stanmodels', ",
     "and you can call them with something like rstan::sampling(stanmodels$foo, ...)",
