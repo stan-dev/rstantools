@@ -1,3 +1,8 @@
+# rstantools 1.5.0.9000
+
+Add items for the next release here.
+
+
 # rstantools 1.5.0
 
 (Github issue/PR numbers in parentheses)
