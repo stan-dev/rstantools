@@ -114,25 +114,13 @@ rstan_package_skeleton <-
 
     # tools
     usethis::use_directory("tools")
-    download.file(
-      .rstanarm_path("tools/make_cc.R"),
-      destfile = file.path(DIR, "tools", "make_cc.R"),
-      quiet = TRUE
-    )
+    .download_rstanarm_file("tools/make_cc.R", pkg_dir = DIR)
 
 
     # src
     usethis::use_directory("src")
-    download.file(
-      .rstanarm_path("src/Makevars"),
-      destfile = file.path(DIR, "src", "Makevars"),
-      quiet = TRUE
-    )
-    download.file(
-      .rstanarm_path("src/Makevars.win"),
-      destfile = file.path(DIR, "src", "Makevars.win"),
-      quiet = TRUE
-    )
+    .download_rstanarm_file("src/Makevars", pkg_dir = DIR)
+    .download_rstanarm_file("src/Makevars.win", pkg_dir = DIR)
 
     # register cpp (src/init.cpp)
     init_cpp(name, path = DIR)
@@ -168,11 +156,7 @@ rstan_package_skeleton <-
 
     # R
     message("Updating R directory ...", domain = NA)
-    download.file(
-      .rstanarm_path("R/stanmodels.R"),
-      destfile = file.path(DIR, "R", "stanmodels.R"),
-      quiet = TRUE
-    )
+    .download_rstanarm_file("R/stanmodels.R", pkg_dir = DIR)
     system2(
       "sed",
       args = paste0("-i.bak 's@rstanarm@", name, "@g' ",
@@ -236,7 +220,16 @@ rstan_package_skeleton <-
   file.path(base_url, relative_path)
 }
 
-.write_read_and_delete_me <- function(dir) {
+.download_rstanarm_file <- function(rstanarm_relative_path, pkg_dir) {
+  utils::download.file(
+    url = .rstanarm_path(rstanarm_relative_path),
+    destfile = file.path(pkg_dir, rstanarm_relative_path),
+    quiet = TRUE
+  )
+}
+
+
+.write_read_and_delete_me <- function(pkg_dir) {
   cat(
     "* The precompiled stanmodel objects will appear in a named list called 'stanmodels', ",
     "and you can call them with something like rstan::sampling(stanmodels$foo, ...)",
@@ -245,13 +238,13 @@ rstan_package_skeleton <-
     "but be sure to #include your C++ files in inst/include/meta_header.hpp",
     "* While developing your package use devtools::install('.', local=FALSE) ",
     "to reinstall the package AND recompile Stan programs, or set local=FALSE to skip the recompilation.",
-    file = file.path(dir, "Read-and-delete-me"),
+    file = file.path(pkg_dir, "Read-and-delete-me"),
     sep = "\n",
     append = FALSE
   )
 }
 
-.update_description_file <- function(dir) {
+.update_description_file <- function(pkg_dir) {
   available_pkgs <- available.packages(repos = "https://cran.rstudio.com/")[, c("Package", "Version")]
   available_pkgs <- data.frame(available_pkgs, stringsAsFactors = FALSE)
   .pkg_dependency <- function(pkg, last = FALSE) {
@@ -274,23 +267,23 @@ rstan_package_skeleton <-
            .pkg_dependency("RcppEigen", last=TRUE)),
     "SystemRequirements: GNU make",
     "NeedsCompilation: yes",
-    file = file.path(dir, "DESCRIPTION"),
+    file = file.path(pkg_dir, "DESCRIPTION"),
     sep = "\n",
     append = TRUE
   )
 
-  DES <- readLines(file.path(dir, "DESCRIPTION"))
+  DES <- readLines(file.path(pkg_dir, "DESCRIPTION"))
   DES[grep("^License:", DES)] <- "License: GPL (>=3)"
   cat(
     DES,
-    file = file.path(dir, "DESCRIPTION"),
+    file = file.path(pkg_dir, "DESCRIPTION"),
     sep = "\n",
     append = FALSE
   )
 }
 
-.write_main_package_R_file <- function(dir) {
-  pkgname <- basename(dir)
+.write_main_package_R_file <- function(pkg_dir) {
+  pkgname <- basename(pkg_dir)
   cat(
     paste0("#' The '", pkgname, "' package."),
     "#' ",
@@ -309,7 +302,7 @@ rstan_package_skeleton <-
     paste0("#' ", .rstan_reference()),
     "#' ",
     "NULL",
-    file = file.path(dir, "R", paste0(pkgname, "-package.R")),
+    file = file.path(pkg_dir, "R", paste0(pkgname, "-package.R")),
     sep = "\n",
     append = FALSE
   )
@@ -327,27 +320,28 @@ rstan_package_skeleton <-
   )
 }
 
-.create_travis_file <- function(dir) {
-  pkgname <- basename(dir)
+.create_travis_file <- function(pkg_dir) {
+  pkgname <- basename(pkg_dir)
   download.file(
     .rstanarm_path(".travis.yml"),
-    destfile = file.path(dir, ".travis.yml"),
+    destfile = file.path(pkg_dir, ".travis.yml"),
     quiet = TRUE
   )
 
-  travis <- readLines(file.path(dir, ".travis.yml"))
+  travis <- readLines(file.path(pkg_dir, ".travis.yml"))
   travis <- travis[!grepl("covr::codecov|/covr|r_github_packages", travis)]
   travis <- travis[!grepl("r_build_args|r_check_args", travis)]
   cat(
     gsub("rstanarm", pkgname, travis),
-    file = file.path(dir, ".travis.yml"),
+    file = file.path(pkg_dir, ".travis.yml"),
     sep = "\n",
     append = FALSE
   )
   cat(
     "^\\.travis\\.yml$",
-    file = file.path(dir, ".Rbuildignore"),
+    file = file.path(pkg_dir, ".Rbuildignore"),
     sep = "\n",
     append = TRUE
   )
 }
+
