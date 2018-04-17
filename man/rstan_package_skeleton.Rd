@@ -35,7 +35,7 @@ on \href{https://travis-ci.org/}{travis-ci} without manual adjustments.}
   \pkg{rstanarm}).
 
   See the \strong{See Also} section below for links to recommendations for
-  developers and a step by step walkthrough of what to do after running
+  developers and a step by step walk-through of what to do after running
   \code{rstan_package_skeleton}.
 }
 \note{
