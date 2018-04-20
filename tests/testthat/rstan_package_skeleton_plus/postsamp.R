@@ -1,8 +1,5 @@
 #' Posterior Sampler for SimpleModel
-#' @import Rcpp
-#' @import methods
 #' @importFrom rstan sampling
-#' @useDynLib rstanTestOld, .registration = TRUE
 #' @export
 postsamp1 <- function(x, nsamples) {
   sampling(object = stanmodels$SimpleModel, data = list(x = x),
