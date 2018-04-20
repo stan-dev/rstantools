@@ -1,5 +1,5 @@
-# This file is part of rstantools
-# Copyright (C) 2015, 2016, 2017 Trustees of Columbia University
+# rstan_package_skeleton_plus
+# Copyright (C) 2018 Martin Lysy
 #
 # rstantools is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -49,15 +49,11 @@
 #'
 #' The final step of \code{rstan_package_skeleton} is to invoke \code{\link{rstan_config}}, which creates the following files for interfacing Stan objects from \R:
 #' \itemize{
-#'   \item \code{src/stan_files} contains the \code{.cc/.hpp} pairs associated with all package \code{stanmodel} objects.
-#'   \item \code{src/Makevars[.win]} which link to the \code{StanHeaders} and Boost (\code{BH}) libraries, and contain additional \code{make} rules for compiling code in the \code{stan_files} subdirectory.
+#'   \item \code{src} contains the \code{stan_ModelName{.cc/.hpp}} pairs associated with all \code{ModelName.stan} files in \code{inst/stan} which define \code{stanmodel} objects.
+#'   \item \code{src/Makevars[.win]} which link to the \code{StanHeaders} and Boost (\code{BH}) libraries..
 #'   \item \code{R/stanmodels.R} loads the C++ modules containing the \code{stanmodel} class definitions, and assigns an \R instance of each \code{stanmodel} object to a \code{stanmodels} list.
 #' }
 #'
-#' @seealso The \pkg{rstanarm} repository on GitHub
-#'   (\url{https://github.com/stan-dev/rstanarm}) and a useR2016 presentation
-#'   (\url{https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages}).
-#' @template seealso-dev-guidelines
 #' @template seealso-get-help
 #'
 rstan_package_skeleton_plus <- function(name = "anRpackage",

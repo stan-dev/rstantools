@@ -46,26 +46,12 @@ The folder \code{inst/include} is for all user C++ files associated with Stan pr
 
 The final step of \code{rstan_package_skeleton} is to invoke \code{\link{rstan_config}}, which creates the following files for interfacing Stan objects from \R:
 \itemize{
-  \item \code{src/stan_files} contains the \code{.cc/.hpp} pairs associated with all package \code{stanmodel} objects.
-  \item \code{src/Makevars[.win]} which link to the \code{StanHeaders} and Boost (\code{BH}) libraries, and contain additional \code{make} rules for compiling code in the \code{stan_files} subdirectory.
+  \item \code{src} contains the \code{stan_ModelName{.cc/.hpp}} pairs associated with all \code{ModelName.stan} files in \code{inst/stan} which define \code{stanmodel} objects.
+  \item \code{src/Makevars[.win]} which link to the \code{StanHeaders} and Boost (\code{BH}) libraries..
   \item \code{R/stanmodels.R} loads the C++ modules containing the \code{stanmodel} class definitions, and assigns an \R instance of each \code{stanmodel} object to a \code{stanmodels} list.
 }
 }
 \seealso{
-The \pkg{rstanarm} repository on GitHub
-  (\url{https://github.com/stan-dev/rstanarm}) and a useR2016 presentation
-  (\url{https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages}).
-
-\itemize{
-  \item The guidelines for developers of \R packages interfacing with Stan, a
-  copy of which can be found in the package vignettes. See
-  \code{browseVignettes("rstantools")} or \code{vignette(package =
-  "rstantools")}. The document is also available online at the
-  \pkg{rstantools} page on the
-  \href{https://CRAN.R-project.org/package=rstantools/vignettes/developer-guidelines.html}{CRAN
-  website}.
-}
-
 \itemize{
   \item The \href{http://discourse.mc-stan.org}{Stan Forums} and the
   \href{https://github.com/stan-dev/rstantools/issues}{\pkg{rstantools} issue
