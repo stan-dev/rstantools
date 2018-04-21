@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Martin Lysy" />
+
+<meta name="date" content="2018-04-21" />
+
+<title>Step-by-step guide for creating a Stan-enabled R package</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Step-by-step guide for creating a Stan-enabled R package</h1>
+<h4 class="author"><em>Martin Lysy</em></h4>
+<h4 class="date"><em>2018-04-21</em></h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#creating-a-stan-enabled-package-from-scratch">Creating a Stan-enabled package from scratch</a><ul>
+<li><a href="#use-of-roxygen2">Use of roxygen2</a></li>
+<li><a href="#checking-that-package-installed-correctly">Checking that package installed correctly</a></li>
+</ul></li>
+<li><a href="#add-stan-functionality-to-an-existing-package">Add Stan functionality to an existing package</a></li>
+</ul>
+</div>
+
+<div id="creating-a-stan-enabled-package-from-scratch" class="section level2">
+<h2>Creating a Stan-enabled package from scratch</h2>
+<p>This is done with the function <code>rstan_package_skeleton_plus()</code>. To illustrate, let’s create a package out of the files distributed with <strong>rstantools</strong> in the following directory:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">require</span>(rstantools)</a></code></pre></div>
+<pre><code>## Loading required package: rstantools</code></pre>
+<pre><code>## This is rstantools version 1.5.1.9000</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">stan_path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;include&quot;</span>, <span class="st">&quot;rstan_package_skeleton_plus&quot;</span>,</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">                         <span class="dt">package =</span> <span class="st">&quot;rstantools&quot;</span>)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">stan_path</a></code></pre></div>
+<pre><code>## [1] &quot;/Users/mlysy/Documents/data/R/library/rstantools/include/rstan_package_skeleton_plus&quot;</code></pre>
+<p>You can inspect the contents of this folder to see exactly what the package files consist of. To create a package we run the following commands:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">pkg_name &lt;-<span class="st"> &quot;RStanTest&quot;</span> <span class="co"># name of package</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">pkg_path &lt;-<span class="st"> </span><span class="kw">tempdir</span>() <span class="co"># path to directory where package folder should be created</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># R files to add to package</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">code_files &lt;-<span class="st"> </span><span class="kw">file.path</span>(stan_path, <span class="kw">c</span>(<span class="st">&quot;RStanTest-package.R&quot;</span>, <span class="st">&quot;postsamp.R&quot;</span>))</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co"># stan files to add to package</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">stan_files &lt;-<span class="st"> </span><span class="kw">file.path</span>(stan_path, <span class="kw">c</span>(<span class="st">&quot;SimpleModel.stan&quot;</span>, <span class="st">&quot;SimpleModel2.stan&quot;</span>))</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co"># create package</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="kw">rstan_package_skeleton_plus</span>(<span class="dt">name =</span> pkg_name,</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10">                            <span class="dt">path =</span> pkg_path,</a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">                            <span class="dt">code_files =</span> code_files,</a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">                            <span class="dt">stan_files =</span> stan_files)</a></code></pre></div>
+<pre><code>## Running package.skeleton ...</code></pre>
+<pre><code>## Adding .travis.yml file ...</code></pre>
+<pre><code>## Creating inst/stan/include directory ...</code></pre>
+<pre><code>## Creating inst/include directory ...</code></pre>
+<pre><code>## Creating src directory ...</code></pre>
+<pre><code>## Updating DESCRIPTION ...</code></pre>
+<pre><code>## Updating NAMESPACE ...</code></pre>
+<pre><code>## Configuring Stan compile and module export instructions ...</code></pre>
+<pre><code>## Further Stan-specific steps are described in 'RStanTest/Read-and-delete-me'.</code></pre>
+<div id="use-of-roxygen2" class="section level3">
+<h3>Use of roxygen2</h3>
+<p>If you are not using <strong>roxygen2</strong> to create package documentation, you can skip this step. If you are using it, as this example does, then (for now) you need to edit the package <code>NAMESPACE</code> file by running the following code:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># current value of NAMESPACE file</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">namespace_lines &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="kw">file.path</span>(pkg_path, pkg_name, <span class="st">&quot;NAMESPACE&quot;</span>))</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co"># modify so roxygen2 will overwrite it</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="kw">cat</span>(<span class="st">&quot;# Generated by roxygen2: do not edit by hand</span><span class="ch">\n</span><span class="st">&quot;</span>,</a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">    namespace_lines, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,</a>
+<a class="sourceLine" id="cb16-6" data-line-number="6">    <span class="dt">file =</span> <span class="kw">file.path</span>(pkg_path, pkg_name, <span class="st">&quot;NAMESPACE&quot;</span>))</a></code></pre></div>
+<p>The the package documentation will be generated by running the command</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">document</span>(<span class="kw">file.path</span>(pkg_path, pkg_name))</a></code></pre></div>
+<pre><code>## Updating RStanTest documentation</code></pre>
+<pre><code>## Loading RStanTest</code></pre>
+<pre><code>## Re-compiling RStanTest</code></pre>
+<pre><code>## '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
+##   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
+##   '/private/var/folders/8r/t8wdg7cj2mq1fx4h1546v1y40000gn/T/RtmpeMPYsk/RStanTest'  \
+##   --library='/var/folders/8r/t8wdg7cj2mq1fx4h1546v1y40000gn/T//RtmpeMPYsk/devtools_install_26a377d9ca64'  \
+##   --no-R --no-data --no-help --no-demo --no-inst --no-docs --no-exec  \
+##   --no-multiarch --no-test-load --preclean</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Updating roxygen version in /private/var/folders/8r/t8wdg7cj2mq1fx4h1546v1y40000gn/T/RtmpeMPYsk/RStanTest/DESCRIPTION</code></pre>
+<pre><code>## Writing NAMESPACE
+## Writing RStanTest.Rd
+## Writing postsamp1.Rd
+## Writing postsamp2.Rd</code></pre>
+</div>
+<div id="checking-that-package-installed-correctly" class="section level3">
+<h3>Checking that package installed correctly</h3>
+<p>Here this is done by adding <strong>testthat</strong> unit tests to the package, which verify that the Stan log-posterior and an <strong>R</strong> implementation differ by no more than an additive constant.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># add unit tests to package</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">use_testthat</span>(<span class="kw">file.path</span>(pkg_path, pkg_name))</a></code></pre></div>
+<pre><code>## * Adding testthat to Suggests</code></pre>
+<pre><code>## * Creating `tests/testthat`.</code></pre>
+<pre><code>## * Creating `tests/testthat.R` from template.</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">file.copy</span>(<span class="dt">from =</span> <span class="kw">file.path</span>(stan_path, <span class="st">&quot;test-postsamp.R&quot;</span>),</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">          <span class="dt">to =</span> <span class="kw">file.path</span>(pkg_path, pkg_name,</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">                         <span class="st">&quot;tests&quot;</span>, <span class="st">&quot;testthat&quot;</span>, <span class="st">&quot;test-postsamp.R&quot;</span>))</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Now the package can be installed and its tests can be run:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install</span>(<span class="kw">file.path</span>(pkg_path, pkg_name)) <span class="co"># install package</span></a></code></pre></div>
+<pre><code>## Installing RStanTest</code></pre>
+<pre><code>## '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
+##   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
+##   '/private/var/folders/8r/t8wdg7cj2mq1fx4h1546v1y40000gn/T/RtmpeMPYsk/RStanTest'  \
+##   --library='/Users/mlysy/Documents/data/R/library' --install-tests</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Reloading installed RStanTest</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co"># run package tests</span></a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">require</span>(testthat)</a></code></pre></div>
+<pre><code>## Loading required package: testthat</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">testthat<span class="op">::</span><span class="kw">test_package</span>(pkg_name, <span class="dt">reporter =</span> <span class="st">&quot;progress&quot;</span>)</a></code></pre></div>
+<pre><code>## ✔ | OK F W S | Context
+## 
+⠏ |  0       | postsamp
+## SAMPLING FOR MODEL 'SimpleModel' NOW (CHAIN 1).
+## 
+## Gradient evaluation took 8e-06 seconds
+## 1000 transitions using 10 leapfrog steps per transition would take 0.08 seconds.
+## Adjust your expectations accordingly!
+## 
+## 
+## WARNING: No variance estimation is
+##          performed for num_warmup &lt; 20
+## 
+## Iteration: 1 / 1 [100%]  (Sampling)
+## 
+##  Elapsed Time: 2e-06 seconds (Warm-up)
+##                2.9e-05 seconds (Sampling)
+##                3.1e-05 seconds (Total)
+## 
+## 
+⠋ |  1       | postsamp
+## SAMPLING FOR MODEL 'SimpleModel2' NOW (CHAIN 1).
+## 
+## Gradient evaluation took 7e-06 seconds
+## 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
+## Adjust your expectations accordingly!
+## 
+## 
+## WARNING: No variance estimation is
+##          performed for num_warmup &lt; 20
+## 
+## Iteration: 1 / 1 [100%]  (Sampling)
+## 
+##  Elapsed Time: 1e-06 seconds (Warm-up)
+##                4.4e-05 seconds (Sampling)
+##                4.5e-05 seconds (Total)
+## 
+## 
+⠙ |  2       | postsamp
+✔ |  2       | postsamp [0.4 s]
+## 
+## ══ Results ════════════════════════════════════════════════════════════════
+## Duration: 0.4 s
+## 
+## OK:       2
+## Failed:   0
+## Warnings: 0
+## Skipped:  0</code></pre>
+</div>
+</div>
+<div id="add-stan-functionality-to-an-existing-package" class="section level2">
+<h2>Add Stan functionality to an existing package</h2>
+<p>If you have an existing package and wish to add <code>.stan</code> files, this can be accomplished with the functions:</p>
+<ol style="list-style-type: lower-roman">
+<li><code>use_rstan()</code>, which adds the necessary folders and files to your package and</li>
+<li><code>rstan_config()</code>, which must be re-run every time any <code>.stan</code> files in the package are added/removed/modified (NOTE: this requirement is in the process of being removed).</li>
+</ol>
+<p>To illustrate, let’s create the previous package without any of the Stan files, then add Stan functionality to the newly created package.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co"># delete existing package</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="co"># </span><span class="al">WARNING</span><span class="co">: run this command issues no warnings so proceed with caution!</span></a>
+<a class="sourceLine" id="cb40-3" data-line-number="3"><span class="kw">system</span>(<span class="dt">command =</span> <span class="kw">paste0</span>(<span class="st">&quot;rm -rf &quot;</span>, <span class="kw">file.path</span>(pkg_path, pkg_name)))</a>
+<a class="sourceLine" id="cb40-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb40-5" data-line-number="5"><span class="co"># re-create package without stan_files using package.skeleton</span></a>
+<a class="sourceLine" id="cb40-6" data-line-number="6"><span class="kw">package.skeleton</span>(<span class="dt">name =</span> pkg_name,</a>
+<a class="sourceLine" id="cb40-7" data-line-number="7">                 <span class="dt">path =</span> pkg_path,</a>
+<a class="sourceLine" id="cb40-8" data-line-number="8">                 <span class="dt">code_files =</span> code_files)</a></code></pre></div>
+<pre><code>## Creating directories ...</code></pre>
+<pre><code>## Creating DESCRIPTION ...</code></pre>
+<pre><code>## Creating NAMESPACE ...</code></pre>
+<pre><code>## Creating Read-and-delete-me ...</code></pre>
+<pre><code>## Copying code files ...</code></pre>
+<pre><code>## Making help files ...</code></pre>
+<pre><code>## Done.</code></pre>
+<pre><code>## Further steps are described in '/var/folders/8r/t8wdg7cj2mq1fx4h1546v1y40000gn/T//RtmpeMPYsk/RStanTest/Read-and-delete-me'.</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="co"># delete contents of &quot;man&quot; so roxygen2 can be used</span></a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">file.remove</span>(<span class="kw">list.files</span>(<span class="kw">file.path</span>(pkg_path, pkg_name, <span class="st">&quot;man&quot;</span>),</a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">                       <span class="dt">full.names =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<pre><code>## [1] TRUE TRUE TRUE</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="co"># add unit tests to package</span></a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">use_testthat</span>(<span class="kw">file.path</span>(pkg_path, pkg_name))</a></code></pre></div>
+<pre><code>## * Adding testthat to Suggests</code></pre>
+<pre><code>## * Creating `tests/testthat`.</code></pre>
+<pre><code>## * Creating `tests/testthat.R` from template.</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">file.copy</span>(<span class="dt">from =</span> <span class="kw">file.path</span>(stan_path, <span class="st">&quot;test-postsamp.R&quot;</span>),</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">          <span class="dt">to =</span> <span class="kw">file.path</span>(pkg_path, pkg_name,</a>
+<a class="sourceLine" id="cb55-3" data-line-number="3">                         <span class="st">&quot;tests&quot;</span>, <span class="st">&quot;testthat&quot;</span>, <span class="st">&quot;test-postsamp.R&quot;</span>))</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Now we can add the Stan files and functionality with the following command:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="co"># add stan functionality</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2">rstantools<span class="op">::</span><span class="kw">use_rstan</span>(<span class="kw">file.path</span>(pkg_path, pkg_name))</a></code></pre></div>
+<pre><code>## Creating inst/stan/include directory ...</code></pre>
+<pre><code>## Creating inst/include directory ...</code></pre>
+<pre><code>## Creating src directory ...</code></pre>
+<pre><code>## Updating DESCRIPTION ...</code></pre>
+<pre><code>## Updating NAMESPACE ...</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="co"># add stan files</span></a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="kw">file.copy</span>(<span class="dt">from =</span> stan_files,</a>
+<a class="sourceLine" id="cb63-3" data-line-number="3">          <span class="dt">to =</span> <span class="kw">file.path</span>(pkg_path, pkg_name,</a>
+<a class="sourceLine" id="cb63-4" data-line-number="4">                         <span class="st">&quot;inst&quot;</span>, <span class="st">&quot;stan&quot;</span>, <span class="kw">basename</span>(stan_files)))</a></code></pre></div>
+<pre><code>## [1] TRUE TRUE</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="co"># run this any time Stan files are added/removed/modified</span></a>
+<a class="sourceLine" id="cb65-2" data-line-number="2">rstantools<span class="op">::</span><span class="kw">rstan_config</span>(<span class="kw">file.path</span>(pkg_path, pkg_name))</a></code></pre></div>
+<p>Finally we can install the package and run its tests:</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="co"># modify NAMESPACE so roxygen2 can be used</span></a>
+<a class="sourceLine" id="cb66-2" data-line-number="2">namespace_lines &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="kw">file.path</span>(pkg_path, pkg_name, <span class="st">&quot;NAMESPACE&quot;</span>))</a>
+<a class="sourceLine" id="cb66-3" data-line-number="3"><span class="kw">cat</span>(<span class="st">&quot;# Generated by roxygen2: do not edit by hand</span><span class="ch">\n</span><span class="st">&quot;</span>,</a>
+<a class="sourceLine" id="cb66-4" data-line-number="4">    namespace_lines,</a>
+<a class="sourceLine" id="cb66-5" data-line-number="5">    <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,</a>
+<a class="sourceLine" id="cb66-6" data-line-number="6">    <span class="dt">file =</span> <span class="kw">file.path</span>(pkg_path, pkg_name, <span class="st">&quot;NAMESPACE&quot;</span>))</a>
+<a class="sourceLine" id="cb66-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb66-8" data-line-number="8">devtools<span class="op">::</span><span class="kw">document</span>(<span class="kw">file.path</span>(pkg_path, pkg_name)) <span class="co"># roxygen2</span></a></code></pre></div>
+<pre><code>## Updating RStanTest documentation</code></pre>
+<pre><code>## Loading RStanTest</code></pre>
+<pre><code>## Re-compiling RStanTest</code></pre>
+<pre><code>## '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
+##   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
+##   '/private/var/folders/8r/t8wdg7cj2mq1fx4h1546v1y40000gn/T/RtmpeMPYsk/RStanTest'  \
+##   --library='/var/folders/8r/t8wdg7cj2mq1fx4h1546v1y40000gn/T//RtmpeMPYsk/devtools_install_26a365704309'  \
+##   --no-R --no-data --no-help --no-demo --no-inst --no-docs --no-exec  \
+##   --no-multiarch --no-test-load --preclean</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Updating roxygen version in /private/var/folders/8r/t8wdg7cj2mq1fx4h1546v1y40000gn/T/RtmpeMPYsk/RStanTest/DESCRIPTION</code></pre>
+<pre><code>## Writing NAMESPACE
+## Writing RStanTest.Rd
+## Writing postsamp1.Rd
+## Writing postsamp2.Rd</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install</span>(<span class="kw">file.path</span>(pkg_path, pkg_name)) <span class="co"># install package</span></a></code></pre></div>
+<pre><code>## Installing RStanTest</code></pre>
+<pre><code>## '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
+##   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
+##   '/private/var/folders/8r/t8wdg7cj2mq1fx4h1546v1y40000gn/T/RtmpeMPYsk/RStanTest'  \
+##   --library='/Users/mlysy/Documents/data/R/library' --install-tests</code></pre>
+<pre><code>## </code></pre>
+<pre><code>## Reloading installed RStanTest</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="co"># tests</span></a>
+<a class="sourceLine" id="cb79-2" data-line-number="2">testthat<span class="op">::</span><span class="kw">test_package</span>(pkg_name, <span class="dt">reporter =</span> <span class="st">&quot;progress&quot;</span>)</a></code></pre></div>
+<pre><code>## ✔ | OK F W S | Context
+## 
+⠏ |  0       | postsamp
+## SAMPLING FOR MODEL 'SimpleModel' NOW (CHAIN 1).
+## 
+## Gradient evaluation took 7e-06 seconds
+## 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
+## Adjust your expectations accordingly!
+## 
+## 
+## WARNING: No variance estimation is
+##          performed for num_warmup &lt; 20
+## 
+## Iteration: 1 / 1 [100%]  (Sampling)
+## 
+##  Elapsed Time: 2e-06 seconds (Warm-up)
+##                3e-05 seconds (Sampling)
+##                3.2e-05 seconds (Total)
+## 
+## 
+⠋ |  1       | postsamp
+## SAMPLING FOR MODEL 'SimpleModel2' NOW (CHAIN 1).
+## 
+## Gradient evaluation took 7e-06 seconds
+## 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
+## Adjust your expectations accordingly!
+## 
+## 
+## WARNING: No variance estimation is
+##          performed for num_warmup &lt; 20
+## 
+## Iteration: 1 / 1 [100%]  (Sampling)
+## 
+##  Elapsed Time: 1e-06 seconds (Warm-up)
+##                3.3e-05 seconds (Sampling)
+##                3.4e-05 seconds (Total)
+## 
+## 
+⠙ |  2       | postsamp
+✔ |  2       | postsamp
+## 
+## ══ Results ════════════════════════════════════════════════════════════════
+## OK:       2
+## Failed:   0
+## Warnings: 0
+## Skipped:  0
+## 
+## You rock!</code></pre>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,11 +1,15 @@
-library(rstan)
+require(rstan)
+
+stan_quiet <- function(expr) {
+  suppressMessages(suppressWarnings(expr))
+}
 
 context("postsamp")
 
 test_that("postsamp1: logposterior", {
   # data
   x <- rnorm(1)
-  logpost <- postsamp1(x = x, nsamples = 1)
+  logpost <- stan_quiet(postsamp1(x = x, nsamples = 1))
   # parameter values
   nsim <- sample(20:30, 1)
   Pars <- replicate(n = nsim, expr = {
@@ -27,7 +31,7 @@ test_that("postsamp1: logposterior", {
 test_that("postsamp2: logposterior", {
   # data
   x <- rnorm(1)
-  logpost <- postsamp2(x = x, nsamples = 1)
+  logpost <- stan_quiet(postsamp2(x = x, nsamples = 1))
   # parameter values
   nsim <- sample(20:30, 1)
   Pars <- replicate(n = nsim, expr = {
