@@ -1,6 +1,15 @@
-# rstantools
+# rstantools: `rstan_package_skeleton_plus`
 
-This patch makes several modifications to the `rstan_package_skeleton()` build process to simplify the workflow for **R** package developers wishing to distributed Stan code.  Improvements include:
+*Martin Lysy* 
+*April 20, 2018*
+
+---
+
+## Description
+
+This patch to **rstantools** provides the function `rstan_package_skeleton_plus`, which is very similar to `rstan_package_skeleton`, but provides some added functionality to simplify the workflow for **R** package developers wishing to distribute Stan code.  The main features are:
+
+several modifications to the `rstan_package_skeleton()` build process to simplify the workflow for **R** package developers wishing to distributed Stan code.  The main include:
 
 1. The current version of `rstan_package_skeleton` can only be used to generate a Stan-enabled package from scratch.  The new version runs two sub-tasks: 
     * `use_rstan` to prepare an existing **R** package for compiling Stan binaries.
@@ -11,7 +20,7 @@ This patch makes several modifications to the `rstan_package_skeleton()` build p
 
 ### Installation
 
-Requires [devtools](https://github.com/hadley/devtools) package:
+Requires [**devtools**](https://github.com/hadley/devtools) package:
 
 ```r
 if (!require("devtools"))
