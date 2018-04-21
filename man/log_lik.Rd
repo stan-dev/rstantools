@@ -37,12 +37,9 @@ example.
 }
 
 \itemize{
-  \item The guidelines for developers of \R packages interfacing with Stan, a
-  copy of which can be found in the package vignettes. See
-  \code{browseVignettes("rstantools")} or \code{vignette(package =
-  "rstantools")}. The document is also available online at the
-  \pkg{rstantools} page on the
-  \href{https://CRAN.R-project.org/package=rstantools/vignettes/developer-guidelines.html}{CRAN
-  website}.
+  \item Guidelines and recommendations for developers of \R packages
+  interfacing with Stan and a demonstration getting a simple package working
+  can be found in the vignettes included with \pkg{rstantools} and at
+  \url{http://mc-stan.org/rstantools/articles/}.
 }
 }

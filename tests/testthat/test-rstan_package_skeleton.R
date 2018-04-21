@@ -2,10 +2,8 @@ context("rstan_package_skeleton")
 
 if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install rstan again
   rstan_package_skeleton(
-    name = "testPackage",
-    path = tempdir(),
-    stan_files = c("test.stan"),
-    force = TRUE
+    path = file.path(tempdir(),"testPackage"),
+    stan_files = test_path("test.stan")
   )
   pkg_path <- file.path(tempdir(), "testPackage")
   pkg_files <- list.files(pkg_path, recursive = TRUE, all.files = TRUE)
@@ -15,10 +13,11 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
   })
 
   test_that("package directory has required structure", {
-    expect_equal(
-      sort(list.files(pkg_path)),
-      sort(c("DESCRIPTION", "inst", "man", "NAMESPACE", "R", "Read-and-delete-me", "src", "tools"))
-    )
+    nms <- c("DESCRIPTION", "inst", "man", "NAMESPACE", "R",
+             "Read-and-delete-me", "src", "tools")
+    ans <- list.files(pkg_path)
+    cat(ans, sep = "\n")
+    expect_equal(sort(nms), sort(ans))
   })
   test_that(".travis.yml file included", {
     expect_true(".travis.yml" %in% pkg_files)
@@ -45,21 +44,51 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
   test_that("messages are generated", {
     expect_message(
       rstan_package_skeleton(
-        name = "testPackage2",
-        path = tempdir(),
-        stan_files = c("test.stan"),
-        force = TRUE
+        path = file.path(tempdir(),"testPackage2"),
+        stan_files = test_path("test.stan")
       ),
-      regexp = "Running package.skeleton"
+      regexp = "Creating package skeleton for package: testPackage2"
     )
     expect_message(
       rstan_package_skeleton(
-        name = "testPackage3",
-        path = tempdir(),
-        stan_files = c("test.stan"),
-        force = TRUE
+        path = file.path(tempdir(),"testPackage3"),
+        stan_files = test_path("test.stan")
       ),
-      regexp = "Updating Read-and-delete-me"
+      regexp = "Running usethis::create_package"
+    )
+    expect_message(
+      rstan_package_skeleton(
+        path = file.path(tempdir(),"testPackage4"),
+        stan_files = c("test.stan")
+      ),
+      regexp = "Finished skeleton for package: testPackage4"
+    )
+    expect_output(
+      rstan_package_skeleton(
+        path = file.path(tempdir(),"testPackage5"),
+        stan_files = c("test.stan")
+      ),
+      regexp = "Changing active project to testPackage5"
+    )
+  })
+
+  test_that("error if stan_files specified incorrectly", {
+    expect_error(
+      rstan_package_skeleton(
+        path = file.path(tempdir(),"testPackage6"),
+        stan_files = c("test")
+      ),
+      regexp = "must end with a '.stan' extension",
+      fixed = TRUE
+    )
+
+    expect_error(
+      rstan_package_skeleton(
+        path = file.path(tempdir(),"testPackage7"),
+        stan_files = c("test.stan", "test")
+      ),
+      regexp = "must end with a '.stan' extension",
+      fixed = TRUE
     )
   })
 }

@@ -19,6 +19,7 @@
 #'
 #' @template seealso-dev-guidelines
 #' @template seealso-get-help
+#' @template seealso-useR2016-video
 #'
 NULL
 

@@ -46,7 +46,7 @@ posterior_interval(draws)
 
 # Example using rstanarm package:
 # posterior_interval method for 'stanreg' objects
-\donttest{
+\dontrun{
 if (require("rstanarm")) {
   fit <- stan_glmer(
     mpg ~ wt + am + (1|cyl),
@@ -55,7 +55,7 @@ if (require("rstanarm")) {
     prior = normal(0, 1),
     iter = 500 # to speed up example
   )
-  posterior_interval(fit, prob = 0.5)
+  rstanarm::posterior_interval(fit, prob = 0.5)
 }
 }
 
@@ -70,12 +70,9 @@ if (require("rstanarm")) {
 }
 
 \itemize{
-  \item The guidelines for developers of \R packages interfacing with Stan, a
-  copy of which can be found in the package vignettes. See
-  \code{browseVignettes("rstantools")} or \code{vignette(package =
-  "rstantools")}. The document is also available online at the
-  \pkg{rstantools} page on the
-  \href{https://CRAN.R-project.org/package=rstantools/vignettes/developer-guidelines.html}{CRAN
-  website}.
+  \item Guidelines and recommendations for developers of \R packages
+  interfacing with Stan and a demonstration getting a simple package working
+  can be found in the vignettes included with \pkg{rstantools} and at
+  \url{http://mc-stan.org/rstantools/articles/}.
 }
 }

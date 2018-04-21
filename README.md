@@ -25,8 +25,9 @@ This patch to **rstantools** provides the function `rstan_package_skeleton_plus`
 Requires [**devtools**](https://github.com/hadley/devtools) package:
 
 ```r
-if (!require("devtools"))
+if (!require("devtools")) {
   install.packages("devtools")
+}
   
 devtools::install_github("mlysy/rstantools", ref = "src_nosub")
 ```
