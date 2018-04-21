@@ -7,6 +7,8 @@ Authors@R: c(person("Jonah", "Gabry", email = "jsg2201@columbia.edu",
                     role = c("aut", "cre")),
              person("Ben", "Goodrich", email = "benjamin.goodrich@columbia.edu",
                     role = "aut"),
+             person("Martin", "Lysy", email = "mlysy@uwaterloo.ca",
+                    role = "aut"),
              person("Stefan", "Siegert", role = "ctb"),
              person("Trustees of", "Columbia University", role = "cph"))
 Maintainer: Jonah Gabry <jsg2201@columbia.edu>
