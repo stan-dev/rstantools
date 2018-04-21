@@ -53,8 +53,10 @@ The final step of \code{rstan_package_skeleton} is to invoke \code{\link{rstan_c
 }
 \seealso{
 \itemize{
-  \item The \href{http://discourse.mc-stan.org}{Stan Forums} and the
+  \item After reading the guidelines for developers, if you have trouble
+  setting up your package let us know on the the
+  \href{http://discourse.mc-stan.org}{Stan Forums} or at
   \href{https://github.com/stan-dev/rstantools/issues}{\pkg{rstantools} issue
-  tracker} for assistance if you have trouble setting up your package.
+  tracker}.
 }
 }
