@@ -19,6 +19,15 @@ rmarkdown::render("minimal-rstan-package-plus.Rmd")
 
 ```
 
+```{r, echo = FALSE}
+# make sure package can be created
+pkg_name <- "RStanTest" # name of package
+pkg_path <- tempdir() # path to directory where package folder should be created
+if(file.exists(file.path(pkg_path, pkg_name))) {
+  system(command = paste0("rm -rf ", file.path(pkg_path, pkg_name)))
+}
+```
+
 ## Creating a Stan-enabled package from scratch
 
 This is done with the function `rstan_package_skeleton_plus()`.  To illustrate, let's create a package out of the files distributed with **rstantools** in the following directory:
