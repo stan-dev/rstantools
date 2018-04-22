@@ -14,7 +14,7 @@ This patch to **rstantools** provides the function `rstan_package_skeleton_plus`
 
 2.  `rstan_package_skeleton` can only be used to generate a Stan-enabled package from scratch.  However, package developers may wish to add Stan functionality to an existing **R** package.  To address these issues, `rstan_package_skeleton_plus` relies on two exported subroutines: 
     * `use_rstan` to prepare an existing **R** package for compiling Stan binaries.
-    * `rstan_config` to (re)-configure a Stan-enabled **R** package to compile properly after `.stan` files have been added or removed (but this process can still be [improved](known issues)).
+    * `rstan_config` to (re)-configure a Stan-enabled **R** package to compile properly after `.stan` files have been added or removed (but this process can still be [improved](knownissues)).
 
 3.  The **rstantools** "system files" which get copied into the user's package no longer live in **rstanarm**, but in **rstantools** itself (in the subdirectory `inst/include/sys`).  This makes the build process easier to visualize as a whole, and very staightforward to modify as improvements become apparent.
 
