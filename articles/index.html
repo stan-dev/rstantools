@@ -94,6 +94,9 @@
     <li>
       <a href="http://mc-stan.org/loo">loo</a>
     </li>
+    <li>
+      <a href="http://mc-stan.org/projpred">projpred</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -136,11 +139,18 @@
     </div>
 
     <div class="section ">
-      <h3>Getting Started</h3>
-      <p class="section-desc"><p>The documents below provide guidelines for developing R packages interfacing with Stan.</p></p>
+      <h3>Recommendations for R package development with Stan</h3>
+      <p class="section-desc"><p>This vignette provides many recommendations for developers interested in creating an R package that interface with Stan. Topics include software development best practices, precompiling Stan programs, R code and documentation, and more.</p></p>
 
       <ul>
         <li><a href="developer-guidelines.html">Guidelines for developers of R packages interfacing with Stan</a></li>
+      </ul>
+    </div>
+    <div class="section ">
+      <h3>Step-by-step guide</h3>
+      <p class="section-desc"><p>This vignette walks through the steps required to set up a package with a precompiled Stan model, from creating the initial package structure to adding the precompiled Stan program and writing the R function that users will call to fit the model.</p></p>
+
+      <ul>
         <li><a href="minimal-rstan-package.html">Step by step guide for creating a package that depends on RStan</a></li>
       </ul>
     </div>

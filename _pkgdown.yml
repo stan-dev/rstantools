@@ -42,11 +42,20 @@ home:
     href: http://discourse.mc-stan.org/
 
 articles:
-  - title: "Getting Started"
+  - title: "Recommendations for R package development with Stan"
     desc: >
-      The documents below provide guidelines for developing R packages interfacing with Stan.
+      This vignette provides many recommendations for developers interested in
+      creating an R package that interface with Stan. Topics include software development
+      best practices, precompiling Stan programs, R code and documentation, and more.
     contents:
       - developer-guidelines
+  - title: "Step-by-step guide"
+    desc: >
+      This vignette walks through the steps required to set up a package with
+      a precompiled Stan model, from creating the initial package structure to
+      adding the precompiled Stan program and writing the R function that users
+      will call to fit the model.
+    contents:
       - minimal-rstan-package
 
 reference:

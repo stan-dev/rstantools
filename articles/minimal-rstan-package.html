@@ -67,6 +67,9 @@
     <li>
       <a href="http://mc-stan.org/loo">loo</a>
     </li>
+    <li>
+      <a href="http://mc-stan.org/projpred">projpred</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -107,7 +110,7 @@
       <h1>Step by step guide for creating a package that depends on RStan</h1>
                         <h4 class="author">Stefan Siegert, Jonah Gabry, and Ben Goodrich</h4>
             
-            <h4 class="date">2018-04-17</h4>
+            <h4 class="date">2018-04-26</h4>
       
       
 
@@ -149,7 +152,7 @@ Writing rstanlm-package.Rd</code></pre>
 <pre><code>Writing Read-and-delete-me file with additional instructions ...</code></pre>
 <pre><code>
 Finished skeleton for package: rstanlm</code></pre>
-<pre><code>Further steps are described in '/private/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/Rtmps263M5/rstanlm/Read-and-delete-me'.</code></pre>
+<pre><code>Further steps are described in '/private/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/RtmpIZlzBw/rstanlm/Read-and-delete-me'.</code></pre>
 <p>If we had existing <code>.stan</code> files to include with the package we could use the optional <code>stan_files</code> argument to <code>rstan_package_skeleton</code> to include them. Another option, which we’ll use below, is to add the Stan files once the basic structure of the package is in place.</p>
 <p>We can now set the new working directory to the new package directory and view the contents. (Note: if using RStudio then by default the newly created project for the package will be opened in a new session and you will not need the call to <code>setwd()</code>.)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setwd</span>(<span class="st">"rstanlm"</span>)
@@ -249,7 +252,7 @@ lm_stan &lt;-<span class="st"> </span><span class="cf">function</span>(x, y, ...
 #' @importFrom rstan sampling
 #' 
 #' @references 
-#' Stan Development Team (2018). RStan: the R interface to Stan. R package version 2.17.3. http://mc-stan.org
+#' Stan Development Team (2018). RStan: the R interface to Stan. R package version 2.18.1. http://mc-stan.org
 #' 
 NULL</code></pre>
 <p>The description section needs to be manually edited but the necessary <strong>roxygen2</strong> tags for specifying important parts of the <code>NAMESPACE</code> file have already been included.</p>
@@ -272,8 +275,8 @@ Writing rstanlm-package.Rd</code></pre>
 <pre><code>Re-compiling rstanlm</code></pre>
 <pre><code>'/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
-  '/private/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/Rtmps263M5/rstanlm'  \
-  --library='/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T//Rtmps263M5/devtools_install_144464a95af1c'  \
+  '/private/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/RtmpIZlzBw/rstanlm'  \
+  --library='/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T//RtmpIZlzBw/devtools_install_84fd5a8067c7'  \
   --no-R --no-data --no-help --no-demo --no-inst --no-docs --no-exec  \
   --no-multiarch --no-test-load --preclean </code></pre>
 <pre><code></code></pre>
@@ -284,8 +287,8 @@ Writing rstanlm-package.Rd</code></pre>
 <pre><code>
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 1).
 
-Gradient evaluation took 1.2e-05 seconds
-1000 transitions using 10 leapfrog steps per transition would take 0.12 seconds.
+Gradient evaluation took 1.8e-05 seconds
+1000 transitions using 10 leapfrog steps per transition would take 0.18 seconds.
 Adjust your expectations accordingly!
 
 
@@ -302,9 +305,9 @@ Iteration: 400 / 500 [ 80%]  (Sampling)
 Iteration: 450 / 500 [ 90%]  (Sampling)
 Iteration: 500 / 500 [100%]  (Sampling)
 
- Elapsed Time: 0.007073 seconds (Warm-up)
-               0.005986 seconds (Sampling)
-               0.013059 seconds (Total)
+ Elapsed Time: 0.008283 seconds (Warm-up)
+               0.005739 seconds (Sampling)
+               0.014022 seconds (Total)
 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 2).
@@ -327,15 +330,15 @@ Iteration: 400 / 500 [ 80%]  (Sampling)
 Iteration: 450 / 500 [ 90%]  (Sampling)
 Iteration: 500 / 500 [100%]  (Sampling)
 
- Elapsed Time: 0.006844 seconds (Warm-up)
-               0.005805 seconds (Sampling)
-               0.012649 seconds (Total)
+ Elapsed Time: 0.006951 seconds (Warm-up)
+               0.005322 seconds (Sampling)
+               0.012273 seconds (Total)
 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 3).
 
-Gradient evaluation took 5e-06 seconds
-1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
+Gradient evaluation took 4e-06 seconds
+1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
 Adjust your expectations accordingly!
 
 
@@ -352,15 +355,15 @@ Iteration: 400 / 500 [ 80%]  (Sampling)
 Iteration: 450 / 500 [ 90%]  (Sampling)
 Iteration: 500 / 500 [100%]  (Sampling)
 
- Elapsed Time: 0.007043 seconds (Warm-up)
-               0.005939 seconds (Sampling)
-               0.012982 seconds (Total)
+ Elapsed Time: 0.006986 seconds (Warm-up)
+               0.004943 seconds (Sampling)
+               0.011929 seconds (Total)
 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 4).
 
-Gradient evaluation took 5e-06 seconds
-1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
+Gradient evaluation took 4e-06 seconds
+1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
 Adjust your expectations accordingly!
 
 
@@ -377,21 +380,21 @@ Iteration: 400 / 500 [ 80%]  (Sampling)
 Iteration: 450 / 500 [ 90%]  (Sampling)
 Iteration: 500 / 500 [100%]  (Sampling)
 
- Elapsed Time: 0.006429 seconds (Warm-up)
-               0.005004 seconds (Sampling)
-               0.011433 seconds (Total)</code></pre>
+ Elapsed Time: 0.00697 seconds (Warm-up)
+               0.005013 seconds (Sampling)
+               0.011983 seconds (Total)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(fit)</code></pre></div>
 <pre><code>Inference for Stan model: lm.
 4 chains, each with iter=500; warmup=250; thin=1; 
 post-warmup draws per chain=250, total post-warmup draws=1000.
 
-           mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-intercept -0.53    0.02 0.37 -1.24 -0.77 -0.53 -0.30  0.22   568    1
-beta       0.43    0.02 0.44 -0.40  0.15  0.42  0.69  1.34   764    1
-sigma      1.15    0.02 0.37  0.66  0.91  1.07  1.32  2.06   492    1
-lp__      -5.45    0.07 1.42 -9.14 -6.11 -5.09 -4.43 -3.80   419    1
+           mean se_mean   sd   2.5%   25%   50%   75% 97.5% n_eff Rhat
+intercept -0.20    0.02 0.45  -1.17 -0.48 -0.18  0.08  0.68   774 1.00
+beta      -0.54    0.03 0.80  -2.17 -1.02 -0.56  0.00  1.11   669 1.00
+sigma      1.34    0.02 0.43   0.79  1.05  1.24  1.51  2.47   441 1.01
+lp__      -6.80    0.09 1.45 -10.76 -7.38 -6.39 -5.75 -5.17   285 1.02
 
-Samples were drawn using NUTS(diag_e) at Tue Apr 17 11:09:33 2018.
+Samples were drawn using NUTS(diag_e) at Thu Apr 26 10:03:39 2018.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
