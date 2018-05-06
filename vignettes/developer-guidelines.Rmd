@@ -1,7 +1,7 @@
 ---
 title: "Guidelines for Developers of R Packages Interfacing with Stan"
 author: "Stan Development Team"
-date: "`r Sys.Date()`"
+date: "`r format(Sys.Date(), format = '%B %Y')` (First version: November 2016)"
 output: 
   rmarkdown::html_vignette:
     toc: true
