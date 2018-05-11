@@ -1,5 +1,4 @@
 #' Posterior Sampler for SimpleModel
-#' @importFrom rstan sampling
 #' @export
 postsamp1 <- function(x, nsamples) {
   sampling(object = stanmodels$SimpleModel, data = list(x = x),
