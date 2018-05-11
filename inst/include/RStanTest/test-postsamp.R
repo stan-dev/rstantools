@@ -1,4 +1,4 @@
-require(rstan)
+require(rstan) # for log_prob & unconstrain_pars
 
 stan_quiet <- function(expr) {
   suppressMessages(suppressWarnings(expr))

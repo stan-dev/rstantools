@@ -4,5 +4,6 @@
 #' @docType package
 #' @import Rcpp
 #' @import methods
+#' @importFrom rstan sampling
 #' @useDynLib RStanTest, .registration = TRUE
 NULL
