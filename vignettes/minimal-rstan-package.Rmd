@@ -19,6 +19,11 @@ opts_chunk$set(
   comment=NA,
   eval = params$EVAL
 )
+td <- tempdir()
+PATH <- file.path(td, "rstanlm")
+if(dir.exists(PATH)) {
+  unlink(PATH, recursive = TRUE, force = TRUE)
+}
 ```
 
 ## Introduction
@@ -29,23 +34,21 @@ that fits a simple linear regression. Before continuing, we recommend that you f
 
 ## Creating the package skeleton
 
-To start off, we use `rstan_package_skeleton` to initialise a bare-bones
+To start off, we use `rstan_create_package` to initialise a bare-bones
 package directory. The name of our demo package will be __rstanlm__; it will fit
 a simple linear regression model using Stan. 
 
 ```{r, eval=FALSE}
 library("rstantools")
-rstan_package_skeleton(path = 'rstanlm')
+rstan_create_package(path = 'rstanlm')
 ```
 ```{r, echo=FALSE,warning=FALSE}
 library("rstantools")
-td <- tempdir()
-PATH <- file.path(td, "rstanlm")
-rstan_package_skeleton(path = PATH, rstudio=FALSE, open=FALSE)
+rstan_create_package(path = PATH, rstudio=FALSE, open=FALSE)
 ```
 
 If we had existing `.stan` files to include with the package we could use the 
-optional `stan_files` argument to `rstan_package_skeleton` to include them. 
+optional `stan_files` argument to `rstan_create_package` to include them. 
 Another option, which we'll use below, is to add the Stan files once the 
 basic structure of the package is in place. 
 
@@ -69,7 +72,7 @@ cat(DES, sep = "\n")
 ```
 Some of the sections in the `DESCRIPTION` file need to be edited by hand
 (`Title`, `Author`, `Maintainer`, and `Description`), but
-`rstan_package_skeleton()` has added the necessary packages and versions to
+`rstan_create_package()` has added the necessary packages and versions to
 `Depends`, `Imports`, and `LinkingTo`. It also added the `SystemRequirements`
 and `NeedsCompilation` fields.
 
@@ -142,7 +145,8 @@ model {
   y ~ normal(intercept + beta * x, sigma);
 }
 "
-cat(stan_prog, file = file.path(PATH, "src", "stan_files", "lm.stan"))
+cat(stan_prog, file = file.path(PATH, "inst", "stan", "lm.stan"))
+rstan_config(PATH)
 ```
 
 The `src/stan_files` subdirectory can contain additional Stan programs if
@@ -195,7 +199,7 @@ cat(Rcode, file = file.path(PATH, "R", "lm_stan.R"))
 ```
 
 The top-level package file `R/rstanlm-package.R` has already been created by
-`rstan_package_skeleton()` but needs to be modified to decribe the functionality
+`rstan_create_package()` but needs to be modified to decribe the functionality
 of our package:
 
 ```{r, eval=FALSE}
@@ -219,7 +223,7 @@ To update the `NAMESPACE` file and the rest of the documentation to include
 roxygen2::roxygenise(clean=TRUE)
 ```
 ```{r, echo=FALSE}
-roxygen2::roxygenise(PATH, clean=TRUE)
+devtools::document(PATH)
 ```
 
 
@@ -231,7 +235,7 @@ Finally, the package can be installed:
 devtools::install(local=FALSE)
 ```
 ```{r,echo=FALSE, results="hide"}
-devtools::load_all(PATH, recompile=TRUE)
+devtools::load_all(PATH)
 ```
 
 The argument `local=FALSE` is necessary if you want to recompile the Stan
@@ -250,7 +254,7 @@ print(fit)
 ```
 
 ```{r, echo=FALSE}
-unlink(PATH, recursive = TRUE)
+unlink(PATH, recursive = TRUE, force = TRUE)
 ```
 
 ## Links

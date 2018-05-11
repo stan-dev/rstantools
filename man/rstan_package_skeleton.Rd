@@ -7,21 +7,23 @@
 \title{Create the skeleton of a new \R package with Stan programs}
 \usage{
 rstan_create_package(path, fields = getOption("devtools.desc"),
-  rstudio = TRUE, open = TRUE, stan_files = character(), travis = TRUE,
-  license = TRUE)
+  rstudio = TRUE, open = TRUE, stan_files = character(), roxygen = TRUE,
+  travis = TRUE, license = TRUE)
 
 rstan_package_skeleton(name = "anRpackage", list = character(),
   environment = .GlobalEnv, path = ".", force = FALSE,
-  code_files = character(), stan_files = character(), travis = TRUE,
-  license = TRUE)
+  code_files = character(), stan_files = character(), roxygen = TRUE,
+  travis = TRUE, license = TRUE)
 }
 \arguments{
 \item{path}{For \code{rstan_create_package}, the path to the new package to be created (terminating in the package name).  For \code{rstan_create_package}, the path in which to create the package directory.}
 
-\item{fields, rstudio, open}{Same as for \code{\link[usethis]{usethis::create_package}}.}
+\item{fields, rstudio, open}{Same as for \code{usethis::create_package}.}
 
 \item{stan_files}{A character vector with paths to \code{.stan} files to
 include in the package.}
+
+\item{roxygen}{Whether \pkg{roxygen2} will be used for documentation.  If so, a file \code{R/{pkgname}-package.R} is added to the package with roxygen tags for the required import lines.}
 
 \item{travis}{Should a \code{.travis.yml} file be added to the package
 directory? Defaults to \code{TRUE}.  While the file contains some presets to help with compilation issues, at present it is not guaranteed to work
@@ -30,7 +32,7 @@ on \href{https://travis-ci.org/}{travis-ci} without manual adjustments.}
 \item{license}{Logical or character; whether or not to paste the contents of a \code{license.stan} file at the top of all Stan code, or path to such a file.  If \code{TRUE} adds the \code{GPL (>= 3)} license (see \strong{Details}).}
 
 \item{name, list, environment, force, code_files}{Same as in
-\code{\link[utils]{utils::package.skeleton}}.}
+\code{utils::package.skeleton}.}
 }
 \description{
 \if{html}{\figure{stanlogo.png}{options: width="25px" alt="http://mc-stan.org/about/logo/"}}
@@ -41,7 +43,7 @@ on \href{https://travis-ci.org/}{travis-ci} without manual adjustments.}
   developers and a step-by-step walk-through.
 }
 \details{
-These functions first create a regular \R package using either of the \code{\link[utils]{utils::package.skeleton}} or \code{\link[usethis]{usethis::create_package}} mechanisms, then addthe folder infrastructure to compile and export \code{stanmodel} objects.  In the package root directory, the user's Stan source code is located in
+These functions first create a regular \R package using either of the \code{utils::package.skeleton} or \code{usethis::create_package} mechanisms, then addthe folder infrastructure to compile and export \code{stanmodel} objects.  In the package root directory, the user's Stan source code is located in
 \preformatted{
 inst/
   |_stan/
@@ -54,7 +56,7 @@ All \code{.stan} files containing instructions to build a \code{stanmodel} objec
 #include "include/mylib.stan"
 #include "data/preprocess.stan"
 }
-See \pkg{\link[rstanarm]{rstanarm}} for many examples.
+See \pkg{rstanarm} for many examples.
 
 The folder \code{inst/include} is for all user C++ files associated with the Stan programs.  In this folder, the only file to directly interact with the Stan C++ library is \code{stan_meta_header.hpp}; all other \code{#include} directives must be channeled through here.
 
@@ -67,7 +69,7 @@ The final step of the package creation is to invoke \code{\link{rstan_config}}, 
 
 In order to enable Stan functionality, \pkg{\link{rstantools}} copies some files to your package.  Since these files are licensed as GPL >= 3, the same license applies to your package should you choose to distribute it.  Even if you don't use \pkg{\link{rstantools}} to create your package, it is likely that you will be linking to \pkg{\link{Rcpp}} to export the Stan C++ \code{stanmodel} objects to \R.  Since \pkg{\link{Rcpp}} is released under GPL >= 2, the same license would apply to your package upon distribution.
 
-Authors willing to license their Stan programs of general interest under the GPL are invited to contribute their \code{.stan} files and supporting \R code to the \pkg{\link{rstanarm}} package.
+Authors willing to license their Stan programs of general interest under the GPL are invited to contribute their \code{.stan} files and supporting \R code to the \pkg{rstanarm} package.
 }
 \seealso{
 \itemize{

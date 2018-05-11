@@ -30,16 +30,17 @@
 #' @export
 #' @param path For \code{rstan_create_package}, the path to the new package to be created (terminating in the package name).  For \code{rstan_create_package}, the path in which to create the package directory.
 #' @param name,list,environment,force,code_files Same as in
-#'   \code{\link[utils]{utils::package.skeleton}}.
-#' @param fields,rstudio,open Same as for \code{\link[usethis]{usethis::create_package}}.
+#'   \code{utils::package.skeleton}.
+#' @param fields,rstudio,open Same as for \code{usethis::create_package}.
 #' @param stan_files A character vector with paths to \code{.stan} files to
 #'   include in the package.
+#' @param roxygen Whether \pkg{roxygen2} will be used for documentation.  If so, a file \code{R/{pkgname}-package.R} is added to the package with roxygen tags for the required import lines.
 #' @param travis Should a \code{.travis.yml} file be added to the package
 #'   directory? Defaults to \code{TRUE}.  While the file contains some presets to help with compilation issues, at present it is not guaranteed to work
 #'   on \href{https://travis-ci.org/}{travis-ci} without manual adjustments.
 #' @template args-license
 #'
-#' @details These functions first create a regular \R package using either of the \code{\link[utils]{utils::package.skeleton}} or \code{\link[usethis]{usethis::create_package}} mechanisms, then addthe folder infrastructure to compile and export \code{stanmodel} objects.  In the package root directory, the user's Stan source code is located in
+#' @details These functions first create a regular \R package using either of the \code{utils::package.skeleton} or \code{usethis::create_package} mechanisms, then addthe folder infrastructure to compile and export \code{stanmodel} objects.  In the package root directory, the user's Stan source code is located in
 #' \preformatted{
 #' inst/
 #'   |_stan/
@@ -52,7 +53,7 @@
 #' #include "include/mylib.stan"
 #' #include "data/preprocess.stan"
 #' }
-#' See \pkg{\link[rstanarm]{rstanarm}} for many examples.
+#' See \pkg{rstanarm} for many examples.
 #'
 #' The folder \code{inst/include} is for all user C++ files associated with the Stan programs.  In this folder, the only file to directly interact with the Stan C++ library is \code{stan_meta_header.hpp}; all other \code{#include} directives must be channeled through here.
 #'
@@ -63,7 +64,7 @@
 #'   \item \code{R/stanmodels.R} loads the C++ modules containing the \code{stanmodel} class definitions, and assigns an \R instance of each \code{stanmodel} object to a \code{stanmodels} list.
 #' }
 #' @template details-license
-#' @details Authors willing to license their Stan programs of general interest under the GPL are invited to contribute their \code{.stan} files and supporting \R code to the \pkg{\link{rstanarm}} package.
+#' @details Authors willing to license their Stan programs of general interest under the GPL are invited to contribute their \code{.stan} files and supporting \R code to the \pkg{rstanarm} package.
 #'
 #'
 #'
@@ -81,15 +82,13 @@ rstan_create_package <- function(path,
                                  rstudio = TRUE,
                                  open = TRUE,
                                  stan_files = character(),
+                                 roxygen = TRUE,
                                  travis = TRUE,
                                  license = TRUE) {
   DIR <- dirname(path)
   name <- basename(path)
   # check stan extensions
-  if(length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files))) {
-    stop("All files named in 'stan_files' must end ",
-         "with a '.stan' extension.")
-  }
+  .check_stan_ext(stan_files)
   # check rstudio dependency
   if(rstudio && !requireNamespace("rstudioapi", quietly = TRUE)) {
     stop("Please install 'rstudioapi' for option 'rstudio = TRUE'.")
@@ -107,7 +106,7 @@ rstan_create_package <- function(path,
                                            rstudio = rstudio, open = FALSE))
   pkgdir <- .check_pkgdir(file.path(DIR, name)) # package folder
   # add rest of stan functionality to package
-  .rstan_make_pkg(pkgdir, stan_files, travis, license)
+  .rstan_make_pkg(pkgdir, stan_files, roxygen, travis, license)
   invisible(NULL)
 }
 
@@ -120,12 +119,11 @@ rstan_package_skeleton <- function(name = "anRpackage",
                                    force = FALSE,
                                    code_files = character(),
                                    stan_files = character(),
-                                   travis = TRUE, license = TRUE) {
+                                   roxygen = TRUE,
+                                   travis = TRUE,
+                                   license = TRUE) {
   # check stan extensions
-  if(length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files))) {
-    stop("All files named in 'stan_files' must end ",
-         "with a '.stan' extension.")
-  }
+  .check_stan_ext(stan_files)
   # run package skeleton
   message("Creating package skeleton for package: ", name, domain = NA)
   mc <- match.call()
@@ -145,7 +143,7 @@ rstan_package_skeleton <- function(name = "anRpackage",
   # remove all man files
   # (so package can be installed immediately after running package_skeleton)
   file.remove(list.files(file.path(pkgdir, "man"), full.names = TRUE))
-  .rstan_make_pkg(pkgdir, stan_files, travis, license)
+  .rstan_make_pkg(pkgdir, stan_files, roxygen, travis, license)
   invisible(NULL)
 }
 
@@ -153,17 +151,48 @@ rstan_package_skeleton <- function(name = "anRpackage",
 
 # add travis file
 .add_travis <- function(pkgdir) {
-  travis_file <- readLines(.system_file(".travis.yml"))
+  travis_file <- readLines(.system_file("travis.yml"))
   .add_stanfile(gsub("RSTAN_PACKAGE_NAME", basename(pkgdir), travis_file),
                 pkgdir, ".travis.yml",
                 noedit = FALSE, msg = TRUE, warn = FALSE)
   # also create an .Rbuildignore for travis file
-  .add_stanfile("^\\.travis\\.yml$", pkgdir, ".Rbuildignore",
-                noedit = FALSE)
+  .add_stanfile("^\\.travis\\.yml$", pkgdir, "Rbuildignore",
+                noedit = FALSE, msg = FALSE, warn = FALSE)
+}
+
+# add R/mypkg-package.R file with roxygen import comments
+.add_roxygen <- function(pkgdir) {
+  pkg_file <- readLines(.system_file("rstanpkg-package.R"))
+  pkg_file <- gsub("RSTAN_PACKAGE_NAME", basename(pkgdir), pkg_file)
+  pkg_file <- gsub("RSTAN_REFERENCE", .rstan_reference(), pkg_file)
+  .add_stanfile(pkg_file, pkgdir,
+                "R", paste0(basename(pkgdir), "-package.R"),
+                noedit = FALSE, msg = TRUE, warn = FALSE)
+}
+
+# reference to rstan package
+.rstan_reference <- function() {
+  has_version <- utils::packageDescription("rstan", fields = "Version")
+  version_year <- substr(utils::packageDescription("rstan", fields = "Date"), 1, 4)
+  paste0(
+    "Stan Development Team (", version_year,"). ",
+    "RStan: the R interface to Stan. ",
+    "R package version ", has_version, ". ",
+    "http://mc-stan.org"
+  )
+}
+
+
+# check stan extensions
+.check_stan_ext <- function(stan_files) {
+  if(length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files))) {
+    stop("All files named in 'stan_files' must end ",
+         "with a '.stan' extension.")
+  }
 }
 
 # add stan functionality to package
-.rstan_make_pkg <- function(pkgdir, stan_files, travis, license) {
+.rstan_make_pkg <- function(pkgdir, stan_files, roxygen, travis, license) {
   # add travis file
   if(travis) .add_travis(pkgdir)
   # add stan folder structure
@@ -171,6 +200,8 @@ rstan_package_skeleton <- function(name = "anRpackage",
   # add user's stan files
   file.copy(from = stan_files,
             to = file.path(pkgdir, "inst", "stan", basename(stan_files)))
+  # add default R/pkgname-package.R file for roxygen-style imports
+  if(roxygen) .add_roxygen(pkgdir)
   # add stan system files for compiling
   message("Configuring Stan compile and module export instructions ...")
   rstan_config(pkgdir)
