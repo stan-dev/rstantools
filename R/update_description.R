@@ -50,7 +50,9 @@
 # recombine into single string
 .version_comb <- function(ver) {
   pkgs <- apply(ver, 1, function(vv) paste0(vv[vv != ""], collapse = " "))
-  setNames(paste0(pkgs, collapse = ", "), NULL)
+  pkgs <- paste0(pkgs, collapse = ", ")
+  names(pkgs) <- NULL
+  pkgs
 }
 
 # update current packages and versions if new ones provided,

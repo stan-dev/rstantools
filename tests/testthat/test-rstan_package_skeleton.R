@@ -1,9 +1,9 @@
 #--- test rstan_create_package ---------------------------------------------
 
 # 1.  create package under various conditions
-# 2.  install package
+# 2.  devtools::load_all package (install.packages + library was persistently unreliable)
 # 3.  run tests on package
-# 4.  detach package and uninstall
+# 4.  delete package source
 
 # setup
 source("rstan_package_skeleton-testfunctions.R") # helper functions to run tests
@@ -18,7 +18,7 @@ dir.create(lib_path, recursive = TRUE)
 pkg_src_path <- system.file("include", "RStanTest",
                             package = "rstantools")
 # package R files
-code_files <- file.path(pkg_src_path, c("RStanTest-package.R", "postsamp.R"))
+code_files <- file.path(pkg_src_path, "postsamp.R")
 # package stan files
 stan_files <- file.path(pkg_src_path, c("SimpleModel.stan", "SimpleModel2.stan"))
 # package C++ files
@@ -33,11 +33,6 @@ ntest <- nrow(test_descr)
 
 # run tests
 for(ii in 1:ntest) {
-  if(dir.exists(file.path(test_path, pkg_name))) {
-    # remove package source if it exists
-    unlink(file.path(test_path, pkg_name),
-           recursive = TRUE, force = TRUE)
-  }
   # specific test condition
   use_create_package <- test_descr$create_package[ii]
   use_roxygen <- test_descr$roxygen[ii]
@@ -54,14 +49,16 @@ for(ii in 1:ntest) {
     # use rstan_create_package
     rstan_create_package(path = file.path(test_path, pkg_name),
                          rstudio = FALSE, open = FALSE,
-                         stan_files = stan_files)
+                         stan_files = stan_files,
+                         roxygen = use_roxygen)
     # add R files
     file.copy(from = code_files,
               to = file.path(test_path, pkg_name, "R", basename(code_files)))
   } else {
     # use rstan_package_skeleton
     rstan_package_skeleton(name = pkg_name, path = test_path,
-                           stan_files = stan_files, code_files = code_files)
+                           stan_files = stan_files, code_files = code_files,
+                           roxygen = use_roxygen)
   }
   # add C++ files
   file.copy(from = src_files,
@@ -78,14 +75,16 @@ for(ii in 1:ntest) {
     })
   }
   # install & load package
-  test_that("Package installs correctly", {
+  test_that("Package loads correctly", {
     skip_on_cran()
-    install.packages(pkgs = file.path(test_path, pkg_name),
-                     lib = lib_path, repos = NULL,
-                     type = "source", quiet = TRUE)
-    expect_true(library(package = pkg_name, lib.loc = lib_path,
-                        character.only = TRUE, quietly = TRUE,
-                        logical.return = TRUE))
+    ## install.packages(pkgs = file.path(test_path, pkg_name),
+    ##                  lib = lib_path, repos = NULL,
+    ##                  type = "source", quiet = TRUE)
+    expect_type(devtools::load_all(pkg = file.path(test_path, pkg_name),
+                                   export_all = TRUE, quiet = TRUE), "list")
+    ## expect_true(library(package = pkg_name, lib.loc = lib_path,
+    ##                     character.only = TRUE, quietly = TRUE,
+    ##                     logical.return = TRUE))
   })
   # check that functions work as expected
   test_that("logpost_R == logpost_Stan: postsamp1", {
@@ -107,6 +106,8 @@ for(ii in 1:ntest) {
   ## detach(paste0("package:", pkg_name),
   ##        unload = TRUE, character.only = TRUE)
   ## remove.packages(pkgs = pkg_name, lib = lib_path) # remove installed package
+  unlink(file.path(test_path, pkg_name),
+         recursive = TRUE, force = TRUE)
 }
 
 # make sure everything gets deleted even if there are errors
