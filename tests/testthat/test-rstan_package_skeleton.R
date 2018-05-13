@@ -11,9 +11,9 @@ pkg_name <- "RStanTest" # name of package
 # path to directory where package will be created
 test_path <- tempfile(pattern = "rstantools_")
 dir.create(test_path, recursive = TRUE)
-# path where package will be installed
-lib_path <- file.path(test_path, "library")
-dir.create(lib_path, recursive = TRUE)
+## # path where package will be installed
+## lib_path <- file.path(test_path, "library")
+## dir.create(lib_path, recursive = TRUE)
 # path to package source files
 pkg_src_path <- system.file("include", "RStanTest",
                             package = "rstantools")

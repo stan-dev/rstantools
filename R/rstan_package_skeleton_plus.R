@@ -122,8 +122,7 @@ rstan_package_skeleton <- function(name = "anRpackage",
                                    roxygen = TRUE,
                                    travis = TRUE,
                                    license = TRUE) {
-  # check stan extensions
-  .check_stan_ext(stan_files)
+  .check_stan_ext(stan_files) # check stan extensions
   # run package skeleton
   message("Creating package skeleton for package: ", name, domain = NA)
   mc <- match.call()
@@ -148,6 +147,14 @@ rstan_package_skeleton <- function(name = "anRpackage",
 }
 
 #--- helper functions ----------------------------------------------------------
+
+# check stan extensions
+.check_stan_ext <- function(stan_files) {
+  if(length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files))) {
+    stop("All files named in 'stan_files' must end ",
+         "with a '.stan' extension.")
+  }
+}
 
 # add travis file
 .add_travis <- function(pkgdir) {
@@ -180,15 +187,6 @@ rstan_package_skeleton <- function(name = "anRpackage",
     "R package version ", has_version, ". ",
     "http://mc-stan.org"
   )
-}
-
-
-# check stan extensions
-.check_stan_ext <- function(stan_files) {
-  if(length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files))) {
-    stop("All files named in 'stan_files' must end ",
-         "with a '.stan' extension.")
-  }
 }
 
 # add stan functionality to package

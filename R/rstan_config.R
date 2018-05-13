@@ -32,7 +32,7 @@ rstan_config <- function(pkgdir = ".") {
   pkgdir <- .check_pkgdir(pkgdir) # check if package root directory
   # get stan model files
   stan_files <- list.files(file.path(pkgdir, "inst", "stan"),
-                           full.names = TRUE, pattern = "*[.]stan$")
+                           full.names = TRUE, pattern = "\\.stan$")
   if(length(stan_files) != 0) {
     # convert all .stan files to .cc/.hpp pairs
     sapply(stan_files, .make_cc, pkgdir = pkgdir)
@@ -46,7 +46,7 @@ rstan_config <- function(pkgdir = ".") {
     if(length(mkv_files) > 0) file.remove(mkv_files)
   }
   # remove any .cc/.hpp/.o triplets with no corresponding .stan file
-  .remove_stanfiles(pkgdir)
+   .remove_stanfiles(pkgdir)
   ## all_files <- list.files(file.path(pkgdir, "src"),
   ##                         full.names = TRUE, pattern = "*[.](cc|h|o)$")
   ## all_files <- all_files %in% file.
@@ -64,6 +64,11 @@ rstan_config <- function(pkgdir = ".") {
 
 #--- helper functions ----------------------------------------------------------
 
+# prefix for stan C++ files
+.stan_prefix <- function(..., start = FALSE) {
+  paste0(ifelse(start, "^", ""), "stanExports_", ...)
+}
+
 # file basename without extension
 .basename_noext <- function(file_names) {
   gsub(pattern = "(.*?)\\..*$",
@@ -80,18 +85,18 @@ rstan_config <- function(pkgdir = ".") {
   all_files <- list.files(file.path(pkgdir, "src"), full.names = FALSE)
   # reduce to stan model files
   src_files <- all_files[grepl("*[.](cc|h)$", all_files)]
-  src_files <- src_files[grepl("^stan_", src_files)]
+  src_files <- src_files[grepl(.stan_prefix(start=TRUE), src_files)]
   # make sure 1st line is "don't edit"
   src_line1 <- sapply(file.path(pkgdir, "src", src_files), readLines, n = 1)
   src_files <- src_files[(src_line1 == .rstantools_noedit("foo.h")) |
                          (src_line1 == .rstantools_noedit("foo.cc"))]
   # stan model names corresponding to inactive stan files
-  rm_names <- gsub("^stan_", "", src_files)
+  rm_names <- gsub(.stan_prefix(start=TRUE), "", src_files)
   rm_names <- unique(gsub("[.](cc|h)$", "", rm_names))
   rm_names <- rm_names[!(rm_names %in% gsub("[.]stan$", "", stan_files))]
   if(length(rm_names) > 0) {
     # get all cc/h/o files in src corresponding to these models
-    rm_files <- c(outer(paste0("stan_", rm_names),
+    rm_files <- c(outer(.stan_prefix(rm_names),
                         c(".cc", ".h", ".o"), paste0))
     # and finally the files to remove
     rm_files <- all_files[all_files %in% rm_files]
@@ -171,6 +176,8 @@ rstan_config <- function(pkgdir = ".") {
                  paste("#include <stan_meta_header.hpp>\n", "\\1"), cppcode)
   # get license file (if any)
   stan_license <- .read_license(dirname(file_name))
+  # Stan header file
+  hdr_name <- .stan_prefix(model_name, ".h")
   .add_stanfile(file_lines = c(stan_license,
                                "#ifndef MODELS_HPP",
                                "#define MODELS_HPP",
@@ -178,7 +185,7 @@ rstan_config <- function(pkgdir = ".") {
                                "#include <rstan/rstaninc.hpp>",
                                cppcode, "#endif"),
                 pkgdir = pkgdir,
-                "src", paste0("stan_", model_name, ".h"),
+                "src", hdr_name,
                 noedit = TRUE, msg = FALSE, warn = TRUE)
   # create Rcpp module exposing C++ class as R ReferenceClass
   suppressMessages({
@@ -203,8 +210,7 @@ rstan_config <- function(pkgdir = ".") {
                                              "unconstrained_param_names",
                                              "constrained_param_names"),
                                  file = stdout(),
-                                 header = paste0('#include "stan_',
-                                                 model_name, '.h"'),
+                                 header = paste0('#include "', hdr_name, '"'),
                                  module = paste0("stan_fit4",
                                                  model_name, "_mod"),
                                  CppClass = "rstan::stan_fit<stan_model, boost::random::ecuyer1988> ",
@@ -213,15 +219,17 @@ rstan_config <- function(pkgdir = ".") {
   })
   .add_stanfile(file_lines = cpp_lines,
                 pkgdir = pkgdir,
-                "src", paste0("stan_", model_name, ".cc"),
+                "src", .stan_prefix(model_name, ".cc"),
                 noedit = TRUE, msg = FALSE, warn = TRUE)
   return(invisible(NULL))
 }
 
 # read license file (if any)
 .read_license <- function(stan_path) {
+  # look for any file named license.stan
   stan_license <- dir(stan_path,
-                      pattern = "license[.]stan$", recursive = TRUE,
+                      pattern = "^license[.]stan$", recursive = TRUE,
+                      ignore.case = TRUE,
                       full.names = TRUE)
   if(length(stan_license) > 1) {
     stop("Multiple license.stan files detected.")
