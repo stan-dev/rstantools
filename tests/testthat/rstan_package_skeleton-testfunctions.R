@@ -62,6 +62,30 @@ compare_postsamp2 <- function() {
   expect_equal(max(abs(diff(lpR-lpStan))), 0, tolerance = 1e-6)
 }
 
+#-------------------------------------------------------------------------------
+
+# check md5sums for src files
+check_md5 <- function(stan_file, pkg_src_path, pkg_dest_path) {
+  sf <- sub("\\.stan$", "", basename(stan_file))
+  for(ext in c(".cc", ".h")) {
+    src_files <- rstantools:::.stan_prefix(sf, ext)
+    src_files <- c(file.path(pkg_src_path, src_files),
+                  file.path(pkg_dest_path, "src", src_files))
+    src_md5 <- tools::md5sum(src_files)
+    names(src_md5) <- NULL
+    expect_identical(src_md5[1], src_md5[2])
+  }
+}
+
+# check modification times for src files
+check_mtime <- function(stan_file, pkg_dest_path) {
+  sf <- sub("\\.stan$", "", basename(stan_file))
+  src_files <- rstantools:::.stan_prefix(sf, c(".cc", ".h"))
+  file.mtime(file.path(pkg_dest_path, "src", src_files))
+}
+
+#-------------------------------------------------------------------------------
+
 # unload, uninstall, and delete source for given package
 remove_package <- function(pkg_name, pkg_path, lib_path,
                            unload = TRUE,
