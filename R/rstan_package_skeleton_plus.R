@@ -39,6 +39,7 @@
 #'   directory? Defaults to \code{TRUE}.  While the file contains some presets to help with compilation issues, at present it is not guaranteed to work
 #'   on \href{https://travis-ci.org/}{travis-ci} without manual adjustments.
 #' @template args-license
+#' @template args-auto_config
 #'
 #' @details These functions first create a regular \R package using either of the \code{utils::package.skeleton} or \code{usethis::create_package} mechanisms, then addthe folder infrastructure to compile and export \code{stanmodel} objects.  In the package root directory, the user's Stan source code is located in
 #' \preformatted{
@@ -63,6 +64,7 @@
 #'   \item \code{src/Makevars[.win]} which link to the \code{StanHeaders} and Boost (\code{BH}) libraries.
 #'   \item \code{R/stanmodels.R} loads the C++ modules containing the \code{stanmodel} class definitions, and assigns an \R instance of each \code{stanmodel} object to a \code{stanmodels} list.
 #' }
+#' @template details-auto_config
 #' @template details-license
 #' @details Authors willing to license their Stan programs of general interest under the GPL are invited to contribute their \code{.stan} files and supporting \R code to the \pkg{rstanarm} package.
 #'
@@ -84,7 +86,8 @@ rstan_create_package <- function(path,
                                  stan_files = character(),
                                  roxygen = TRUE,
                                  travis = TRUE,
-                                 license = TRUE) {
+                                 license = TRUE,
+                                 auto_config = TRUE) {
   DIR <- dirname(path)
   name <- basename(path)
   # check stan extensions
@@ -106,7 +109,7 @@ rstan_create_package <- function(path,
                                            rstudio = rstudio, open = FALSE))
   pkgdir <- .check_pkgdir(file.path(DIR, name)) # package folder
   # add rest of stan functionality to package
-  .rstan_make_pkg(pkgdir, stan_files, roxygen, travis, license)
+  .rstan_make_pkg(pkgdir, stan_files, roxygen, travis, license, auto_config)
   invisible(NULL)
 }
 
@@ -129,20 +132,12 @@ rstan_package_skeleton <- function(name = "anRpackage",
   mc[[1]] <- quote(utils::package.skeleton)
   env <- parent.frame(1)
   mc <- mc[c(1, which(names(mc) %in% names(formals(utils::package.skeleton))))]
-  ## mc$stan_files <- NULL
-  ## mc$travis <- NULL
-  ## mc$license <- NULL
-  ## mc[[1]] <- quote(utils::package.skeleton)
   suppressMessages(eval(mc, envir = env))
-  ## suppressMessages(utils::package.skeleton(name = name, list = list,
-  ##                                          environment = environment,
-  ##                                          path = path, force = force,
-  ##                                          code_files = code_files))
   pkgdir <- .check_pkgdir(file.path(path, name)) # package folder
   # remove all man files
   # (so package can be installed immediately after running package_skeleton)
   file.remove(list.files(file.path(pkgdir, "man"), full.names = TRUE))
-  .rstan_make_pkg(pkgdir, stan_files, roxygen, travis, license)
+  .rstan_make_pkg(pkgdir, stan_files, roxygen, travis, license, auto_config)
   invisible(NULL)
 }
 
@@ -163,7 +158,7 @@ rstan_package_skeleton <- function(name = "anRpackage",
                 pkgdir, ".travis.yml",
                 noedit = FALSE, msg = TRUE, warn = FALSE)
   # also create an .Rbuildignore for travis file
-  .add_stanfile("^\\.travis\\.yml$", pkgdir, "Rbuildignore",
+  .add_stanfile("^\\.travis\\.yml$", pkgdir, ".Rbuildignore",
                 noedit = FALSE, msg = FALSE, warn = FALSE)
 }
 
@@ -190,11 +185,12 @@ rstan_package_skeleton <- function(name = "anRpackage",
 }
 
 # add stan functionality to package
-.rstan_make_pkg <- function(pkgdir, stan_files, roxygen, travis, license) {
+.rstan_make_pkg <- function(pkgdir, stan_files,
+                            roxygen, travis, license, auto_config) {
   # add travis file
   if(travis) .add_travis(pkgdir)
   # add stan folder structure
-  use_rstan(pkgdir, license = license)
+  use_rstan(pkgdir, license = license, auto_config = auto_config)
   # add user's stan files
   file.copy(from = stan_files,
             to = file.path(pkgdir, "inst", "stan", basename(stan_files)))

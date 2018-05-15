@@ -8,7 +8,7 @@
 \usage{
 rstan_create_package(path, fields = getOption("devtools.desc"),
   rstudio = TRUE, open = TRUE, stan_files = character(), roxygen = TRUE,
-  travis = TRUE, license = TRUE)
+  travis = TRUE, license = TRUE, auto_config = TRUE)
 
 rstan_package_skeleton(name = "anRpackage", list = character(),
   environment = .GlobalEnv, path = ".", force = FALSE,
@@ -30,6 +30,8 @@ directory? Defaults to \code{TRUE}.  While the file contains some presets to hel
 on \href{https://travis-ci.org/}{travis-ci} without manual adjustments.}
 
 \item{license}{Logical or character; whether or not to paste the contents of a \code{license.stan} file at the top of all Stan code, or path to such a file.  If \code{TRUE} adds the \code{GPL (>= 3)} license (see \strong{Details}).}
+
+\item{auto_config}{Whether to automatically configure Stan functionality whenever the package gets installed (see \strong{Details}).}
 
 \item{name, list, environment, force, code_files}{Same as in
 \code{utils::package.skeleton}.}
@@ -66,6 +68,8 @@ The final step of the package creation is to invoke \code{\link{rstan_config}}, 
   \item \code{src/Makevars[.win]} which link to the \code{StanHeaders} and Boost (\code{BH}) libraries.
   \item \code{R/stanmodels.R} loads the C++ modules containing the \code{stanmodel} class definitions, and assigns an \R instance of each \code{stanmodel} object to a \code{stanmodels} list.
 }
+
+When \code{auto_config = TRUE}, a \code{configure[.win]} file is added to the package, calling \code{rstantools::\link{rstan_config}} whenever the package is installed.  Consequently, the package must list \code{rstantools} in the \code{DESCRIPTION} Imports field for this mechanism to work.  Setting \code{auto_config = FALSE} removes the package's dependency on \code{rstantools}.  However, the package then must be manually configured by running \code{\link{rstan_config}} whenever \code{stanmodel} files in \code{inst/stan} are added/removed/modified.
 
 In order to enable Stan functionality, \pkg{\link{rstantools}} copies some files to your package.  Since these files are licensed as GPL >= 3, the same license applies to your package should you choose to distribute it.  Even if you don't use \pkg{\link{rstantools}} to create your package, it is likely that you will be linking to \pkg{\link{Rcpp}} to export the Stan C++ \code{stanmodel} objects to \R.  Since \pkg{\link{Rcpp}} is released under GPL >= 2, the same license would apply to your package upon distribution.
 
