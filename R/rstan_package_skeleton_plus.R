@@ -124,7 +124,8 @@ rstan_package_skeleton <- function(name = "anRpackage",
                                    stan_files = character(),
                                    roxygen = TRUE,
                                    travis = TRUE,
-                                   license = TRUE) {
+                                   license = TRUE,
+                                   auto_config = TRUE) {
   .check_stan_ext(stan_files) # check stan extensions
   # run package skeleton
   message("Creating package skeleton for package: ", name, domain = NA)
