@@ -88,13 +88,16 @@ rstan_create_package <- function(path,
                                  travis = TRUE,
                                  license = TRUE,
                                  auto_config = TRUE) {
+  if (!requireNamespace("usethis", quietly = TRUE)) {
+    stop("Please install package 'usethis' to use function 'rstan_create_package'.")
+  }
   DIR <- dirname(path)
   name <- basename(path)
   # check stan extensions
   .check_stan_ext(stan_files)
   # check rstudio dependency
   if(rstudio && !requireNamespace("rstudioapi", quietly = TRUE)) {
-    stop("Please install 'rstudioapi' for option 'rstudio = TRUE'.")
+    stop("Please install package 'rstudioapi' to use option 'rstudio = TRUE'.")
     rstudio <- rstudio && rstudioapi::isAvailable()
   }
   if (open && rstudio) {
