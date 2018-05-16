@@ -16,12 +16,14 @@ context("rstan_config")
 source("rstan_package_skeleton-testfunctions.R")
 pkg_name <- "RStanTest" # name of package
 # path to directory where package will be created
-test_path <- tempfile(pattern = "rstantools_")
+tmp_test_path <- TRUE # put tests in temporary folder
+if(tmp_test_path) test_path <- tempfile(pattern = "rstantools_")
 dir.create(test_path, recursive = TRUE)
 pkg_dest_path <- file.path(test_path, pkg_name)
 # path to package source files
-pkg_src_path <- system.file("include", "RStanTest",
-                            package = "rstantools")
+pkg_src_path <- "RStanTest"
+## pkg_src_path <- system.file("include", "RStanTest",
+##                             package = "rstantools")
 # package R files
 code_files <- file.path(pkg_src_path, "postsamp.R")
 # package stan files
@@ -44,13 +46,13 @@ file.copy(from = stan_files,
           to = file.path(pkg_dest_path, "inst", "stan",
                          basename(stan_files)))
 
-# check that md5sums match those on record
+# check that Stan C++ source lines mathc those on record
 test_that("Stan src files are created properly", {
   rstan_config(pkg_dest_path)
-  for(stan_file in stan_files) {
-    check_md5(stan_file,
-              pkg_src_path = pkg_src_path,
-              pkg_dest_path = pkg_dest_path)
+  for(sf in stan_files) {
+    check_lines(sf,
+                pkg_src_path = pkg_src_path,
+                pkg_dest_path = pkg_dest_path)
   }
 })
 
@@ -110,6 +112,12 @@ test_that("src is properly updated after removing inst/stan files", {
 #--- 6.  delete package source -------------------------------------------------
 
 unlink(pkg_dest_path, recursive = TRUE, force = TRUE)
+
+# make sure everything gets deleted even if there are errors
+teardown(code = {
+  if(tmp_test_path) unlink(test_path, recursive = TRUE, force = TRUE)
+})
+
 
 #--- scratch -------------------------------------------------------------------
 
