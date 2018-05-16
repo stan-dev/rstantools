@@ -13,7 +13,7 @@ rstan_create_package(path, fields = getOption("devtools.desc"),
 rstan_package_skeleton(name = "anRpackage", list = character(),
   environment = .GlobalEnv, path = ".", force = FALSE,
   code_files = character(), stan_files = character(), roxygen = TRUE,
-  travis = TRUE, license = TRUE)
+  travis = TRUE, license = TRUE, auto_config = TRUE)
 }
 \arguments{
 \item{path}{For \code{rstan_create_package}, the path to the new package to be created (terminating in the package name).  For \code{rstan_create_package}, the path in which to create the package directory.}
