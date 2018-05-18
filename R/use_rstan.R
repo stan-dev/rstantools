@@ -61,7 +61,7 @@ use_rstan <- function(pkgdir = ".", license = TRUE, auto_config = TRUE) {
   ## acc <- acc | .add_staninit(pkgdir)
   # add packages to DESCRIPTION file
   acc <- acc | .update_description(pkgdir,
-                                   rstantools = auto_config, msg = TRUE)
+                                   auto_config = auto_config, msg = TRUE)
   # add or remove configure files
   acc <- acc | any(.setup_configure(pkgdir, auto_config))
   # modify NAMESPACE, or output instructions for how to do so
