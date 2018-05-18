@@ -1,19 +1,40 @@
 # update DESCRIPTION file to include all packages required to compile Stan code.
-# rstantools: whether or not package should import rstantools (for linking via config file)
+# auto_config: whether or not package should configure itself.
+# this means importing rstantools (for linking via configure[.win] file) and
+# setting option Biarch: true
 # msg: display message if attempt to create is made
+# also when setting auto_config = FALSE, issues a message
+# if rstantools is already imported and/or Biarch: true
 # return value: whether or not file was modified
-.update_description <- function(pkgdir, rstantools = FALSE, msg = TRUE) {
+.update_description <- function(pkgdir, auto_config = FALSE, msg = TRUE) {
   desc_pkg <- read.dcf(file.path(pkgdir, "DESCRIPTION"))
   desc_pkg <- gsub("\n", " ", desc_pkg)
   desc_old <- desc_pkg
   desc_rstan <- read.dcf(.system_file("DESCRIPTION"))
   dep_fields <- c("Depends", "Imports", "LinkingTo", "Suggests", "Enhances")
   pkg_fields <- dep_fields[dep_fields %in% colnames(desc_rstan)]
-  if(!rstantools) {
-    # remove dependence on rstantools
+  # check for Biarch field
+  has_biarch <- "Biarch" %in% colnames(desc_pkg)
+  if(!auto_config) {
+    # check for rstantools dependence
+    has_rstantools <- .version_split(desc_pkg[,"Imports"])
+    has_rstantools <- any(grepl(pattern = "(?<!\\w)rstantools(?!\\w)",
+                                x = has_rstantools[,"pkg"], perl = TRUE))
+    # check if Biarch: true
+    has_biarch <- has_biarch && grepl(pattern = "(?<!\\w)true(?!\\w)",
+                                      x = desc_pkg[,"Biarch"],
+                                      perl = TRUE, ignore.case=TRUE)
+    # don't add dependence on rstantools
     imp_field <- .version_split(desc_rstan[,"Imports"])
     imp_field <- .version_comb(imp_field[imp_field[,"pkg"] != "rstantools",])
     desc_rstan[,"Imports"] <- imp_field
+  } else {
+    # add Biarch: true for multiarch Windows
+    if(has_biarch) {
+      desc_pkg[,"Biarch"] <- "true"
+    } else {
+      desc_pkg <- cbind(desc_pkg, Biarch = "true")
+    }
   }
   for(fname in pkg_fields) {
     # update each field with packages and versions required by Stan
@@ -33,6 +54,16 @@
     dep_fields <- dep_fields[dep_fields %in% colnames(desc_pkg)]
     write.dcf(desc_pkg, file = file.path(pkgdir, "DESCRIPTION"),
               keep.white = dep_fields)
+  }
+  if(!auto_config && msg) {
+    if(has_rstantools) {
+      message("'Import: rstantools' detected in DESCRIPTION with 'auto_config = FALSE'.\n",
+              "If you did not add this dependence yourself then it's safe to remove it.\n")
+    }
+    if(has_biarch) {
+      message("'Biarch: true' detected in DESCRIPTION with 'auto_config = FALSE'.\n",
+              "If you did not add this line yourself then it's safe to remove it.\n")
+    }
   }
   invisible(acc)
 }
