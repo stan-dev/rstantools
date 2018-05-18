@@ -3,6 +3,7 @@
 LICENSE
 ^\.travis\.yml$
 ^README\.md$
+^README_package_skeleton\.md$
 .gitignore
 ^cran-comments\.md$
 ^revdep$
