@@ -17,9 +17,11 @@
   has_biarch <- "Biarch" %in% colnames(desc_pkg)
   if(!auto_config) {
     # check for rstantools dependence
-    has_rstantools <- .version_split(desc_pkg[,"Imports"])
-    has_rstantools <- any(grepl(pattern = "(?<!\\w)rstantools(?!\\w)",
-                                x = has_rstantools[,"pkg"], perl = TRUE))
+    if("Imports" %in% colnames(desc_pkg)) {
+      has_rstantools <- .version_split(desc_pkg[,"Imports"])
+      has_rstantools <- any(grepl(pattern = "(?<!\\w)rstantools(?!\\w)",
+                                  x = has_rstantools[,"pkg"], perl = TRUE))
+    } else has_rstantools <- FALSE
     # check if Biarch: true
     has_biarch <- has_biarch && grepl(pattern = "(?<!\\w)true(?!\\w)",
                                       x = desc_pkg[,"Biarch"],
