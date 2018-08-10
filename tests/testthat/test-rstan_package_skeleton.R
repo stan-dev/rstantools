@@ -23,6 +23,8 @@ pkg_src_path <- "RStanTest"
 code_files <- file.path(pkg_src_path, "postsamp.R")
 # package stan files
 stan_files <- file.path(pkg_src_path, c("SimpleModel.stan", "SimpleModel2.stan"))
+# package stan/include files
+incl_files <- file.path(pkg_src_path, "helper.stan")
 # package C++ files
 src_files <- file.path(pkg_src_path, "AddTest.cpp")
 
@@ -59,7 +61,7 @@ for(ii in 1:ntest) {
     # use rstan_create_package
     rstan_create_package(path = pkg_dest_path,
                          rstudio = FALSE, open = FALSE,
-                         stan_files = stan_files,
+                         ## stan_files = stan_files,
                          roxygen = use_roxygen)
     # add R files
     file.copy(from = code_files,
@@ -67,13 +69,23 @@ for(ii in 1:ntest) {
   } else {
     # use rstan_package_skeleton
     rstan_package_skeleton(name = pkg_name, path = dirname(pkg_dest_path),
-                           stan_files = stan_files, code_files = code_files,
+                           ## stan_files = stan_files,
+                           code_files = code_files,
                            roxygen = use_roxygen)
   }
+  # add stan files (need to do this separately or else rstan_config complains)
+  file.copy(from = stan_files,
+            to = file.path(pkg_dest_path,
+                           "inst", "stan", basename(stan_files)))
+  # add stan/include files
+  file.copy(from = incl_files,
+            to = file.path(pkg_dest_path,
+                           "inst", "stan", "include", basename(incl_files)))
   # add C++ files
   file.copy(from = src_files,
             to = file.path(pkg_dest_path, "src", basename(src_files)))
-  Rcpp::compileAttributes(pkg_dest_path)
+  rstan_config(pkg_dest_path)
+  ## Rcpp::compileAttributes(pkg_dest_path)
   # enable roxygen documentation
   if(use_roxygen) {
     # TODO: stop test if devtools not found
