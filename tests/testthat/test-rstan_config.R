@@ -28,6 +28,8 @@ pkg_src_path <- "RStanTest"
 code_files <- file.path(pkg_src_path, "postsamp.R")
 # package stan files
 stan_files <- file.path(pkg_src_path, c("SimpleModel.stan", "SimpleModel2.stan"))
+# package stan/include files
+incl_files <- file.path(pkg_src_path, "helper.stan")
 
 #--- 1.  create package --------------------------------------------------------
 
@@ -45,8 +47,12 @@ file.copy(from = code_files,
 file.copy(from = stan_files,
           to = file.path(pkg_dest_path, "inst", "stan",
                          basename(stan_files)))
+# copy stan/include files
+file.copy(from = incl_files,
+          to = file.path(pkg_dest_path, "inst", "stan", "include",
+                         basename(incl_files)))
 
-# check that Stan C++ source lines mathc those on record
+# check that Stan C++ source lines match those on record
 test_that("Stan src files are created properly", {
   rstan_config(pkg_dest_path)
   for(sf in stan_files) {

@@ -160,7 +160,7 @@ rstan_config <- function(pkgdir = ".") {
   ## stan_path <- file.path(pkgdir, "src", "stan_files")
   # create c++ code
   cppcode <- rstan::stanc(file_name, allow_undefined = TRUE,
-                                  obfuscate_model_name = FALSE)$cppcode
+                          obfuscate_model_name = FALSE)$cppcode
   cppcode <- sub("(class[[:space:]]+[A-Za-z_][A-Za-z0-9_]*[[:space:]]*: public prob_grad \\{)",
                  paste("#include <stan_meta_header.hpp>\n", "\\1"), cppcode)
   # get license file (if any)

@@ -28,9 +28,44 @@ static int current_statement_begin__;
 stan::io::program_reader prog_reader__() {
     stan::io::program_reader reader;
     reader.add_event(0, 0, "start", "model_SimpleModel2");
-    reader.add_event(11, 11, "end", "model_SimpleModel2");
+    reader.add_event(1, 1, "include", "/include/helper.stan");
+    reader.add_event(1, 0, "start", "/include/helper.stan");
+    reader.add_event(4, 3, "end", "/include/helper.stan");
+    reader.add_event(4, 2, "restart", "model_SimpleModel2");
+    reader.add_event(22, 20, "end", "model_SimpleModel2");
     return reader;
 }
+
+template <typename T0__>
+typename boost::math::tools::promote_args<T0__>::type
+foo(const T0__& x, std::ostream* pstream__) {
+    typedef typename boost::math::tools::promote_args<T0__>::type fun_scalar_t__;
+    typedef fun_scalar_t__ fun_return_scalar_t__;
+    const static bool propto__ = true;
+    (void) propto__;
+        fun_scalar_t__ DUMMY_VAR__(std::numeric_limits<double>::quiet_NaN());
+        (void) DUMMY_VAR__;  // suppress unused var warning
+
+    int current_statement_begin__ = -1;
+    try {
+
+        current_statement_begin__ = 3;
+        return stan::math::promote_scalar<fun_return_scalar_t__>(x);
+    } catch (const std::exception& e) {
+        stan::lang::rethrow_located(e, current_statement_begin__, prog_reader__());
+        // Next line prevents compiler griping about no return
+        throw std::runtime_error("*** IF YOU SEE THIS, PLEASE REPORT A BUG ***");
+    }
+}
+
+
+struct foo_functor__ {
+    template <typename T0__>
+        typename boost::math::tools::promote_args<T0__>::type
+    operator()(const T0__& x, std::ostream* pstream__) const {
+        return foo(x, pstream__);
+    }
+};
 
 #include <stan_meta_header.hpp>
  class model_SimpleModel2 : public prob_grad {
@@ -70,7 +105,7 @@ public:
 
         // initialize member variables
         try {
-            current_statement_begin__ = 2;
+            current_statement_begin__ = 8;
             context__.validate_dims("data initialization", "x", "double", context__.to_vec());
             x = double(0);
             vals_r__ = context__.vals_r("x");
@@ -78,7 +113,7 @@ public:
             x = vals_r__[pos__++];
 
             // validate, data variables
-            current_statement_begin__ = 2;
+            current_statement_begin__ = 8;
             // initialize data variables
 
 
@@ -87,7 +122,7 @@ public:
             // validate, set parameter ranges
             num_params_r__ = 0U;
             param_ranges_i__.clear();
-            current_statement_begin__ = 6;
+            current_statement_begin__ = 12;
             ++num_params_r__;
         } catch (const std::exception& e) {
             stan::lang::rethrow_located(e, current_statement_begin__, prog_reader__());
@@ -172,7 +207,7 @@ public:
 
             // model body
 
-            current_statement_begin__ = 10;
+            current_statement_begin__ = 16;
             lp_accum__.add(normal_log<propto__>(x, 0, sigma));
 
         } catch (const std::exception& e) {
@@ -201,12 +236,15 @@ public:
     void get_param_names(std::vector<std::string>& names__) const {
         names__.resize(0);
         names__.push_back("sigma");
+        names__.push_back("alpha");
     }
 
 
     void get_dims(std::vector<std::vector<size_t> >& dimss__) const {
         dimss__.resize(0);
         std::vector<size_t> dims__;
+        dims__.resize(0);
+        dimss__.push_back(dims__);
         dims__.resize(0);
         dimss__.push_back(dims__);
     }
@@ -246,12 +284,23 @@ public:
 
             if (!include_gqs__) return;
             // declare and define generated quantities
+            current_statement_begin__ = 20;
+            double alpha(0.0);
+            (void) alpha;  // dummy to suppress unused var warning
+
+            stan::math::initialize(alpha, std::numeric_limits<double>::quiet_NaN());
+            stan::math::fill(alpha,DUMMY_VAR__);
 
 
+            current_statement_begin__ = 21;
+            stan::math::assign(alpha, foo(3.1400000000000001, pstream__));
 
             // validate generated quantities
+            current_statement_begin__ = 20;
 
             // write generated quantities
+        vars__.push_back(alpha);
+
         } catch (const std::exception& e) {
             stan::lang::rethrow_located(e, current_statement_begin__, prog_reader__());
             // Next line prevents compiler griping about no return
@@ -293,6 +342,9 @@ public:
         if (!include_gqs__ && !include_tparams__) return;
 
         if (!include_gqs__) return;
+        param_name_stream__.str(std::string());
+        param_name_stream__ << "alpha";
+        param_names__.push_back(param_name_stream__.str());
     }
 
 
@@ -307,6 +359,9 @@ public:
         if (!include_gqs__ && !include_tparams__) return;
 
         if (!include_gqs__) return;
+        param_name_stream__.str(std::string());
+        param_name_stream__ << "alpha";
+        param_names__.push_back(param_name_stream__.str());
     }
 
 }; // model
