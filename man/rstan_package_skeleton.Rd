@@ -4,14 +4,12 @@
 \alias{rstan_package_skeleton}
 \title{Create the skeleton of a new \R package with Stan programs}
 \usage{
-rstan_package_skeleton(path, fields = getOption("devtools.desc"),
-  rstudio = TRUE, open = TRUE, stan_files = character(), travis = TRUE)
+rstan_package_skeleton(path, rstudio = TRUE, open = TRUE,
+  stan_files = character(), travis = TRUE)
 }
 \arguments{
 \item{path}{A relative or absolute path to the new package to be created
 (terminating in the package name).}
-
-\item{fields, rstudio, open}{See \code{usethis::create_package}.}
 
 \item{stan_files}{A character vector with paths to \code{.stan} files to
 include in the package (these files will be included in the
@@ -23,6 +21,8 @@ later.}
 directory? Defaults to \code{TRUE}. The file has some settings already set
 to help with compilation issues, but we do not guarantee that it will work
 on \href{https://travis-ci.org/}{travis-ci} without manual adjustments.}
+
+\item{fields, rstudio, open}{See \code{usethis::create_package}.}
 }
 \description{
 \if{html}{\figure{stanlogo.png}{options: width="25px" alt="http://mc-stan.org/about/logo/"}}

@@ -2,8 +2,8 @@ context("rstan_package_skeleton")
 
 if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install rstan again
   rstan_package_skeleton(
-    path = file.path(tempdir(),"testPackage"),
-    stan_files = test_path("test.stan")
+    path = file.path(tempdir(), "testPackage"),
+    stan_files = testthat::test_path("test.stan")
   )
   pkg_path <- file.path(tempdir(), "testPackage")
   pkg_files <- list.files(pkg_path, recursive = TRUE, all.files = TRUE)
@@ -68,7 +68,7 @@ if (requireNamespace("rstan", quietly = TRUE)) { # FIXME when travis can install
         path = file.path(tempdir(),"testPackage5"),
         stan_files = c("test.stan")
       ),
-      regexp = "Changing active project to testPackage5"
+      regexp = "Setting active project"
     )
   })
 

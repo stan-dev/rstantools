@@ -35,7 +35,7 @@
 #' @export
 #' @param path A relative or absolute path to the new package to be created
 #'   (terminating in the package name).
-#' @param fields,rstudio,open See \code{usethis::create_package}.
+#' @param rstudio,open See \code{usethis::create_package}.
 #' @param stan_files A character vector with paths to \code{.stan} files to
 #'   include in the package (these files will be included in the
 #'   \code{src/stan_files} directory). If not specified then the \code{.stan}
@@ -69,7 +69,6 @@
 #'
 rstan_package_skeleton <-
   function(path,
-           fields = getOption("devtools.desc"),
            rstudio = TRUE,
            open = TRUE,
            stan_files = character(),
@@ -98,6 +97,38 @@ rstan_package_skeleton <-
         "'.stan' extension."
       )
     }
+
+    available_pkgs <- available.packages(repos = "https://cran.rstudio.com/")[, c("Package", "Version")]
+    available_pkgs <- data.frame(available_pkgs, stringsAsFactors = FALSE)
+    .pkg_dependency <- function(pkg, last = FALSE) {
+      ver <- available_pkgs$Version[available_pkgs$Package == pkg]
+      paste0(pkg, " (>= ", ver, ")", if (!last) ", ")
+    }
+
+    desc_defaults <- getOption("usethis.description")
+    if (is.null(desc_defaults)) {
+      desc_defaults <- list()
+    }
+    fields <- c(
+      desc_defaults,
+      Depends = paste0(
+        "R (>= 3.4.0), methods,",
+        .pkg_dependency("Rcpp", last = TRUE)
+      ),
+      Imports = paste0(
+        .pkg_dependency("rstan"),
+        .pkg_dependency("rstantools", last = TRUE)
+      ),
+      LinkingTo = paste0(
+        .pkg_dependency("StanHeaders"),
+        .pkg_dependency("rstan"),
+        .pkg_dependency("BH"),
+        .pkg_dependency("Rcpp"),
+        .pkg_dependency("RcppEigen", last = TRUE)
+      ),
+      SystemRequirements =  "GNU make",
+      NeedsCompilation = "yes"
+    )
 
     message("Running usethis::create_package ...", domain = NA)
     usethis::create_package(
@@ -247,32 +278,32 @@ use_read_and_delete_me <- function(pkg_dir) {
 }
 
 .update_description_file <- function(pkg_dir) {
-  available_pkgs <- available.packages(repos = "https://cran.rstudio.com/")[, c("Package", "Version")]
-  available_pkgs <- data.frame(available_pkgs, stringsAsFactors = FALSE)
-  .pkg_dependency <- function(pkg, last = FALSE) {
-    ver <- available_pkgs$Version[available_pkgs$Package == pkg]
-    paste0(pkg, " (>= ", ver, ")", if (!last) ", ")
-  }
+  # available_pkgs <- available.packages(repos = "https://cran.rstudio.com/")[, c("Package", "Version")]
+  # available_pkgs <- data.frame(available_pkgs, stringsAsFactors = FALSE)
+  # .pkg_dependency <- function(pkg, last = FALSE) {
+  #   ver <- available_pkgs$Version[available_pkgs$Package == pkg]
+  #   paste0(pkg, " (>= ", ver, ")", if (!last) ", ")
+  # }
 
-  cat(
-    paste0("Depends: R (>= 3.4.0), ",
-           .pkg_dependency("Rcpp"),
-           "methods"),
-    paste0("Imports: ",
-           .pkg_dependency("rstan"),
-           .pkg_dependency("rstantools", last=TRUE)),
-    paste0("LinkingTo: ",
-           .pkg_dependency("StanHeaders"),
-           .pkg_dependency("rstan"),
-           .pkg_dependency("BH"),
-           .pkg_dependency("Rcpp"),
-           .pkg_dependency("RcppEigen", last=TRUE)),
-    "SystemRequirements: GNU make",
-    "NeedsCompilation: yes",
-    file = file.path(pkg_dir, "DESCRIPTION"),
-    sep = "\n",
-    append = TRUE
-  )
+  # cat(
+  #   paste0("Depends: R (>= 3.4.0), ",
+  #          .pkg_dependency("Rcpp"),
+  #          "methods"),
+  #   paste0("Imports: ",
+  #          .pkg_dependency("rstan"),
+  #          .pkg_dependency("rstantools", last=TRUE)),
+  #   paste0("LinkingTo: ",
+  #          .pkg_dependency("StanHeaders"),
+  #          .pkg_dependency("rstan"),
+  #          .pkg_dependency("BH"),
+  #          .pkg_dependency("Rcpp"),
+  #          .pkg_dependency("RcppEigen", last=TRUE)),
+  #   "SystemRequirements: GNU make",
+  #   "NeedsCompilation: yes",
+  #   file = file.path(pkg_dir, "DESCRIPTION"),
+  #   sep = "\n",
+  #   append = TRUE
+  # )
 
   DES <- readLines(file.path(pkg_dir, "DESCRIPTION"))
   DES[grep("^License:", DES)] <- "License: GPL (>=3)"
