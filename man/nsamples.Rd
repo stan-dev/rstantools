@@ -15,14 +15,3 @@ package for examples.}
 \description{
 Extract the number of posterior samples stored in a fitted Bayesian model.
 }
-\examples{
-# Example using rstanarm package:
-# nsamples method for 'stanreg' objects
-\donttest{
-if (require("rstanarm")) {
-  fit <- stan_glm(mpg ~ wt + am, data = mtcars)
-  nsamples(fit)
-}
-}
-
-}

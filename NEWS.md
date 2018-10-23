@@ -1,6 +1,11 @@
-# rstantools 1.5.0.9000
+# rstantools 1.5.1
 
-Add items for the next release here.
+(Github issue/PR numbers in parentheses)
+
+* Fix issue related to changes in the **usethis** package by removing the
+`fields` argument to `rstan_package_skeleton()` and setting it internally
+instead.
+* New generic `nsamples()` (#35)
 
 
 # rstantools 1.5.0
