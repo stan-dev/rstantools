@@ -167,6 +167,7 @@ rstan_package_skeleton <- function(name = "anRpackage",
 }
 
 # add R/mypkg-package.R file with roxygen import comments
+# also add Encoding: UTF-8 to DESCRIPTION
 .add_roxygen <- function(pkgdir) {
   pkg_file <- readLines(.system_file("rstanpkg-package.R"))
   pkg_file <- gsub("RSTAN_PACKAGE_NAME", basename(pkgdir), pkg_file)
@@ -174,6 +175,18 @@ rstan_package_skeleton <- function(name = "anRpackage",
   .add_stanfile(pkg_file, pkgdir,
                 "R", paste0(basename(pkgdir), "-package.R"),
                 noedit = FALSE, msg = TRUE, warn = FALSE)
+  # add Encoding UTF-8
+  desc_pkg <- read.dcf(file.path(pkgdir, "DESCRIPTION"))
+  has_enc <- "Encoding" %in% colnames(desc_pkg)
+  if(has_enc) {
+    desc_pkg[,"Encoding"] <- "UTF-8"
+  } else {
+    desc_pkg <- cbind(desc_pkg, Encoding = "UTF-8")
+  }
+  dep_fields <- c("Depends", "Imports", "LinkingTo", "Suggests", "Enhances")
+  dep_fields <- dep_fields[dep_fields %in% colnames(desc_pkg)]
+  write.dcf(desc_pkg, file = file.path(pkgdir, "DESCRIPTION"),
+            keep.white = dep_fields)
 }
 
 # reference to rstan package
