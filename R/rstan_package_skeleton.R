@@ -274,7 +274,7 @@ use_read_and_delete_me <- function(pkg_dir) {
     "* You can put into inst/include any C++ files that are needed by any .stan file in src/stan_files, ",
     "but be sure to #include your C++ files in inst/include/meta_header.hpp",
     "* While developing your package use devtools::install('.', local=FALSE) ",
-    "to reinstall the package AND recompile Stan programs, or set local=FALSE to skip the recompilation.",
+    "to reinstall the package AND recompile Stan programs, or set local=TRUE to skip the recompilation.",
     file = file.path(pkg_dir, "Read-and-delete-me"),
     sep = "\n",
     append = FALSE
