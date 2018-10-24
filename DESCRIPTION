@@ -22,7 +22,7 @@ BugReports: https://github.com/stan-dev/rstantools/issues
 Encoding: UTF-8
 LazyData: true
 SystemRequirements: pandoc
-Imports: stats, utils, Rcpp (>= 0.12.16)
+Imports: stats, utils, Rcpp (>= 0.12.16), desc
 Suggests:
     bayesplot (>= 1.5.0),
     rstan (>= 2.17.2),
