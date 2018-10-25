@@ -41,6 +41,7 @@ rstan_create_package(path = pkg_dest_path,
 file.copy(from = code_files,
           to = file.path(pkg_dest_path, "R", basename(code_files)))
 
+
 #--- 2.  add stan files, check contents ----------------------------------------
 
 # copy stan files
@@ -90,9 +91,9 @@ invisible(sapply(src_files, function(sf) {
 }))
 
 
-#--- 5.  remove one stan file, rerun config ------------------------------------
+#--- 5.  remove stan file(s) rerun config --------------------------------------
 
-test_that("src is properly updated after removing inst/stan files", {
+test_that("src is properly updated after removing one inst/stan files", {
   # check modification time of all files in src
   pre_files <- list.files(file.path(pkg_dest_path, "src"),
                           full.names = TRUE)
@@ -113,6 +114,18 @@ test_that("src is properly updated after removing inst/stan files", {
   pre_filter <- pre_filter & (basename(pre_files) != "RcppExports.cpp")
   post_filter <- basename(post_files) != "RcppExports.cpp"
   expect_identical(pre_mtime[pre_filter], post_mtime[post_filter])
+})
+
+test_that("src is properly updated after removing all inst/stan files", {
+  rm_files <- list.files(file.path(pkg_dest_path, "inst", "stan"),
+                         pattern = "[.]stan$",
+                         full.names = TRUE)
+  file.remove(rm_files)
+  rstan_config(pkg_dest_path) # re-configure
+  curr_files <- sort(list.files(file.path(pkg_dest_path, "src"),
+                                full.names = TRUE))
+  exp_files <- sort(file.path(pkg_dest_path, "src", src_files))
+  expect_identical(curr_files, exp_files)
 })
 
 #--- 6.  delete package source -------------------------------------------------
