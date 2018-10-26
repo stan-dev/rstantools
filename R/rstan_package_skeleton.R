@@ -220,7 +220,7 @@ rstan_package_skeleton <- function(name = "anRpackage",
   message("Configuring Stan compile and module export instructions ...")
   rstan_config(pkgdir)
   # add instructions to Read-and-delete-me
-  cat(readLines(.system_file("Read-and-delete-me")), "\n",
+  cat(readLines(.system_file("Read_and_delete_me")), "\n",
       file = file.path(pkgdir, "Read-and-delete-me"),
       sep = "\n", append = TRUE)
   message(domain = NA,

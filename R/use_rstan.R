@@ -82,7 +82,7 @@ use_rstan <- function(pkgdir = ".", license = TRUE, auto_config = TRUE) {
   } else {
     if(is.logical(license)) {
       # default license
-      license <- readLines(system.file("include", "sys", "license.stan",
+      license <- readLines(system.file("include", "sys", "lice_nse.stan",
                                        package = "rstantools"))
       license <- gsub("RSTAN_PACKAGE_NAME", basename(pkgdir), license)
     } else if(is.character(license)) {
