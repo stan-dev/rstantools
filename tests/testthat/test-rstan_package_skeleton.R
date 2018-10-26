@@ -99,7 +99,7 @@ for(ii in 1:ntest) {
   # install & load package
   test_that("Package loads correctly", {
     if(!run_all_tests) skip_on_cran()
-    expect_type(devtools::load_all(pkg = pkg_dest_path,
+    expect_type(devtools::load_all(pkg_dest_path,
                                    export_all = TRUE, quiet = TRUE), "list")
     ## install.packages(pkgs = file.path(test_path, pkg_name),
     ##                  lib = lib_path, repos = NULL,
