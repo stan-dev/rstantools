@@ -211,13 +211,13 @@ The `#' @description` section can be manually edited to provided specific inform
 
 ## Documentation
 
-With __roxygen__ documentation enabled, we need to generate the documentation for `lm_stan` and update the `NAMESPACE` so the function is exported, i.e., available to users when the package is installed.  Typically this can be done with the function `roxygen2::roxygenise`, but since the package contains C++ code we must use `devtools::document`:
+With __roxygen__ documentation enabled, we need to generate the documentation for `lm_stan` and update the `NAMESPACE` so the function is exported, i.e., available to users when the package is installed.  This can be done with the function `roxygen2::roxygenize`:
 
 ```{r, eval=FALSE}
-devtools::document()
+roxygen2::roxygenize()
 ```
 ```{r, echo=FALSE}
-suppressMessages(devtools::document(PATH))
+suppressMessages(roxygen2::roxygenize(PATH))
 ```
 
 
@@ -226,10 +226,10 @@ suppressMessages(devtools::document(PATH))
 Finally, the package is ready to be installed:
 
 ```{r,eval=FALSE}
-devtools::install()
+install.packages("rstanlm", repos = NULL)
 ```
 ```{r,echo=FALSE, results="hide"}
-devtools::load_all(PATH)
+install.packages(PATH, repos = NULL)
 ```
 
 <!-- The argument `local=FALSE` is necessary if you want to recompile the Stan -->

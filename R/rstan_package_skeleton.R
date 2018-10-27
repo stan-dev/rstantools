@@ -80,7 +80,7 @@
 #' @template seealso-useR2016-video
 #'
 rstan_create_package <- function(path,
-                                 fields = getOption("devtools.desc"),
+                                 fields = NULL,
                                  rstudio = TRUE,
                                  open = TRUE,
                                  stan_files = character(),

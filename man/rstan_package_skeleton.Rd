@@ -3,12 +3,12 @@
 \name{rstan_package_skeleton}
 \alias{rstan_package_skeleton}
 \alias{rstan_create_package}
+\alias{rstan_package_skeleton}
 \title{Create the skeleton of a new \R package with Stan programs}
 \usage{
-rstan_create_package(path, fields = getOption("devtools.desc"),
-  rstudio = TRUE, open = TRUE, stan_files = character(),
-  roxygen = TRUE, travis = TRUE, license = TRUE,
-  auto_config = TRUE)
+rstan_create_package(path, fields = NULL, rstudio = TRUE, open = TRUE,
+  stan_files = character(), roxygen = TRUE, travis = TRUE,
+  license = TRUE, auto_config = TRUE)
 
 rstan_package_skeleton(name = "anRpackage", list = character(),
   environment = .GlobalEnv, path = ".", force = FALSE,

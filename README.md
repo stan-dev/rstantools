@@ -30,14 +30,12 @@ package with a pre-compiled Stan program.
 install.packages("rstantools")
 ```
 
-* Install latest development version from GitHub (requires [devtools](https://github.com/hadley/devtools) package):
+* Install latest development version from GitHub (requires [remotes](https://github.com/r-lib/remotes) package):
 
 ```r
-if (!require("devtools")) {
-  install.packages("devtools")
+if (!require("remotes")) {
+  install.packages("remotes")
 }
   
-devtools::install_github("stan-dev/rstantools", build_vignettes = TRUE)
+remotes::install_github("stan-dev/rstantools", build_vignettes = TRUE)
 ```
-
-
