@@ -226,10 +226,10 @@ suppressMessages(roxygen2::roxygenize(PATH))
 Finally, the package is ready to be installed:
 
 ```{r,eval=FALSE}
-install.packages("rstanlm", repos = NULL)
+install.packages("rstanlm", repos = NULL, type = "source")
 ```
 ```{r,echo=FALSE, results="hide"}
-install.packages(PATH, repos = NULL)
+install.packages(PATH, repos = NULL, type = "source")
 ```
 
 <!-- The argument `local=FALSE` is necessary if you want to recompile the Stan -->

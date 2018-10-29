@@ -2,7 +2,6 @@
 
 # 1. create package under various conditions
 # 2. pkgload::load_all package
-#    (install.packages + library was persistently unreliable)
 # 3. run tests on package
 # 4. delete package source
 
@@ -101,12 +100,6 @@ for(ii in 1:ntest) {
     if(!run_all_tests) skip_on_cran()
     expect_type(pkgload::load_all(pkg_dest_path,
                                   export_all = TRUE, quiet = TRUE), "list")
-    ## install.packages(pkgs = file.path(test_path, pkg_name),
-    ##                  lib = lib_path, repos = NULL,
-    ##                  type = "source", quiet = TRUE)
-    ## expect_true(library(package = pkg_name, lib.loc = lib_path,
-    ##                     character.only = TRUE, quietly = TRUE,
-    ##                     logical.return = TRUE))
   })
   # check that functions work as expected
   test_that("logpost_R == logpost_Stan: postsamp1", {
