@@ -37,5 +37,5 @@ if (!require("remotes")) {
   install.packages("remotes")
 }
   
-remotes::install_github("stan-dev/rstantools", build_vignettes = TRUE)
+remotes::install_github("stan-dev/rstantools", build_opts = "")
 ```
