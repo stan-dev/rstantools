@@ -1,8 +1,7 @@
 #--- test rstan_package_skeleton -----------------------------------------------
 
 # 1. create package under various conditions
-# 2. devtools::load_all package
-#    (install.packages + library was persistently unreliable)
+# 2. pkgload::load_all package
 # 3. run tests on package
 # 4. delete package source
 
@@ -88,10 +87,10 @@ for(ii in 1:ntest) {
   ## Rcpp::compileAttributes(pkg_dest_path)
   # enable roxygen documentation
   if(use_roxygen) {
-    # TODO: stop test if devtools not found
+    # TODO: stop test if roxygen2 not found
     test_that("roxygen works properly", {
       if(!run_all_tests) skip_on_cran()
-      devtools::document(pkg_dest_path)
+      roxygen2::roxygenize(pkg_dest_path)
       expect_identical(readLines(file.path(pkg_dest_path, "NAMESPACE")),
                        readLines(file.path(pkg_src_path, "NAMESPACE")))
     })
@@ -99,14 +98,8 @@ for(ii in 1:ntest) {
   # install & load package
   test_that("Package loads correctly", {
     if(!run_all_tests) skip_on_cran()
-    expect_type(devtools::load_all(pkg_dest_path,
-                                   export_all = TRUE, quiet = TRUE), "list")
-    ## install.packages(pkgs = file.path(test_path, pkg_name),
-    ##                  lib = lib_path, repos = NULL,
-    ##                  type = "source", quiet = TRUE)
-    ## expect_true(library(package = pkg_name, lib.loc = lib_path,
-    ##                     character.only = TRUE, quietly = TRUE,
-    ##                     logical.return = TRUE))
+    expect_type(pkgload::load_all(pkg_dest_path,
+                                  export_all = TRUE, quiet = TRUE), "list")
   })
   # check that functions work as expected
   test_that("logpost_R == logpost_Stan: postsamp1", {
