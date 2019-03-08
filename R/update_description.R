@@ -58,6 +58,9 @@
   dep_comb <- cbind(dep_comb[1:2],
                     version = .version_max(dep_comb$vpkg, dep_comb$vrstan))
   desc_pkg$set_deps(dep_comb)
+  # add additional elements from template DESCRIPTION file
+  extra_fields <- c("SystemRequirements", "Encoding")
+  do.call(desc_pkg$set, as.list(desc_rstan$get(extra_fields)))
   # check if description has changed
   acc <- !identical(desc_pkg$str(), desc_old$str())
   if(acc) {
