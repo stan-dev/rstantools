@@ -1,3 +1,10 @@
+# next release here
+
+(Github issue/PR numbers in parentheses)
+
+* New generic `reloo()`.
+* New generic `loo_R2()`. 
+
 # rstantools 1.5.1
 
 (Github issue/PR numbers in parentheses)
