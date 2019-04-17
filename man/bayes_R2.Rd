@@ -38,8 +38,9 @@ example of defining a method.
 \references{
 Andrew Gelman, Ben Goodrich, Jonah Gabry, and Aki Vehtari (2018). R-squared
 for Bayesian regression models. \emph{The American Statistician}, to appear.
-\href{http://www.stat.columbia.edu/~gelman/research/published/bayes_R2_v3.pdf}{Preprint},
-\href{https://avehtari.github.io/bayes_R2/bayes_R2.html}{Notebook}.
+DOI: 10.1080/00031305.2018.1549100.
+(\href{http://www.stat.columbia.edu/~gelman/research/published/bayes_R2_v3.pdf}{Preprint},
+\href{https://avehtari.github.io/bayes_R2/bayes_R2.html}{Notebook})
 }
 \seealso{
 \itemize{

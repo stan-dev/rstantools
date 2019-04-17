@@ -1,7 +1,7 @@
 Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
-Version: 1.5.1
+Version: 1.5.1.9000
 Date: 2018-08-20
 Authors@R: c(person("Jonah", "Gabry", email = "jsg2201@columbia.edu",
                     role = c("aut", "cre")),
@@ -20,7 +20,7 @@ URL: http://discourse.mc-stan.org/, http://mc-stan.org/rstantools/
 BugReports: https://github.com/stan-dev/rstantools/issues
 Encoding: UTF-8
 LazyData: true
-SystemRequirements:	pandoc
+SystemRequirements: pandoc
 Imports: stats, utils
 Suggests:
     bayesplot (>= 1.5.0),
@@ -36,6 +36,5 @@ Suggests:
     rmarkdown,
     rstudioapi,
     usethis (>= 1.3.0)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr
-
