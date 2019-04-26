@@ -1,6 +1,6 @@
 #' Register functions implemented in C++
 #'
-#' If you set up your package using \code{\link{rstan_package_skeleton}} before
+#' If you set up your package using \code{rstan_package_skeleton} before
 #' version \code{1.2.1} of \pkg{rstantools} it may be necessary for you to call
 #' this function yourself in order to pass \code{R CMD check} in \R \code{>=
 #' 3.4}. If you used \code{rstan_package_skeleton} in \pkg{rstantools} version

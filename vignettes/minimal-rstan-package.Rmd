@@ -34,9 +34,15 @@ that fits a simple linear regression. Before continuing, we recommend that you f
 
 ## Creating the package skeleton
 
-The **rstantools** package offers several methods for creating packages; please see `?rstan_package_skeleton` for more information.  Here, we'll use the function `rstan_create_package` to initialise a bare-bones
-package directory. The name of our demo package will be __rstanlm__; it will fit
-a simple linear regression model using Stan. 
+The **rstantools** package offers two methods for adding Stan functionality 
+to R packages: 
+
+  * `rstan_create_package()`: set up a new R package with Stan programs
+  * `use_rstan()`: add Stan functionality to an _existing_ R package
+  
+Here we will use `rstan_create_package` to initialize a bare-bones package
+directory. The name of our demo package will be __rstanlm__; it will fit a
+simple linear regression model using Stan.
 
 ```{r, eval=FALSE}
 library("rstantools")

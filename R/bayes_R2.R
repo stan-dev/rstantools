@@ -1,19 +1,29 @@
 #' Generic function and default method for Bayesian R-squared
 #'
 #' Generic function and default method for Bayesian version of R-squared for
-#' regression models. See \code{bayes_R2.stanreg} in the
-#' \pkg{\link[rstanarm]{rstanarm}} package for an example of defining a method.
+#' regression models. A generic for LOO-adjusted R-squared is also provided. See
+#' \code{bayes_R2.stanreg} in the \pkg{\link[rstanarm]{rstanarm}} package for an
+#' example of defining a method.
 #'
 #' @export
 #' @template args-object
 #' @template args-dots
 #'
-#' @return \code{bayes_R2} methods should return a vector of length equal to the
-#'   posterior sample size.
+#' @return \code{bayes_R2} and \code{loo_R2} methods should return a vector of
+#'   length equal to the posterior sample size.
 #'
-#'   The default method just takes \code{object} to be a matrix of y-hat values
+#'   The default \code{bayes_R2} method just takes \code{object} to be a matrix of y-hat values
 #'   (one column per observation, one row per posterior draw) and \code{y} to be
 #'   a vector with length equal to \code{ncol(object)}.
+#'
+#'
+#' @references
+#' Andrew Gelman, Ben Goodrich, Jonah Gabry, and Aki Vehtari (2018). R-squared
+#' for Bayesian regression models. \emph{The American Statistician}, to appear.
+#' DOI: 10.1080/00031305.2018.1549100.
+#' (\href{http://www.stat.columbia.edu/~gelman/research/published/bayes_R2_v3.pdf}{Preprint},
+#' \href{https://avehtari.github.io/bayes_R2/bayes_R2.html}{Notebook})
+#'
 #'
 #' @template seealso-rstanarm-pkg
 #' @template seealso-dev-guidelines
@@ -42,3 +52,9 @@ bayes_R2.default <-
     var_ypred / (var_ypred + var_e)
   }
 
+
+#' @rdname bayes_R2
+#' @export
+loo_R2 <- function(object, ...) {
+  UseMethod("loo_R2")
+}

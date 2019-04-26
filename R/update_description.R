@@ -1,15 +1,21 @@
 #' Update \code{DESCRIPTION} to include all packages required to compile Stan code.
 #'
 #' @param pkgdir Package root directory.
-#' @param auto_config Whether or not package should configure itself.  This means importing \code{rstantools} for linking via \code{configure[.win]}) and setting \code{Biarch: true} in the \code{DESCRIPTION}.
-#' @param msg Whether or not to display a message if an attempt to update \code{DESCRIPTION} is made.
+#' @param auto_config Whether or not package should configure itself.  This
+#'   means importing \code{rstantools} for linking via \code{configure[.win]})
+#'   and setting \code{Biarch: true} in the \code{DESCRIPTION}.
+#' @param msg Whether or not to display a message if an attempt to update
+#'   \code{DESCRIPTION} is made.
 #'
 #' @return Whether or not \code{DESCRIPTION} file was modified.
 #'
 #' @details Sanitizes the package dependencies as follows:
 #' \itemize{
-#'   \item If \code{rstantools} dependency version is lower, don't update existing dependency.
-#'   \item If \code{rstantools} \code{Imports} dependency already exists in \code{Depends}, keep the \code{Depends} package but increase version if needed.
+#'   \item If \code{rstantools} dependency version is lower, don't update
+#'   existing dependency.
+#'   \item If \code{rstantools} \code{Imports} dependency already exists in
+#'   \code{Depends}, keep the \code{Depends} package but increase version if
+#'   needed.
 #' }
 #'
 #' Issues the following messages:
@@ -17,7 +23,7 @@
 #'   \item If \code{auto_config = FALSE} and \code{rstantools} is imported.
 #'   \item If \code{auto_config = FALSE} and \code{Biarch: true}.
 #' }
-#' @keywords internal
+#' @noRd
 .update_description <- function(pkgdir, auto_config = FALSE, msg = TRUE) {
   # current desc file
   desc_pkg <- desc::description$new(file.path(pkgdir, "DESCRIPTION"))

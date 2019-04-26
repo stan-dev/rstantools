@@ -1,4 +1,4 @@
-# rstan_package_skeleton
+# rstan_create_package
 # Copyright (C) 2018 Martin Lysy
 #
 # rstantools is free software; you can redistribute it and/or
@@ -15,33 +15,46 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
-#' Create the skeleton of a new \R package with Stan programs
+#' Create a new \R package with Stan programs
 #'
 #' @description
-#'   \if{html}{\figure{stanlogo.png}{options: width="25px" alt="http://mc-stan.org/about/logo/"}}
-#'   These functions help get you started developing
-#'   \R packages that interface with Stan via the \pkg{rstan} package.  The \R package is created, several adjustments are made so that it can include Stan programs that can be built into binary versions (i.e., pre-compiled Stan C++ code).
+#'   \if{html}{\figure{stanlogo.png}{options: width="25px" alt="https://mc-stan.org/about/logo/"}}
+#'   The \code{rstan_create_package} function helps get you started developing a
+#'   new \R package that interfaces with Stan via the \pkg{rstan} package. First
+#'   the basic package structure is set up via \code{usethis::create_package}.
+#'   Then several adjustments are made so the package can include Stan programs
+#'   that can be built into binary versions (i.e., pre-compiled Stan C++ code).
 #'
 #'   See the \strong{See Also} section below for links to recommendations for
 #'   developers and a step-by-step walk-through.
 #'
-#' @name rstan_package_skeleton
-#' @aliases rstan_create_package
+#'   As of version \code{2.0.0} of \pkg{rstantools} the
+#'   \code{rstan_package_skeleton} function is defunct and only
+#'   \code{rstan_create_package} is supported.
+#'
+#' @aliases rstan_package_skeleton
+#'
 #' @export
-#' @param path For \code{rstan_create_package}, the path to the new package to be created (terminating in the package name).  For \code{rstan_create_package}, the path in which to create the package directory.
-#' @param name,list,environment,force,code_files Same as in
-#'   \code{utils::package.skeleton}.
+#' @param path The path to the new package to be created (terminating in the
+#'   package name).
 #' @param fields,rstudio,open Same as for \code{usethis::create_package}.
 #' @param stan_files A character vector with paths to \code{.stan} files to
 #'   include in the package.
-#' @param roxygen Whether \pkg{roxygen2} will be used for documentation.  If so, a file \code{R/{pkgname}-package.R} is added to the package with roxygen tags for the required import lines.
+#' @param roxygen Should \pkg{roxygen2} be used for documentation?  Defaults to
+#'   \code{TRUE}. If so, a file \code{R/{pkgname}-package.R} is added to the
+#'   package with roxygen tags for the required import lines.
 #' @param travis Should a \code{.travis.yml} file be added to the package
-#'   directory? Defaults to \code{TRUE}.  While the file contains some presets to help with compilation issues, at present it is not guaranteed to work
-#'   on \href{https://travis-ci.org/}{travis-ci} without manual adjustments.
+#'   directory? Defaults to \code{TRUE}.  While the file contains some presets
+#'   to help with compilation issues, at present it is not guaranteed to work on
+#'   \href{https://travis-ci.org/}{travis-ci} without manual adjustments.
 #' @template args-license
 #' @template args-auto_config
 #'
-#' @details These functions first create a regular \R package using either of the \code{utils::package.skeleton} or \code{usethis::create_package} mechanisms, then addthe folder infrastructure to compile and export \code{stanmodel} objects.  In the package root directory, the user's Stan source code is located in
+#' @details
+#' This function first creates a regular \R package using
+#' \code{usethis::create_package}, then adds the infrastructure required to
+#' compile and export \code{stanmodel} objects. In the package root directory,
+#' the user's Stan source code is located in:
 #' \preformatted{
 #' inst/
 #'   |_stan/
@@ -49,31 +62,51 @@
 #'   |
 #'   |_include/
 #' }
-#' All \code{.stan} files containing instructions to build a \code{stanmodel} object must be placed in \code{inst/stan}.  Other \code{.stan} files go in any \code{stan/} subdirectory, to be invoked by Stan's \code{#include} mechanism, e.g.,
+#' All \code{.stan} files containing instructions to build a \code{stanmodel}
+#' object must be placed in \code{inst/stan}.  Other \code{.stan} files go in
+#' any \code{stan/} subdirectory, to be invoked by Stan's \code{#include}
+#' mechanism, e.g.,
 #' \preformatted{
 #' #include "include/mylib.stan"
 #' #include "data/preprocess.stan"
 #' }
 #' See \pkg{rstanarm} for many examples.
 #'
-#' The folder \code{inst/include} is for all user C++ files associated with the Stan programs.  In this folder, the only file to directly interact with the Stan C++ library is \code{stan_meta_header.hpp}; all other \code{#include} directives must be channeled through here.
+#' The folder \code{inst/include} is for all user C++ files associated with the
+#' Stan programs.  In this folder, the only file to directly interact with the
+#' Stan C++ library is \code{stan_meta_header.hpp}; all other \code{#include}
+#' directives must be channeled through here.
 #'
-#' The final step of the package creation is to invoke \code{\link{rstan_config}}, which creates the following files for interfacing Stan objects from \R:
+#' The final step of the package creation is to invoke
+#' \code{rstantools::\link{rstan_config}}, which creates the following files for
+#' interfacing with Stan objects from \R:
 #' \itemize{
-#'   \item \code{src} contains the \code{stan_ModelName{.cc/.hpp}} pairs associated with all \code{ModelName.stan} files in \code{inst/stan} which define \code{stanmodel} objects.
-#'   \item \code{src/Makevars[.win]} which link to the \code{StanHeaders} and Boost (\code{BH}) libraries.
-#'   \item \code{R/stanmodels.R} loads the C++ modules containing the \code{stanmodel} class definitions, and assigns an \R instance of each \code{stanmodel} object to a \code{stanmodels} list.
+#'   \item \code{src} contains the \code{stan_ModelName{.cc/.hpp}} pairs
+#'   associated with all \code{ModelName.stan} files in \code{inst/stan} which
+#'   define \code{stanmodel} objects.
+#'   \item \code{src/Makevars[.win]} which link to the \code{StanHeaders} and
+#'   Boost (\code{BH}) libraries.
+#'   \item \code{R/stanmodels.R} loads the C++ modules containing the
+#'   \code{stanmodel} class definitions, and assigns an \R instance of each
+#'   \code{stanmodel} object to a \code{stanmodels} list (with names
+#'   corresponding to the names of the Stan files).
 #' }
 #' @template details-auto_config
 #' @template details-license
-#' @details Authors willing to license their Stan programs of general interest under the GPL are invited to contribute their \code{.stan} files and supporting \R code to the \pkg{rstanarm} package.
+#' @details Authors willing to license their Stan programs of general interest
+#'   under the GPL are invited to contribute their \code{.stan} files and
+#'   supporting \R code to the \pkg{rstanarm} package.
 #'
+#' @template section-running-stan
 #'
 #'
 #' @seealso
 #' \itemize{
-#'   \item \code{\link{use_rstan}} for adding Stan functionality to an existing \R package, \code{\link{rstan_config}} for updating an existing package when its Stan files are changed.
-#'   \item \href{https://github.com/stan-dev/rstanarm}{The \pkg{rstanarm} repository on GitHub.}
+#'   \item \code{\link{use_rstan}} for adding Stan functionality to an existing
+#'   \R package, \code{\link{rstan_config}} for updating an existing package
+#'   when its Stan files are changed.
+#'   \item \href{https://github.com/stan-dev/rstanarm}{The \pkg{rstanarm}
+#'   repository on GitHub.}
 #' }
 #' @template seealso-dev-guidelines
 #' @template seealso-get-help
@@ -103,7 +136,7 @@ rstan_create_package <- function(path,
   if (open && rstudio) {
     on.exit(rstudioapi::openProject(DIR, newSession = TRUE))
   }
-  # run package skeleton
+  # run create_package()
   if (file.exists(path)) {
     stop("Directory '", DIR, "' already exists.")
   }
@@ -112,35 +145,6 @@ rstan_create_package <- function(path,
                                            rstudio = rstudio, open = FALSE))
   pkgdir <- .check_pkgdir(file.path(DIR, name)) # package folder
   # add rest of stan functionality to package
-  .rstan_make_pkg(pkgdir, stan_files, roxygen, travis, license, auto_config)
-  invisible(NULL)
-}
-
-#' @rdname rstan_package_skeleton
-#' @export
-rstan_package_skeleton <- function(name = "anRpackage",
-                                   list = character(),
-                                   environment = .GlobalEnv,
-                                   path = ".",
-                                   force = FALSE,
-                                   code_files = character(),
-                                   stan_files = character(),
-                                   roxygen = TRUE,
-                                   travis = TRUE,
-                                   license = TRUE,
-                                   auto_config = TRUE) {
-  .check_stan_ext(stan_files) # check stan extensions
-  # run package skeleton
-  message("Creating package skeleton for package: ", name, domain = NA)
-  mc <- match.call()
-  mc[[1]] <- quote(utils::package.skeleton)
-  env <- parent.frame(1)
-  mc <- mc[c(1, which(names(mc) %in% names(formals(utils::package.skeleton))))]
-  suppressMessages(eval(mc, envir = env))
-  pkgdir <- .check_pkgdir(file.path(path, name)) # package folder
-  # remove all man files
-  # (so package can be installed immediately after running package_skeleton)
-  file.remove(list.files(file.path(pkgdir, "man"), full.names = TRUE))
   .rstan_make_pkg(pkgdir, stan_files, roxygen, travis, license, auto_config)
   invisible(NULL)
 }
