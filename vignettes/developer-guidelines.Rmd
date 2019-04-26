@@ -52,12 +52,12 @@ package should be an exception definitely let us know.
 
 ### General package structure and development
 
-* The __rstantools__ package provides the `rstan_package_skeleton` function, 
+* The __rstantools__ package provides the `rstan_create_package` function, 
 which you should use to create the basic structure of your package. If you have 
-trouble setting up your package using `rstan_package_skeleton` please consult 
+trouble setting up your package using `rstan_create_package` please consult 
 the [__rstanarm__](https://github.com/stan-dev/rstanarm) repository and use it
 as a template and/or ask us for help on the [Stan Forums 
-group](http://discourse.mc-stan.org).
+group](https://discourse.mc-stan.org).
 
 * Use version control (e.g., git).
 
@@ -85,7 +85,7 @@ tests, but it's a good first step.
 directory in the __rstanarm__ repo for examples). You can also use
 subdirectories to include code chunks to be used in multiple .stan files (again
 see the __rstanarm__ repo for examples). If you set up your package using
-`rstan_package_skeleton` this structure will be created for you. This means that
+`rstan_create_package` this structure will be created for you. This means that
 __your package should NOT write a Stan program when the user calls a model
 fitting function in your package__, but rather use only Stan programs you have
 written by hand in advance (if you are working on a model for which you don't
@@ -104,8 +104,7 @@ think this is possible please let us know). There are several reasons for this.
 To provide flexibility to users, your Stan programs can include branching logic 
 (conditional statements) so that even with a small number of .stan files you can still 
 allow for many different specifications to made by the user (see the .stan files in
-[__rstanarm__](https://github.com/stan-dev/rstanarm/tree/master/src/stan_files) for 
-examples).
+__rstanarm__ for examples).
 
 * Use best practices for Stan code. If the models you intend to implement are
 discussed in the Stan manual or on the Stan users forum then you should follow
@@ -152,18 +151,17 @@ will improve the user experience for those users who want to take advantage of a
 variety of these packages. It will be a mess if every R package using Stan has 
 different names for the same functionality.
 
-* The [__bayesplot__](http://mc-stan.org/bayesplot/) package serves as the
+* The [__bayesplot__](https://mc-stan.org/bayesplot/) package serves as the
 back-end for plotting for __rstanarm__ (see for example `pp_check.stanreg` and
-`plot.stanreg`) and many other packages and we hope developers of other
+`plot.stanreg`), __brms__, and other packages, and we hope developers of other
 Stan-based R packages will also use it. You can see all the other R packages
-using __bayesplot__ (including __rstanarm__, __brms__, and many more) in the
-_Reverse dependencies_ section of the __bayesplot__ [CRAN
-page](https://CRAN.R-project.org/package=bayesplot). For any plot you intend to
-include in your package, if it is already available in __bayesplot__ then we
-recommend using the available version or suggesting (or contributing) a better
-version. If it is not already available then there is a good chance we will be
-interested in including it in __bayesplot__ if the plot would also be useful for
-other developers.
+using __bayesplot__ in the _Reverse dependencies_ section of the __bayesplot__
+[CRAN page](https://CRAN.R-project.org/package=bayesplot). For any plot you
+intend to include in your package, if it is already available in __bayesplot__
+then we recommend using the available version or suggesting (or contributing) a
+better version. If it is not already available then there is a good chance we
+will be interested in including it in __bayesplot__ if the plot would also be
+useful for other developers.
 
 * Provide thorough and clear documentation. The documentation won't be perfect 
 (we've found many holes in our __rstanarm__ documentation already and there are 
@@ -188,7 +186,7 @@ still a great resource.
 
 * If you need help setting up your package or have questions about these 
 guidelines the best places to go are the [Stan
-Forums](http://discourse.mc-stan.org) and the [GitHub issue 
+Forums](https://discourse.mc-stan.org) and the [GitHub issue 
 tracker](https://github.com/stan-dev/rstantools/issues) for the __rstantools__ 
 package.
 
