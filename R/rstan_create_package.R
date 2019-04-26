@@ -1,4 +1,4 @@
-# rstan_package_skeleton
+# rstan_create_package
 # Copyright (C) 2018 Martin Lysy
 #
 # rstantools is free software; you can redistribute it and/or
@@ -32,7 +32,6 @@
 #'   \code{rstan_package_skeleton} function is defunct and only
 #'   \code{rstan_create_package} is supported.
 #'
-#' @name rstan_create_package
 #' @aliases rstan_package_skeleton
 #'
 #' @export
@@ -137,7 +136,7 @@ rstan_create_package <- function(path,
   if (open && rstudio) {
     on.exit(rstudioapi::openProject(DIR, newSession = TRUE))
   }
-  # run package skeleton
+  # run create_package()
   if (file.exists(path)) {
     stop("Directory '", DIR, "' already exists.")
   }
