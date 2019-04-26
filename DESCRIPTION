@@ -16,7 +16,7 @@ Description: Provides various tools for developers of R packages interfacing
     across 'Stan'-based R packages, and vignettes with recommendations for 
     developers.
 License: GPL (>=3)
-URL: http://discourse.mc-stan.org/, http://mc-stan.org/rstantools/
+URL: https://discourse.mc-stan.org/, https://mc-stan.org/rstantools/
 BugReports: https://github.com/stan-dev/rstantools/issues
 Encoding: UTF-8
 LazyData: true
