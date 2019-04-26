@@ -218,7 +218,7 @@ use_rstan <- function(pkgdir = ".", license = TRUE, auto_config = TRUE) {
     if(any(acc)) message("Adding 'configure' files ...")
     # make scripts executable
     sapply(conf_names[acc], function(conf_name) {
-      system(paste0("chmod +x ", file.path(pkgdir, conf_name)))
+      system(paste0('chmod +x "', file.path(pkgdir, conf_name), '"'))
     })
   } else {
     acc <- sapply(conf_names, function(conf_name) {

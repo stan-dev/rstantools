@@ -90,6 +90,7 @@ for(ii in 1:ntest) {
     # TODO: stop test if roxygen2 not found
     test_that("roxygen works properly", {
       if(!run_all_tests) skip_on_cran()
+      pkgbuild::compile_dll(pkg_dest_path)
       roxygen2::roxygenize(pkg_dest_path)
       expect_identical(readLines(file.path(pkg_dest_path, "NAMESPACE")),
                        readLines(file.path(pkg_src_path, "NAMESPACE")))
