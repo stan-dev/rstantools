@@ -60,7 +60,6 @@ loo_pit.default <- function(object, y, lw, ...) {
   .loo_pit(y = y, yrep = object, lw = lw)
 }
 
-
 # internal ----------------------------------------------------------------
 .loo_pit <- function(y, yrep, lw) {
   vapply(seq_len(ncol(yrep)), function(j) {
