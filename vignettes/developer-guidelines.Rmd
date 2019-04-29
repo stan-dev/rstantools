@@ -1,7 +1,7 @@
 ---
 title: "Guidelines for Developers of R Packages Interfacing with Stan"
 author: "Stan Development Team"
-date: "`r format(Sys.Date(), format = '%B %Y')` (First version: November 2016)"
+date: "Latest release: `r format(Sys.Date(), format = '%B %Y')` (First version: November 2016)"
 output: 
   rmarkdown::html_vignette:
     toc: true
@@ -17,9 +17,9 @@ One of the coolest things about working on a project like Stan has been seeing
 some of our users begin to develop tools for making Stan more accessible to
 audiences that may otherwise not benefit from what Stan offers. In particular,
 recently we have started seeing a growing number of R packages that provide
-high-level interfaces to Stan, using the __rstan__ package for estimating models
-without requiring that the user be familiar with the Stan modeling language
-itself.
+high-level interfaces to Stan, using the [__rstan__](https://mc-stan.org/rstan) 
+package for estimating models without requiring that the user be familiar with 
+the Stan modeling language itself.
 
 This is a great development and we would like to support such efforts going 
 forward, but to-date we have made little effort to coordinate the development of
@@ -52,12 +52,12 @@ package should be an exception definitely let us know.
 
 ### General package structure and development
 
-* The __rstantools__ package provides the `rstan_create_package` function, 
-which you should use to create the basic structure of your package. If you have 
-trouble setting up your package using `rstan_create_package` please consult 
-the [__rstanarm__](https://github.com/stan-dev/rstanarm) repository and use it
-as a template and/or ask us for help on the [Stan Forums 
-group](https://discourse.mc-stan.org).
+* The __rstantools__ package provides the `rstan_create_package` function, which
+you should use to create the basic structure of your package. (As of `v2.0.0`
+this replaces the `rstan_package_skeleton` function.) This will set up a package
+with functionality for pre-compiled Stan programs, in the style of the
+[__rstanarm__](https://mc-stan.org/rstanarm) package (source code:
+https://github.com/stan-dev/rstanarm).
 
 * Use version control (e.g., git).
 
@@ -66,24 +66,24 @@ a repository that is _public_ on [GitHub](https://github.com/) (or a similar
 service, but preferably GitHub). It should be public even at early stages of
 development, not only when officially released.  We recommend you add a note to
 your README file on how to install the development version of your package, like
-in the [__bayesplot__
-README](https://github.com/stan-dev/bayesplot#installation)
+in the [__bayesplot__ README](https://github.com/stan-dev/bayesplot#installation)
 
 * Unit testing is essential. There are several R packages that make it 
-relatively easy to write tests for your package. Most of our R packages (e.g., __rstanarm__, __bayesplot__, __shinystan__, __loo__) use the 
+relatively easy to write tests for your package. Most of our R packages 
+(e.g., __rstanarm__, __brms__, __bayesplot__, __shinystan__, __loo__) use the 
 [__testthat__](https://github.com/r-lib/testthat) package for this purpose, but
 if you prefer a different testing framework that's fine. The 
 [__covr__](https://github.com/r-lib/covr) package is useful for calculating 
-the line coverage of your tests, and we recommend reaching at least 90% coverage
+the line coverage of your tests, and we recommend reaching a high level of coverage
 before releasing a package. Good line coverage does not guarantee high quality
 tests, but it's a good first step.
 
 ### Stan code
 
 * All Stan code for estimating models should be included in pre-written static
-.stan files that are compiled when the package is built (see the src/stan_files
+`.stan` files that are compiled when the package is built (see the Stan programs
 directory in the __rstanarm__ repo for examples). You can also use
-subdirectories to include code chunks to be used in multiple .stan files (again
+subdirectories to include code chunks to be used in multiple `.stan` files (again
 see the __rstanarm__ repo for examples). If you set up your package using
 `rstan_create_package` this structure will be created for you. This means that
 __your package should NOT write a Stan program when the user calls a model
