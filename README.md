@@ -17,8 +17,8 @@ package with a pre-compiled Stan program.
 
 ### Resources
 
-* [mc-stan.org/rstantools](http://mc-stan.org/rstantools) (online documentation, vignettes)
-* [Ask a question](http://discourse.mc-stan.org) (Stan Forums on Discourse)
+* [mc-stan.org/rstantools](https://mc-stan.org/rstantools) (online documentation, vignettes)
+* [Ask a question](https://discourse.mc-stan.org) (Stan Forums on Discourse)
 * [Open an issue](https://github.com/stan-dev/rstantools/issues) (GitHub issues for bug reports, feature requests)
 
 ### Installation
