@@ -29,7 +29,8 @@ src_files <- file.path(pkg_src_path, "AddTest.cpp")
 
 # various test conditions
 test_descr <- expand.grid(
-  create_package = c(TRUE, FALSE), # use create_package or package_skeleton
+  ## create_package = c(TRUE, FALSE), # use create_package or package_skeleton
+  create_package = TRUE, # package_skeleton now depreciated
   roxygen = c(TRUE, FALSE) # use roxygen for documentation
 )
 ntest <- nrow(test_descr)
@@ -66,6 +67,7 @@ for(ii in 1:ntest) {
     file.copy(from = code_files,
               to = file.path(pkg_dest_path, "R", basename(code_files)))
   } else {
+    stop("rstan_package_skeleton has been depreciated.")
     # use rstan_package_skeleton
     rstan_package_skeleton(name = pkg_name, path = dirname(pkg_dest_path),
                            ## stan_files = stan_files,
