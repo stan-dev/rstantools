@@ -28,18 +28,18 @@ if(dir.exists(PATH)) {
 
 ## Introduction
 
-In this vignette we will walk through the steps necessary for creating an 
-R package that depends on Stan by creating a package with one function 
+In this vignette we will walk through the steps necessary for creating an
+R package that depends on Stan by creating a package with one function
 that fits a simple linear regression. Before continuing, we recommend that you first read the other vignette [_Guidelines for Developers of R Packages Interfacing with Stan_](http://mc-stan.org/rstantools/articles/developer-guidelines.html).
 
 ## Creating the package skeleton
 
-The **rstantools** package offers two methods for adding Stan functionality 
-to R packages: 
+The **rstantools** package offers two methods for adding Stan functionality
+to R packages:
 
   * `rstan_create_package()`: set up a new R package with Stan programs
   * `use_rstan()`: add Stan functionality to an _existing_ R package
-  
+
 Here we will use `rstan_create_package` to initialize a bare-bones package
 directory. The name of our demo package will be __rstanlm__; it will fit a
 simple linear regression model using Stan.
@@ -55,10 +55,10 @@ args(rstan_create_package)
 rstan_create_package(path = PATH, rstudio=FALSE, open=FALSE)
 ```
 
-If we had existing `.stan` files to include with the package we could use the 
-optional `stan_files` argument to `rstan_create_package` to include them. 
-Another option, which we'll use below, is to add the Stan files once the 
-basic structure of the package is in place. 
+If we had existing `.stan` files to include with the package we could use the
+optional `stan_files` argument to `rstan_create_package` to include them.
+Another option, which we'll use below, is to add the Stan files once the
+basic structure of the package is in place.
 
 We can now set the new working directory to the new package directory and view the contents. (Note: if using RStudio then by default the newly created project for the package will be opened in a new session and you will not need the call to `setwd()`.)
 
@@ -79,7 +79,7 @@ DES <- readLines(file.path(PATH, "DESCRIPTION"))
 cat(DES, sep = "\n")
 ```
 Some of the sections in the `DESCRIPTION` file need to be edited by hand
-(e.g., `Title`, `Author`, `Maintainer`, and `Description`, but these also can be set with the `fields` argument to `rstan_create_package`).  However, 
+(e.g., `Title`, `Author`, `Maintainer`, and `Description`, but these also can be set with the `fields` argument to `rstan_create_package`).  However,
 `rstan_create_package()` has added the necessary packages and versions to
 `Depends`, `Imports`, and `LinkingTo` to enable Stan functionality.
 
@@ -129,7 +129,7 @@ parameters {
 }
 model {
   // ... priors, etc.
-  
+
   y ~ normal(intercept + beta * x, sigma);
 }
 ```
@@ -148,7 +148,7 @@ parameters {
 }
 model {
   // ... priors, etc.
-  
+
   y ~ normal(intercept + beta * x, sigma);
 }
 "
@@ -243,11 +243,10 @@ install.packages("rstanlm", repos = NULL, type = "source")
 install.packages(PATH, repos = NULL, type = "source")
 ```
 
-<!-- The argument `local=FALSE` is necessary if you want to recompile the Stan -->
-<!-- models. If you only made a small change to the R code or the documentation, you -->
-<!-- can set `local=TRUE` to speed up the process. -->
+It is also possible to use `devtools::install(quick=FALSE)` to
+install the package. The argument `quick=FALSE` is necessary if you want to recompile the Stan models. Going forward, if you only make a  change to the R code or the documentation, you can set `quick=TRUE` to speed up the process, or use `devtools::load_all()`.
 
-The package can now be loaded and used like any other R package:
+After installation, the package can be loaded and used like any other R package:
 
 ```{r, eval=FALSE}
 library("rstanlm")
@@ -278,4 +277,3 @@ foundation in R package development as well as the release process.
 * [_Guidelines for Developers of R Packages Interfacing with Stan_](http://mc-stan.org/rstantools/articles/developer-guidelines.html)
 
 * Ask a question at the [Stan Forums](http://discourse.mc-stan.org/)
-
