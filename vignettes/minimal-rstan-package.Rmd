@@ -228,15 +228,15 @@ roxygen2::roxygenise(PATH, clean=TRUE)
 Finally, the package can be installed:
 
 ```{r,eval=FALSE}
-devtools::install(local=FALSE)
+devtools::install(quick=FALSE)
 ```
 ```{r,echo=FALSE, results="hide"}
 devtools::load_all(PATH, recompile=TRUE)
 ```
 
-The argument `local=FALSE` is necessary if you want to recompile the Stan
+The argument `quick=FALSE` is necessary if you want to recompile the Stan
 models. If you only made a small change to the R code or the documentation, you
-can set `local=TRUE` to speed up the process.
+can set `quick=TRUE` to speed up the process.
 
 The package can now be loaded and used like any other R package:
 
