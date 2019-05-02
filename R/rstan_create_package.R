@@ -204,7 +204,7 @@ rstan_create_package <- function(path,
     "Stan Development Team (", version_year,"). ",
     "RStan: the R interface to Stan. ",
     "R package version ", has_version, ". ",
-    "http://mc-stan.org"
+    "https://mc-stan.org"
   )
 }
 

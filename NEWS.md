@@ -2,11 +2,12 @@
 
 * Added Martin Lysy as a coauthor.
 
-* New function `rstan_create_package()` (which is based on
-`usethis::create_package`) replaces `rstan_package_skeleton()`.
+* New function `rstan_create_package()` (based on
+`usethis::create_package`) replaces `rstan_package_skeleton()`
+for the purpose of starting a new package with Stan function.
 
 * Stan functionality can be added to an existing package by calling
-`use_rstan()`, instead of building a package from scratch.
+`use_rstan()`, instead of starting a new package from scratch.
 
 * Stan folder infrastructure now puts all `.stan` files in `inst/stan` and all
 auto-generated C++ files directly in `src`.  This last step ensures that custom
@@ -19,8 +20,7 @@ calls.  However, setting `auto_config = TRUE` (the default) in
 is installed (including via `devtools::load_all()`), so no need to call it
 manually unless the user wishes to inspect the Stan C++ code for issues.
 
-* **roxygen2** documentation is now optional, and works straight out of the box
-upon calling `devtools::document()`.
+* **roxygen2** documentation is now optional, but remains the default.
 
 * Rather than generating Stan "system files" via `cat` commands, **rstantools**
 now stores these as template files in `inst/include/sys`, so the build process
