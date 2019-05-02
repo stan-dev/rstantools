@@ -12,6 +12,7 @@ context("rstan_config")
 
 #--- 0.  setup -----------------------------------------------------------------
 
+run_all_tests <- FALSE # if TRUE disables skip_on_cran and skip_on_travis
 # helper functions to run tests
 source("rstan_package_skeleton-testfunctions.R")
 pkg_name <- "RStanTest" # name of package
@@ -55,6 +56,10 @@ file.copy(from = incl_files,
 
 # check that Stan C++ source lines match those on record
 test_that("Stan src files are created properly", {
+  if (!run_all_tests) {
+    skip_on_cran()
+    skip_on_travis()
+  }
   rstan_config(pkg_dest_path)
   for(sf in stan_files) {
     check_lines(sf,
@@ -66,6 +71,10 @@ test_that("Stan src files are created properly", {
 #--- 3.  rerun config, check that file.mtimes are identical --------------------
 
 test_that("Unmodified Stan src files are not overwritten", {
+  if (!run_all_tests) {
+    skip_on_cran()
+    skip_on_travis()
+  }
   pre_mtime <- lapply(stan_files, check_mtime, pkg_dest_path = pkg_dest_path)
   pre_mtime <- do.call(c, pre_mtime)
   rstan_config(pkg_dest_path)
@@ -94,6 +103,11 @@ invisible(sapply(src_files, function(sf) {
 #--- 5.  remove stan file(s) rerun config --------------------------------------
 
 test_that("src is properly updated after removing one inst/stan files", {
+  if (!run_all_tests) {
+    skip_on_cran()
+    skip_on_travis()
+  }
+
   # check modification time of all files in src
   pre_files <- list.files(file.path(pkg_dest_path, "src"),
                           full.names = TRUE)
@@ -117,6 +131,11 @@ test_that("src is properly updated after removing one inst/stan files", {
 })
 
 test_that("src is properly updated after removing all inst/stan files", {
+  if (!run_all_tests) {
+    skip_on_cran()
+    skip_on_travis()
+  }
+
   rm_files <- list.files(file.path(pkg_dest_path, "inst", "stan"),
                          pattern = "[.]stan$",
                          full.names = TRUE)

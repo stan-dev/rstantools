@@ -1,4 +1,4 @@
-#--- test rstan_package_skeleton -----------------------------------------------
+#--- test rstan_create_package -----------------------------------------------
 
 # 1. create package under various conditions
 # 2. pkgload::load_all package
@@ -6,7 +6,7 @@
 # 4. delete package source
 
 # setup
-run_all_tests <- FALSE # if TRUE disables skip_on_cran
+run_all_tests <- FALSE # if TRUE disables skip_on_cran and skip_on_travis
 source("rstan_package_skeleton-testfunctions.R") # helper functions to run tests
 pkg_name <- "RStanTest" # name of package
 # path to base directory where packages will be created
@@ -91,7 +91,10 @@ for(ii in 1:ntest) {
   if(use_roxygen) {
     # TODO: stop test if roxygen2 not found
     test_that("roxygen works properly", {
-      if(!run_all_tests) skip_on_cran()
+      if(!run_all_tests) {
+        skip_on_cran()
+        skip_on_travis()
+      }
       pkgbuild::compile_dll(pkg_dest_path)
       roxygen2::roxygenize(pkg_dest_path)
       expect_identical(readLines(file.path(pkg_dest_path, "NAMESPACE")),
@@ -100,21 +103,33 @@ for(ii in 1:ntest) {
   }
   # install & load package
   test_that("Package loads correctly", {
-    if(!run_all_tests) skip_on_cran()
+    if(!run_all_tests) {
+      skip_on_cran()
+      skip_on_travis()
+    }
     expect_type(pkgload::load_all(pkg_dest_path,
                                   export_all = TRUE, quiet = TRUE), "list")
   })
   # check that functions work as expected
   test_that("logpost_R == logpost_Stan: postsamp1", {
-    if(!run_all_tests) skip_on_cran()
+    if(!run_all_tests) {
+      skip_on_cran()
+      skip_on_travis()
+    }
     compare_postsamp1()
   })
   test_that("logpost_R == logpost_Stan: postsamp2", {
-    if(!run_all_tests) skip_on_cran()
+    if(!run_all_tests) {
+      skip_on_cran()
+      skip_on_travis()
+    }
     compare_postsamp2()
   })
   test_that("external C++ code works", {
-    if(!run_all_tests) skip_on_cran()
+    if(!run_all_tests) {
+      skip_on_cran()
+      skip_on_travis()
+    }
     n <- sample(1:20, 1)
     x <- rnorm(n)
     y <- rnorm(n)
