@@ -3,7 +3,6 @@
 # rstantools
 
 [![Travis-CI Build Status](https://travis-ci.org/stan-dev/rstantools.svg?branch=master)](https://travis-ci.org/stan-dev/rstantools)
-[![codecov](https://codecov.io/gh/stan-dev/rstantools/branch/master/graph/badge.svg)](https://codecov.io/gh/stan-dev/rstantools)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/rstantools?color=blue)](https://cran.r-project.org/package=rstantools)
 
 The __rstantools__ package provides tools for developing R packages interfacing

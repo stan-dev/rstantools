@@ -6,6 +6,10 @@ sudo: false
 cache: packages
 dist: trusty
 
+r_build_args: '--no-build-vignettes'
+r_check_args: '--ignore-vignettes'
+warnings_are_errors: true
+
 env:
   - _R_CHECK_FORCE_SUGGESTS_=false
 
