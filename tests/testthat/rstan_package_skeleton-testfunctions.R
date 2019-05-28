@@ -71,7 +71,12 @@ check_lines <- function(stan_file, pkg_src_path, pkg_dest_path) {
     src_files <- rstantools:::.stan_prefix(sf, ext)
     src_files <- c(file.path(pkg_src_path, src_files),
                    file.path(pkg_dest_path, "src", src_files))
-    expect_identical(readLines(src_files[1]), readLines(src_files[2]))
+    # v3
+    expect_known_output(object = cat(readLines(src_files[2]), sep = "\n"),
+                        file = src_files[1])
+    ## # v2
+    ## expect_identical(readLines(src_files[1]), readLines(src_files[2]))
+    ## # v1
     ## src_md5 <- tools::md5sum(src_files)
     ## names(src_md5) <- NULL
     ## expect_identical(src_md5[1], src_md5[2])

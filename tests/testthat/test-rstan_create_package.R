@@ -8,7 +8,7 @@
 # setup
 run_all_tests <- FALSE # if TRUE disables skip_on_cran and skip_on_travis
 source("rstan_package_skeleton-testfunctions.R") # helper functions to run tests
-pkg_name <- "RStanTest" # name of package
+pkg_name <- "RStanTest" # base name of package
 # path to base directory where packages will be created
 tmp_test_path <- TRUE # put all tests in temporary folder
 if(tmp_test_path) test_path <- tempfile(pattern = "rstantools_")
@@ -87,29 +87,39 @@ for(ii in 1:ntest) {
             to = file.path(pkg_dest_path, "src", basename(src_files)))
   rstan_config(pkg_dest_path)
   ## Rcpp::compileAttributes(pkg_dest_path)
-  # enable roxygen documentation
-  if(use_roxygen) {
-    # TODO: stop test if roxygen2 not found
-    test_that("roxygen works properly", {
-      if(!run_all_tests) {
-        skip_on_cran()
-        skip_on_travis()
-      }
-      pkgbuild::compile_dll(pkg_dest_path)
-      roxygen2::roxygenize(pkg_dest_path)
-      expect_identical(readLines(file.path(pkg_dest_path, "NAMESPACE")),
-                       readLines(file.path(pkg_src_path, "NAMESPACE")))
-    })
-  }
   # install & load package
   test_that("Package loads correctly", {
     if(!run_all_tests) {
       skip_on_cran()
       skip_on_travis()
     }
-    expect_type(pkgload::load_all(pkg_dest_path,
-                                  export_all = TRUE, quiet = TRUE), "list")
+    ## if(!use_roxygen) pkgbuild::compile_dll(pkg_dest_path)
+    tmp <- capture.output(load_out <- pkgload::load_all(pkg_dest_path,
+                                                 export_all = TRUE,
+                                                 quiet = TRUE))
+    expect_type(load_out, "list")
   })
+  if(use_roxygen) {
+    # check roxygen documentation
+    # TODO: stop test if roxygen2 not found
+    test_that("roxygen works properly", {
+      if(!run_all_tests) {
+        skip_on_cran()
+        skip_on_travis()
+      }
+      skip_if_not_installed("roxygen2")
+      ## pkgbuild::compile_dll(pkg_dest_path)
+      ## devtools::document(pkg_dest_path)
+      tmp <- capture.output(pkgload::unload(pkg_name))
+      roxygen2::roxygenize(pkg_dest_path)
+      roxygen2::roxygenize(pkg_dest_path)
+      tmp <- capture.output(load_out <- pkgload::load_all(pkg_dest_path,
+                                                          export_all = TRUE,
+                                                          quiet = TRUE))
+      expect_identical(readLines(file.path(pkg_dest_path, "NAMESPACE")),
+                       readLines(file.path(pkg_src_path, "NAMESPACE")))
+    })
+  }
   # check that functions work as expected
   test_that("logpost_R == logpost_Stan: postsamp1", {
     if(!run_all_tests) {
@@ -136,6 +146,7 @@ for(ii in 1:ntest) {
     expect_equal(add_test(x, y), x + y)
   })
   # uninstall + delete package
+  tmp <- capture.output(pkgload::unload(pkg_name))
   ## detach(paste0("package:", pkg_name),
   ##        unload = TRUE, character.only = TRUE)
   ## remove.packages(pkgs = pkg_name, lib = lib_path) # remove installed package
