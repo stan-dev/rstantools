@@ -3,18 +3,18 @@
 * Added Martin Lysy as a coauthor.
 
 * New function `rstan_create_package()` (based on
-`usethis::create_package`) replaces `rstan_package_skeleton()`
-for the purpose of starting a new package with Stan function.
+`usethis::create_package()`) replaces `rstan_package_skeleton()`
+for the purpose of starting a new package with Stan functionality.
 
-* Stan functionality can be added to an existing package by calling
-`use_rstan()`, instead of starting a new package from scratch.
+* Stan functionality can be added to an _existing_ package by calling
+`use_rstan()` instead of starting a new package from scratch.
 
 * Stan folder infrastructure now puts all `.stan` files in `inst/stan` and all
 auto-generated C++ files directly in `src`.  This last step ensures that custom
 **Rcpp** source code can coexist with the Stan C++ code.
 
 * Each time a `.stan` file gets added/removed/modified requires a call to
-`rstan_config()` in order to generate the Stan C++ code and `Rcpp::loadModule`
+`rstan_config()` in order to generate the Stan C++ code and `Rcpp::loadModule()`
 calls.  However, setting `auto_config = TRUE` (the default) in
 `rstan_create_package()` ensures `rstan_config()` is called whenever the package
 is installed (including via `devtools::load_all()`), so no need to call it

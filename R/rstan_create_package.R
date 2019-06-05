@@ -17,6 +17,8 @@
 #
 #' Create a new \R package with Stan programs
 #'
+#' @aliases rstan_package_skeleton
+#'
 #' @description
 #'   \if{html}{\figure{stanlogo.png}{options: width="25px" alt="https://mc-stan.org/about/logo/"}}
 #'   The \code{rstan_create_package} function helps get you started developing a
@@ -31,8 +33,6 @@
 #'   As of version \code{2.0.0} of \pkg{rstantools} the
 #'   \code{rstan_package_skeleton} function is defunct and only
 #'   \code{rstan_create_package} is supported.
-#'
-#' @aliases rstan_package_skeleton
 #'
 #' @export
 #' @param path The path to the new package to be created (terminating in the
