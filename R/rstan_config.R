@@ -20,6 +20,7 @@
 #' Creates or update package-specific system files to compile \code{.stan} model
 #' files found in \code{inst/stan}.
 #'
+#' @export
 #' @template args-pkgdir
 #' @details The Stan source files for the package should be stored in:
 #' \itemize{
@@ -31,14 +32,16 @@
 #'   \item \code{inst/include} for the \code{stan_meta_header.hpp} file, to be
 #'   used for directly interacting with the Stan C++ libraries.
 #' }
-#' @return Invisibly, whether or not any files were added/removed/modified by the function.
-#' @export
+#'
+#' @return Invisibly, whether or not any files were added/removed/modified by
+#'   the function.
+#'
 rstan_config <- function(pkgdir = ".") {
   pkgdir <- .check_pkgdir(pkgdir) # check if package root directory
   # get stan model files
   stan_files <- list.files(file.path(pkgdir, "inst", "stan"),
                            full.names = TRUE, pattern = "\\.stan$")
-  if(length(stan_files) != 0) {
+  if (length(stan_files) != 0) {
     # add R & src folders in case run from configure[.win] script
     .add_standir(pkgdir, "R", msg = FALSE, warn = FALSE)
     .add_standir(pkgdir, "src", msg = FALSE, warn = FALSE)
@@ -97,7 +100,7 @@ rstan_config <- function(pkgdir = ".") {
   rm_names <- gsub(.stan_prefix(start=TRUE), "", src_files)
   rm_names <- unique(gsub("[.](cc|h)$", "", rm_names))
   rm_names <- rm_names[!(rm_names %in% gsub("[.]stan$", "", stan_files))]
-  if(length(rm_names) > 0) {
+  if (length(rm_names) > 0) {
     # get all cc/h/o files in src corresponding to these models
     rm_files <- c(outer(.stan_prefix(rm_names),
                         c(".cc", ".h", ".o"), paste0))
@@ -105,7 +108,10 @@ rstan_config <- function(pkgdir = ".") {
     rm_files <- all_files[all_files %in% rm_files]
     acc <- file.remove(file.path(pkgdir, "src", rm_files))
     acc <- any(acc)
-  } else acc <- FALSE
+  } else {
+    acc <- FALSE
+  }
+
   acc
 }
 
@@ -135,7 +141,7 @@ rstan_config <- function(pkgdir = ".") {
 # return: whether or not file(s) were successfully added/removed
 .setup_Makevars <- function(pkgdir, add = TRUE) {
   noedit_msg <- .rstantools_noedit("foo")
-  if(add) {
+  if (add) {
     acc <- sapply(c("Makevars", "Makevars.win"), function(mkv_name) {
       makevars <- readLines(.system_file(mkv_name))
       .add_stanfile(makevars, pkgdir, "src", mkv_name,
@@ -224,8 +230,8 @@ rstan_config <- function(pkgdir = ".") {
                       pattern = "^license[.]stan$", recursive = TRUE,
                       ignore.case = TRUE,
                       full.names = TRUE)
-  if(length(stan_license) > 1) {
-    stop("Multiple license.stan files detected.")
+  if (length(stan_license) > 1) {
+    stop("Multiple license.stan files detected.", call. = FALSE)
   } else if(length(stan_license) == 0) {
     stan_license <- NULL
   } else {
@@ -239,7 +245,7 @@ rstan_config <- function(pkgdir = ".") {
   model_names <- list.files(file.path(pkgdir, "inst", "stan"),
                             pattern = "*.stan$")
   model_names <- gsub("[.]stan$", "", model_names)
-  if(length(model_names) == 0) {
+  if (length(model_names) == 0) {
     stanmodels <- .rstantools_noedit("stanmodels.R")
   } else {
     stanmodels <- readLines(.system_file("stanmodels.R"))

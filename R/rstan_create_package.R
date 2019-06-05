@@ -131,10 +131,9 @@ rstan_create_package <- function(path,
   }
   DIR <- dirname(path)
   name <- basename(path)
-  # check stan extensions
   .check_stan_ext(stan_files)
-  # check rstudio dependency
-  if(rstudio && !requireNamespace("rstudioapi", quietly = TRUE)) {
+
+  if (rstudio && !requireNamespace("rstudioapi", quietly = TRUE)) {
     stop("Please install package 'rstudioapi' to use option 'rstudio = TRUE'.",
          call. = FALSE)
     rstudio <- rstudio && rstudioapi::isAvailable()
@@ -142,15 +141,23 @@ rstan_create_package <- function(path,
   if (open && rstudio) {
     on.exit(rstudioapi::openProject(DIR, newSession = TRUE))
   }
-  # run create_package()
+
+  # run usethis::create_package()
   if (file.exists(path)) {
     stop("Directory '", DIR, "' already exists.", call. = FALSE)
   }
   message("Creating package skeleton for package: ", name, domain = NA)
-  suppressMessages(usethis::create_package(path = path, fields = fields,
-                                           rstudio = rstudio, open = FALSE))
-  pkgdir <- .check_pkgdir(file.path(DIR, name)) # package folder
+  suppressMessages(
+    usethis::create_package(
+      path = path,
+      fields = fields,
+      rstudio = rstudio,
+      open = FALSE
+    )
+  )
+
   # add rest of stan functionality to package
+  pkgdir <- .check_pkgdir(file.path(DIR, name))
   .rstan_make_pkg(pkgdir, stan_files, roxygen, travis, license, auto_config)
   invisible(NULL)
 }
@@ -159,7 +166,7 @@ rstan_create_package <- function(path,
 
 # check stan extensions
 .check_stan_ext <- function(stan_files) {
-  if(length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files))) {
+  if (length(stan_files) && !all(grepl("\\.stan$", stan_files))) {
     stop("All files named in 'stan_files' must end ",
          "with a '.stan' extension.", call. = FALSE)
   }
@@ -191,7 +198,7 @@ rstan_create_package <- function(path,
   desc_pkg$write()
   ## desc_pkg <- read.dcf(file.path(pkgdir, "DESCRIPTION"))
   ## has_enc <- "Encoding" %in% colnames(desc_pkg)
-  ## if(has_enc) {
+  ## if (has_enc) {
   ##   desc_pkg[,"Encoding"] <- "UTF-8"
   ## } else {
   ##   desc_pkg <- cbind(desc_pkg, Encoding = "UTF-8")
@@ -218,14 +225,14 @@ rstan_create_package <- function(path,
 .rstan_make_pkg <- function(pkgdir, stan_files,
                             roxygen, travis, license, auto_config) {
   # add travis file
-  if(travis) .add_travis(pkgdir)
+  if (travis) .add_travis(pkgdir)
   # add stan folder structure
   use_rstan(pkgdir, license = license, auto_config = auto_config)
   # add user's stan files
   file.copy(from = stan_files,
             to = file.path(pkgdir, "inst", "stan", basename(stan_files)))
   # add default R/pkgname-package.R file for roxygen-style imports
-  if(roxygen) .add_roxygen(pkgdir)
+  if (roxygen) .add_roxygen(pkgdir)
   # add stan system files for compiling
   message("Configuring Stan compile and module export instructions ...")
   rstan_config(pkgdir)
@@ -250,17 +257,17 @@ rstan_create_package <- function(path,
 ##    - inst/stan/include
 ##    - inst/include
 ##    - src/stan_files
-##    - if(!exists) message
+##    - if (!exists) message
 
 ## 3. add default files.
 ##    - src/stan_init.cpp
 ##    - inst/include/stan_meta_header.cpp
 
 ## 4. update NAMESPACE
-##    - if(default) modify else message(remaining steps)
+##    - if (default) modify else message(remaining steps)
 
 ## 5. update DESCRIPTION
-##    - if(modified) message else do_nothing
+##    - if (modified) message else do_nothing
 
 ## 4. add stan_files
 
@@ -270,7 +277,7 @@ rstan_create_package <- function(path,
 ##    - add src/Makevars[.win]
 ##      only overwrite if different
 ##    - add R/stanmodels.R
-##    - if(is_empty(inst/stan)) no Makevars, empty stanmodels.R
+##    - if (is_empty(inst/stan)) no Makevars, empty stanmodels.R
 
 ## messages:
 ##   - when creating directories

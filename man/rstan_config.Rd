@@ -10,7 +10,8 @@ rstan_config(pkgdir = ".")
 \item{pkgdir}{Path to package root folder.}
 }
 \value{
-Invisibly, whether or not any files were added/removed/modified by the function.
+Invisibly, whether or not any files were added/removed/modified by
+  the function.
 }
 \description{
 Creates or update package-specific system files to compile \code{.stan} model

@@ -1,3 +1,5 @@
+
+
 #' Generic function and default method for Bayesian R-squared
 #'
 #' Generic function and default method for Bayesian version of R-squared for
