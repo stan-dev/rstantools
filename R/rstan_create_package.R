@@ -122,7 +122,8 @@ rstan_create_package <- function(path,
                                  license = TRUE,
                                  auto_config = TRUE) {
   if (!requireNamespace("usethis", quietly = TRUE)) {
-    stop("Please install package 'usethis' to use function 'rstan_create_package'.")
+    stop("Please install package 'usethis' to use function 'rstan_create_package'.",
+         call. = FALSE)
   }
   DIR <- dirname(path)
   name <- basename(path)
@@ -130,7 +131,8 @@ rstan_create_package <- function(path,
   .check_stan_ext(stan_files)
   # check rstudio dependency
   if(rstudio && !requireNamespace("rstudioapi", quietly = TRUE)) {
-    stop("Please install package 'rstudioapi' to use option 'rstudio = TRUE'.")
+    stop("Please install package 'rstudioapi' to use option 'rstudio = TRUE'.",
+         call. = FALSE)
     rstudio <- rstudio && rstudioapi::isAvailable()
   }
   if (open && rstudio) {
@@ -138,7 +140,7 @@ rstan_create_package <- function(path,
   }
   # run create_package()
   if (file.exists(path)) {
-    stop("Directory '", DIR, "' already exists.")
+    stop("Directory '", DIR, "' already exists.", call. = FALSE)
   }
   message("Creating package skeleton for package: ", name, domain = NA)
   suppressMessages(usethis::create_package(path = path, fields = fields,
@@ -155,7 +157,7 @@ rstan_create_package <- function(path,
 .check_stan_ext <- function(stan_files) {
   if(length(stan_files) > 0 && !all(grepl("\\.stan$", stan_files))) {
     stop("All files named in 'stan_files' must end ",
-         "with a '.stan' extension.")
+         "with a '.stan' extension.", call. = FALSE)
   }
 }
 
