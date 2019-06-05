@@ -52,10 +52,10 @@ package should be an exception definitely let us know.
 
 ### General package structure and development
 
-* The __rstantools__ package provides the `rstan_create_package` function, which
-you should use to create the basic structure of your package. (As of `v2.0.0`
-this replaces the `rstan_package_skeleton` function.) This will set up a package
-with functionality for pre-compiled Stan programs, in the style of the
+* The __rstantools__ package provides the `rstan_create_package()` function,
+which you should use to create the basic structure of your package. (As of
+`v2.0.0` this replaces the `rstan_package_skeleton` function.) This will set up
+a package with functionality for pre-compiled Stan programs, in the style of the
 [__rstanarm__](https://mc-stan.org/rstanarm) package (source code:
 https://github.com/stan-dev/rstanarm).
 
