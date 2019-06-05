@@ -115,6 +115,11 @@ Authors willing to license their Stan programs of general interest
   under the GPL are invited to contribute their \code{.stan} files and
   supporting \R code to the \pkg{rstanarm} package.
 }
+\note{
+For \pkg{devtools} users, because of changes in the latest versions of
+  \pkg{roxygen2} it may be necessary to run \code{pkgbuild::compile_dll()}
+  once before \code{devtools::document()} will work.
+}
 \section{Using the pre-compiled Stan programs in your package}{
 
   The \code{stanmodel} objects corresponding to the Stan programs

@@ -99,6 +99,9 @@
 #'
 #' @template section-running-stan
 #'
+#' @note For \pkg{devtools} users, because of changes in the latest versions of
+#'   \pkg{roxygen2} it may be necessary to run \code{pkgbuild::compile_dll()}
+#'   once before \code{devtools::document()} will work.
 #'
 #' @seealso
 #' \itemize{
