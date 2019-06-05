@@ -1,17 +1,18 @@
 Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
-Version: 1.5.1.9000
-Date: 2018-08-20
+Version: 2.0.0
+Date: 2019-04-26
 Authors@R: c(person("Jonah", "Gabry", email = "jsg2201@columbia.edu",
                     role = c("aut", "cre")),
              person("Ben", "Goodrich", email = "benjamin.goodrich@columbia.edu",
                     role = "aut"),
+             person("Martin", "Lysy", email = "mlysy@uwaterloo.ca",
+                    role = "aut"),
              person("Stefan", "Siegert", role = "ctb"),
              person("Trustees of", "Columbia University", role = "cph"))
-Maintainer: Jonah Gabry <jsg2201@columbia.edu>
 Description: Provides various tools for developers of R packages interfacing
-    with 'Stan' <http://mc-stan.org>, including functions to set up the required 
+    with 'Stan' <https://mc-stan.org>, including functions to set up the required 
     package structure, S3 generics and default methods to unify function naming 
     across 'Stan'-based R packages, and vignettes with recommendations for 
     developers.
@@ -20,21 +21,22 @@ URL: https://discourse.mc-stan.org/, https://mc-stan.org/rstantools/
 BugReports: https://github.com/stan-dev/rstantools/issues
 Encoding: UTF-8
 LazyData: true
-SystemRequirements: pandoc
-Imports: stats, utils
+SystemRequirements: pandoc, C++14
+Imports: stats, utils, Rcpp (>= 0.12.16), desc
 Suggests:
     bayesplot (>= 1.5.0),
     rstan (>= 2.17.2),
     rstanarm (>= 2.17.4),
     shinystan (>= 2.4.0),
     loo (>= 2.0.0),
+    usethis (>= 1.3.0),
     testthat,
     covr,
     knitr,
-    devtools,
+    pkgbuild,
+    pkgload,
     roxygen2 (>= 6.0.1),
     rmarkdown,
-    rstudioapi,
-    usethis (>= 1.3.0)
+    rstudioapi
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
