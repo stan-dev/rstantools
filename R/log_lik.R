@@ -16,7 +16,7 @@
 #'   the posterior distribution) and \eqn{N} is the number of data points.
 #'
 #' @template seealso-rstanarm-pkg
-#' @template seealso-dev-guidelines
+#' @template seealso-vignettes
 #'
 #' @examples
 #' # See help("log_lik", package = "rstanarm")

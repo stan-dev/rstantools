@@ -1,5 +1,6 @@
-# rstan_create_package
-# Copyright (C) 2018 Martin Lysy
+# Part of the rstantools package
+# Copyright (C) 2018, 2019 Martin Lysy
+# Copyright (C) 2019 Trustees of Columbia University
 #
 # rstantools is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -15,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #
-#' Create a new \R package with Stan programs
+#' Create a new \R package with compiled Stan programs
 #'
 #' @aliases rstan_package_skeleton
 #'
@@ -111,7 +112,7 @@
 #'   \item \href{https://github.com/stan-dev/rstanarm}{The \pkg{rstanarm}
 #'   repository on GitHub.}
 #' }
-#' @template seealso-dev-guidelines
+#' @template seealso-vignettes
 #' @template seealso-get-help
 #' @template seealso-useR2016-video
 #'

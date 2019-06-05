@@ -13,7 +13,7 @@
 #'   draw.
 #'
 #' @template seealso-rstanarm-pkg
-#' @template seealso-dev-guidelines
+#' @template seealso-vignettes
 #'
 #' @examples
 #' # Example using rstanarm package:

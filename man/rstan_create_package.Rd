@@ -3,7 +3,7 @@
 \name{rstan_create_package}
 \alias{rstan_create_package}
 \alias{rstan_package_skeleton}
-\title{Create a new \R package with Stan programs}
+\title{Create a new \R package with compiled Stan programs}
 \usage{
 rstan_create_package(path, fields = NULL, rstudio = TRUE,
   open = TRUE, stan_files = character(), roxygen = TRUE,
@@ -144,7 +144,7 @@ For \pkg{devtools} users, because of changes in the latest versions of
   \item Guidelines and recommendations for developers of \R packages
   interfacing with Stan and a demonstration getting a simple package working
   can be found in the vignettes included with \pkg{rstantools} and at
-  \url{http://mc-stan.org/rstantools/articles/}.
+  \url{https://mc-stan.org/rstantools/articles/}.
 }
 
 \itemize{

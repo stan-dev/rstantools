@@ -11,13 +11,13 @@
 #' }
 #'
 #' The \pkg{rstantools} package provides various tools for developers of \R
-#' packages interfacing with Stan (\url{http://mc-stan.org}), including
+#' packages interfacing with Stan (\url{https://mc-stan.org}), including
 #' functions to set up the required package structure, S3 generic methods to
 #' unify function naming across Stan-based \R packages, and vignettes with
 #' guidelines for developers. To get started building a package see
 #' \code{\link{rstan_create_package}}.
 #'
-#' @template seealso-dev-guidelines
+#' @template seealso-vignettes
 #' @template seealso-get-help
 #' @template seealso-useR2016-video
 #'

@@ -14,7 +14,7 @@
 #'   formatted in the same way as for \code{\link{predictive_interval}}.
 #'
 #' @template seealso-rstanarm-pkg
-#' @template seealso-dev-guidelines
+#' @template seealso-vignettes
 #'
 
 #' @rdname loo-prediction

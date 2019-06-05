@@ -26,7 +26,7 @@
 #'
 #'
 #' @template seealso-rstanarm-pkg
-#' @template seealso-dev-guidelines
+#' @template seealso-vignettes
 #'
 bayes_R2 <- function(object, ...) {
   UseMethod("bayes_R2")

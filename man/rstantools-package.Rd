@@ -12,7 +12,7 @@
 }
 
 The \pkg{rstantools} package provides various tools for developers of \R
-packages interfacing with Stan (\url{http://mc-stan.org}), including
+packages interfacing with Stan (\url{https://mc-stan.org}), including
 functions to set up the required package structure, S3 generic methods to
 unify function naming across Stan-based \R packages, and vignettes with
 guidelines for developers. To get started building a package see
@@ -23,7 +23,7 @@ guidelines for developers. To get started building a package see
   \item Guidelines and recommendations for developers of \R packages
   interfacing with Stan and a demonstration getting a simple package working
   can be found in the vignettes included with \pkg{rstantools} and at
-  \url{http://mc-stan.org/rstantools/articles/}.
+  \url{https://mc-stan.org/rstantools/articles/}.
 }
 
 \itemize{

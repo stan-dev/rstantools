@@ -15,7 +15,7 @@
 #'   \code{NULL} if there is no \code{'prior.info'} element.
 #'
 #' @template seealso-rstanarm-pkg
-#' @template seealso-dev-guidelines
+#' @template seealso-vignettes
 #'
 #' @examples
 #' # See help("prior_summary", package = "rstanarm")

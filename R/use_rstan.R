@@ -1,4 +1,4 @@
-# use_rstan
+# Part of the rstantools package
 # Copyright (C) 2018 Martin Lysy
 #
 # rstantools is free software; you can redistribute it and/or

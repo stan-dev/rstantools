@@ -18,7 +18,7 @@
 #'   to be a vector.
 #'
 #' @template seealso-rstanarm-pkg
-#' @template seealso-dev-guidelines
+#' @template seealso-vignettes
 #'
 #' @examples
 #' # default method

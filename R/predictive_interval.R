@@ -21,7 +21,7 @@
 #'   quantiles, with \code{prob} defaulting to 0.9.
 #'
 #' @template seealso-rstanarm-pkg
-#' @template seealso-dev-guidelines
+#' @template seealso-vignettes
 #'
 #' @examples
 #' # Default method takes a numeric matrix (of draws from posterior
