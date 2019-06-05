@@ -4,7 +4,7 @@ context("rstan_config")
 
 # 0.  setup
 # 1.  create empty package
-# 2.  add stan files, check contents
+# 2.  add stan files and (weakly) check them via expect_known_output.
 # 3.  rerun config, check that file.mtimes are identical
 # 4.  create fake .o files to mimick contents of src without compiling package.  also add other files to src.
 # 5.  remove one stan file, rerun config, check that files are removed and other files are the same.
@@ -13,6 +13,9 @@ context("rstan_config")
 #--- 0.  setup -----------------------------------------------------------------
 
 run_all_tests <- FALSE # if TRUE disables skip_on_cran and skip_on_travis
+backtest_stan_cpp <- FALSE # if FALSE disables check of stan cc/h files
+# against what is on record.  typically this test only fails
+# when the user and package stan C++ library are out of sync.
 # helper functions to run tests
 source("rstan_package_skeleton-testfunctions.R")
 pkg_name <- "RStanTest" # name of package
@@ -54,19 +57,28 @@ file.copy(from = incl_files,
           to = file.path(pkg_dest_path, "inst", "stan", "include",
                          basename(incl_files)))
 
-# check that Stan C++ source lines match those on record
-test_that("Stan src files are created properly", {
-  if (!run_all_tests) {
-    skip_on_cran()
-    skip_on_travis()
-  }
-  rstan_config(pkg_dest_path)
-  for(sf in stan_files) {
-    check_lines(sf,
-                pkg_src_path = pkg_src_path,
-                pkg_dest_path = pkg_dest_path)
-  }
-})
+
+# add Stan C++ code
+rstan_config(pkg_dest_path)
+
+# check that Stan C++ source code lines match those on record
+# this should only fail when output from rstan::stanc gets modified, e.g.,
+# because stan version has changed.
+# subsequent runs (in interactive mode) will pass as records get overwritten.
+# R CMD check will not overwrite record: see testthat::expect_known_output
+if(backtest_stan_cpp) {
+  test_that("Stan src files are created properly", {
+    if (!run_all_tests) {
+      skip_on_cran()
+      skip_on_travis()
+    }
+    for(sf in stan_files) {
+      check_lines(sf,
+                  pkg_src_path = pkg_src_path,
+                  pkg_dest_path = pkg_dest_path)
+    }
+  })
+}
 
 #--- 3.  rerun config, check that file.mtimes are identical --------------------
 
