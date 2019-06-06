@@ -1,11 +1,11 @@
 #' Generic function for pointwise log-likelihood
 #'
 #' We define a new function `log_lik()` rather than a
-#' \code{\link[stats]{logLik}} method because (in addition to the conceptual
+#' [stats::logLik()] method because (in addition to the conceptual
 #' difference) the documentation for `logLik()` states that the return value
 #' will be a single number, whereas `log_lik()` returns a matrix. See
-#' \code{\link[rstanarm]{log_lik.stanreg}} in the \pkg{rstanarm} package for an
-#' example.
+#' the [log_lik.stanreg()][rstanarm::log_lik.stanreg] method in the
+#' \pkg{rstanarm} package for an example of defining a method.
 #'
 #' @export
 #' @template args-object

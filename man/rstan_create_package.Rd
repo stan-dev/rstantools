@@ -13,7 +13,7 @@ rstan_create_package(path, fields = NULL, rstudio = TRUE,
 \item{path}{The path to the new package to be created (terminating in the
 package name).}
 
-\item{fields, rstudio, open}{Same as \code{\link{usethis::create_package}}. See
+\item{fields, rstudio, open}{Same as \code{\link[usethis:create_package]{usethis::create_package()}}. See
 the documentation for that function, especially the note in the
 \strong{Description} section about the side effect of changing the active
 project.}
@@ -83,7 +83,7 @@ Stan C++ library is \code{stan_meta_header.hpp}; all other \code{#include}
 directives must be channeled through here.
 
 The final step of the package creation is to invoke
-\code{\link{rstan_config}}, which creates the following files for
+\code{\link[=rstan_config]{rstan_config()}}, which creates the following files for
 interfacing with Stan objects from \R:
 \itemize{
 \item \code{src} contains the \code{stan_ModelName{.cc/.hpp}} pairs
@@ -136,11 +136,11 @@ program \code{"foo.stan"} you would use \code{rstan::sampling(stanmodels$foo, ..
 
 \seealso{
 \itemize{
-\item \code{\link{use_rstan}} for adding Stan functionality to an existing
-\R package, \code{\link{rstan_config}} for updating an existing package
+\item \code{\link[=use_rstan]{use_rstan()}} for adding Stan functionality to an existing
+\R package and \code{\link[=rstan_config]{rstan_config()}} for updating an existing package
 when its Stan files are changed.
-\item \href{https://github.com/stan-dev/rstanarm}{The \pkg{rstanarm}
-repository on GitHub.}
+\item The \pkg{rstanarm} package \href{https://github.com/stan-dev/rstanarm}{repository}
+on GitHub.
 }
 
 \itemize{

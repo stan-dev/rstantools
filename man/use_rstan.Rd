@@ -18,12 +18,12 @@ file.  If \code{TRUE} (the default) adds the \code{GPL (>= 3)} license (see
 whenever the package gets installed (see \strong{Details}). Defaults to \code{TRUE}.}
 }
 \value{
-Invisibly, whether or not any files or folders where created or modified.
+Invisibly, \code{TRUE} or \code{FALSE} indicating whether or not any files or
+folders where created or modified.
 }
 \description{
-Add Stan infrastructure to an existing \R package. To create a \emph{new}
-package containing Stan programs use \code{\link{rstan_create_package}}
-instead.
+Add Stan infrastructure to an existing \R package. To create a \emph{new} package
+containing Stan programs use \code{\link[=rstan_create_package]{rstan_create_package()}} instead.
 }
 \details{
 Prepares a package to compile and use Stan code by performing the
@@ -31,21 +31,18 @@ following steps:
 \enumerate{
 \item Create \code{inst/stan} folder where all \code{.stan} files defining
 Stan models should be stored.
-\item Create \code{inst/stan/include} where optional \code{license.stan}
-file is stored.
-\item Create \code{inst/include/stan_meta_header.hpp} to include optional
-header files used by Stan code.
-\item Create \code{src} folder (if it doesn't exist) to contain the Stan
-C++ code.
-\item Create \code{R} folder (if it doesn't exist) to contain wrapper code
-to expose Stan C++ classes to \R.
-\item Update \code{DESCRIPTION} file to contain all needed dependencies to
-compile Stan C++ code.
-\item If \code{NAMESPACE} file is generic (i.e., created by
-\code{\link{rstan_create_package}}), append \code{import(Rcpp, methods)},
-\code{importFrom(rstan, sampling)}, and \code{useDynLib} directives.  If
-\code{NAMESPACE} is not generic, display message telling user what to add
-to \code{NAMESPACE} for themselves.
+\item Create \code{inst/stan/include} where optional \code{license.stan} file is stored.
+\item Create \code{inst/include/stan_meta_header.hpp} to include optional header
+files used by Stan code.
+\item Create \code{src} folder (if it doesn't exist) to contain the Stan C++ code.
+\item Create \code{R} folder (if it doesn't exist) to contain wrapper code to expose
+Stan C++ classes to \R.
+\item Update \code{DESCRIPTION} file to contain all needed dependencies to compile
+Stan C++ code.
+\item If \code{NAMESPACE} file is generic (i.e., created by \code{\link[=rstan_create_package]{rstan_create_package()}}),
+append \code{import(Rcpp, methods)}, \code{importFrom(rstan, sampling)},
+and \code{useDynLib} directives.  If \code{NAMESPACE} is not generic, display message
+telling user what to add to \code{NAMESPACE} for themselves.
 }
 
 When \code{auto_config = TRUE}, a \code{configure[.win]} file is added to the

@@ -2,9 +2,8 @@
 #'
 #' These intervals are often referred to as credible intervals, but we use the
 #' term uncertainty intervals to highlight the fact that wider intervals
-#' correspond to greater uncertainty. See
-#' \code{\link[rstanarm]{posterior_interval.stanreg}} in the
-#' \pkg{\link[rstanarm]{rstanarm}} package for an example.
+#' correspond to greater uncertainty. See [rstanarm::posterior_interval.stanreg()]
+#' in the \pkg{rstanarm} package for an example.
 #'
 #' @export
 #' @template args-object

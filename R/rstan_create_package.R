@@ -39,7 +39,7 @@
 #' @export
 #' @param path The path to the new package to be created (terminating in the
 #'   package name).
-#' @param fields,rstudio,open Same as \code{\link{usethis::create_package}}. See
+#' @param fields,rstudio,open Same as [usethis::create_package()]. See
 #'   the documentation for that function, especially the note in the
 #'   **Description** section about the side effect of changing the active
 #'   project.
@@ -84,7 +84,7 @@
 #' directives must be channeled through here.
 #'
 #' The final step of the package creation is to invoke
-#' \code{\link{rstan_config}}, which creates the following files for
+#' [rstan_config()], which creates the following files for
 #' interfacing with Stan objects from \R:
 #' \itemize{
 #'   \item `src` contains the `stan_ModelName{.cc/.hpp}` pairs
@@ -110,13 +110,11 @@
 #'   once before `devtools::document()` will work.
 #'
 #' @seealso
-#' \itemize{
-#'   \item \code{\link{use_rstan}} for adding Stan functionality to an existing
-#'   \R package, \code{\link{rstan_config}} for updating an existing package
+#' * [use_rstan()] for adding Stan functionality to an existing
+#'   \R package and [rstan_config()] for updating an existing package
 #'   when its Stan files are changed.
-#'   \item \href{https://github.com/stan-dev/rstanarm}{The \pkg{rstanarm}
-#'   repository on GitHub.}
-#' }
+#' * The \pkg{rstanarm} package [repository](https://github.com/stan-dev/rstanarm)
+#'   on GitHub.
 #' @template seealso-vignettes
 #' @template seealso-get-help
 #' @template seealso-useR2016-video

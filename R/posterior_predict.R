@@ -1,8 +1,8 @@
 #' Generic function for drawing from the posterior predictive distribution
 #'
 #' Draw from the posterior predictive distribution of the outcome. See
-#' \code{\link[rstanarm]{posterior_predict.stanreg}} in the
-#' \pkg{\link[rstanarm]{rstanarm}} package for an example.
+#' [rstanarm::posterior_predict.stanreg()] in the \pkg{rstanarm} package for an
+#' example.
 #'
 #' @export
 #' @template args-object

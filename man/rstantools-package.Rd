@@ -16,7 +16,7 @@ packages interfacing with Stan (\url{https://mc-stan.org}), including
 functions to set up the required package structure, S3 generic methods to
 unify function naming across Stan-based \R packages, and vignettes with
 guidelines for developers. To get started building a package see
-\code{\link{rstan_create_package}}.
+\code{\link[=rstan_create_package]{rstan_create_package()}}.
 }
 \seealso{
 \itemize{

@@ -36,10 +36,10 @@ the same length as the number of columns in the matrix used as \code{object}.}
 (probability integral transform) methods should return a vector with length
 equal to the number of observations in the data.
 \code{loo_predictive_interval()} methods should return a two-column matrix
-formatted in the same way as for \code{\link{predictive_interval}}.
+formatted in the same way as for \code{\link[=predictive_interval]{predictive_interval()}}.
 }
 \description{
-See the methods in the \pkg{\link[rstanarm]{rstanarm}} package for examples.
+See the methods in the \pkg{rstanarm} package for examples.
 }
 \seealso{
 \itemize{

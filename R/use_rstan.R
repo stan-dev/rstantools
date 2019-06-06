@@ -18,9 +18,8 @@
 
 #' Add Stan infrastructure to an existing package
 #'
-#' Add Stan infrastructure to an existing \R package. To create a *new*
-#' package containing Stan programs use \code{\link{rstan_create_package}}
-#' instead.
+#' Add Stan infrastructure to an existing \R package. To create a *new* package
+#' containing Stan programs use [rstan_create_package()] instead.
 #'
 #' @template args-pkgdir
 #' @template args-license
@@ -28,30 +27,26 @@
 #'
 #' @details Prepares a package to compile and use Stan code by performing the
 #'   following steps:
-#' \enumerate{
-#'   \item Create `inst/stan` folder where all `.stan` files defining
+#' 1. Create `inst/stan` folder where all `.stan` files defining
 #'   Stan models should be stored.
-#'   \item Create `inst/stan/include` where optional `license.stan`
-#'   file is stored.
-#'   \item Create `inst/include/stan_meta_header.hpp` to include optional
-#'   header files used by Stan code.
-#'   \item Create `src` folder (if it doesn't exist) to contain the Stan
-#'   C++ code.
-#'   \item Create `R` folder (if it doesn't exist) to contain wrapper code
-#'   to expose Stan C++ classes to \R.
-#'   \item Update `DESCRIPTION` file to contain all needed dependencies to
-#'   compile Stan C++ code.
-#'   \item If `NAMESPACE` file is generic (i.e., created by
-#'   \code{\link{rstan_create_package}}), append `import(Rcpp, methods)`,
-#'   `importFrom(rstan, sampling)`, and `useDynLib` directives.  If
-#'   `NAMESPACE` is not generic, display message telling user what to add
-#'   to `NAMESPACE` for themselves.
-#' }
+#' 1. Create `inst/stan/include` where optional `license.stan` file is stored.
+#' 1. Create `inst/include/stan_meta_header.hpp` to include optional header
+#'   files used by Stan code.
+#' 1. Create `src` folder (if it doesn't exist) to contain the Stan C++ code.
+#' 1. Create `R` folder (if it doesn't exist) to contain wrapper code to expose
+#'   Stan C++ classes to \R.
+#' 1. Update `DESCRIPTION` file to contain all needed dependencies to compile
+#'   Stan C++ code.
+#' 1. If `NAMESPACE` file is generic (i.e., created by [rstan_create_package()]),
+#'   append `import(Rcpp, methods)`, `importFrom(rstan, sampling)`,
+#'   and `useDynLib` directives.  If `NAMESPACE` is not generic, display message
+#'   telling user what to add to `NAMESPACE` for themselves.
 #'
 #' @template details-auto_config
 #' @template section-running-stan
 #'
-#' @return Invisibly, whether or not any files or folders where created or modified.
+#' @return Invisibly, `TRUE` or `FALSE` indicating whether or not any files or
+#'   folders where created or modified.
 #'
 #' @export
 use_rstan <- function(pkgdir = ".", license = TRUE, auto_config = TRUE) {

@@ -1,6 +1,6 @@
 #' Generic functions for LOO predictions
 #'
-#' See the methods in the \pkg{\link[rstanarm]{rstanarm}} package for examples.
+#' See the methods in the \pkg{rstanarm} package for examples.
 #'
 #' @name loo-prediction
 #'
@@ -11,7 +11,7 @@
 #'   (probability integral transform) methods should return a vector with length
 #'   equal to the number of observations in the data.
 #'   `loo_predictive_interval()` methods should return a two-column matrix
-#'   formatted in the same way as for \code{\link{predictive_interval}}.
+#'   formatted in the same way as for [predictive_interval()].
 #'
 #' @template seealso-rstanarm-pkg
 #' @template seealso-vignettes

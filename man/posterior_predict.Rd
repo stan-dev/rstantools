@@ -20,8 +20,8 @@ draw.
 }
 \description{
 Draw from the posterior predictive distribution of the outcome. See
-\code{\link[rstanarm]{posterior_predict.stanreg}} in the
-\pkg{\link[rstanarm]{rstanarm}} package for an example.
+\code{\link[rstanarm:posterior_predict.stanreg]{rstanarm::posterior_predict.stanreg()}} in the \pkg{rstanarm} package for an
+example.
 }
 \examples{
 # Example using rstanarm package:

@@ -31,8 +31,8 @@ The default method just takes \code{object} to be a matrix and computes
 quantiles, with \code{prob} defaulting to \code{0.9}.
 }
 \description{
-See \code{\link[rstanarm]{predictive_interval.stanreg}} in the
-\pkg{\link[rstanarm]{rstanarm}} package for an example.
+See \code{\link[rstanarm:predictive_interval.stanreg]{rstanarm::predictive_interval.stanreg()}} in the \pkg{rstanarm} package
+for an example.
 }
 \examples{
 # Default method takes a numeric matrix (of draws from posterior

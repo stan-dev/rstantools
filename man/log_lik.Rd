@@ -19,11 +19,11 @@ the posterior distribution) and \eqn{N} is the number of data points.
 }
 \description{
 We define a new function \code{log_lik()} rather than a
-\code{\link[stats]{logLik}} method because (in addition to the conceptual
+\code{\link[stats:logLik]{stats::logLik()}} method because (in addition to the conceptual
 difference) the documentation for \code{logLik()} states that the return value
 will be a single number, whereas \code{log_lik()} returns a matrix. See
-\code{\link[rstanarm]{log_lik.stanreg}} in the \pkg{rstanarm} package for an
-example.
+the \link[rstanarm:log_lik.stanreg]{log_lik.stanreg()} method in the
+\pkg{rstanarm} package for an example of defining a method.
 }
 \examples{
 # See help("log_lik", package = "rstanarm")

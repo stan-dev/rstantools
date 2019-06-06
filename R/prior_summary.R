@@ -1,7 +1,7 @@
 #' Generic function for extracting information about prior distributions
 #'
-#' See \code{\link[rstanarm]{prior_summary.stanreg}} in the
-#' \pkg{\link[rstanarm]{rstanarm}} package for an example.
+#' See [rstanarm::prior_summary.stanreg()] in the \pkg{rstanarm} package for an
+#' example.
 #'
 #' @export
 #' @template args-object
