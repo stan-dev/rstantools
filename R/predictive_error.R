@@ -9,13 +9,13 @@
 #' @export
 #' @template args-object
 #' @template args-dots
-#' @return \code{predictive_error} methods should return a \eqn{D} by \eqn{N}
+#' @return `predictive_error()` methods should return a \eqn{D} by \eqn{N}
 #'   matrix, where \eqn{D} is the number of draws from the posterior predictive
 #'   distribution and \eqn{N} is the number of data points being predicted per
 #'   draw.
 #'
-#'   The default method just takes \code{object} to be a matrix and \code{y}
-#'   to be a vector.
+#'   The default method just takes `object` to be a matrix and `y` to be a
+#'   vector.
 #'
 #' @template seealso-rstanarm-pkg
 #' @template seealso-vignettes
@@ -36,8 +36,8 @@ predictive_error <- function(object, ...) {
 
 #' @rdname predictive_error
 #' @export
-#' @param y For the default method, a vector of \eqn{y} values the same length
-#'   as the number of columns in the matrix used as \code{object}.
+#' @param y For the default method, a vector of `y` values the same length as
+#'   the number of columns in the matrix used as `object`.
 predictive_error.default <- function(object, y, ...) {
   if (!is.matrix(object))
     stop("For the default method 'object' should be a matrix.")

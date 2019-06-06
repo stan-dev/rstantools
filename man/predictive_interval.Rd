@@ -19,7 +19,7 @@ package for examples.}
 probability mass to include in the intervals.}
 }
 \value{
-\code{predictive_interval} methods should return a matrix with two
+\code{predictive_interval()} methods should return a matrix with two
 columns and as many rows as data points being predicted. For a given value
 of \code{prob}, \eqn{p}, the columns correspond to the lower and upper
 \eqn{100p}\% interval limits and have the names \eqn{100\alpha/2}\% and
@@ -28,7 +28,7 @@ of \code{prob}, \eqn{p}, the columns correspond to the lower and upper
 would be \code{"5\%"} and \code{"95\%"}, respectively.
 
 The default method just takes \code{object} to be a matrix and computes
-quantiles, with \code{prob} defaulting to 0.9.
+quantiles, with \code{prob} defaulting to \code{0.9}.
 }
 \description{
 See \code{\link[rstanarm]{predictive_interval.stanreg}} in the
@@ -54,6 +54,6 @@ predictive_interval(ytilde, prob = 0.8)
 \item Guidelines and recommendations for developers of \R packages
 interfacing with Stan and a demonstration getting a simple package working
 can be found in the vignettes included with \pkg{rstantools} and at
-\url{https://mc-stan.org/rstantools/articles/}.
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 }

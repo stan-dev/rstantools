@@ -17,11 +17,11 @@
 
 #' Register functions implemented in C++
 #'
-#' If you set up your package using \code{rstan_package_skeleton} before
-#' version \code{1.2.1} of \pkg{rstantools} it may be necessary for you to call
-#' this function yourself in order to pass \code{R CMD check} in \R \code{>=
-#' 3.4}. If you used \code{rstan_package_skeleton} in \pkg{rstantools} version
-#' \code{1.2.1} or later then this has already been done automatically.
+#' If you set up your package using `rstan_package_skeleton()` before
+#' version `1.2.1` of \pkg{rstantools} it may be necessary for you to call
+#' this function yourself in order to pass `R CMD check` in \R
+#' `>= 3.4`. If you used `rstan_package_skeleton()` in \pkg{rstantools} version
+#' `1.2.1` or later then this has already been done automatically.
 #'
 #' @export
 #' @param name The name of your package as a string.
@@ -29,7 +29,7 @@
 #'   not specified it is assumed that this is already the current working
 #'   directory.
 #' @return This function is only called for its side effect of writing the
-#'   necessary \code{init.cpp} file to the package's \code{src/} directory.
+#'   necessary `init.cpp` file to the package's `src/` directory.
 #'
 init_cpp <- function(name, path) {
   file <- file.path("src", "init.cpp")

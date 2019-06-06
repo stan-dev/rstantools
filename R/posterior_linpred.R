@@ -10,9 +10,9 @@
 #' @template args-object
 #' @template args-dots
 #' @param transform Should the linear predictor be transformed using the
-#'   inverse-link function? The default is \code{FALSE}, in which case the
+#'   inverse-link function? The default is `FALSE`, in which case the
 #'   untransformed linear predictor is returned.
-#' @return \code{posterior_linpred} methods should return a \eqn{D} by \eqn{N}
+#' @return `posterior_linpred()` methods should return a \eqn{D} by \eqn{N}
 #'   matrix, where \eqn{D} is the number of draws from the posterior
 #'   distribution distribution and \eqn{N} is the number of data points.
 #'

@@ -15,8 +15,7 @@ file.  If \code{TRUE} (the default) adds the \code{GPL (>= 3)} license (see
 \strong{Details}).}
 
 \item{auto_config}{Whether to automatically configure Stan functionality
-whenever the package gets installed (see \strong{Details}). Defaults to
-\code{TRUE}.}
+whenever the package gets installed (see \strong{Details}). Defaults to \code{TRUE}.}
 }
 \value{
 Invisibly, whether or not any files or folders where created or modified.
@@ -49,23 +48,21 @@ compile Stan C++ code.
 to \code{NAMESPACE} for themselves.
 }
 
-When \code{auto_config = TRUE}, a \code{configure[.win]} file is
-added to the package, calling \code{rstantools::\link{rstan_config}}
-whenever the package is installed.  Consequently, the package must list
-\code{rstantools} in the \code{DESCRIPTION} Imports field for this
-mechanism to work.  Setting \code{auto_config = FALSE} removes the
-package's dependency on \code{rstantools}.  However, the package then must
-be manually configured by running \code{\link{rstan_config}} whenever
-\code{stanmodel} files in \code{inst/stan} are added/removed/modified.
+When \code{auto_config = TRUE}, a \code{configure[.win]} file is added to the
+package, calling \code{\link[=rstan_config]{rstan_config()}} whenever the package is installed.
+Consequently, the package must list \pkg{rstantools} in the \code{DESCRIPTION}
+Imports field for this mechanism to work.  Setting \code{auto_config = FALSE}
+removes the package's dependency on \pkg{rstantools}, but the package then
+must be manually configured by running \code{\link[=rstan_config]{rstan_config()}} whenever
+\code{stanmodel} files in \code{inst/stan} are added, removed, or modified.
 }
 \section{Using the pre-compiled Stan programs in your package}{
-
-The \code{stanmodel} objects corresponding to the Stan programs
-included with your package are stored in a list called \code{stanmodels}.
-To run one of the Stan programs from within an R function in your package
-just pass the appropriate element of the \code{stanmodels} list to one of
-the \pkg{rstan} functions for model fitting (e.g., \code{sampling}). For
-example, for a Stan program "foo.stan" you would use
-\code{rstan::sampling(stanmodels$foo, ...)}.
+ The
+\code{stanmodel} objects corresponding to the Stan programs included with your
+package are stored in a list called \code{stanmodels}. To run one of the Stan
+programs from within an R function in your package just pass the
+appropriate element of the \code{stanmodels} list to one of the \pkg{rstan}
+functions for model fitting (e.g., \code{sampling()}). For example, for a Stan
+program \code{"foo.stan"} you would use \code{rstan::sampling(stanmodels$foo, ...)}.
 }
 

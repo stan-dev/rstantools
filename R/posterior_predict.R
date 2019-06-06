@@ -7,7 +7,7 @@
 #' @export
 #' @template args-object
 #' @template args-dots
-#' @return \code{posterior_predict} methods should return a \eqn{D} by \eqn{N}
+#' @return `posterior_predict()` methods should return a \eqn{D} by \eqn{N}
 #'   matrix, where \eqn{D} is the number of draws from the posterior predictive
 #'   distribution and \eqn{N} is the number of data points being predicted per
 #'   draw.

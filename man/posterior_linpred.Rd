@@ -18,7 +18,7 @@ untransformed linear predictor is returned.}
 package for examples.}
 }
 \value{
-\code{posterior_linpred} methods should return a \eqn{D} by \eqn{N}
+\code{posterior_linpred()} methods should return a \eqn{D} by \eqn{N}
 matrix, where \eqn{D} is the number of draws from the posterior
 distribution distribution and \eqn{N} is the number of data points.
 }
@@ -43,6 +43,6 @@ the inverse-link function. See
 \item Guidelines and recommendations for developers of \R packages
 interfacing with Stan and a demonstration getting a simple package working
 can be found in the vignettes included with \pkg{rstantools} and at
-\url{https://mc-stan.org/rstantools/articles/}.
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 }

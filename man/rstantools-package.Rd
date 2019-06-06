@@ -8,7 +8,7 @@
 \description{
 \if{html}{
   \figure{stanlogo.png}{options: width="50px" alt="mc-stan.org"}
-  \emph{Stan Development Team}
+  *Stan Development Team*
 }
 
 The \pkg{rstantools} package provides various tools for developers of \R
@@ -23,20 +23,17 @@ guidelines for developers. To get started building a package see
 \item Guidelines and recommendations for developers of \R packages
 interfacing with Stan and a demonstration getting a simple package working
 can be found in the vignettes included with \pkg{rstantools} and at
-\url{https://mc-stan.org/rstantools/articles/}.
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 
 \itemize{
-\item After reading the guidelines for developers, if you have trouble
-setting up your package let us know on the the
-\href{https://discourse.mc-stan.org}{Stan Forums} or at
-\href{https://github.com/stan-dev/rstantools/issues}{\pkg{rstantools} issue
-tracker}.
+\item After reading the guidelines for developers, if you have trouble setting up
+your package let us know on the the \href{https://discourse.mc-stan.org}{Stan Forums}
+or at the \pkg{rstantools} GitHub \href{https://github.com/stan-dev/rstantools/issues}{issue tracker}.
 }
 
 \itemize{
 \item The useR2016 presentation
-\href{https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages}{How
-to Use (R)Stan to Estimate Models in External R Packages.}
+\href{https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages}{How to Use (R)Stan to Estimate Models in External R Packages.}
 }
 }

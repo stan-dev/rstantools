@@ -22,46 +22,45 @@
 #'
 #' @description
 #'   \if{html}{\figure{stanlogo.png}{options: width="25px" alt="https://mc-stan.org/about/logo/"}}
-#'   The \code{rstan_create_package} function helps get you started developing a
+#'   The `rstan_create_package()` function helps get you started developing a
 #'   new \R package that interfaces with Stan via the \pkg{rstan} package. First
-#'   the basic package structure is set up via \code{usethis::create_package}.
+#'   the basic package structure is set up via `usethis::create_package()`.
 #'   Then several adjustments are made so the package can include Stan programs
 #'   that can be built into binary versions (i.e., pre-compiled Stan C++ code).
 #'
-#'   The \strong{Details} section below describes the process and the
-#'   \strong{See Also} section provides links to recommendations for developers
+#'   The **Details** section below describes the process and the
+#'   **See Also** section provides links to recommendations for developers
 #'   and a step-by-step walk-through.
 #'
-#'   As of version \code{2.0.0} of \pkg{rstantools} the
-#'   \code{rstan_package_skeleton} function is defunct and only
-#'   \code{rstan_create_package} is supported.
+#'   As of version `2.0.0` of \pkg{rstantools} the
+#'   `rstan_package_skeleton()` function is defunct and only
+#'   `rstan_create_package()` is supported.
 #'
 #' @export
 #' @param path The path to the new package to be created (terminating in the
 #'   package name).
 #' @param fields,rstudio,open Same as \code{\link{usethis::create_package}}. See
 #'   the documentation for that function, especially the note in the
-#'   \strong{Description} section about the side effect of changing the active
+#'   **Description** section about the side effect of changing the active
 #'   project.
-#' @param stan_files A character vector with paths to \code{.stan} files to
-#'   include in the package.
+#' @param stan_files A character vector with paths to `.stan` files to include
+#'   in the package.
 #' @param roxygen Should \pkg{roxygen2} be used for documentation?  Defaults to
-#'   \code{TRUE}. If so, a file \code{R/{pkgname}-package.R} is added to the
-#'   package with roxygen tags for the required import lines. See the
-#'   \strong{Note} section below for advice specific to the latest versions of
-#'   \pkg{roxygen2}.
-#' @param travis Should a \code{.travis.yml} file be added to the package
-#'   directory? Defaults to \code{TRUE}.  While the file contains some presets
-#'   to help with compilation issues, at present it is not guaranteed to work on
-#'   \href{https://travis-ci.org/}{travis-ci} without manual adjustments.
+#'   `TRUE`. If so, a file `R/{pkgname}-package.R`` is added to the package with
+#'   roxygen tags for the required import lines. See the **Note** section below
+#'   for advice specific to the latest versions of \pkg{roxygen2}.
+#' @param travis Should a `.travis.yml` file be added to the package directory?
+#'   Defaults to `TRUE`.  While the file contains some presets to help with
+#'   compilation issues, at present it is not guaranteed to work on
+#'   [travis-ci](https://travis-ci.org/) without manual adjustments.
 #' @template args-license
 #' @template args-auto_config
 #'
 #' @details
 #' This function first creates a regular \R package using
-#' \code{usethis::create_package}, then adds the infrastructure required to
-#' compile and export \code{stanmodel} objects. In the package root directory,
-#' the user's Stan source code is located in:
+#' `usethis::create_package()`, then adds the infrastructure required to compile
+#' and export `stanmodel` objects. In the package root directory, the user's
+#' Stan source code is located in:
 #' \preformatted{
 #' inst/
 #'   |_stan/
@@ -69,9 +68,9 @@
 #'   |
 #'   |_include/
 #' }
-#' All \code{.stan} files containing instructions to build a \code{stanmodel}
-#' object must be placed in \code{inst/stan}.  Other \code{.stan} files go in
-#' any \code{stan/} subdirectory, to be invoked by Stan's \code{#include}
+#' All `.stan` files containing instructions to build a `stanmodel`
+#' object must be placed in `inst/stan`.  Other `.stan` files go in
+#' any `stan/` subdirectory, to be invoked by Stan's `#include`
 #' mechanism, e.g.,
 #' \preformatted{
 #' #include "include/mylib.stan"
@@ -79,36 +78,36 @@
 #' }
 #' See \pkg{rstanarm} for many examples.
 #'
-#' The folder \code{inst/include} is for all user C++ files associated with the
+#' The folder `inst/include` is for all user C++ files associated with the
 #' Stan programs.  In this folder, the only file to directly interact with the
-#' Stan C++ library is \code{stan_meta_header.hpp}; all other \code{#include}
+#' Stan C++ library is `stan_meta_header.hpp`; all other `#include`
 #' directives must be channeled through here.
 #'
 #' The final step of the package creation is to invoke
 #' \code{\link{rstan_config}}, which creates the following files for
 #' interfacing with Stan objects from \R:
 #' \itemize{
-#'   \item \code{src} contains the \code{stan_ModelName{.cc/.hpp}} pairs
-#'   associated with all \code{ModelName.stan} files in \code{inst/stan} which
-#'   define \code{stanmodel} objects.
-#'   \item \code{src/Makevars[.win]} which link to the \code{StanHeaders} and
-#'   Boost (\code{BH}) libraries.
-#'   \item \code{R/stanmodels.R} loads the C++ modules containing the
-#'   \code{stanmodel} class definitions, and assigns an \R instance of each
-#'   \code{stanmodel} object to a \code{stanmodels} list (with names
+#'   \item `src` contains the `stan_ModelName{.cc/.hpp}` pairs
+#'   associated with all `ModelName.stan` files in `inst/stan` which
+#'   define `stanmodel` objects.
+#'   \item `src/Makevars[.win]` which link to the `StanHeaders` and
+#'   Boost (`BH`) libraries.
+#'   \item `R/stanmodels.R` loads the C++ modules containing the
+#'   `stanmodel` class definitions, and assigns an \R instance of each
+#'   `stanmodel` object to a `stanmodels` list (with names
 #'   corresponding to the names of the Stan files).
 #' }
 #' @template details-auto_config
 #' @template details-license
 #' @details Authors willing to license their Stan programs of general interest
-#'   under the GPL are invited to contribute their \code{.stan} files and
+#'   under the GPL are invited to contribute their `.stan` files and
 #'   supporting \R code to the \pkg{rstanarm} package.
 #'
 #' @template section-running-stan
 #'
 #' @note For \pkg{devtools} users, because of changes in the latest versions of
-#'   \pkg{roxygen2} it may be necessary to run \code{pkgbuild::compile_dll()}
-#'   once before \code{devtools::document()} will work.
+#'   \pkg{roxygen2} it may be necessary to run `pkgbuild::compile_dll()`
+#'   once before `devtools::document()` will work.
 #'
 #' @seealso
 #' \itemize{

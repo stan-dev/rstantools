@@ -16,7 +16,7 @@ prior_summary(object, ...)
 package for examples.}
 }
 \value{
-\code{prior_summary} methods should return an object containing
+\code{prior_summary()} methods should return an object containing
 information about the prior distribution(s) used for the given model.
 The structure of this object will depend on the method.
 
@@ -42,6 +42,6 @@ See \code{\link[rstanarm]{prior_summary.stanreg}} in the
 \item Guidelines and recommendations for developers of \R packages
 interfacing with Stan and a demonstration getting a simple package working
 can be found in the vignettes included with \pkg{rstantools} and at
-\url{https://mc-stan.org/rstantools/articles/}.
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 }

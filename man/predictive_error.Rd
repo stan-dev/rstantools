@@ -15,17 +15,17 @@ predictive_error(object, ...)
 \item{...}{Arguments passed to methods. See the methods in the \pkg{rstanarm}
 package for examples.}
 
-\item{y}{For the default method, a vector of \eqn{y} values the same length
-as the number of columns in the matrix used as \code{object}.}
+\item{y}{For the default method, a vector of \code{y} values the same length as
+the number of columns in the matrix used as \code{object}.}
 }
 \value{
-\code{predictive_error} methods should return a \eqn{D} by \eqn{N}
+\code{predictive_error()} methods should return a \eqn{D} by \eqn{N}
 matrix, where \eqn{D} is the number of draws from the posterior predictive
 distribution and \eqn{N} is the number of data points being predicted per
 draw.
 
-The default method just takes \code{object} to be a matrix and \code{y}
-to be a vector.
+The default method just takes \code{object} to be a matrix and \code{y} to be a
+vector.
 }
 \description{
 Generic function and default method for computing predictive errors
@@ -56,6 +56,6 @@ head(pred_errors)
 \item Guidelines and recommendations for developers of \R packages
 interfacing with Stan and a demonstration getting a simple package working
 can be found in the vignettes included with \pkg{rstantools} and at
-\url{https://mc-stan.org/rstantools/articles/}.
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 }

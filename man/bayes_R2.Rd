@@ -18,22 +18,22 @@ loo_R2(object, ...)
 \item{...}{Arguments passed to methods. See the methods in the \pkg{rstanarm}
 package for examples.}
 
-\item{y}{For the default method, a vector of \eqn{y} values the same length
+\item{y}{For the default method, a vector of \code{y} values the same length
 as the number of columns in the matrix used as \code{object}.}
 }
 \value{
-\code{bayes_R2} and \code{loo_R2} methods should return a vector of
+\code{bayes_R2()} and \code{loo_R2()} methods should return a vector of
 length equal to the posterior sample size.
 
-The default \code{bayes_R2} method just takes \code{object} to be a matrix of y-hat values
-(one column per observation, one row per posterior draw) and \code{y} to be
-a vector with length equal to \code{ncol(object)}.
+The default \code{bayes_R2()} method just takes \code{object} to be a matrix of y-hat
+values (one column per observation, one row per posterior draw) and \code{y} to
+be a vector with length equal to \code{ncol(object)}.
 }
 \description{
 Generic function and default method for Bayesian version of R-squared for
 regression models. A generic for LOO-adjusted R-squared is also provided. See
-\code{bayes_R2.stanreg} in the \pkg{\link[rstanarm]{rstanarm}} package for an
-example of defining a method.
+the \code{bayes_R2.stanreg} method in the \pkg{\link[rstanarm]{rstanarm}} package
+for an example of defining a method.
 }
 \references{
 Andrew Gelman, Ben Goodrich, Jonah Gabry, and Aki Vehtari (2018). R-squared
@@ -53,6 +53,6 @@ DOI: 10.1080/00031305.2018.1549100.
 \item Guidelines and recommendations for developers of \R packages
 interfacing with Stan and a demonstration getting a simple package working
 can be found in the vignettes included with \pkg{rstantools} and at
-\url{https://mc-stan.org/rstantools/articles/}.
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 }

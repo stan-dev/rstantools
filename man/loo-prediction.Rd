@@ -25,19 +25,17 @@ loo_pit(object, ...)
 \item{...}{Arguments passed to methods. See the methods in the \pkg{rstanarm}
 package for examples.}
 
-\item{y}{For the default method of \code{loo_pit}, a vector of \eqn{y} values
-the same length as the number of columns in the matrix used as
-\code{object}.}
+\item{y}{For the default method of \code{loo_pit()}, a vector of \code{y} values the
+same length as the number of columns in the matrix used as \code{object}.}
 
-\item{lw}{For the default method of \code{loo_pit}, a matrix of log-weights
-of the same length as the number of columns in the matrix used as
-\code{object}.}
+\item{lw}{For the default method of \code{loo_pit()}, a matrix of log-weights of
+the same length as the number of columns in the matrix used as \code{object}.}
 }
 \value{
-\code{loo_predict}, \code{loo_linpred}, and \code{loo_pit}
+\code{loo_predict()}, \code{loo_linpred()}, and \code{loo_pit()}
 (probability integral transform) methods should return a vector with length
 equal to the number of observations in the data.
-\code{loo_predictive_interval} methods should return a two-column matrix
+\code{loo_predictive_interval()} methods should return a two-column matrix
 formatted in the same way as for \code{\link{predictive_interval}}.
 }
 \description{
@@ -54,6 +52,6 @@ See the methods in the \pkg{\link[rstanarm]{rstanarm}} package for examples.
 \item Guidelines and recommendations for developers of \R packages
 interfacing with Stan and a demonstration getting a simple package working
 can be found in the vignettes included with \pkg{rstantools} and at
-\url{https://mc-stan.org/rstantools/articles/}.
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 }

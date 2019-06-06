@@ -13,7 +13,7 @@ posterior_predict(object, ...)
 package for examples.}
 }
 \value{
-\code{posterior_predict} methods should return a \eqn{D} by \eqn{N}
+\code{posterior_predict()} methods should return a \eqn{D} by \eqn{N}
 matrix, where \eqn{D} is the number of draws from the posterior predictive
 distribution and \eqn{N} is the number of data points being predicted per
 draw.
@@ -52,6 +52,6 @@ if (require("rstanarm")) {
 \item Guidelines and recommendations for developers of \R packages
 interfacing with Stan and a demonstration getting a simple package working
 can be found in the vignettes included with \pkg{rstantools} and at
-\url{https://mc-stan.org/rstantools/articles/}.
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 }
