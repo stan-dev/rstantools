@@ -1,17 +1,17 @@
 #' Generic functions for LOO predictions
 #'
-#' See the methods in the \pkg{\link[rstanarm]{rstanarm}} package for examples.
+#' See the methods in the \pkg{rstanarm} package for examples.
 #'
 #' @name loo-prediction
 #'
 #' @template args-object
 #' @template args-dots
 #'
-#' @return \code{loo_predict}, \code{loo_linpred}, and \code{loo_pit}
+#' @return `loo_predict()`, `loo_linpred()`, and `loo_pit()`
 #'   (probability integral transform) methods should return a vector with length
 #'   equal to the number of observations in the data.
-#'   \code{loo_predictive_interval} methods should return a two-column matrix
-#'   formatted in the same way as for \code{\link{predictive_interval}}.
+#'   `loo_predictive_interval()` methods should return a two-column matrix
+#'   formatted in the same way as for [predictive_interval()].
 #'
 #' @template seealso-rstanarm-pkg
 #' @template seealso-vignettes
@@ -43,12 +43,10 @@ loo_pit <- function(object, ...) {
 
 #' @rdname loo-prediction
 #' @export
-#' @param y For the default method of \code{loo_pit}, a vector of \eqn{y} values
-#'   the same length as the number of columns in the matrix used as
-#'   \code{object}.
-#' @param lw For the default method of \code{loo_pit}, a matrix of log-weights
-#'   of the same length as the number of columns in the matrix used as
-#'   \code{object}.
+#' @param y For the default method of `loo_pit()`, a vector of `y` values the
+#'   same length as the number of columns in the matrix used as `object`.
+#' @param lw For the default method of `loo_pit()`, a matrix of log-weights of
+#'   the same length as the number of columns in the matrix used as `object`.
 #'
 loo_pit.default <- function(object, y, lw, ...) {
   if (!is.matrix(object))

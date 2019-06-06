@@ -24,7 +24,7 @@ LazyData: true
 SystemRequirements: pandoc, C++14
 Imports: stats, utils, Rcpp (>= 0.12.16), desc
 Suggests:
-    bayesplot (>= 1.5.0),
+    bayesplot (>= 1.7.0),
     rstan (>= 2.17.2),
     rstanarm (>= 2.17.4),
     shinystan (>= 2.4.0),
@@ -40,3 +40,4 @@ Suggests:
     rstudioapi
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

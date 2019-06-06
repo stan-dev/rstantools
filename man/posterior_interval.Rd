@@ -19,24 +19,23 @@ package for examples.}
 probability mass to include in the intervals.}
 }
 \value{
-\code{posterior_interval} methods should return a matrix with two
-  columns and as many rows as model parameters (or a subset of parameters
-  specified by the user). For a given value of \code{prob}, \eqn{p}, the
-  columns correspond to the lower and upper \eqn{100p}\% interval limits and
-  have the names \eqn{100\alpha/2}\% and \eqn{100(1 - \alpha/2)}\%, where
-  \eqn{\alpha = 1-p}. For example, if \code{prob=0.9} is specified (a
-  \eqn{90}\% interval), then the column names would be \code{"5\%"} and
-  \code{"95\%"}, respectively.
+\code{posterior_interval()} methods should return a matrix with two
+columns and as many rows as model parameters (or a subset of parameters
+specified by the user). For a given value of \code{prob}, \eqn{p}, the
+columns correspond to the lower and upper \eqn{100p}\% interval limits and
+have the names \eqn{100\alpha/2}\% and \eqn{100(1 - \alpha/2)}\%, where
+\eqn{\alpha = 1-p}. For example, if \code{prob=0.9} is specified (a
+\eqn{90}\% interval), then the column names would be \code{"5\%"} and
+\code{"95\%"}, respectively.
 
-  The default method just takes \code{object} to be a matrix (one column per
-  parameter) and computes quantiles, with \code{prob} defaulting to 0.9.
+The default method just takes \code{object} to be a matrix (one column per
+parameter) and computes quantiles, with \code{prob} defaulting to \code{0.9}.
 }
 \description{
 These intervals are often referred to as credible intervals, but we use the
 term uncertainty intervals to highlight the fact that wider intervals
-correspond to greater uncertainty. See
-\code{\link[rstanarm]{posterior_interval.stanreg}} in the
-\pkg{\link[rstanarm]{rstanarm}} package for an example.
+correspond to greater uncertainty. See \code{\link[rstanarm:posterior_interval.stanreg]{rstanarm::posterior_interval.stanreg()}}
+in the \pkg{rstanarm} package for an example.
 }
 \examples{
 # Default method takes a numeric matrix (of posterior draws)
@@ -64,15 +63,15 @@ if (require("rstanarm")) {
 }
 \seealso{
 \itemize{
-  \item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
-  (\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
-  \href{https://github.com/stan-dev/rstanarm}{GitHub}).
+\item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
+(\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
+\href{https://github.com/stan-dev/rstanarm}{GitHub}).
 }
 
 \itemize{
-  \item Guidelines and recommendations for developers of \R packages
-  interfacing with Stan and a demonstration getting a simple package working
-  can be found in the vignettes included with \pkg{rstantools} and at
-  \url{https://mc-stan.org/rstantools/articles/}.
+\item Guidelines and recommendations for developers of \R packages
+interfacing with Stan and a demonstration getting a simple package working
+can be found in the vignettes included with \pkg{rstantools} and at
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 }
