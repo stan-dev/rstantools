@@ -7,8 +7,7 @@
 #' @description
 #' \if{html}{
 #'   \figure{stanlogo.png}{options: width="50px" alt="mc-stan.org"}
-#'   *Stan Development Team*
-#' }
+#' } *Stan Development Team*
 #'
 #' The \pkg{rstantools} package provides various tools for developers of \R
 #' packages interfacing with Stan (<https://mc-stan.org>), including

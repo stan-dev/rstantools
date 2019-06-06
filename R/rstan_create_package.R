@@ -24,7 +24,7 @@
 #'   \if{html}{\figure{stanlogo.png}{options: width="25px" alt="https://mc-stan.org/about/logo/"}}
 #'   The `rstan_create_package()` function helps get you started developing a
 #'   new \R package that interfaces with Stan via the \pkg{rstan} package. First
-#'   the basic package structure is set up via `usethis::create_package()`.
+#'   the basic package structure is set up via [usethis::create_package()].
 #'   Then several adjustments are made so the package can include Stan programs
 #'   that can be built into binary versions (i.e., pre-compiled Stan C++ code).
 #'

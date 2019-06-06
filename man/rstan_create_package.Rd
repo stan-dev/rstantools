@@ -43,7 +43,7 @@ whenever the package gets installed (see \strong{Details}). Defaults to \code{TR
 \if{html}{\figure{stanlogo.png}{options: width="25px" alt="https://mc-stan.org/about/logo/"}}
 The \code{rstan_create_package()} function helps get you started developing a
 new \R package that interfaces with Stan via the \pkg{rstan} package. First
-the basic package structure is set up via \code{usethis::create_package()}.
+the basic package structure is set up via \code{\link[usethis:create_package]{usethis::create_package()}}.
 Then several adjustments are made so the package can include Stan programs
 that can be built into binary versions (i.e., pre-compiled Stan C++ code).
 
