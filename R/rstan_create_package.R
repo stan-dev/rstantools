@@ -28,8 +28,9 @@
 #'   Then several adjustments are made so the package can include Stan programs
 #'   that can be built into binary versions (i.e., pre-compiled Stan C++ code).
 #'
-#'   See the \strong{See Also} section below for links to recommendations for
-#'   developers and a step-by-step walk-through.
+#'   The \strong{Details} section below describes the process and the
+#'   \strong{See Also} section provides links to recommendations for developers
+#'   and a step-by-step walk-through.
 #'
 #'   As of version \code{2.0.0} of \pkg{rstantools} the
 #'   \code{rstan_package_skeleton} function is defunct and only
@@ -38,12 +39,17 @@
 #' @export
 #' @param path The path to the new package to be created (terminating in the
 #'   package name).
-#' @param fields,rstudio,open Same as for \code{usethis::create_package}.
+#' @param fields,rstudio,open Same as \code{\link{usethis::create_package}}. See
+#'   the documentation for that function, especially the note in the
+#'   \strong{Description} section about the side effect of changing the active
+#'   project.
 #' @param stan_files A character vector with paths to \code{.stan} files to
 #'   include in the package.
 #' @param roxygen Should \pkg{roxygen2} be used for documentation?  Defaults to
 #'   \code{TRUE}. If so, a file \code{R/{pkgname}-package.R} is added to the
-#'   package with roxygen tags for the required import lines.
+#'   package with roxygen tags for the required import lines. See the
+#'   \strong{Note} section below for advice specific to the latest versions of
+#'   \pkg{roxygen2}.
 #' @param travis Should a \code{.travis.yml} file be added to the package
 #'   directory? Defaults to \code{TRUE}.  While the file contains some presets
 #'   to help with compilation issues, at present it is not guaranteed to work on
@@ -79,7 +85,7 @@
 #' directives must be channeled through here.
 #'
 #' The final step of the package creation is to invoke
-#' \code{rstantools::\link{rstan_config}}, which creates the following files for
+#' \code{\link{rstan_config}}, which creates the following files for
 #' interfacing with Stan objects from \R:
 #' \itemize{
 #'   \item \code{src} contains the \code{stan_ModelName{.cc/.hpp}} pairs
@@ -156,7 +162,7 @@ rstan_create_package <- function(path,
     )
   )
 
-  # add rest of stan functionality to package
+  # add Stan-specific functionality to the new package
   pkgdir <- .check_pkgdir(file.path(DIR, name))
   .rstan_make_pkg(pkgdir, stan_files, roxygen, travis, license, auto_config)
   invisible(NULL)
@@ -192,21 +198,9 @@ rstan_create_package <- function(path,
   .add_stanfile(pkg_file, pkgdir,
                 "R", paste0(basename(pkgdir), "-package.R"),
                 noedit = FALSE, msg = TRUE, warn = FALSE)
-  # add Encoding UTF-8
   desc_pkg <- desc::description$new(file.path(pkgdir, "DESCRIPTION"))
   desc_pkg$set(Encoding = "UTF-8")
   desc_pkg$write()
-  ## desc_pkg <- read.dcf(file.path(pkgdir, "DESCRIPTION"))
-  ## has_enc <- "Encoding" %in% colnames(desc_pkg)
-  ## if (has_enc) {
-  ##   desc_pkg[,"Encoding"] <- "UTF-8"
-  ## } else {
-  ##   desc_pkg <- cbind(desc_pkg, Encoding = "UTF-8")
-  ## }
-  ## dep_fields <- c("Depends", "Imports", "LinkingTo", "Suggests", "Enhances")
-  ## dep_fields <- dep_fields[dep_fields %in% colnames(desc_pkg)]
-  ## write.dcf(desc_pkg, file = file.path(pkgdir, "DESCRIPTION"),
-  ##           keep.white = dep_fields)
 }
 
 # reference to rstan package
@@ -224,25 +218,31 @@ rstan_create_package <- function(path,
 # add stan functionality to package
 .rstan_make_pkg <- function(pkgdir, stan_files,
                             roxygen, travis, license, auto_config) {
-  # add travis file
-  if (travis) .add_travis(pkgdir)
-  # add stan folder structure
+
   use_rstan(pkgdir, license = license, auto_config = auto_config)
-  # add user's stan files
-  file.copy(from = stan_files,
-            to = file.path(pkgdir, "inst", "stan", basename(stan_files)))
-  # add default R/pkgname-package.R file for roxygen-style imports
+  file.copy(
+    from = stan_files,
+    to = file.path(pkgdir, "inst", "stan", basename(stan_files))
+  )
   if (roxygen) .add_roxygen(pkgdir)
-  # add stan system files for compiling
+  if (travis) .add_travis(pkgdir)
+
   message("Configuring Stan compile and module export instructions ...")
   rstan_config(pkgdir)
-  # add instructions to Read-and-delete-me
-  cat(readLines(.system_file("Read_and_delete_me")), "\n",
-      file = file.path(pkgdir, "Read-and-delete-me"),
-      sep = "\n", append = TRUE)
-  message(domain = NA,
-          sprintf("Further Stan-specific steps are described in '%s'.",
-                  file.path(basename(pkgdir), "Read-and-delete-me")))
+
+  cat(
+    readLines(.system_file("Read_and_delete_me")), "\n",
+    file = file.path(pkgdir, "Read-and-delete-me"),
+    sep = "\n",
+    append = TRUE
+  )
+  message(
+    domain = NA,
+    sprintf(
+      "Further Stan-specific steps are described in '%s'.",
+      file.path(basename(pkgdir), "Read-and-delete-me")
+    )
+  )
 }
 
 #-------------------------------------------------------------------------------

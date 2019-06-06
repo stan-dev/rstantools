@@ -13,14 +13,19 @@ rstan_create_package(path, fields = NULL, rstudio = TRUE,
 \item{path}{The path to the new package to be created (terminating in the
 package name).}
 
-\item{fields, rstudio, open}{Same as for \code{usethis::create_package}.}
+\item{fields, rstudio, open}{Same as \code{\link{usethis::create_package}}. See
+the documentation for that function, especially the note in the
+\strong{Description} section about the side effect of changing the active
+project.}
 
 \item{stan_files}{A character vector with paths to \code{.stan} files to
 include in the package.}
 
 \item{roxygen}{Should \pkg{roxygen2} be used for documentation?  Defaults to
 \code{TRUE}. If so, a file \code{R/{pkgname}-package.R} is added to the
-package with roxygen tags for the required import lines.}
+package with roxygen tags for the required import lines. See the
+\strong{Note} section below for advice specific to the latest versions of
+\pkg{roxygen2}.}
 
 \item{travis}{Should a \code{.travis.yml} file be added to the package
 directory? Defaults to \code{TRUE}.  While the file contains some presets
@@ -44,8 +49,9 @@ whenever the package gets installed (see \strong{Details}). Defaults to
   Then several adjustments are made so the package can include Stan programs
   that can be built into binary versions (i.e., pre-compiled Stan C++ code).
 
-  See the \strong{See Also} section below for links to recommendations for
-  developers and a step-by-step walk-through.
+  The \strong{Details} section below describes the process and the
+  \strong{See Also} section provides links to recommendations for developers
+  and a step-by-step walk-through.
 
   As of version \code{2.0.0} of \pkg{rstantools} the
   \code{rstan_package_skeleton} function is defunct and only
@@ -79,7 +85,7 @@ Stan C++ library is \code{stan_meta_header.hpp}; all other \code{#include}
 directives must be channeled through here.
 
 The final step of the package creation is to invoke
-\code{rstantools::\link{rstan_config}}, which creates the following files for
+\code{\link{rstan_config}}, which creates the following files for
 interfacing with Stan objects from \R:
 \itemize{
   \item \code{src} contains the \code{stan_ModelName{.cc/.hpp}} pairs
