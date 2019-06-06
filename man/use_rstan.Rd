@@ -28,44 +28,44 @@ instead.
 }
 \details{
 Prepares a package to compile and use Stan code by performing the
-  following steps:
+following steps:
 \enumerate{
-  \item Create \code{inst/stan} folder where all \code{.stan} files defining
-  Stan models should be stored.
-  \item Create \code{inst/stan/include} where optional \code{license.stan}
-  file is stored.
-  \item Create \code{inst/include/stan_meta_header.hpp} to include optional
-  header files used by Stan code.
-  \item Create \code{src} folder (if it doesn't exist) to contain the Stan
-  C++ code.
-  \item Create \code{R} folder (if it doesn't exist) to contain wrapper code
-  to expose Stan C++ classes to \R.
-  \item Update \code{DESCRIPTION} file to contain all needed dependencies to
-  compile Stan C++ code.
-  \item If \code{NAMESPACE} file is generic (i.e., created by
-  \code{\link{rstan_create_package}}), append \code{import(Rcpp, methods)},
-  \code{importFrom(rstan, sampling)}, and \code{useDynLib} directives.  If
-  \code{NAMESPACE} is not generic, display message telling user what to add
-  to \code{NAMESPACE} for themselves.
+\item Create \code{inst/stan} folder where all \code{.stan} files defining
+Stan models should be stored.
+\item Create \code{inst/stan/include} where optional \code{license.stan}
+file is stored.
+\item Create \code{inst/include/stan_meta_header.hpp} to include optional
+header files used by Stan code.
+\item Create \code{src} folder (if it doesn't exist) to contain the Stan
+C++ code.
+\item Create \code{R} folder (if it doesn't exist) to contain wrapper code
+to expose Stan C++ classes to \R.
+\item Update \code{DESCRIPTION} file to contain all needed dependencies to
+compile Stan C++ code.
+\item If \code{NAMESPACE} file is generic (i.e., created by
+\code{\link{rstan_create_package}}), append \code{import(Rcpp, methods)},
+\code{importFrom(rstan, sampling)}, and \code{useDynLib} directives.  If
+\code{NAMESPACE} is not generic, display message telling user what to add
+to \code{NAMESPACE} for themselves.
 }
 
 When \code{auto_config = TRUE}, a \code{configure[.win]} file is
-  added to the package, calling \code{rstantools::\link{rstan_config}}
-  whenever the package is installed.  Consequently, the package must list
-  \code{rstantools} in the \code{DESCRIPTION} Imports field for this
-  mechanism to work.  Setting \code{auto_config = FALSE} removes the
-  package's dependency on \code{rstantools}.  However, the package then must
-  be manually configured by running \code{\link{rstan_config}} whenever
-  \code{stanmodel} files in \code{inst/stan} are added/removed/modified.
+added to the package, calling \code{rstantools::\link{rstan_config}}
+whenever the package is installed.  Consequently, the package must list
+\code{rstantools} in the \code{DESCRIPTION} Imports field for this
+mechanism to work.  Setting \code{auto_config = FALSE} removes the
+package's dependency on \code{rstantools}.  However, the package then must
+be manually configured by running \code{\link{rstan_config}} whenever
+\code{stanmodel} files in \code{inst/stan} are added/removed/modified.
 }
 \section{Using the pre-compiled Stan programs in your package}{
 
-  The \code{stanmodel} objects corresponding to the Stan programs
-  included with your package are stored in a list called \code{stanmodels}.
-  To run one of the Stan programs from within an R function in your package
-  just pass the appropriate element of the \code{stanmodels} list to one of
-  the \pkg{rstan} functions for model fitting (e.g., \code{sampling}). For
-  example, for a Stan program "foo.stan" you would use
-  \code{rstan::sampling(stanmodels$foo, ...)}.
+The \code{stanmodel} objects corresponding to the Stan programs
+included with your package are stored in a list called \code{stanmodels}.
+To run one of the Stan programs from within an R function in your package
+just pass the appropriate element of the \code{stanmodels} list to one of
+the \pkg{rstan} functions for model fitting (e.g., \code{sampling}). For
+example, for a Stan program "foo.stan" you would use
+\code{rstan::sampling(stanmodels$foo, ...)}.
 }
 

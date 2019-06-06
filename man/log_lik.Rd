@@ -14,8 +14,8 @@ package for examples.}
 }
 \value{
 \code{log_lik} methods should return a \eqn{S} by \eqn{N} matrix,
-  where \eqn{S} is the size of the posterior sample (the number of draws from
-  the posterior distribution) and \eqn{N} is the number of data points.
+where \eqn{S} is the size of the posterior sample (the number of draws from
+the posterior distribution) and \eqn{N} is the number of data points.
 }
 \description{
 We define a new function \code{log_lik} rather than a
@@ -31,15 +31,15 @@ example.
 }
 \seealso{
 \itemize{
-  \item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
-  (\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
-  \href{https://github.com/stan-dev/rstanarm}{GitHub}).
+\item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
+(\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
+\href{https://github.com/stan-dev/rstanarm}{GitHub}).
 }
 
 \itemize{
-  \item Guidelines and recommendations for developers of \R packages
-  interfacing with Stan and a demonstration getting a simple package working
-  can be found in the vignettes included with \pkg{rstantools} and at
-  \url{https://mc-stan.org/rstantools/articles/}.
+\item Guidelines and recommendations for developers of \R packages
+interfacing with Stan and a demonstration getting a simple package working
+can be found in the vignettes included with \pkg{rstantools} and at
+\url{https://mc-stan.org/rstantools/articles/}.
 }
 }

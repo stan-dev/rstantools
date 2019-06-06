@@ -23,11 +23,11 @@ as the number of columns in the matrix used as \code{object}.}
 }
 \value{
 \code{bayes_R2} and \code{loo_R2} methods should return a vector of
-  length equal to the posterior sample size.
+length equal to the posterior sample size.
 
-  The default \code{bayes_R2} method just takes \code{object} to be a matrix of y-hat values
-  (one column per observation, one row per posterior draw) and \code{y} to be
-  a vector with length equal to \code{ncol(object)}.
+The default \code{bayes_R2} method just takes \code{object} to be a matrix of y-hat values
+(one column per observation, one row per posterior draw) and \code{y} to be
+a vector with length equal to \code{ncol(object)}.
 }
 \description{
 Generic function and default method for Bayesian version of R-squared for
@@ -44,15 +44,15 @@ DOI: 10.1080/00031305.2018.1549100.
 }
 \seealso{
 \itemize{
-  \item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
-  (\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
-  \href{https://github.com/stan-dev/rstanarm}{GitHub}).
+\item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
+(\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
+\href{https://github.com/stan-dev/rstanarm}{GitHub}).
 }
 
 \itemize{
-  \item Guidelines and recommendations for developers of \R packages
-  interfacing with Stan and a demonstration getting a simple package working
-  can be found in the vignettes included with \pkg{rstantools} and at
-  \url{https://mc-stan.org/rstantools/articles/}.
+\item Guidelines and recommendations for developers of \R packages
+interfacing with Stan and a demonstration getting a simple package working
+can be found in the vignettes included with \pkg{rstantools} and at
+\url{https://mc-stan.org/rstantools/articles/}.
 }
 }

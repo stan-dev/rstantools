@@ -15,7 +15,7 @@ directory.}
 }
 \value{
 This function is only called for its side effect of writing the
-  necessary \code{init.cpp} file to the package's \code{src/} directory.
+necessary \code{init.cpp} file to the package's \code{src/} directory.
 }
 \description{
 If you set up your package using \code{rstan_package_skeleton} before

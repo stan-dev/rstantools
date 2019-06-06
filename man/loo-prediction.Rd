@@ -35,25 +35,25 @@ of the same length as the number of columns in the matrix used as
 }
 \value{
 \code{loo_predict}, \code{loo_linpred}, and \code{loo_pit}
-  (probability integral transform) methods should return a vector with length
-  equal to the number of observations in the data.
-  \code{loo_predictive_interval} methods should return a two-column matrix
-  formatted in the same way as for \code{\link{predictive_interval}}.
+(probability integral transform) methods should return a vector with length
+equal to the number of observations in the data.
+\code{loo_predictive_interval} methods should return a two-column matrix
+formatted in the same way as for \code{\link{predictive_interval}}.
 }
 \description{
 See the methods in the \pkg{\link[rstanarm]{rstanarm}} package for examples.
 }
 \seealso{
 \itemize{
-  \item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
-  (\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
-  \href{https://github.com/stan-dev/rstanarm}{GitHub}).
+\item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
+(\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
+\href{https://github.com/stan-dev/rstanarm}{GitHub}).
 }
 
 \itemize{
-  \item Guidelines and recommendations for developers of \R packages
-  interfacing with Stan and a demonstration getting a simple package working
-  can be found in the vignettes included with \pkg{rstantools} and at
-  \url{https://mc-stan.org/rstantools/articles/}.
+\item Guidelines and recommendations for developers of \R packages
+interfacing with Stan and a demonstration getting a simple package working
+can be found in the vignettes included with \pkg{rstantools} and at
+\url{https://mc-stan.org/rstantools/articles/}.
 }
 }

@@ -14,9 +14,9 @@ package for examples.}
 }
 \value{
 \code{posterior_predict} methods should return a \eqn{D} by \eqn{N}
-  matrix, where \eqn{D} is the number of draws from the posterior predictive
-  distribution and \eqn{N} is the number of data points being predicted per
-  draw.
+matrix, where \eqn{D} is the number of draws from the posterior predictive
+distribution and \eqn{N} is the number of data points being predicted per
+draw.
 }
 \description{
 Draw from the posterior predictive distribution of the outcome. See
@@ -43,15 +43,15 @@ if (require("rstanarm")) {
 }
 \seealso{
 \itemize{
-  \item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
-  (\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
-  \href{https://github.com/stan-dev/rstanarm}{GitHub}).
+\item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
+(\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
+\href{https://github.com/stan-dev/rstanarm}{GitHub}).
 }
 
 \itemize{
-  \item Guidelines and recommendations for developers of \R packages
-  interfacing with Stan and a demonstration getting a simple package working
-  can be found in the vignettes included with \pkg{rstantools} and at
-  \url{https://mc-stan.org/rstantools/articles/}.
+\item Guidelines and recommendations for developers of \R packages
+interfacing with Stan and a demonstration getting a simple package working
+can be found in the vignettes included with \pkg{rstantools} and at
+\url{https://mc-stan.org/rstantools/articles/}.
 }
 }

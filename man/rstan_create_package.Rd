@@ -43,19 +43,19 @@ whenever the package gets installed (see \strong{Details}). Defaults to
 }
 \description{
 \if{html}{\figure{stanlogo.png}{options: width="25px" alt="https://mc-stan.org/about/logo/"}}
-  The \code{rstan_create_package} function helps get you started developing a
-  new \R package that interfaces with Stan via the \pkg{rstan} package. First
-  the basic package structure is set up via \code{usethis::create_package}.
-  Then several adjustments are made so the package can include Stan programs
-  that can be built into binary versions (i.e., pre-compiled Stan C++ code).
+The \code{rstan_create_package} function helps get you started developing a
+new \R package that interfaces with Stan via the \pkg{rstan} package. First
+the basic package structure is set up via \code{usethis::create_package}.
+Then several adjustments are made so the package can include Stan programs
+that can be built into binary versions (i.e., pre-compiled Stan C++ code).
 
-  The \strong{Details} section below describes the process and the
-  \strong{See Also} section provides links to recommendations for developers
-  and a step-by-step walk-through.
+The \strong{Details} section below describes the process and the
+\strong{See Also} section provides links to recommendations for developers
+and a step-by-step walk-through.
 
-  As of version \code{2.0.0} of \pkg{rstantools} the
-  \code{rstan_package_skeleton} function is defunct and only
-  \code{rstan_create_package} is supported.
+As of version \code{2.0.0} of \pkg{rstantools} the
+\code{rstan_package_skeleton} function is defunct and only
+\code{rstan_create_package} is supported.
 }
 \details{
 This function first creates a regular \R package using
@@ -88,82 +88,83 @@ The final step of the package creation is to invoke
 \code{\link{rstan_config}}, which creates the following files for
 interfacing with Stan objects from \R:
 \itemize{
-  \item \code{src} contains the \code{stan_ModelName{.cc/.hpp}} pairs
-  associated with all \code{ModelName.stan} files in \code{inst/stan} which
-  define \code{stanmodel} objects.
-  \item \code{src/Makevars[.win]} which link to the \code{StanHeaders} and
-  Boost (\code{BH}) libraries.
-  \item \code{R/stanmodels.R} loads the C++ modules containing the
-  \code{stanmodel} class definitions, and assigns an \R instance of each
-  \code{stanmodel} object to a \code{stanmodels} list (with names
-  corresponding to the names of the Stan files).
+\item \code{src} contains the \code{stan_ModelName{.cc/.hpp}} pairs
+associated with all \code{ModelName.stan} files in \code{inst/stan} which
+define \code{stanmodel} objects.
+\item \code{src/Makevars[.win]} which link to the \code{StanHeaders} and
+Boost (\code{BH}) libraries.
+\item \code{R/stanmodels.R} loads the C++ modules containing the
+\code{stanmodel} class definitions, and assigns an \R instance of each
+\code{stanmodel} object to a \code{stanmodels} list (with names
+corresponding to the names of the Stan files).
 }
 
 When \code{auto_config = TRUE}, a \code{configure[.win]} file is
-  added to the package, calling \code{rstantools::\link{rstan_config}}
-  whenever the package is installed.  Consequently, the package must list
-  \code{rstantools} in the \code{DESCRIPTION} Imports field for this
-  mechanism to work.  Setting \code{auto_config = FALSE} removes the
-  package's dependency on \code{rstantools}.  However, the package then must
-  be manually configured by running \code{\link{rstan_config}} whenever
-  \code{stanmodel} files in \code{inst/stan} are added/removed/modified.
+added to the package, calling \code{rstantools::\link{rstan_config}}
+whenever the package is installed.  Consequently, the package must list
+\code{rstantools} in the \code{DESCRIPTION} Imports field for this
+mechanism to work.  Setting \code{auto_config = FALSE} removes the
+package's dependency on \code{rstantools}.  However, the package then must
+be manually configured by running \code{\link{rstan_config}} whenever
+\code{stanmodel} files in \code{inst/stan} are added/removed/modified.
 
 In order to enable Stan functionality, \pkg{\link{rstantools}}
-  copies some files to your package.  Since these files are licensed as GPL
-  >= 3, the same license applies to your package should you choose to
-  distribute it.  Even if you don't use \pkg{\link{rstantools}} to create
-  your package, it is likely that you will be linking to \pkg{\link{Rcpp}} to
-  export the Stan C++ \code{stanmodel} objects to \R.  Since
-  \pkg{\link{Rcpp}} is released under GPL >= 2, the same license would apply
-  to your package upon distribution.
+copies some files to your package.  Since these files are licensed as GPL
+
+= 3, the same license applies to your package should you choose to
+distribute it.  Even if you don't use \pkg{\link{rstantools}} to create
+your package, it is likely that you will be linking to \pkg{\link{Rcpp}} to
+export the Stan C++ \code{stanmodel} objects to \R.  Since
+\pkg{\link{Rcpp}} is released under GPL >= 2, the same license would apply
+to your package upon distribution.
 
 Authors willing to license their Stan programs of general interest
-  under the GPL are invited to contribute their \code{.stan} files and
-  supporting \R code to the \pkg{rstanarm} package.
+under the GPL are invited to contribute their \code{.stan} files and
+supporting \R code to the \pkg{rstanarm} package.
 }
 \note{
 For \pkg{devtools} users, because of changes in the latest versions of
-  \pkg{roxygen2} it may be necessary to run \code{pkgbuild::compile_dll()}
-  once before \code{devtools::document()} will work.
+\pkg{roxygen2} it may be necessary to run \code{pkgbuild::compile_dll()}
+once before \code{devtools::document()} will work.
 }
 \section{Using the pre-compiled Stan programs in your package}{
 
-  The \code{stanmodel} objects corresponding to the Stan programs
-  included with your package are stored in a list called \code{stanmodels}.
-  To run one of the Stan programs from within an R function in your package
-  just pass the appropriate element of the \code{stanmodels} list to one of
-  the \pkg{rstan} functions for model fitting (e.g., \code{sampling}). For
-  example, for a Stan program "foo.stan" you would use
-  \code{rstan::sampling(stanmodels$foo, ...)}.
+The \code{stanmodel} objects corresponding to the Stan programs
+included with your package are stored in a list called \code{stanmodels}.
+To run one of the Stan programs from within an R function in your package
+just pass the appropriate element of the \code{stanmodels} list to one of
+the \pkg{rstan} functions for model fitting (e.g., \code{sampling}). For
+example, for a Stan program "foo.stan" you would use
+\code{rstan::sampling(stanmodels$foo, ...)}.
 }
 
 \seealso{
 \itemize{
-  \item \code{\link{use_rstan}} for adding Stan functionality to an existing
-  \R package, \code{\link{rstan_config}} for updating an existing package
-  when its Stan files are changed.
-  \item \href{https://github.com/stan-dev/rstanarm}{The \pkg{rstanarm}
-  repository on GitHub.}
+\item \code{\link{use_rstan}} for adding Stan functionality to an existing
+\R package, \code{\link{rstan_config}} for updating an existing package
+when its Stan files are changed.
+\item \href{https://github.com/stan-dev/rstanarm}{The \pkg{rstanarm}
+repository on GitHub.}
 }
 
 \itemize{
-  \item Guidelines and recommendations for developers of \R packages
-  interfacing with Stan and a demonstration getting a simple package working
-  can be found in the vignettes included with \pkg{rstantools} and at
-  \url{https://mc-stan.org/rstantools/articles/}.
+\item Guidelines and recommendations for developers of \R packages
+interfacing with Stan and a demonstration getting a simple package working
+can be found in the vignettes included with \pkg{rstantools} and at
+\url{https://mc-stan.org/rstantools/articles/}.
 }
 
 \itemize{
-  \item After reading the guidelines for developers, if you have trouble
-  setting up your package let us know on the the
-  \href{https://discourse.mc-stan.org}{Stan Forums} or at
-  \href{https://github.com/stan-dev/rstantools/issues}{\pkg{rstantools} issue
-  tracker}.
+\item After reading the guidelines for developers, if you have trouble
+setting up your package let us know on the the
+\href{https://discourse.mc-stan.org}{Stan Forums} or at
+\href{https://github.com/stan-dev/rstantools/issues}{\pkg{rstantools} issue
+tracker}.
 }
 
 \itemize{
-  \item The useR2016 presentation
-  \href{https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages}{How
-  to Use (R)Stan to Estimate Models in External R Packages.}
+\item The useR2016 presentation
+\href{https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages}{How
+to Use (R)Stan to Estimate Models in External R Packages.}
 }
 }
