@@ -172,8 +172,10 @@ rstan_config <- function(pkgdir = ".") {
   # create c++ code
   cppcode <- rstan::stanc(file_name, allow_undefined = TRUE,
                           obfuscate_model_name = FALSE)$cppcode
-  cppcode <- sub("(class[[:space:]]+[A-Za-z_][A-Za-z0-9_]*[[:space:]]*: public prob_grad \\{)",
-                 paste("#include <stan_meta_header.hpp>\n", "\\1"), cppcode)
+  cppcode <- scan(text = cppcode, what = character(), sep = "\n", quiet = TRUE)
+  class_declaration <- grep("^class[[:space:]]+[A-Za-z_]", cppcode)
+  cppcode <- append(cppcode, values = "#include <stan_meta_header.hpp>",
+                    after = class_declaration - 1L)
   # get license file (if any)
   stan_license <- .read_license(dirname(file_name))
   # Stan header file
@@ -208,7 +210,8 @@ rstan_config <- function(pkgdir = ".") {
                                              "constrain_pars",
                                              "num_pars_unconstrained",
                                              "unconstrained_param_names",
-                                             "constrained_param_names"),
+                                             "constrained_param_names",
+                                             "standalone_gqs"),
                                  file = stdout(),
                                  header = paste0('#include "', hdr_name, '"'),
                                  module = paste0("stan_fit4",
