@@ -160,7 +160,10 @@ The `inst/stan` subdirectory can contain additional Stan programs if
 required by your package. During installation, all Stan programs will be
 compiled and saved in the list `stanmodels` that can then be used by R function
 in the package. The rule is that the Stan program compiled from the model code
-in `inst/stan/foo.stan` is stored as list element `stanmodels$foo`.
+in `inst/stan/foo.stan` is stored as list element `stanmodels$foo`. Thus, the
+filename of the Stan program in the `inst/stan` directory should not contain
+spaces or dashes and nor should it start with a number or utilize non-ASCII
+characters.
 
 ## R files
 
