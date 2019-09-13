@@ -146,7 +146,7 @@ for(ii in 1:ntest) {
     expect_equal(add_test(x, y), x + y)
   })
   # uninstall + delete package
-  tmp <- capture.output(pkgload::unload(pkg_name))
+  # tmp <- capture.output(pkgload::unload(pkg_name))
   ## detach(paste0("package:", pkg_name),
   ##        unload = TRUE, character.only = TRUE)
   ## remove.packages(pkgs = pkg_name, lib = lib_path) # remove installed package
