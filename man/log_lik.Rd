@@ -31,7 +31,8 @@ method in the \pkg{rstanarm} package for an example of defining a method.
 }
 \seealso{
 \itemize{
-\item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
+\item The \pkg{rstanarm} package (\href{https://mc-stan.org/rstanarm/}{mc-stan.org/rstanarm})
+for example methods
 (\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
 \href{https://github.com/stan-dev/rstanarm}{GitHub}).
 }
