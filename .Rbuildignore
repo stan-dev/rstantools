@@ -11,3 +11,4 @@ LICENSE
 ^revdep$
 man-roxygen/*
 vignettes/rstanlm
+^CRAN-RELEASE$
