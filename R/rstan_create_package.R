@@ -142,7 +142,7 @@ rstan_create_package <- function(path,
     rstudio <- rstudio && rstudioapi::isAvailable()
   }
   if (open && rstudio) {
-    on.exit(rstudioapi::openProject(DIR, newSession = TRUE))
+    on.exit(rstudioapi::openProject(file.path(DIR, name), newSession = TRUE))
   }
 
   # run usethis::create_package()
