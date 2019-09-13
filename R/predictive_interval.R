@@ -1,7 +1,7 @@
 #' Generic function for predictive intervals
 #'
-#' See [rstanarm::predictive_interval.stanreg()] in the \pkg{rstanarm} package
-#' for an example.
+#' See [predictive_interval.stanreg()](https://mc-stan.org/rstanarm/reference/predictive_interval.stanreg.html)
+#' in the \pkg{rstanarm} package for an example.
 #'
 #' @export
 #' @template args-object

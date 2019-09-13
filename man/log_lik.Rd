@@ -22,8 +22,8 @@ We define a new function \code{log_lik()} rather than a
 \code{\link[stats:logLik]{stats::logLik()}} method because (in addition to the conceptual
 difference) the documentation for \code{logLik()} states that the return value
 will be a single number, whereas \code{log_lik()} returns a matrix. See
-the \link[rstanarm:log_lik.stanreg]{log_lik.stanreg()} method in the
-\pkg{rstanarm} package for an example of defining a method.
+the \href{https://mc-stan.org/rstanarm/reference/log_lik.stanreg.html}{log_lik.stanreg()}
+method in the \pkg{rstanarm} package for an example of defining a method.
 }
 \examples{
 # See help("log_lik", package = "rstanarm")

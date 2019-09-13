@@ -34,7 +34,8 @@ parameter) and computes quantiles, with \code{prob} defaulting to \code{0.9}.
 \description{
 These intervals are often referred to as credible intervals, but we use the
 term uncertainty intervals to highlight the fact that wider intervals
-correspond to greater uncertainty. See \code{\link[rstanarm:posterior_interval.stanreg]{rstanarm::posterior_interval.stanreg()}}
+correspond to greater uncertainty. See
+\href{https://mc-stan.org/rstanarm/reference/posterior_interval.stanreg.html}{posterior_interval.stanreg()}
 in the \pkg{rstanarm} package for an example.
 }
 \examples{
@@ -42,21 +43,6 @@ in the \pkg{rstanarm} package for an example.
 draws <- matrix(rnorm(100 * 5), 100, 5) # fake draws
 colnames(draws) <- paste0("theta_", 1:5)
 posterior_interval(draws)
-
-# Example using rstanarm package:
-# posterior_interval method for 'stanreg' objects
-\dontrun{
-if (require("rstanarm")) {
-  fit <- stan_glmer(
-    mpg ~ wt + am + (1|cyl),
-    data = mtcars,
-    QR = TRUE,
-    prior = normal(0, 1),
-    iter = 500 # to speed up example
-  )
-  rstanarm::posterior_interval(fit, prob = 0.5)
-}
-}
 
 # Also see help("posterior_interval", package = "rstanarm")
 

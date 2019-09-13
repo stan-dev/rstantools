@@ -32,8 +32,8 @@ be a vector with length equal to \code{ncol(object)}.
 \description{
 Generic function and default method for Bayesian version of R-squared for
 regression models. A generic for LOO-adjusted R-squared is also provided. See
-the \link[rstanarm:bayes_R2.stanreg]{bayes_R2.stanreg()} method in the
-\pkg{rstanarm} package for an example of defining a method.
+the \href{https://mc-stan.org/rstanarm/reference/bayes_R2.stanreg.html}{bayes_R2.stanreg()}
+method in the \pkg{rstanarm} package for an example of defining a method.
 }
 \references{
 Andrew Gelman, Ben Goodrich, Jonah Gabry, and Aki Vehtari (2018). R-squared

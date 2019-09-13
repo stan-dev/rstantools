@@ -36,7 +36,6 @@ SystemRequirements: pandoc, C++14
 Imports: stats, utils, Rcpp (>= 0.12.16), desc
 Suggests:
     rstan (>= 2.17.2),
-    rstanarm (>= 2.17.4),
     usethis (>= 1.3.0),
     testthat (>= 2.0.0),
     knitr,

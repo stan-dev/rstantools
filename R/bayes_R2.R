@@ -2,8 +2,8 @@
 #'
 #' Generic function and default method for Bayesian version of R-squared for
 #' regression models. A generic for LOO-adjusted R-squared is also provided. See
-#' the [bayes_R2.stanreg()][rstanarm::bayes_R2.stanreg] method in the
-#' \pkg{rstanarm} package for an example of defining a method.
+#' the [bayes_R2.stanreg()](https://mc-stan.org/rstanarm/reference/bayes_R2.stanreg.html)
+#' method in the \pkg{rstanarm} package for an example of defining a method.
 #'
 #' @export
 #' @template args-object

@@ -24,8 +24,8 @@ The default method just returns \code{object$prior.info}, which is
 \code{NULL} if there is no \code{'prior.info'} element.
 }
 \description{
-See \code{\link[rstanarm:prior_summary.stanreg]{rstanarm::prior_summary.stanreg()}} in the \pkg{rstanarm} package for an
-example.
+See \href{https://mc-stan.org/rstanarm/reference/prior_summary.stanreg.html}{prior_summary.stanreg()}
+in the \pkg{rstanarm} package for an example.
 }
 \examples{
 # See help("prior_summary", package = "rstanarm")

@@ -3,8 +3,8 @@
 #' Generic function and default method for computing predictive errors
 #' \eqn{y - y^{rep}}{y - yrep} (in-sample, for observed \eqn{y}) or
 #' \eqn{y - \tilde{y}}{y - ytilde} (out-of-sample, for new or held-out \eqn{y}).
-#' See [rstanarm::predictive_error.stanreg()] in the \pkg{rstanarm} package for
-#' an example.
+#' See [predictive_error.stanreg()](https://mc-stan.org/rstanarm/reference/predictive_error.stanreg.html)
+#' in the \pkg{rstanarm} package for an example.
 #'
 #' @export
 #' @template args-object

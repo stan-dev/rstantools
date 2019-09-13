@@ -20,25 +20,11 @@ draw.
 }
 \description{
 Draw from the posterior predictive distribution of the outcome. See
-\code{\link[rstanarm:posterior_predict.stanreg]{rstanarm::posterior_predict.stanreg()}} in the \pkg{rstanarm} package for an
-example.
+\href{https://mc-stan.org/rstanarm/reference/posterior_predict.stanreg.html}{posterior_predict.stanreg()}
+in the \pkg{rstanarm} package for an example.
 }
 \examples{
-# Example using rstanarm package:
-# posterior_predict method for 'stanreg' objects
-\donttest{
-if (require("rstanarm")) {
-  fit <- stan_glm(mpg ~ wt + am, data = mtcars)
-  yrep <- posterior_predict(fit)
-  all.equal(ncol(yrep), nobs(fit))
-
-  nd <- data.frame(wt = mean(mtcars$wt), am = c(0, 1))
-  ytilde <- posterior_predict(fit, newdata = nd)
-  all.equal(ncol(ytilde), nrow(nd))
-}
-}
-
-# Also see help("posterior_predict", package = "rstanarm")
+# See help("posterior_predict", package = "rstanarm")
 
 }
 \seealso{
