@@ -135,6 +135,7 @@ model {
 
   y ~ normal(intercept + beta * x, sigma);
 }
+
 ```
 
 ```{r, include=FALSE}
@@ -194,6 +195,7 @@ lm_stan <- function(x, y, ...) {
   out <- rstan::sampling(stanmodels$lm, data = standata, ...)
   return(out)
 }
+
 ```
 
 
@@ -206,8 +208,8 @@ Rcode <- "
 #' @param y Numberic vector of output values.
 #' @param ... Arguments passed to `rstan::sampling`.
 #' @return An object of class `stanfit` returned by `rstan::sampling`
-lm_stan <- function(x, y) {
-  out <- rstan::sampling(stanmodels$lm, data=list(x=x, y=y, N=length(y)))
+lm_stan <- function(x, y, ...) {
+  out <- rstan::sampling(stanmodels$lm, data=list(x=x, y=y, N=length(y)), ...)
   return(out)
 }
 "
@@ -243,7 +245,7 @@ roxygen2::roxygenize()
 ```{r, include=FALSE}
 pkgbuild::compile_dll(PATH) # required for newer versions of roxygen2
 ```
-```{r, echo = FALSE}
+```{r, echo=FALSE}
 roxygen2::roxygenize(PATH)
 ```
 
@@ -256,10 +258,10 @@ is with `pkgbuild::compile_dll()`, as above.
 Finally, the package is ready to be installed:
 
 ```{r,eval=FALSE}
-# usiing ../rstanlm because already inside the rstanlm directory
+# using ../rstanlm because already inside the rstanlm directory
 install.packages("../rstanlm", repos = NULL, type = "source")
 ```
-```{r,echo=FALSE, results="hide"}
+```{r,echo=FALSE}
 install.packages(PATH, repos = NULL, type = "source")
 ```
 
@@ -271,12 +273,11 @@ documentation, you can set `quick=TRUE` to speed up the process, or use
 
 After installation, the package can be loaded and used like any other R package:
 
-```{r, eval=FALSE}
-library("rstanlm")
-```
-
 ```{r}
-fit <- lm_stan(y = rnorm(10), x = rnorm(10), iter = 500)
+library("rstanlm")
+fit <- lm_stan(y = rnorm(10), x = rnorm(10), 
+               # arguments passed to sampling
+               iter = 2000, refresh = 500)
 print(fit)
 ```
 

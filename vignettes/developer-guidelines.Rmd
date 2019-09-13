@@ -132,8 +132,8 @@ defaults really are.
 
 * Functions that provide useful post-estimation functionality should be given 
 the same names as the corresponding functions in __rstanarm__ (if applicable). 
-For example, `posterior_predict` to draw from the posterior predictive 
-distribution, `posterior_interval` for posterior uncertainty intervals, etc. To 
+For example, `posterior_predict()` to draw from the posterior predictive 
+distribution, `posterior_interval()` for posterior uncertainty intervals, etc. To 
 make this easier, these and similar __rstanarm__ functions have been converted 
 to S3 methods for the stanreg objects created by __rstanarm__ and the S3 generic
 functions are included here in the __rstantools__ package. Your package should
