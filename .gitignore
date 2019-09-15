@@ -1,9 +1,13 @@
+Meta
+doc
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
 inst/doc
 vignettes/rstanlm
+inst/include/sys/devel/
+old/
 
 tests/testthat/Rplots.pdf
 .DS_Store

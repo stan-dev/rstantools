@@ -1,7 +1,7 @@
 #' Generic function for predictive intervals
 #'
-#' See \code{\link[rstanarm]{predictive_interval.stanreg}} in the
-#' \pkg{\link[rstanarm]{rstanarm}} package for an example.
+#' See [predictive_interval.stanreg()](https://mc-stan.org/rstanarm/reference/predictive_interval.stanreg.html)
+#' in the \pkg{rstanarm} package for an example.
 #'
 #' @export
 #' @template args-object
@@ -9,19 +9,19 @@
 #' @param prob A number \eqn{p \in (0,1)}{p (0 < p < 1)} indicating the desired
 #'   probability mass to include in the intervals.
 #'
-#' @return \code{predictive_interval} methods should return a matrix with two
+#' @return `predictive_interval()` methods should return a matrix with two
 #'   columns and as many rows as data points being predicted. For a given value
-#'   of \code{prob}, \eqn{p}, the columns correspond to the lower and upper
+#'   of `prob`, \eqn{p}, the columns correspond to the lower and upper
 #'   \eqn{100p}\% interval limits and have the names \eqn{100\alpha/2}\% and
 #'   \eqn{100(1 - \alpha/2)}\%, where \eqn{\alpha = 1-p}. For example, if
-#'   \code{prob=0.9} is specified (a \eqn{90}\% interval), then the column names
-#'   would be \code{"5\%"} and \code{"95\%"}, respectively.
+#'   `prob=0.9` is specified (a \eqn{90}\% interval), then the column names
+#'   would be `"5%"` and `"95%"`, respectively.
 #'
-#'   The default method just takes \code{object} to be a matrix and computes
-#'   quantiles, with \code{prob} defaulting to 0.9.
+#'   The default method just takes `object` to be a matrix and computes
+#'   quantiles, with `prob` defaulting to `0.9`.
 #'
 #' @template seealso-rstanarm-pkg
-#' @template seealso-dev-guidelines
+#' @template seealso-vignettes
 #'
 #' @examples
 #' # Default method takes a numeric matrix (of draws from posterior
@@ -46,14 +46,14 @@ predictive_interval.default <- function(object, prob = 0.9, ...) {
 
 # internal ----------------------------------------------------------------
 
-# Compute central intervals
-#
+#' Compute central intervals
+#'
+#' @noRd
+#' @param object A numeric matrix
+#' @param prob Probability mass to include in intervals (in (0,1))
+#' @return See above.
+#'
 #' @importFrom stats quantile
-#
-# @param object A numeric matrix
-# @param prob Probability mass to include in intervals (in (0,1))
-# @return See @return above.
-#
 .central_intervals <- function(object, prob) {
   stopifnot(is.matrix(object))
   if (length(prob) != 1L || prob <= 0 || prob >= 1)

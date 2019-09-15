@@ -1,10 +1,27 @@
+# Part of the rstantools package
+# Copyright (C) 2018 Trustees of Columbia University
+#
+# rstantools is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 3
+# of the License, or (at your option) any later version.
+#
+# rstantools is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
 #' Register functions implemented in C++
 #'
-#' If you set up your package using \code{\link{rstan_package_skeleton}} before
-#' version \code{1.2.1} of \pkg{rstantools} it may be necessary for you to call
-#' this function yourself in order to pass \code{R CMD check} in \R \code{>=
-#' 3.4}. If you used \code{rstan_package_skeleton} in \pkg{rstantools} version
-#' \code{1.2.1} or later then this has already been done automatically.
+#' If you set up your package using `rstan_package_skeleton()` before
+#' version `1.2.1` of \pkg{rstantools} it may be necessary for you to call
+#' this function yourself in order to pass `R CMD check` in \R
+#' `>= 3.4`. If you used `rstan_package_skeleton()` in \pkg{rstantools} version
+#' `1.2.1` or later then this has already been done automatically.
 #'
 #' @export
 #' @param name The name of your package as a string.
@@ -12,7 +29,7 @@
 #'   not specified it is assumed that this is already the current working
 #'   directory.
 #' @return This function is only called for its side effect of writing the
-#'   necessary \code{init.cpp} file to the package's \code{src/} directory.
+#'   necessary `init.cpp` file to the package's `src/` directory.
 #'
 init_cpp <- function(name, path) {
   file <- file.path("src", "init.cpp")

@@ -15,24 +15,24 @@ predictive_error(object, ...)
 \item{...}{Arguments passed to methods. See the methods in the \pkg{rstanarm}
 package for examples.}
 
-\item{y}{For the default method, a vector of \eqn{y} values the same length
-as the number of columns in the matrix used as \code{object}.}
+\item{y}{For the default method, a vector of \code{y} values the same length as
+the number of columns in the matrix used as \code{object}.}
 }
 \value{
-\code{predictive_error} methods should return a \eqn{D} by \eqn{N}
-  matrix, where \eqn{D} is the number of draws from the posterior predictive
-  distribution and \eqn{N} is the number of data points being predicted per
-  draw.
+\code{predictive_error()} methods should return a \eqn{D} by \eqn{N}
+matrix, where \eqn{D} is the number of draws from the posterior predictive
+distribution and \eqn{N} is the number of data points being predicted per
+draw.
 
-  The default method just takes \code{object} to be a matrix and \code{y}
-  to be a vector.
+The default method just takes \code{object} to be a matrix and \code{y} to be a
+vector.
 }
 \description{
 Generic function and default method for computing predictive errors
 \eqn{y - y^{rep}}{y - yrep} (in-sample, for observed \eqn{y}) or
 \eqn{y - \tilde{y}}{y - ytilde} (out-of-sample, for new or held-out \eqn{y}).
-See \code{\link[rstanarm]{predictive_error.stanreg}} in the
-\pkg{\link[rstanarm]{rstanarm}} package for an example.
+See \href{https://mc-stan.org/rstanarm/reference/predictive_error.stanreg.html}{predictive_error.stanreg()}
+in the \pkg{rstanarm} package for an example.
 }
 \examples{
 # default method
@@ -47,15 +47,16 @@ head(pred_errors)
 }
 \seealso{
 \itemize{
-  \item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
-  (\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
-  \href{https://github.com/stan-dev/rstanarm}{GitHub}).
+\item The \pkg{rstanarm} package (\href{https://mc-stan.org/rstanarm/}{mc-stan.org/rstanarm})
+for example methods
+(\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
+\href{https://github.com/stan-dev/rstanarm}{GitHub}).
 }
 
 \itemize{
-  \item Guidelines and recommendations for developers of \R packages
-  interfacing with Stan and a demonstration getting a simple package working
-  can be found in the vignettes included with \pkg{rstantools} and at
-  \url{http://mc-stan.org/rstantools/articles/}.
+\item Guidelines and recommendations for developers of \R packages
+interfacing with Stan and a demonstration getting a simple package working
+can be found in the vignettes included with \pkg{rstantools} and at
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 }

@@ -13,17 +13,17 @@ log_lik(object, ...)
 package for examples.}
 }
 \value{
-\code{log_lik} methods should return a \eqn{S} by \eqn{N} matrix,
-  where \eqn{S} is the size of the posterior sample (the number of draws from
-  the posterior distribution) and \eqn{N} is the number of data points.
+\code{log_lik()} methods should return a \eqn{S} by \eqn{N} matrix,
+where \eqn{S} is the size of the posterior sample (the number of draws from
+the posterior distribution) and \eqn{N} is the number of data points.
 }
 \description{
-We define a new function \code{log_lik} rather than a
-\code{\link[stats]{logLik}} method because (in addition to the conceptual
-difference) the documentation for \code{logLik} states that the return value
-will be a single number, whereas \code{log_lik} returns a matrix. See
-\code{\link[rstanarm]{log_lik.stanreg}} in the \pkg{rstanarm} package for an
-example.
+We define a new function \code{log_lik()} rather than a
+\code{\link[stats:logLik]{stats::logLik()}} method because (in addition to the conceptual
+difference) the documentation for \code{logLik()} states that the return value
+will be a single number, whereas \code{log_lik()} returns a matrix. See
+the \href{https://mc-stan.org/rstanarm/reference/log_lik.stanreg.html}{log_lik.stanreg()}
+method in the \pkg{rstanarm} package for an example of defining a method.
 }
 \examples{
 # See help("log_lik", package = "rstanarm")
@@ -31,15 +31,16 @@ example.
 }
 \seealso{
 \itemize{
-  \item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
-  (\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
-  \href{https://github.com/stan-dev/rstanarm}{GitHub}).
+\item The \pkg{rstanarm} package (\href{https://mc-stan.org/rstanarm/}{mc-stan.org/rstanarm})
+for example methods
+(\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
+\href{https://github.com/stan-dev/rstanarm}{GitHub}).
 }
 
 \itemize{
-  \item Guidelines and recommendations for developers of \R packages
-  interfacing with Stan and a demonstration getting a simple package working
-  can be found in the vignettes included with \pkg{rstantools} and at
-  \url{http://mc-stan.org/rstantools/articles/}.
+\item Guidelines and recommendations for developers of \R packages
+interfacing with Stan and a demonstration getting a simple package working
+can be found in the vignettes included with \pkg{rstantools} and at
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 }

@@ -18,15 +18,15 @@ untransformed linear predictor is returned.}
 package for examples.}
 }
 \value{
-\code{posterior_linpred} methods should return a \eqn{D} by \eqn{N}
-  matrix, where \eqn{D} is the number of draws from the posterior
-  distribution distribution and \eqn{N} is the number of data points.
+\code{posterior_linpred()} methods should return a \eqn{D} by \eqn{N}
+matrix, where \eqn{D} is the number of draws from the posterior
+distribution distribution and \eqn{N} is the number of data points.
 }
 \description{
 Extract the posterior draws of the linear predictor, possibly transformed by
 the inverse-link function. See
-\code{\link[rstanarm]{posterior_linpred.stanreg}} in the
-\pkg{\link[rstanarm]{rstanarm}} package for an example.
+\href{https://mc-stan.org/rstanarm/reference/posterior_linpred.stanreg.html}{posterior_linpred.stanreg()}
+in the \pkg{rstanarm} package for an example.
 }
 \examples{
 # See help("posterior_linpred", package = "rstanarm")
@@ -34,15 +34,16 @@ the inverse-link function. See
 }
 \seealso{
 \itemize{
-  \item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
-  (\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
-  \href{https://github.com/stan-dev/rstanarm}{GitHub}).
+\item The \pkg{rstanarm} package (\href{https://mc-stan.org/rstanarm/}{mc-stan.org/rstanarm})
+for example methods
+(\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
+\href{https://github.com/stan-dev/rstanarm}{GitHub}).
 }
 
 \itemize{
-  \item Guidelines and recommendations for developers of \R packages
-  interfacing with Stan and a demonstration getting a simple package working
-  can be found in the vignettes included with \pkg{rstantools} and at
-  \url{http://mc-stan.org/rstantools/articles/}.
+\item Guidelines and recommendations for developers of \R packages
+interfacing with Stan and a demonstration getting a simple package working
+can be found in the vignettes included with \pkg{rstantools} and at
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 }

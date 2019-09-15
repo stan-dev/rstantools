@@ -1,0 +1,18 @@
+Package: RStanTest
+Type: Package
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Date: 2018-04-04
+Authors@R: 
+    person(given = "First",
+           family = "Last",
+           role = c("aut", "cre"),
+           email = "first.last@example.com")
+Description: What the package does (one paragraph).
+License: What license it uses
+Depends: R (>= 3.4.0)
+Imports: Rcpp (>= 0.12.0), methods, rstan (>= 2.18.1), rstantools
+LinkingTo: StanHeaders (>= 2.18.0), rstan (>= 2.18.1), BH (>= 1.66.0), Rcpp (>= 0.12.0), RcppEigen (>= 0.3.3.3.0)
+SystemRequirements: GNU make
+Encoding: UTF-8
+LazyData: true

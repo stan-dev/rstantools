@@ -1,6 +1,6 @@
 ---
 title: "Step by step guide for creating a package that depends on RStan"
-author: "Stefan Siegert, Jonah Gabry, and Ben Goodrich"
+author: "Stefan Siegert, Jonah Gabry, Martin Lysy, and Ben Goodrich"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
@@ -13,43 +13,55 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, SETTINGS-knitr, include=FALSE}
+```{r SETTINGS-knitr, include=FALSE}
 stopifnot(require(knitr))
 opts_chunk$set(
   comment=NA,
-  eval = params$EVAL
+  eval = if (isTRUE(exists("params"))) params$EVAL else FALSE
 )
+td <- tempdir()
+PATH <- file.path(td, "rstanlm")
+if(dir.exists(PATH)) {
+  unlink(PATH, recursive = TRUE, force = TRUE)
+}
 ```
 
 ## Introduction
 
-In this vignette we will walk through the steps necessary for creating an 
-R package that depends on Stan by creating a package with one function 
+In this vignette we will walk through the steps necessary for creating an
+R package that depends on Stan by creating a package with one function
 that fits a simple linear regression. Before continuing, we recommend that you first read the other vignette [_Guidelines for Developers of R Packages Interfacing with Stan_](http://mc-stan.org/rstantools/articles/developer-guidelines.html).
 
 ## Creating the package skeleton
 
-To start off, we use `rstan_package_skeleton` to initialise a bare-bones
-package directory. The name of our demo package will be __rstanlm__; it will fit
-a simple linear regression model using Stan. 
+The **rstantools** package offers two methods for adding Stan functionality
+to R packages:
 
-```{r, eval=FALSE}
+  * `rstan_create_package()`: set up a new R package with Stan programs
+  * `use_rstan()`: add Stan functionality to an _existing_ R package
+
+Here we will use `rstan_create_package()` to initialize a bare-bones package
+directory. The name of our demo package will be __rstanlm__; it will fit a
+simple linear regression model using Stan.
+
+```{r rstan_create_package, eval=FALSE}
 library("rstantools")
-rstan_package_skeleton(path = 'rstanlm')
+rstan_create_package(path = 'rstanlm')
 ```
-```{r, echo=FALSE,warning=FALSE}
+```{r rstan_create_package-eval, echo=FALSE,warning=FALSE}
 library("rstantools")
-td <- tempdir()
-PATH <- file.path(td, "rstanlm")
-rstan_package_skeleton(path = PATH, rstudio=FALSE, open=FALSE)
+rstan_create_package(path = PATH, rstudio=FALSE, open=FALSE)
 ```
 
-If we had existing `.stan` files to include with the package we could use the 
-optional `stan_files` argument to `rstan_package_skeleton` to include them. 
-Another option, which we'll use below, is to add the Stan files once the 
-basic structure of the package is in place. 
+If we had existing `.stan` files to include with the package we could use the
+optional `stan_files` argument to `rstan_create_package()` to include them.
+Another option, which we'll use below, is to add the Stan files once the
+basic structure of the package is in place.
 
-We can now set the new working directory to the new package directory and view the contents. (Note: if using RStudio then by default the newly created project for the package will be opened in a new session and you will not need the call to `setwd()`.)
+We can now set the new working directory to the new package directory and view
+the contents. (Note: if using RStudio then by default the newly created project
+for the package will be opened in a new session and you will not need the call
+to `setwd()`.)
 
 
 ```{r, eval=FALSE}
@@ -67,17 +79,18 @@ file.show("DESCRIPTION")
 DES <- readLines(file.path(PATH, "DESCRIPTION"))
 cat(DES, sep = "\n")
 ```
-Some of the sections in the `DESCRIPTION` file need to be edited by hand
-(`Title`, `Author`, `Maintainer`, and `Description`), but
-`rstan_package_skeleton()` has added the necessary packages and versions to
-`Depends`, `Imports`, and `LinkingTo`. It also added the `SystemRequirements`
-and `NeedsCompilation` fields.
+
+Some of the sections in the `DESCRIPTION` file need to be edited by hand (e.g.,
+`Title`, `Author`, `Maintainer`, and `Description`, but these also can be set
+with the `fields` argument to `rstan_create_package()`).  However,
+`rstan_create_package()` has added the necessary packages and versions to
+`Depends`, `Imports`, and `LinkingTo` to enable Stan functionality.
 
 ## Read-and-delete-me file
 
-Before deleting the `Read-and-delete-me` file in the new package
-directory make sure to read it because it contains some 
-important instructions about customizing your package:
+Before deleting the `Read-and-delete-me` file in the new package directory make
+sure to read it because it contains some important instructions about
+customizing your package:
 
 ```{r, eval=FALSE}
 file.show("Read-and-delete-me")
@@ -99,14 +112,14 @@ file.remove(file.path(PATH, 'Read-and-delete-me'))
 
 ## Stan files
 
-Our package will call RStan's `sampling` method to use MCMC to fit a simple
+Our package will call **rstan**'s `sampling()` method to use MCMC to fit a simple
 linear regression model for an outcome variable `y` with a single predictor `x`.
 After writing the necessary Stan program, the file should be saved with a
-`.stan` extension in the `src/stan_files/` subdirectory. We'll save the
-following program to `src/stan_files/lm.stan`:
+`.stan` extension in the `inst/stan` subdirectory. We'll save the
+following program to `inst/stan/lm.stan`:
 
-```
-// Save this file as src/stan_files/lm.stan
+```{stan, output.var = "foo", eval = FALSE}
+// Save this file as inst/stan/lm.stan
 data {
   int<lower=1> N;
   vector[N] x;
@@ -119,9 +132,10 @@ parameters {
 }
 model {
   // ... priors, etc.
-  
+
   y ~ normal(intercept + beta * x, sigma);
 }
+
 ```
 
 ```{r, include=FALSE}
@@ -138,25 +152,32 @@ parameters {
 }
 model {
   // ... priors, etc.
-  
+
   y ~ normal(intercept + beta * x, sigma);
 }
 "
-cat(stan_prog, file = file.path(PATH, "src", "stan_files", "lm.stan"))
+cat(stan_prog, file = file.path(PATH, "inst", "stan", "lm.stan"))
+rstan_config(PATH)
 ```
 
-The `src/stan_files` subdirectory can contain additional Stan programs if
+The `inst/stan` subdirectory can contain additional Stan programs if
 required by your package. During installation, all Stan programs will be
 compiled and saved in the list `stanmodels` that can then be used by R function
 in the package. The rule is that the Stan program compiled from the model code
-in `src/stan_files/foo.stan` is stored as list element `stanmodels$foo`.
+in `inst/stan/foo.stan` is stored as list element `stanmodels$foo`. Thus, the
+filename of the Stan program in the `inst/stan` directory should not contain
+spaces or dashes and nor should it start with a number or utilize non-ASCII
+characters.
 
 ## R files
 
-We next create the file `R/lm_stan.R` where we define the function `lm_stan` in
-which our compiled Stan model is being used. A comment block in
-[__roxygen2__](https://CRAN.R-project.org/package=roxygen2) syntax
-ensures that the function has a help file and that it is added to the NAMESPACE:
+We next create the file `R/lm_stan.R` where we define the function `lm_stan()`
+in which our compiled Stan model is being used.  Setting the
+`rstan_create_package()` argument `roxygen = TRUE` (the default value) enables
+[__roxygen2__](https://CRAN.R-project.org/package=roxygen2) documentation for
+the package functions.  The following comment block placed in `lm_stan.R`
+ensures that the function has a help file and that it is added to the package
+`NAMESPACE`:
 
 ```{r}
 # Save this file as `R/lm_stan.R`
@@ -174,6 +195,7 @@ lm_stan <- function(x, y, ...) {
   out <- rstan::sampling(stanmodels$lm, data = standata, ...)
   return(out)
 }
+
 ```
 
 
@@ -186,17 +208,18 @@ Rcode <- "
 #' @param y Numberic vector of output values.
 #' @param ... Arguments passed to `rstan::sampling`.
 #' @return An object of class `stanfit` returned by `rstan::sampling`
-lm_stan <- function(x, y) {
-  out <- rstan::sampling(stanmodels$lm, data=list(x=x, y=y, N=length(y)))
+lm_stan <- function(x, y, ...) {
+  out <- rstan::sampling(stanmodels$lm, data=list(x=x, y=y, N=length(y)), ...)
   return(out)
 }
 "
 cat(Rcode, file = file.path(PATH, "R", "lm_stan.R"))
 ```
 
-The top-level package file `R/rstanlm-package.R` has already been created by
-`rstan_package_skeleton()` but needs to be modified to decribe the functionality
-of our package:
+When __roxygen2__ documentation is enabled, a top-level package file
+`R/rstanlm-package.R` is created by `rstan_create_package()` to import necessary
+functions for other packages and to set up the package for compiling Stan C++
+code:
 
 ```{r, eval=FALSE}
 file.show(file.path("R", "rstanlm-package.R"))
@@ -205,60 +228,88 @@ file.show(file.path("R", "rstanlm-package.R"))
 cat(readLines(file.path(PATH, "R", "rstanlm-package.R")), sep = "\n")
 ```
 
-The description section needs to be manually edited but the necessary
-__roxygen2__ tags for specifying important parts of the `NAMESPACE` file have
-already been included.
-
+The `#' @description` section can be manually edited to provided specific
+information about the package.
 
 ## Documentation
 
-To update the `NAMESPACE` file and the rest of the documentation to include
-`lm_stan` we need to regenerate the documentation using `roxygen2::roxygenise` (or `devtools::document`): 
+With __roxygen__ documentation enabled, we need to generate the documentation
+for `lm_stan` and update the `NAMESPACE` so the function is exported, i.e.,
+available to users when the package is installed.  This can be done with the
+function `roxygen2::roxygenize()`.
 
 ```{r, eval=FALSE}
-roxygen2::roxygenise(clean=TRUE)
+pkgbuild::compile_dll() # see note below
+roxygen2::roxygenize()
+```
+```{r, include=FALSE}
+pkgbuild::compile_dll(PATH) # required for newer versions of roxygen2
 ```
 ```{r, echo=FALSE}
-roxygen2::roxygenise(PATH, clean=TRUE)
+roxygen2::roxygenize(PATH)
 ```
 
+__Note:__ For newer versions of __roxygen__, it is necessary to compile the
+package C++ code prior to running `roxygen2::roxygenize()`.  One way to do this
+is with `pkgbuild::compile_dll()`, as above.
 
 ## Install and use
 
-Finally, the package can be installed:
+Finally, the package is ready to be installed:
 
 ```{r,eval=FALSE}
-devtools::install(local=FALSE)
+# using ../rstanlm because already inside the rstanlm directory
+install.packages("../rstanlm", repos = NULL, type = "source")
 ```
-```{r,echo=FALSE, results="hide"}
-devtools::load_all(PATH, recompile=TRUE)
+```{r,echo=FALSE}
+install.packages(PATH, repos = NULL, type = "source")
 ```
 
-The argument `local=FALSE` is necessary if you want to recompile the Stan
-models. If you only made a small change to the R code or the documentation, you
-can set `local=TRUE` to speed up the process.
+It is also possible to use `devtools::install(quick=FALSE)` to install the
+package. The argument `quick=FALSE` is necessary if you want to recompile the
+Stan models. Going forward, if you only make a  change to the R code or the
+documentation, you can set `quick=TRUE` to speed up the process, or use
+`devtools::load_all()`.
 
-The package can now be loaded and used like any other R package:
+After installation, the package can be loaded and used like any other R package:
 
 ```{r, eval=FALSE}
 library("rstanlm")
 ```
 
 ```{r}
-fit <- lm_stan(y = rnorm(10), x = rnorm(10), iter = 500)
+fit <- lm_stan(y = rnorm(10), x = rnorm(10), 
+               # arguments passed to sampling
+               iter = 2000, refresh = 500)
 print(fit)
 ```
 
 ```{r, echo=FALSE}
-unlink(PATH, recursive = TRUE)
+unlink(PATH, recursive = TRUE, force = TRUE)
 ```
+
+## Advanced options
+
+Details can be found in the documentation for `rstan_create_package()` so we
+only mention some of these briefly here:
+
+* Running `rstan_create_package()` with `auto_config = TRUE` (the default value)
+automatically synchronizes the Stan C++ files with the `.stan` model files
+located in `inst/stan`, although this creates a dependency of your package on
+__rstantools__ itself (i.e., __rstantools__ must be installed for your package
+to work).  Setting `auto_config = FALSE` removes this dependency, at the cost of
+having to manually synchronize Stan C++ files by running `rstan_config()` every
+time a package `.stan` file is added, removed, or even just modified.
+
+* The function `use_rstan()` can be used to add Stan functionality to an
+existing package, instead of building the package from scratch.
 
 ## Links
 
+* [_Guidelines for Developers of R Packages Interfacing with Stan_](https://mc-stan.org/rstantools/articles/developer-guidelines.html)
+
+* Ask a question at the [Stan Forums](https://discourse.mc-stan.org/)
+
 * [R packages](http://r-pkgs.had.co.nz/) by Hadley Wickham provides a solid
 foundation in R package development as well as the release process.
-
-* [_Guidelines for Developers of R Packages Interfacing with Stan_](http://mc-stan.org/rstantools/articles/developer-guidelines.html)
-
-* Ask a question at the [Stan Forums](http://discourse.mc-stan.org/)
 

@@ -16,16 +16,16 @@ prior_summary(object, ...)
 package for examples.}
 }
 \value{
-\code{prior_summary} methods should return an object containing
-  information about the prior distribution(s) used for the given model.
-  The structure of this object will depend on the method.
+\code{prior_summary()} methods should return an object containing
+information about the prior distribution(s) used for the given model.
+The structure of this object will depend on the method.
 
-  The default method just returns \code{object$prior.info}, which is
-  \code{NULL} if there is no \code{'prior.info'} element.
+The default method just returns \code{object$prior.info}, which is
+\code{NULL} if there is no \code{'prior.info'} element.
 }
 \description{
-See \code{\link[rstanarm]{prior_summary.stanreg}} in the
-\pkg{\link[rstanarm]{rstanarm}} package for an example.
+See \href{https://mc-stan.org/rstanarm/reference/prior_summary.stanreg.html}{prior_summary.stanreg()}
+in the \pkg{rstanarm} package for an example.
 }
 \examples{
 # See help("prior_summary", package = "rstanarm")
@@ -33,15 +33,16 @@ See \code{\link[rstanarm]{prior_summary.stanreg}} in the
 }
 \seealso{
 \itemize{
-  \item The \pkg{\link[rstanarm]{rstanarm}} package for example methods
-  (\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
-  \href{https://github.com/stan-dev/rstanarm}{GitHub}).
+\item The \pkg{rstanarm} package (\href{https://mc-stan.org/rstanarm/}{mc-stan.org/rstanarm})
+for example methods
+(\href{https://CRAN.R-project.org/package=rstanarm}{CRAN},
+\href{https://github.com/stan-dev/rstanarm}{GitHub}).
 }
 
 \itemize{
-  \item Guidelines and recommendations for developers of \R packages
-  interfacing with Stan and a demonstration getting a simple package working
-  can be found in the vignettes included with \pkg{rstantools} and at
-  \url{http://mc-stan.org/rstantools/articles/}.
+\item Guidelines and recommendations for developers of \R packages
+interfacing with Stan and a demonstration getting a simple package working
+can be found in the vignettes included with \pkg{rstantools} and at
+\href{https://mc-stan.org/rstantools/articles/}{mc-stan.org/rstantools/articles}.
 }
 }
