@@ -1,5 +1,4 @@
 [![Travis-CI Build Status](https://travis-ci.org/stan-dev/rstantools.svg?branch=master)](https://travis-ci.org/stan-dev/rstantools)
-[![codecov](https://codecov.io/gh/stan-dev/rstantools/branch/master/graph/badge.svg)](https://codecov.io/gh/stan-dev/rstantools)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rstantools?color=blue)](http://cran.r-project.org/web/packages/rstantools)
 
 <br>
@@ -11,7 +10,7 @@
 
 <br>
 The **rstantools** package provides various tools for developers of R packages
-interfacing with [Stan](http://mc-stan.org), including functions to set up the
+interfacing with [Stan](https://mc-stan.org), including functions to set up the
 required package structure, S3 generic methods to unify function naming across
 Stan-based R packages, and vignettes with guidelines for developers.
 
@@ -33,12 +32,16 @@ Install the latest release from **CRAN**
 install.packages("rstantools")
 ```
 
-Install the latest development version from **GitHub**
+Install latest development version from GitHub (requires [remotes](https://github.com/r-lib/remotes) package):
 
 ```r
-if (!require("devtools")) {
-  install.packages("devtools")
+if (!require("remotes")) {
+  install.packages("remotes")
 }
-
-devtools::install_github("stan-dev/rstantools", build_vignettes = TRUE)
+  
+remotes::install_github("stan-dev/rstantools")
 ```
+
+This installation from GitHub will not build the vignettes, but we recommend 
+viewing the them online at [mc-stan.org/rstantools/articles](https://mc-stan.org/rstantools/articles/).
+

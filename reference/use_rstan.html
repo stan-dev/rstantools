@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generic functions for LOO predictions — loo-prediction • rstantools</title>
+<title>Add Stan infrastructure to an existing package — use_rstan • rstantools</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,9 @@
 
 
 
-<meta property="og:title" content="Generic functions for LOO predictions — loo-prediction" />
-<meta property="og:description" content="See the methods in the rstanarm package for examples." />
+<meta property="og:title" content="Add Stan infrastructure to an existing package — use_rstan" />
+<meta property="og:description" content="Add Stan infrastructure to an existing R package. To create a new package
+containing Stan programs use rstan_create_package() instead." />
 <meta property="og:image" content="https://mc-stan.org/rstantools/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -155,74 +156,79 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generic functions for LOO predictions</h1>
+    <h1>Add Stan infrastructure to an existing package</h1>
     
-    <div class="hidden name"><code>loo-prediction.Rd</code></div>
+    <div class="hidden name"><code>use_rstan.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See the methods in the <span class="pkg">rstanarm</span> package for examples.</p>
+    <p>Add Stan infrastructure to an existing <span style="R">R</span> package. To create a <em>new</em> package
+containing Stan programs use <code><a href='rstan_create_package.html'>rstan_create_package()</a></code> instead.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>loo_linpred</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='fu'>loo_predict</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='fu'>loo_predictive_interval</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='fu'>loo_pit</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>loo_pit</span>(<span class='no'>object</span>, <span class='no'>y</span>, <span class='no'>lw</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>use_rstan</span>(<span class='kw'>pkgdir</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>license</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>auto_config</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>The object to use.</p></td>
+      <th>pkgdir</th>
+      <td><p>Path to package root folder.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Arguments passed to methods. See the methods in the <span class="pkg">rstanarm</span>
-package for examples.</p></td>
+      <th>license</th>
+      <td><p>Logical or character; whether or not to paste the contents of
+a <code>license.stan</code> file at the top of all Stan code, or path to such a
+file.  If <code>TRUE</code> (the default) adds the <code>GPL (&gt;= 3)</code> license (see
+<strong>Details</strong>).</p></td>
     </tr>
     <tr>
-      <th>y</th>
-      <td><p>For the default method of <code>loo_pit()</code>, a vector of <code>y</code> values the
-same length as the number of columns in the matrix used as <code>object</code>.</p></td>
-    </tr>
-    <tr>
-      <th>lw</th>
-      <td><p>For the default method of <code>loo_pit()</code>, a matrix of log-weights of
-the same length as the number of columns in the matrix used as <code>object</code>.</p></td>
+      <th>auto_config</th>
+      <td><p>Whether to automatically configure Stan functionality
+whenever the package gets installed (see <strong>Details</strong>). Defaults to <code>TRUE</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>loo_predict()</code>, <code>loo_linpred()</code>, and <code>loo_pit()</code>
-(probability integral transform) methods should return a vector with length
-equal to the number of observations in the data.
-<code>loo_predictive_interval()</code> methods should return a two-column matrix
-formatted in the same way as for <code><a href='predictive_interval.html'>predictive_interval()</a></code>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>Invisibly, <code>TRUE</code> or <code>FALSE</code> indicating whether or not any files or
+folders where created or modified.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class='dont-index'>
-<ul>
-<li><p>The <span class="pkg">rstanarm</span> package (<a href='https://mc-stan.org/rstanarm/'>mc-stan.org/rstanarm</a>)
-for example methods
-(<a href='https://CRAN.R-project.org/package=rstanarm'>CRAN</a>,
-<a href='https://github.com/stan-dev/rstanarm'>GitHub</a>).</p></li>
-</ul>
+    <p>Prepares a package to compile and use Stan code by performing the
+following steps:</p><ol>
+<li><p>Create <code>inst/stan</code> folder where all <code>.stan</code> files defining
+Stan models should be stored.</p></li>
+<li><p>Create <code>inst/stan/include</code> where optional <code>license.stan</code> file is stored.</p></li>
+<li><p>Create <code>inst/include/stan_meta_header.hpp</code> to include optional header
+files used by Stan code.</p></li>
+<li><p>Create <code>src</code> folder (if it doesn't exist) to contain the Stan C++ code.</p></li>
+<li><p>Create <code>R</code> folder (if it doesn't exist) to contain wrapper code to expose
+Stan C++ classes to <span style="R">R</span>.</p></li>
+<li><p>Update <code>DESCRIPTION</code> file to contain all needed dependencies to compile
+Stan C++ code.</p></li>
+<li><p>If <code>NAMESPACE</code> file is generic (i.e., created by <code><a href='rstan_create_package.html'>rstan_create_package()</a></code>),
+append <code>import(Rcpp, methods)</code>, <code>importFrom(rstan, sampling)</code>,
+and <code>useDynLib</code> directives.  If <code>NAMESPACE</code> is not generic, display message
+telling user what to add to <code>NAMESPACE</code> for themselves.</p></li>
+</ol>
 
-<ul>
-<li><p>Guidelines and recommendations for developers of <span style="R">R</span> packages
-interfacing with Stan and a demonstration getting a simple package working
-can be found in the vignettes included with <span class="pkg">rstantools</span> and at
-<a href='https://mc-stan.org/rstantools/articles/'>mc-stan.org/rstantools/articles</a>.</p></li>
-</ul>
-</div>
+<p>When <code>auto_config = TRUE</code>, a <code>configure[.win]</code> file is added to the
+package, calling <code><a href='rstan_config.html'>rstan_config()</a></code> whenever the package is installed.
+Consequently, the package must list <span class="pkg">rstantools</span> in the <code>DESCRIPTION</code>
+Imports field for this mechanism to work.  Setting <code>auto_config = FALSE</code>
+removes the package's dependency on <span class="pkg">rstantools</span>, but the package then
+must be manually configured by running <code><a href='rstan_config.html'>rstan_config()</a></code> whenever
+<code>stanmodel</code> files in <code>inst/stan</code> are added, removed, or modified.</p>
+    <h2 class="hasAnchor" id="using-the-pre-compiled-stan-programs-in-your-package"><a class="anchor" href="#using-the-pre-compiled-stan-programs-in-your-package"></a>Using the pre-compiled Stan programs in your package</h2>
+
+    <p>The
+<code>stanmodel</code> objects corresponding to the Stan programs included with your
+package are stored in a list called <code>stanmodels</code>. To run one of the Stan
+programs from within an R function in your package just pass the
+appropriate element of the <code>stanmodels</code> list to one of the <span class="pkg">rstan</span>
+functions for model fitting (e.g., <code>sampling()</code>). For example, for a Stan
+program <code>"foo.stan"</code> you would use <code><a href='https://rdrr.io/pkg/rstan/man/stanmodel-method-sampling.html'>rstan::sampling(stanmodels$foo, ...)</a></code>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -230,7 +236,8 @@ can be found in the vignettes included with <span class="pkg">rstantools</span> 
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#using-the-pre-compiled-stan-programs-in-your-package">Using the pre-compiled Stan programs in your package</a></li>
     </ul>
 
   </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generic functions for LOO predictions — loo-prediction • rstantools</title>
+<title>Generic function for extracting the number of posterior samples — nsamples • rstantools</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="Generic functions for LOO predictions — loo-prediction" />
-<meta property="og:description" content="See the methods in the rstanarm package for examples." />
+<meta property="og:title" content="Generic function for extracting the number of posterior samples — nsamples" />
+<meta property="og:description" content="Extract the number of posterior samples stored in a fitted Bayesian model." />
 <meta property="og:image" content="https://mc-stan.org/rstantools/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -155,25 +155,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generic functions for LOO predictions</h1>
+    <h1>Generic function for extracting the number of posterior samples</h1>
     
-    <div class="hidden name"><code>loo-prediction.Rd</code></div>
+    <div class="hidden name"><code>nsamples.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>See the methods in the <span class="pkg">rstanarm</span> package for examples.</p>
+    <p>Extract the number of posterior samples stored in a fitted Bayesian model.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>loo_linpred</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='fu'>loo_predict</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='fu'>loo_predictive_interval</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='fu'>loo_pit</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>loo_pit</span>(<span class='no'>object</span>, <span class='no'>y</span>, <span class='no'>lw</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>nsamples</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,50 +178,14 @@
       <td><p>Arguments passed to methods. See the methods in the <span class="pkg">rstanarm</span>
 package for examples.</p></td>
     </tr>
-    <tr>
-      <th>y</th>
-      <td><p>For the default method of <code>loo_pit()</code>, a vector of <code>y</code> values the
-same length as the number of columns in the matrix used as <code>object</code>.</p></td>
-    </tr>
-    <tr>
-      <th>lw</th>
-      <td><p>For the default method of <code>loo_pit()</code>, a matrix of log-weights of
-the same length as the number of columns in the matrix used as <code>object</code>.</p></td>
-    </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>loo_predict()</code>, <code>loo_linpred()</code>, and <code>loo_pit()</code>
-(probability integral transform) methods should return a vector with length
-equal to the number of observations in the data.
-<code>loo_predictive_interval()</code> methods should return a two-column matrix
-formatted in the same way as for <code><a href='predictive_interval.html'>predictive_interval()</a></code>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'>
-<ul>
-<li><p>The <span class="pkg">rstanarm</span> package (<a href='https://mc-stan.org/rstanarm/'>mc-stan.org/rstanarm</a>)
-for example methods
-(<a href='https://CRAN.R-project.org/package=rstanarm'>CRAN</a>,
-<a href='https://github.com/stan-dev/rstanarm'>GitHub</a>).</p></li>
-</ul>
-
-<ul>
-<li><p>Guidelines and recommendations for developers of <span style="R">R</span> packages
-interfacing with Stan and a demonstration getting a simple package working
-can be found in the vignettes included with <span class="pkg">rstantools</span> and at
-<a href='https://mc-stan.org/rstantools/articles/'>mc-stan.org/rstantools/articles</a>.</p></li>
-</ul>
-</div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
     </ul>
 
   </div>

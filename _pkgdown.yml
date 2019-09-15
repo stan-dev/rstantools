@@ -62,11 +62,12 @@ articles:
 reference:
   - title: "Package structure"
     desc: >
-      Creating the basic structure of a Stan-based R package.
+      Creating the basic structure of a Stan-based R package or add Stan programs to an existing package.
     contents:
       - rstantools-package
-      - rstan_package_skeleton
-      - init_cpp
+      - rstan_create_package
+      - use_rstan
+      - rstan_config
   - title: "Generics"
     desc: >
       S3 generics (and some default methods) for adding functionality to your package using the same naming conventions as **rstanarm**.
