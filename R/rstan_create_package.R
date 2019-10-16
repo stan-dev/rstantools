@@ -147,7 +147,7 @@ rstan_create_package <- function(path,
 
   # run usethis::create_package()
   if (file.exists(path)) {
-    stop("Directory '", DIR, "' already exists.", call. = FALSE)
+    stop("Directory '", path, "' already exists.", call. = FALSE)
   }
   message("Creating package skeleton for package: ", name, domain = NA)
   suppressMessages(
