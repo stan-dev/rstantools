@@ -1,3 +1,10 @@
+# rstantools 2.0.0.9000
+
+(Github issue/PR numbers in parentheses)
+
+* More informative error message for `rstan_create_package()` when directory
+already exists. (#68, @mcol)
+
 # rstantools 2.0.0
 
 * Added Martin Lysy as a coauthor.
