@@ -64,6 +64,9 @@
       <a href="https://mc-stan.org/rstan">rstan</a>
     </li>
     <li>
+      <a href="https://mc-stan.org/cmdstanr">cmdstanr</a>
+    </li>
+    <li>
       <a href="https://mc-stan.org/rstanarm">rstanarm</a>
     </li>
     <li>
@@ -119,7 +122,7 @@
       <h1>Step by step guide for creating a package that depends on RStan</h1>
                         <h4 class="author">Stefan Siegert, Jonah Gabry, Martin Lysy, and Ben Goodrich</h4>
             
-            <h4 class="date">2019-09-15</h4>
+            <h4 class="date">2019-10-17</h4>
       
       
       <div class="hidden name"><code>minimal-rstan-package.Rmd</code></div>
@@ -148,8 +151,8 @@
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="../reference/rstan_create_package.html">rstan_create_package</a></span>(<span class="dt">path =</span> <span class="st">'rstanlm'</span>)</a></code></pre></div>
 <pre><code>This is rstantools version 2.0.0</code></pre>
 <pre><code>Creating package skeleton for package: rstanlm</code></pre>
-<pre><code>✔ Creating '/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/RtmpmGtdkS/rstanlm/'
-✔ Setting active project to '/private/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/RtmpmGtdkS/rstanlm'
+<pre><code>✔ Creating '/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/Rtmp295qKR/rstanlm/'
+✔ Setting active project to '/private/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/Rtmp295qKR/rstanlm'
 ✔ Creating 'R/'
 ✔ Writing 'DESCRIPTION'
 Package: rstanlm
@@ -300,7 +303,7 @@ NULL</code></pre>
 <p>With <strong>roxygen</strong> documentation enabled, we need to generate the documentation for <code>lm_stan</code> and update the <code>NAMESPACE</code> so the function is exported, i.e., available to users when the package is installed. This can be done with the function <code><a href="https://rdrr.io/pkg/roxygen2/man/roxygenize.html">roxygen2::roxygenize()</a></code>.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">pkgbuild<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/pkgbuild/man/compile_dll.html">compile_dll</a></span>() <span class="co"># see note below</span></a>
 <a class="sourceLine" id="cb28-2" data-line-number="2">roxygen2<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/roxygen2/man/roxygenize.html">roxygenize</a></span>()</a></code></pre></div>
-<pre><code>Updating roxygen version in /private/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/RtmpmGtdkS/rstanlm/DESCRIPTION</code></pre>
+<pre><code>Updating roxygen version in /private/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/Rtmp295qKR/rstanlm/DESCRIPTION</code></pre>
 <pre><code>Writing NAMESPACE</code></pre>
 <pre><code>Loading rstanlm</code></pre>
 <pre><code>Writing NAMESPACE
@@ -314,7 +317,7 @@ Writing rstanlm-package.Rd</code></pre>
 <p>Finally, the package is ready to be installed:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># using ../rstanlm because already inside the rstanlm directory</span></a>
 <a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"../rstanlm"</span>, <span class="dt">repos =</span> <span class="ot">NULL</span>, <span class="dt">type =</span> <span class="st">"source"</span>)</a></code></pre></div>
-<pre><code>Installing package into '/private/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/RtmptD9snz/temp_libpath561f62311542'
+<pre><code>Installing package into '/private/var/folders/h6/14xy_35x4wd2tz542dn0qhtc0000gn/T/RtmpdWg2av/temp_libpath6be91d293cbd'
 (as 'lib' is unspecified)</code></pre>
 <p>It is also possible to use <code><a href="https://rdrr.io/pkg/devtools/man/install.html">devtools::install(quick=FALSE)</a></code> to install the package. The argument <code>quick=FALSE</code> is necessary if you want to recompile the Stan models. Going forward, if you only make a change to the R code or the documentation, you can set <code>quick=TRUE</code> to speed up the process, or use <code><a href="https://rdrr.io/pkg/devtools/man/load_all.html">devtools::load_all()</a></code>.</p>
 <p>After installation, the package can be loaded and used like any other R package:</p>
@@ -325,8 +328,8 @@ Writing rstanlm-package.Rd</code></pre>
 <pre><code>
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 1).
 Chain 1: 
-Chain 1: Gradient evaluation took 1.6e-05 seconds
-Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.16 seconds.
+Chain 1: Gradient evaluation took 2e-05 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.2 seconds.
 Chain 1: Adjust your expectations accordingly!
 Chain 1: 
 Chain 1: 
@@ -337,15 +340,15 @@ Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 1: Iteration: 1500 / 2000 [ 75%]  (Sampling)
 Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 1: 
-Chain 1:  Elapsed Time: 0.025014 seconds (Warm-up)
-Chain 1:                0.021482 seconds (Sampling)
-Chain 1:                0.046496 seconds (Total)
+Chain 1:  Elapsed Time: 0.026048 seconds (Warm-up)
+Chain 1:                0.020139 seconds (Sampling)
+Chain 1:                0.046187 seconds (Total)
 Chain 1: 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 2).
 Chain 2: 
-Chain 2: Gradient evaluation took 5e-06 seconds
-Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
+Chain 2: Gradient evaluation took 4e-06 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
 Chain 2: Adjust your expectations accordingly!
 Chain 2: 
 Chain 2: 
@@ -356,9 +359,9 @@ Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 2: Iteration: 1500 / 2000 [ 75%]  (Sampling)
 Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 2: 
-Chain 2:  Elapsed Time: 0.021456 seconds (Warm-up)
-Chain 2:                0.021327 seconds (Sampling)
-Chain 2:                0.042783 seconds (Total)
+Chain 2:  Elapsed Time: 0.021109 seconds (Warm-up)
+Chain 2:                0.020281 seconds (Sampling)
+Chain 2:                0.04139 seconds (Total)
 Chain 2: 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 3).
@@ -375,15 +378,15 @@ Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 3: Iteration: 1500 / 2000 [ 75%]  (Sampling)
 Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 3: 
-Chain 3:  Elapsed Time: 0.021706 seconds (Warm-up)
-Chain 3:                0.019668 seconds (Sampling)
-Chain 3:                0.041374 seconds (Total)
+Chain 3:  Elapsed Time: 0.02209 seconds (Warm-up)
+Chain 3:                0.020171 seconds (Sampling)
+Chain 3:                0.042261 seconds (Total)
 Chain 3: 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 4).
 Chain 4: 
-Chain 4: Gradient evaluation took 4e-06 seconds
-Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
+Chain 4: Gradient evaluation took 5e-06 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
 Chain 4: Adjust your expectations accordingly!
 Chain 4: 
 Chain 4: 
@@ -394,9 +397,9 @@ Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 4: Iteration: 1500 / 2000 [ 75%]  (Sampling)
 Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 4: 
-Chain 4:  Elapsed Time: 0.020585 seconds (Warm-up)
-Chain 4:                0.02234 seconds (Sampling)
-Chain 4:                0.042925 seconds (Total)
+Chain 4:  Elapsed Time: 0.021547 seconds (Warm-up)
+Chain 4:                0.022957 seconds (Sampling)
+Chain 4:                0.044504 seconds (Total)
 Chain 4: </code></pre>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(fit)</a></code></pre></div>
 <pre><code>Inference for Stan model: lm.
@@ -404,12 +407,12 @@ Chain 4: </code></pre>
 post-warmup draws per chain=1000, total post-warmup draws=4000.
 
            mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-intercept  0.00    0.01 0.26 -0.54 -0.16  0.00  0.15  0.52  1866    1
-beta       0.08    0.01 0.32 -0.58 -0.11  0.09  0.28  0.72  2507    1
-sigma      0.76    0.01 0.25  0.45  0.59  0.71  0.86  1.42  1519    1
-lp__      -1.61    0.05 1.51 -5.42 -2.29 -1.22 -0.49  0.09  1038    1
+intercept -0.13    0.01 0.38 -0.87 -0.35 -0.13  0.09  0.61  1976    1
+beta      -0.90    0.01 0.50 -1.88 -1.20 -0.90 -0.61  0.09  2409    1
+sigma      1.07    0.01 0.35  0.63  0.83  0.99  1.22  1.97  1441    1
+lp__      -4.74    0.05 1.55 -8.74 -5.43 -4.32 -3.63 -3.04   974    1
 
-Samples were drawn using NUTS(diag_e) at Sun Sep 15 14:50:50 2019.
+Samples were drawn using NUTS(diag_e) at Thu Oct 17 00:47:52 2019.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>

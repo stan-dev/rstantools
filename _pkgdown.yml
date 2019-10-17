@@ -1,5 +1,7 @@
 url: https://mc-stan.org/rstantools
 
+destination: "."
+
 template:
   params:
     bootswatch: cosmo
@@ -17,6 +19,8 @@ navbar:
       menu:
         - text: "rstan"
           href: https://mc-stan.org/rstan
+        - text: "cmdstanr"
+          href: https://mc-stan.org/cmdstanr
         - text: "rstanarm"
           href: https://mc-stan.org/rstanarm
         - text: "bayesplot"
@@ -41,13 +45,16 @@ home:
   links:
   - text: Ask a question
     href: https://discourse.mc-stan.org/
+  - text: Browse source code
+    href: https://github.com/stan-dev/rstantools
 
 articles:
   - title: "Recommendations for R package development with Stan"
     desc: >
       This vignette provides many recommendations for developers interested in
-      creating an R package that interface with Stan. Topics include software development
-      best practices, precompiling Stan programs, R code and documentation, and more.
+      creating an R package that interface with Stan. Topics include
+      development best practices, precompiling Stan programs, R code and
+      documentation, and more.
     contents:
       - developer-guidelines
   - title: "Step-by-step guide"
@@ -62,7 +69,8 @@ articles:
 reference:
   - title: "Package structure"
     desc: >
-      Creating the basic structure of a Stan-based R package or add Stan programs to an existing package.
+      Creating the basic structure of a Stan-based R package or add
+      Stan programs to an existing package.
     contents:
       - rstantools-package
       - rstan_create_package
@@ -70,7 +78,9 @@ reference:
       - rstan_config
   - title: "Generics"
     desc: >
-      S3 generics (and some default methods) for adding functionality to your package using the same naming conventions as **rstanarm**.
+      S3 generics (and some default methods) for adding functionality
+      to your package using the same naming conventions as **rstanarm**
+      and other Stan-based R packages.
     contents:
       - bayes_R2
       - log_lik
