@@ -2,7 +2,7 @@ Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
 Version: 2.0.0.9000
-Date: 2019-09-13
+Date: 2019-11-19
 Authors@R: 
     c(person(given = "Jonah",
              family = "Gabry",
@@ -35,7 +35,7 @@ LazyData: true
 SystemRequirements: pandoc, C++14
 Imports: stats, utils, Rcpp (>= 0.12.16), desc
 Suggests:
-    rstan (>= 2.17.2),
+    rstan (>= 2.21.1),
     usethis (>= 1.5.1),
     testthat (>= 2.0.0),
     knitr,
