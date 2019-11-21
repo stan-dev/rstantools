@@ -181,6 +181,7 @@ rstan_config <- function(pkgdir = ".") {
     cppcode <- rstan::expose_stan_functions(stanc_ret, dryRun = TRUE)
     cpp_lines <- scan(text = cppcode, what = character(),
                       sep = "\n", quiet = TRUE)
+    cpp_lines <- cpp_lines[cpp_lines != "#include <exporter.h>"]
     cat("#include <exporter.h>",
         "#include <stan/math/prim/mat/fun/Eigen.hpp>",
         "#include <stan/model/standalone_functions_header.hpp>",
