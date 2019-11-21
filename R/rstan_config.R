@@ -165,17 +165,21 @@ rstan_config <- function(pkgdir = ".") {
 # the .hpp file contains the C++ level class definition of the given stanmodel
 # the .cc file contains the module definition which Rcpp uses to construct
 # the corresponding R ReferenceClass.
+# If the .stan file has a functions block but no parameters block, then there
+# is no module definition but the functions are compiled and exported to the
+# package's namespace.
 .make_cc <- function(file_name, pkgdir) {
   model_name <- sub("[.]stan$", "", basename(file_name))
   if (identical(model_name, "license")) return(invisible(NULL))
   # create c++ code
   stanc_ret <- rstan::stanc(file_name, allow_undefined = TRUE,
                             obfuscate_model_name = FALSE)
-  if ( grepl("functions[[:space:]]*{",  stanc_ret$model_code) &&
-      !grepl("parameters[[:space:]]*{", stanc_ret$model_code) ) {
+  only_functions <- grepl("functions[[:space:]]*\\{",  stanc_ret$model_code) &&
+                   !grepl("parameters[[:space:]]*\\{", stanc_ret$model_code)
+  if (only_functions) {
     # file_name is a collection of Stan functions rather than a model
     cppcode <- rstan::expose_stan_functions(stanc_ret, dryRun = TRUE)
-    cpp_lines <- scan(cppcode, what = character(),
+    cpp_lines <- scan(text = cppcode, what = character(),
                       sep = "\n", quiet = TRUE)
     cat("#include <exporter.h>",
         "#include <stan/math/prim/mat/fun/Eigen.hpp>",
@@ -237,7 +241,9 @@ rstan_config <- function(pkgdir = ".") {
   }
   .add_stanfile(file_lines = cpp_lines,
                 pkgdir = pkgdir,
-                "src", .stan_prefix(model_name, ".cc"),
+                "src",
+                ifelse(only_functions, paste0(model_name, ".cpp"),
+                       .stan_prefix(model_name, ".cc")),
                 noedit = TRUE, msg = FALSE, warn = TRUE)
   return(invisible(NULL))
 }
@@ -264,9 +270,9 @@ rstan_config <- function(pkgdir = ".") {
   model_names <- list.files(file.path(pkgdir, "inst", "stan"),
                             pattern = "*.stan$")
   only_functions <- sapply(model_names, FUN = function(nm) {
-    lns <- readLines(nm)
-    return( grepl("functions[[:space:]]{" , lns) &&
-           !grepl("parameters[[:space:]]{", lns) )
+    lns <- readLines(file.path(pkgdir, "inst", "stan", nm))
+    return( grepl("functions[[:space:]]*\\{" , lns) &&
+           !grepl("parameters[[:space:]]*\\{", lns) )
   })
   model_names <- model_names[!only_functions]
   model_names <- gsub("[.]stan$", "", model_names)
