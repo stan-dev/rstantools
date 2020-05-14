@@ -5,9 +5,17 @@
 \alias{rstan_package_skeleton}
 \title{Create a new \R package with compiled Stan programs}
 \usage{
-rstan_create_package(path, fields = NULL, rstudio = TRUE,
-  open = TRUE, stan_files = character(), roxygen = TRUE,
-  travis = TRUE, license = TRUE, auto_config = TRUE)
+rstan_create_package(
+  path,
+  fields = NULL,
+  rstudio = TRUE,
+  open = TRUE,
+  stan_files = character(),
+  roxygen = TRUE,
+  travis = TRUE,
+  license = TRUE,
+  auto_config = TRUE
+)
 }
 \arguments{
 \item{path}{The path to the new package to be created (terminating in the
@@ -33,7 +41,7 @@ compilation issues, at present it is not guaranteed to work on
 
 \item{license}{Logical or character; whether or not to paste the contents of
 a \code{license.stan} file at the top of all Stan code, or path to such a
-file.  If \code{TRUE} (the default) adds the \code{GPL (>= 3)} license (see
+file.  If \code{TRUE} (the default) adds the \verb{GPL (>= 3)} license (see
 \strong{Details}).}
 
 \item{auto_config}{Whether to automatically configure Stan functionality
@@ -51,7 +59,7 @@ The \strong{Details} section below describes the process and the
 \strong{See Also} section provides links to recommendations for developers
 and a step-by-step walk-through.
 
-As of version \code{2.0.0} of \pkg{rstantools} the
+As of version \verb{2.0.0} of \pkg{rstantools} the
 \code{rstan_package_skeleton()} function is defunct and only
 \code{rstan_create_package()} is supported.
 }
@@ -69,7 +77,7 @@ inst/
 }
 All \code{.stan} files containing instructions to build a \code{stanmodel}
 object must be placed in \code{inst/stan}.  Other \code{.stan} files go in
-any \code{stan/} subdirectory, to be invoked by Stan's \code{#include}
+any \verb{stan/} subdirectory, to be invoked by Stan's \verb{#include}
 mechanism, e.g.,
 \preformatted{
 #include "include/mylib.stan"
@@ -79,14 +87,14 @@ See \pkg{rstanarm} for many examples.
 
 The folder \code{inst/include} is for all user C++ files associated with the
 Stan programs.  In this folder, the only file to directly interact with the
-Stan C++ library is \code{stan_meta_header.hpp}; all other \code{#include}
+Stan C++ library is \code{stan_meta_header.hpp}; all other \verb{#include}
 directives must be channeled through here.
 
 The final step of the package creation is to invoke
 \code{\link[=rstan_config]{rstan_config()}}, which creates the following files for
 interfacing with Stan objects from \R:
 \itemize{
-\item \code{src} contains the \code{stan_ModelName{.cc/.hpp}} pairs
+\item \code{src} contains the \verb{stan_ModelName\{.cc/.hpp\}} pairs
 associated with all \code{ModelName.stan} files in \code{inst/stan} which
 define \code{stanmodel} objects.
 \item \code{src/Makevars[.win]} which link to the \code{StanHeaders} and
@@ -106,14 +114,7 @@ must be manually configured by running \code{\link[=rstan_config]{rstan_config()
 \code{stanmodel} files in \code{inst/stan} are added, removed, or modified.
 
 In order to enable Stan functionality, \pkg{\link{rstantools}}
-copies some files to your package.  Since these files are licensed as GPL
-
-= 3, the same license applies to your package should you choose to
-distribute it.  Even if you don't use \pkg{\link{rstantools}} to create
-your package, it is likely that you will be linking to \pkg{\link{Rcpp}} to
-export the Stan C++ \code{stanmodel} objects to \R.  Since
-\pkg{\link{Rcpp}} is released under GPL >= 2, the same license would apply
-to your package upon distribution.
+copies some files to your package.  Since these files are licensed as GPL= 3, the same license applies to your package should you choose todistribute it.  Even if you don't use \pkg{\link{rstantools}} to createyour package, it is likely that you will be linking to \pkg{\link{Rcpp}} toexport the Stan C++ stanmodel objects to \R.  Since\pkg{\link{Rcpp}} is released under GPL >= 2, the same license would applyto your package upon distribution.
 
 Authors willing to license their Stan programs of general interest
 under the GPL are invited to contribute their \code{.stan} files and

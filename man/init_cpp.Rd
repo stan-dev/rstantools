@@ -15,12 +15,12 @@ directory.}
 }
 \value{
 This function is only called for its side effect of writing the
-necessary \code{init.cpp} file to the package's \code{src/} directory.
+necessary \code{init.cpp} file to the package's \verb{src/} directory.
 }
 \description{
 If you set up your package using \code{rstan_package_skeleton()} before
-version \code{1.2.1} of \pkg{rstantools} it may be necessary for you to call
-this function yourself in order to pass \code{R CMD check} in \R
-\code{>= 3.4}. If you used \code{rstan_package_skeleton()} in \pkg{rstantools} version
-\code{1.2.1} or later then this has already been done automatically.
+version \verb{1.2.1} of \pkg{rstantools} it may be necessary for you to call
+this function yourself in order to pass \verb{R CMD check} in \R
+\verb{>= 3.4}. If you used \code{rstan_package_skeleton()} in \pkg{rstantools} version
+\verb{1.2.1} or later then this has already been done automatically.
 }
