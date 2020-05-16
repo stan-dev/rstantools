@@ -303,6 +303,9 @@ time a package `.stan` file is added, removed, or even just modified.
 
 * The function `use_rstan()` can be used to add Stan functionality to an
 existing package, instead of building the package from scratch.
+  * Note: If you are already using roxygen in your package, you'll have to use
+    roxygen to update your Namespace file via the `R/<package-name>-package.R` file.
+    Check the roxygen documentation for more details.
 
 ## Links
 
