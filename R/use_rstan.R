@@ -177,7 +177,7 @@ use_rstan <- function(pkgdir = ".", license = TRUE, auto_config = TRUE) {
       acc <- TRUE
     }
     if (acc && msg) {
-      message("\nNext, add the following lines to your NAMESPACE:\n\n",
+      message("\nNext, add the following lines (e.g., via <package-name>-package.R if using roxygen) to your NAMESPACE:\n\n",
               paste0(msg_lines, collapse = "\n"), "\n")
     }
   }

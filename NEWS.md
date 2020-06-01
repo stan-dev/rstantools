@@ -1,3 +1,20 @@
+<!--
+# rstantools 2.1.0.9000
+
+(Github issue/PR numbers in parentheses)
+
+* Items for next release
+-->
+
+# rstantools 2.1.0
+
+* Compatibility with StanHeaders 2.21.0-3 
+* Improve messaging around updating NAMESPACE file (#75, @mikekaminsky)
+* More informative error message for `rstan_create_package()` when directory
+already exists. (#68, @mcol)
+* Add generated C++ files to .gitignore and .Rbuildignore (#66, @mcol)
+* New generic `posterior_epred()` (#74)
+
 # rstantools 2.0.0
 
 * Added Martin Lysy as a coauthor.

@@ -147,7 +147,7 @@ rstan_create_package <- function(path,
 
   # run usethis::create_package()
   if (file.exists(path)) {
-    stop("Directory '", DIR, "' already exists.", call. = FALSE)
+    stop("Directory '", path, "' already exists.", call. = FALSE)
   }
   message("Creating package skeleton for package: ", name, domain = NA)
   suppressMessages(
@@ -181,9 +181,17 @@ rstan_create_package <- function(path,
   .add_stanfile(gsub("RSTAN_PACKAGE_NAME", basename(pkgdir), travis_file),
                 pkgdir, ".travis.yml",
                 noedit = FALSE, msg = TRUE, warn = FALSE)
-  # also create an .Rbuildignore for travis file
-  .add_stanfile("^\\.travis\\.yml$", pkgdir, ".Rbuildignore",
-                noedit = FALSE, msg = FALSE, warn = FALSE)
+}
+
+# add .gitignore and .Rbuildignore files
+.add_gitignore_Rbuildignore <- function(pkgdir, travis) {
+  gitignore_files <- c("^rcppExports.cpp$", "^stanExports_*")
+  .add_stanfile(gitignore_files, pkgdir, ".gitignore",
+                noedit = FALSE, msg = TRUE, warn = FALSE)
+
+  Rbuildignore_files <- c(gitignore_files, if (travis) "^\\.travis\\.yml$")
+  .add_stanfile(Rbuildignore_files, pkgdir, ".Rbuildignore",
+                noedit = FALSE, msg = TRUE, warn = FALSE)
 }
 
 # add R/mypkg-package.R file with roxygen import comments
@@ -223,6 +231,7 @@ rstan_create_package <- function(path,
   )
   if (roxygen) .add_roxygen(pkgdir)
   if (travis) .add_travis(pkgdir)
+  .add_gitignore_Rbuildignore(pkgdir, travis)
 
   message("Configuring Stan compile and module export instructions ...")
   rstan_config(pkgdir)

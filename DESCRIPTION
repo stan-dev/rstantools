@@ -1,8 +1,8 @@
 Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
-Version: 2.0.0
-Date: 2019-09-13
+Version: 2.1.0
+Date: 2020-05-30
 Authors@R: 
     c(person(given = "Jonah",
              family = "Gabry",
@@ -33,7 +33,7 @@ BugReports: https://github.com/stan-dev/rstantools/issues
 Encoding: UTF-8
 LazyData: true
 SystemRequirements: pandoc, C++14
-Imports: stats, utils, Rcpp (>= 0.12.16), desc
+Imports: desc, stats, utils, Rcpp (>= 0.12.16), RcppParallel (>= 5.0.1)
 Suggests:
     rstan (>= 2.17.2),
     usethis (>= 1.5.1),
@@ -44,6 +44,6 @@ Suggests:
     roxygen2 (>= 6.0.1),
     rmarkdown,
     rstudioapi
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
