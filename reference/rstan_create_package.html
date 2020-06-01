@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -56,7 +60,6 @@ As of version 2.0.0 of rstantools the
 rstan_package_skeleton() function is defunct and only
 rstan_create_package() is supported." />
 <meta property="og:image" content="https://mc-stan.org/rstantools/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -74,7 +77,7 @@ rstan_create_package() is supported." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -88,7 +91,7 @@ rstan_create_package() is supported." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rstantools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.0</span>
       </span>
     </div>
 
@@ -170,7 +173,7 @@ rstan_create_package() is supported." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a new <span style="R">R</span> package with compiled Stan programs</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/stan-dev/rstantools/blob/master/R/rstan_create_package.R'><code>R/rstan_create_package.R</code></a></small>
     <div class="hidden name"><code>rstan_create_package.Rd</code></div>
     </div>
 
@@ -189,9 +192,17 @@ and a step-by-step walk-through.</p>
 <code>rstan_create_package()</code> is supported.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rstan_create_package</span>(<span class='no'>path</span>, <span class='kw'>fields</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rstudio</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>stan_files</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(), <span class='kw'>roxygen</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>travis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>license</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>auto_config</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>rstan_create_package</span>(
+  <span class='no'>path</span>,
+  <span class='kw'>fields</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>rstudio</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>open</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>stan_files</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(),
+  <span class='kw'>roxygen</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>travis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>license</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>auto_config</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -285,13 +296,7 @@ removes the package's dependency on <span class="pkg">rstantools</span>, but the
 must be manually configured by running <code><a href='rstan_config.html'>rstan_config()</a></code> whenever
 <code>stanmodel</code> files in <code>inst/stan</code> are added, removed, or modified.</p>
 <p>In order to enable Stan functionality, <span class="pkg"><a href='rstantools-package.html'>rstantools</a></span>
-copies some files to your package.  Since these files are licensed as GPL</p>
-<p>= 3, the same license applies to your package should you choose to
-distribute it.  Even if you don't use <span class="pkg"><a href='rstantools-package.html'>rstantools</a></span> to create
-your package, it is likely that you will be linking to <span class="pkg">Rcpp</span> to
-export the Stan C++ <code>stanmodel</code> objects to <span style="R">R</span>.  Since
-<span class="pkg">Rcpp</span> is released under GPL &gt;= 2, the same license would apply
-to your package upon distribution.</p>
+copies some files to your package.  Since these files are licensed as GPL= 3, the same license applies to your package should you choose todistribute it.  Even if you don't use <span class="pkg"><a href='rstantools-package.html'>rstantools</a></span> to createyour package, it is likely that you will be linking to <span class="pkg">Rcpp</span> toexport the Stan C++ stanmodel objects to <span style="R">R</span>.  Since<span class="pkg">Rcpp</span> is released under GPL &gt;= 2, the same license would applyto your package upon distribution.</p>
 <p>Authors willing to license their Stan programs of general interest
 under the GPL are invited to contribute their <code>.stan</code> files and
 supporting <span style="R">R</span> code to the <span class="pkg">rstanarm</span> package.</p>
@@ -340,16 +345,10 @@ or at the <span class="pkg">rstantools</span> GitHub <a href='https://github.com
 </div>
 
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#using-the-pre-compiled-stan-programs-in-your-package">Using the pre-compiled Stan programs in your package</a></li>
-      <li><a href="#see-also">See also</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -360,7 +359,7 @@ or at the <span class="pkg">rstantools</span> GitHub <a href='https://github.com
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

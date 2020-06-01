@@ -45,8 +45,6 @@ home:
   links:
   - text: Ask a question
     href: https://discourse.mc-stan.org/
-  - text: Browse source code
-    href: https://github.com/stan-dev/rstantools
 
 articles:
   - title: "Recommendations for R package development with Stan"
@@ -86,6 +84,7 @@ reference:
       - log_lik
       - loo-prediction
       - posterior_interval
+      - posterior_epred
       - posterior_linpred
       - posterior_predict
       - predictive_error
