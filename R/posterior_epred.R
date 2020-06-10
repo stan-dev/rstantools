@@ -1,10 +1,8 @@
 #' Generic function for accessing the posterior distribution of the
 #' conditional expectation
 #'
-#' Extract the posterior draws of the conditional expectation. The
-#' `posterior_epred()` function is essentially a less noisy way obtain averages
-#' over the output of [posterior_predict()]. See the \pkg{rstanarm} package for
-#' an example.
+#' Extract the posterior draws of the conditional expectation.
+#' See the \pkg{rstanarm} package for an example.
 #'
 #' @export
 #' @template args-object

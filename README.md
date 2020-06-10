@@ -1,10 +1,12 @@
-[<img src="https://raw.githubusercontent.com/stan-dev/logos/master/logo_tm.png" width=100 alt="Stan Logo"/>](http://mc-stan.org)
+# rstantools <img src="man/figures/stanlogo.png" align="right" width="120" />
 
-# rstantools
-
-[![Travis-CI Build Status](https://travis-ci.org/stan-dev/rstantools.svg?branch=master)](https://travis-ci.org/stan-dev/rstantools)
+<!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/rstantools?color=blue)](https://cran.r-project.org/package=rstantools)
 [![Downloads](https://cranlogs.r-pkg.org/badges/rstantools?color=blue)](https://cran.rstudio.com/package=rstantools)
+[![Travis-CI Build Status](https://travis-ci.org/stan-dev/rstantools.svg?branch=master)](https://travis-ci.org/stan-dev/rstantools)
+<!-- badges: end -->
+
+### Overview 
 
 The __rstantools__ package provides tools for developing R packages interfacing
 with [Stan](https://mc-stan.org/). The package vignettes provide guidelines and

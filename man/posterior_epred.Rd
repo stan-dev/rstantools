@@ -19,10 +19,8 @@ matrix, where \eqn{D} is the number of draws from the posterior
 distribution distribution and \eqn{N} is the number of data points.
 }
 \description{
-Extract the posterior draws of the conditional expectation. The
-\code{posterior_epred()} function is essentially a less noisy way obtain averages
-over the output of \code{\link[=posterior_predict]{posterior_predict()}}. See the \pkg{rstanarm} package for
-an example.
+Extract the posterior draws of the conditional expectation.
+See the \pkg{rstanarm} package for an example.
 }
 \seealso{
 \itemize{
