@@ -47,6 +47,7 @@ for(ii in 1:ntest) {
   # specific test condition
   use_create_package <- test_descr$create_package[ii]
   use_roxygen <- test_descr$roxygen[ii]
+  if (!use_roxygen) next # FIXME
   context(paste0(
     ifelse(use_create_package,
            yes = "rstan_create_package",
@@ -93,7 +94,9 @@ for(ii in 1:ntest) {
       skip_on_cran()
       skip_on_travis()
     }
-    ## if(!use_roxygen) pkgbuild::compile_dll(pkg_dest_path)
+    example(source) # defines the sourceDir() function
+    try(roxygen2::roxygenize(pkg_dest_path, load_code = sourceDir), silent = TRUE)
+    pkgbuild::compile_dll(pkg_dest_path)
     tmp <- capture.output(load_out <- pkgload::load_all(pkg_dest_path,
                                                  export_all = TRUE,
                                                  quiet = TRUE))
@@ -108,10 +111,9 @@ for(ii in 1:ntest) {
         skip_on_travis()
       }
       skip_if_not_installed("roxygen2")
-      ## pkgbuild::compile_dll(pkg_dest_path)
       ## devtools::document(pkg_dest_path)
       tmp <- capture.output(pkgload::unload(pkg_name))
-      roxygen2::roxygenize(pkg_dest_path)
+      pkgbuild::compile_dll(pkg_dest_path)
       roxygen2::roxygenize(pkg_dest_path)
       tmp <- capture.output(load_out <- pkgload::load_all(pkg_dest_path,
                                                           export_all = TRUE,
