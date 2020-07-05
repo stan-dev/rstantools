@@ -12,3 +12,4 @@ LICENSE
 man-roxygen/*
 vignettes/rstanlm
 ^CRAN-RELEASE$
+.github/*
