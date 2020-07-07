@@ -238,20 +238,20 @@ for `lm_stan` and update the `NAMESPACE` so the function is exported, i.e.,
 available to users when the package is installed.  This can be done with the
 function `roxygen2::roxygenize()`.
 
-```{r, eval=FALSE}
-pkgbuild::compile_dll() # see note below
+```{r, results = "hide"}
+example(source) # defines the sourceDir() function
+```
+```{r, eval = FALSE}
+try(roxygen2::roxygenize(load_code = sourceDir), silent = TRUE)
+pkgbuild::compile_dll()
 roxygen2::roxygenize()
 ```
-```{r, include=FALSE}
-pkgbuild::compile_dll(PATH) # required for newer versions of roxygen2
-```
 ```{r, echo=FALSE}
+try(roxygen2::roxygenize(PATH, load_code = sourceDir), silent = TRUE)
+rm(lm_stan)
+pkgbuild::compile_dll(PATH)
 roxygen2::roxygenize(PATH)
 ```
-
-__Note:__ For newer versions of __roxygen__, it is necessary to compile the
-package C++ code prior to running `roxygen2::roxygenize()`.  One way to do this
-is with `pkgbuild::compile_dll()`, as above.
 
 ## Install and use
 

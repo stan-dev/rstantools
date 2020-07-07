@@ -1,10 +1,8 @@
-<!--
-# rstantools 2.1.0.9000
+# rstantools 2.1.1
 
 (Github issue/PR numbers in parentheses)
 
-* Items for next release
--->
+* Compatibility with StanHeaders 2.21.0-5
 
 # rstantools 2.1.0
 

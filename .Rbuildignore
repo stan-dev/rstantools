@@ -14,3 +14,4 @@ man-roxygen/*
 ^_pkgdown\.yml$
 vignettes/rstanlm
 ^CRAN-RELEASE$
+.github/*
