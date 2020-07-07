@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   developer-guidelines: developer-guidelines.html
   minimal-rstan-package: minimal-rstan-package.html
-last_built: 2020-06-01T20:51Z
+last_built: 2020-07-07T00:48Z
 urls:
   reference: https://mc-stan.org/rstantools/reference
   article: https://mc-stan.org/rstantools/articles
