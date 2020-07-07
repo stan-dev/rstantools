@@ -1,3 +1,10 @@
+# rstantools 2.1.1.9000
+
+(Github issue/PR numbers in parentheses)
+
+Items for next release go here
+
+
 # rstantools 2.1.1
 
 (Github issue/PR numbers in parentheses)
