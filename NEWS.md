@@ -2,7 +2,8 @@
 
 (Github issue/PR numbers in parentheses)
 
-Items for next release go here
+* Updated "Step by step guide" vignette with instructions for adding new Stan
+models to an existing R package that already has Stan models. (#79, @rerickson-usgs) 
 
 
 # rstantools 2.1.1
