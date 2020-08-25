@@ -307,6 +307,16 @@ existing package, instead of building the package from scratch.
     roxygen to update your Namespace file via the `R/<package-name>-package.R` file.
     Check the roxygen documentation for more details.
 
+## Adding additional Stan models to an existing R package with Stan models
+
+One may add additional Stan models to an existing package.
+The following steps are required if one is using `devtools`:
+
+1.  Add new Stan file, e.g., `inst/stan/new.stan`
+2.  Run `pkgbuild::compile_dll()` to preform a fake R CMD install.
+3.  Run  `roxygen2::roxygenize()` to update the documentation.
+4.  Run ` devtools::install()` to install the package locally.
+
 ## Links
 
 * [_Guidelines for Developers of R Packages Interfacing with Stan_](https://mc-stan.org/rstantools/articles/developer-guidelines.html)
