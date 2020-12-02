@@ -72,7 +72,7 @@
   noedit_msg <- .rstantools_noedit(dest_file)
   has_file <- file.exists(dest_file) # check if file exists
   # check if existing file is a stan file
-  is_stanfile <- has_file && (readLines(dest_file, n = 1) == noedit_msg)
+  is_stanfile <- has_file && (noedit_msg %in% readLines(dest_file, n = 5))
   if (has_file && !is_stanfile) {
     # non-stan file found: don't overwrite
     if (warn) .warning_nowrite(file.path(basename(pkgdir), ...))
