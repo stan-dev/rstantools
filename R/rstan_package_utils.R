@@ -82,7 +82,7 @@
     if (noedit && (file_lines[1] != noedit_msg)) {
       # add "noedit" to top of file
       if (startsWith(file_lines[1], "#!")) {
-        # in this case no edit msg goes on 2nd line so file starts with #! interpreter line
+        # in this case noedit_msg goes on 2nd line so file starts with #! interpreter line
         # see https://github.com/stan-dev/rstantools/issues/82
         file_lines <- c(file_lines[1], "", noedit_msg, "", file_lines[-1])
       } else {
