@@ -72,7 +72,7 @@
   noedit_msg <- .rstantools_noedit(dest_file)
   has_file <- file.exists(dest_file) # check if file exists
   # check if existing file is a stan file
-  is_stanfile <- has_file && (readLines(dest_file, n = 1) == noedit_msg)
+  is_stanfile <- has_file && (noedit_msg %in% readLines(dest_file, n = 5))
   if (has_file && !is_stanfile) {
     # non-stan file found: don't overwrite
     if (warn) .warning_nowrite(file.path(basename(pkgdir), ...))
@@ -81,7 +81,13 @@
   if (!has_file || is_stanfile) {
     if (noedit && (file_lines[1] != noedit_msg)) {
       # add "noedit" to top of file
-      file_lines <- c(noedit_msg, "", file_lines)
+      if (startsWith(file_lines[1], "#!")) {
+        # in this case noedit_msg goes on 2nd line so file starts with #! interpreter line
+        # see https://github.com/stan-dev/rstantools/issues/82
+        file_lines <- c(file_lines[1], "", noedit_msg, "", file_lines[-1])
+      } else {
+        file_lines <- c(noedit_msg, "", file_lines)
+      }
     }
     if (is_stanfile) {
       # stan file found: check if it needs to be overwritten

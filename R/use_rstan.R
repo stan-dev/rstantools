@@ -228,7 +228,7 @@ use_rstan <- function(pkgdir = ".", license = TRUE, auto_config = TRUE) {
       noedit_msg <- .rstantools_noedit(conf_name)
       conf_name <- file.path(pkgdir, conf_name)
       if (file.exists(conf_name) &&
-         (readLines(conf_name, n = 1) == noedit_msg)) {
+         (noedit_msg %in% readLines(conf_name, n = 5))) {
         file.remove(conf_name) # Stan file found.  remove it
       } else FALSE # no stan file found
     })
