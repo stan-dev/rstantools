@@ -5,6 +5,7 @@
 * Updated "Step by step guide" vignette with instructions for adding new Stan
 models to an existing R package that already has Stan models. (#79, @rerickson-usgs) 
 
+* Fixed R CMD check NOTE "configure does not appear to have a #! interpreter line". (#83)
 
 # rstantools 2.1.1
 
