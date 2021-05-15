@@ -238,16 +238,13 @@ for `lm_stan` and update the `NAMESPACE` so the function is exported, i.e.,
 available to users when the package is installed.  This can be done with the
 function `roxygen2::roxygenize()`.
 
-```{r, results = "hide"}
-example(source) # defines the sourceDir() function
-```
 ```{r, eval = FALSE}
-try(roxygen2::roxygenize(load_code = sourceDir), silent = TRUE)
+try(roxygen2::roxygenize(load_code = roxygen2::load_source), silent = TRUE)
 pkgbuild::compile_dll()
 roxygen2::roxygenize()
 ```
 ```{r, echo=FALSE}
-try(roxygen2::roxygenize(PATH, load_code = sourceDir), silent = TRUE)
+try(roxygen2::roxygenize(PATH, load_code = roxygen2::load_source), silent = TRUE)
 rm(lm_stan)
 pkgbuild::compile_dll(PATH)
 roxygen2::roxygenize(PATH)
@@ -306,6 +303,16 @@ existing package, instead of building the package from scratch.
   * Note: If you are already using roxygen in your package, you'll have to use
     roxygen to update your Namespace file via the `R/<package-name>-package.R` file.
     Check the roxygen documentation for more details.
+
+## Adding additional Stan models to an existing R package with Stan models
+
+One may add additional Stan models to an existing package.
+The following steps are required if one is using `devtools`:
+
+1.  Add new Stan file, e.g., `inst/stan/new.stan`
+2.  Run `pkgbuild::compile_dll()` to preform a fake R CMD install.
+3.  Run  `roxygen2::roxygenize()` to update the documentation.
+4.  Run ` devtools::install()` to install the package locally.
 
 ## Links
 

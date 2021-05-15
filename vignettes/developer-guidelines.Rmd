@@ -163,17 +163,10 @@ better version. If it is not already available then there is a good chance we
 will be interested in including it in __bayesplot__ if the plot would also be
 useful for other developers.
 
-* Provide thorough and clear documentation. The documentation won't be perfect 
-(we've found many holes in our __rstanarm__ documentation already and there are 
-certainly more), but you should make every effort to provide clear and thorough 
-documentation, using decent grammar and actual sentences wherever possible. The 
-poor quality of the documentation in many (though certainly not all) R packages 
-is insulting to users and an impediment to high quality research. In no way is 
-the current state of R package documentation a reason to insufficiently document
-your own package. It is unfortunate that this needs to be said, but even a 
-cursory review of popular R packages immediately reveals the necessity for
-guidelines like this one. Some of our own documentation does not always meet
-this high standard, but we are consistently making efforts to improve this.
+* Take documentation seriously. The documentation won't be perfect (we
+constantly find holes in the doc for the R packages in the Stan ecosystem), but
+you should make every effort to provide clear and thorough documentation, using
+decent grammar and actual sentences wherever possible.
 
 
 ### Recommended resources
