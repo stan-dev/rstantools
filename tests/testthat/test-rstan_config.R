@@ -99,16 +99,16 @@ test_that("Unmodified Stan src files are not overwritten", {
 
 # fake .o files
 invisible(sapply(gsub("\\.stan$", "", basename(stan_files)), function(sf) {
-  cat("fake .o file\n",
-      file = file.path(pkg_dest_path, "src",
-                       rstantools:::.stan_prefix(sf, ".o")))
+  writeLines("fake .o file",
+             con = file.path(pkg_dest_path, "src",
+                             rstantools:::.stan_prefix(sf, ".o")))
 }))
 
 # dummy src files
 src_files <- c("foo.cpp", "stanExports_foo.txt", "abcstanExports_foo.cc")
 invisible(sapply(src_files, function(sf) {
-  cat("// fake source file\n",
-      file = file.path(pkg_dest_path, "src", sf))
+  writeLines("// fake source file\n",
+             con = file.path(pkg_dest_path, "src", sf))
 }))
 
 

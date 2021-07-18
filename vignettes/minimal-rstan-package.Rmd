@@ -156,7 +156,7 @@ model {
   y ~ normal(intercept + beta * x, sigma);
 }
 "
-cat(stan_prog, file = file.path(PATH, "inst", "stan", "lm.stan"))
+writeLines(stan_prog, con = file.path(PATH, "inst", "stan", "lm.stan"))
 rstan_config(PATH)
 ```
 
@@ -213,7 +213,7 @@ lm_stan <- function(x, y, ...) {
   return(out)
 }
 "
-cat(Rcode, file = file.path(PATH, "R", "lm_stan.R"))
+writeLines(Rcode, con = file.path(PATH, "R", "lm_stan.R"))
 ```
 
 When __roxygen2__ documentation is enabled, a top-level package file

@@ -236,12 +236,11 @@ rstan_create_package <- function(path,
   message("Configuring Stan compile and module export instructions ...")
   rstan_config(pkgdir)
 
-  cat(
-    readLines(.system_file("Read_and_delete_me")), "\n",
-    file = file.path(pkgdir, "Read-and-delete-me"),
-    sep = "\n",
-    append = TRUE
-  )
+  # open = "at" implies text is appended
+  con <- file(file.path(pkgdir, "Read-and-delete-me"), open = "at")
+  writeLines(readLines(.system_file("Read_and_delete_me")), con)
+  close(con)
+
   message(
     domain = NA,
     sprintf(
