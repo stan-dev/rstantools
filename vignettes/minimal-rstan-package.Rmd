@@ -238,13 +238,16 @@ for `lm_stan` and update the `NAMESPACE` so the function is exported, i.e.,
 available to users when the package is installed.  This can be done with the
 function `roxygen2::roxygenize()`.
 
+```{r, results = "hide"}
+example(source) # defines the sourceDir() function
+```
 ```{r, eval = FALSE}
-try(roxygen2::roxygenize(load_code = roxygen2::load_source), silent = TRUE)
+try(roxygen2::roxygenize(load_code = sourceDir), silent = TRUE)
 pkgbuild::compile_dll()
 roxygen2::roxygenize()
 ```
 ```{r, echo=FALSE}
-try(roxygen2::roxygenize(PATH, load_code = roxygen2::load_source), silent = TRUE)
+try(roxygen2::roxygenize(PATH, load_code = sourceDir), silent = TRUE)
 rm(lm_stan)
 pkgbuild::compile_dll(PATH)
 roxygen2::roxygenize(PATH)
