@@ -41,7 +41,7 @@ Suggests:
     knitr,
     pkgbuild,
     pkgload,
-    roxygen2 (>= 7.0.1),
+    roxygen2 (>= 6.0.1),
     rmarkdown,
     rstudioapi
 RoxygenNote: 7.1.1
