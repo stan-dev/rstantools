@@ -65,7 +65,7 @@ instead.
 
 (Github issue/PR numbers in parentheses)
 
-* New [vignette](http://mc-stan.org/rstantools/articles/) walking through the package creation process. (#9) (thanks to Stefan Siegert)
+* New [vignette](https://mc-stan.org/rstantools/articles/) walking through the package creation process. (#9) (thanks to Stefan Siegert)
 
 * `rstan_package_skeleton()` now calls `usethis::create_package()` instead of `utils::package.skeleton()`. (#28)
 

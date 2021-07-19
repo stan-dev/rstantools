@@ -30,7 +30,7 @@ if(dir.exists(PATH)) {
 
 In this vignette we will walk through the steps necessary for creating an
 R package that depends on Stan by creating a package with one function
-that fits a simple linear regression. Before continuing, we recommend that you first read the other vignette [_Guidelines for Developers of R Packages Interfacing with Stan_](http://mc-stan.org/rstantools/articles/developer-guidelines.html).
+that fits a simple linear regression. Before continuing, we recommend that you first read the other vignette [_Guidelines for Developers of R Packages Interfacing with Stan_](https://mc-stan.org/rstantools/articles/developer-guidelines.html).
 
 ## Creating the package skeleton
 
@@ -321,6 +321,6 @@ The following steps are required if one is using `devtools`:
 
 * Ask a question at the [Stan Forums](https://discourse.mc-stan.org/)
 
-* [R packages](http://r-pkgs.had.co.nz/) by Hadley Wickham provides a solid
-foundation in R package development as well as the release process.
+* [R packages](https://r-pkgs.org/) by Hadley Wickham and Jenny Bryan provides
+a solid foundation in R package development as well as the release process.
 
