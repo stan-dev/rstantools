@@ -193,7 +193,7 @@ rstan_config <- function(pkgdir = ".") {
   suppressMessages({
     cpp_lines <-
       utils::capture.output(
-               Rcpp::exposeClass(class = paste0("model_", model_name),
+               Rcpp::exposeClass(class = paste0("rstantools_model_", model_name),
                                  constructors = list(c("SEXP", "SEXP", "SEXP")),
                                  fields = character(),
                                  methods = c("call_sampler",
