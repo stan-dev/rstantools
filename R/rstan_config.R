@@ -145,17 +145,13 @@ rstan_config <- function(pkgdir = ".") {
   if (add) {
     acc <- sapply(c("Makevars", "Makevars.win"), function(mkv_name) {
       makevars <- readLines(.system_file(mkv_name))
-      cat(makevars,file=file.path(pkgdir, "src", mkv_name),
-          sep="\n",append=TRUE)
       .add_stanfile(makevars, pkgdir, "src", mkv_name,
                     noedit = TRUE, msg = FALSE, warn = TRUE)
     })
   } else {
     acc <- sapply(c("Makevars", "Makevars.win"), function(mkv_name) {
       noedit_msg <- .rstantools_noedit(mkv_name)
-      makevars <- readLines(.system_file(mkv_name))
       mkv_name <- file.path(pkgdir, "src", mkv_name)
-      cat(makevars,file=mkv_name, sep="\n",append=TRUE)
       if(file.exists(mkv_name) &&
          (readLines(mkv_name, n = 1) == noedit_msg)) {
         file.remove(mkv_name) # Stan file found.  remove it
