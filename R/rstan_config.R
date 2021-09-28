@@ -165,64 +165,87 @@ rstan_config <- function(pkgdir = ".") {
 # the .hpp file contains the C++ level class definition of the given stanmodel
 # the .cc file contains the module definition which Rcpp uses to construct
 # the corresponding R ReferenceClass.
+# If the .stan file has a functions block but no parameters block, then there
+# is no module definition but the functions are compiled and exported to the
+# package's namespace.
 .make_cc <- function(file_name, pkgdir) {
   model_name <- sub("[.]stan$", "", basename(file_name)) # model name
   ## path to src/stan_files
   ## stan_path <- file.path(pkgdir, "src", "stan_files")
   # create c++ code
-  cppcode <- rstan::stanc(file_name, allow_undefined = TRUE,
-                          obfuscate_model_name = FALSE)$cppcode
-  cppcode <- scan(text = cppcode, what = character(), sep = "\n", quiet = TRUE)
-  class_declaration <- grep("^class[[:space:]]+[A-Za-z_]", cppcode)
-  cppcode <- append(cppcode, values = "#include <stan_meta_header.hpp>",
-                    after = class_declaration - 1L)
-  # get license file (if any)
-  stan_license <- .read_license(dirname(file_name))
-  # Stan header file
-  hdr_name <- .stan_prefix(model_name, ".h")
-  .add_stanfile(file_lines = c(stan_license,
-                               "#ifndef MODELS_HPP",
-                               "#define MODELS_HPP",
-                               "#define STAN__SERVICES__COMMAND_HPP",
-                               "#include <rstan/rstaninc.hpp>",
-                               cppcode, "#endif"),
-                pkgdir = pkgdir,
-                "src", hdr_name,
-                noedit = TRUE, msg = FALSE, warn = TRUE)
-  # create Rcpp module exposing C++ class as R ReferenceClass
-  suppressMessages({
-    cpp_lines <-
-      utils::capture.output(
-               Rcpp::exposeClass(class = paste0("rstantools_model_", model_name),
-                                 constructors = list(c("SEXP", "SEXP", "SEXP")),
-                                 fields = character(),
-                                 methods = c("call_sampler",
-                                             "param_names",
-                                             "param_names_oi",
-                                             "param_fnames_oi",
-                                             "param_dims",
-                                             "param_dims_oi",
-                                             "update_param_oi",
-                                             "param_oi_tidx",
-                                             "grad_log_prob",
-                                             "log_prob",
-                                             "unconstrain_pars",
-                                             "constrain_pars",
-                                             "num_pars_unconstrained",
-                                             "unconstrained_param_names",
-                                             "constrained_param_names",
-                                             "standalone_gqs"),
-                                 file = stdout(),
-                                 header = paste0('#include "', hdr_name, '"'),
-                                 module = paste0("stan_fit4",
-                                                 model_name, "_mod"),
-                                 CppClass = "rstan::stan_fit<stan_model, boost::random::ecuyer1988> ",
-                                 Rfile = FALSE)
-             )
-  })
+  stanc_ret <- rstan::stanc(file_name, allow_undefined = TRUE,
+                            obfuscate_model_name = FALSE)
+  only_functions <- grepl("functions[[:space:]]*\\{",  stanc_ret$model_code) &&
+                   !grepl("parameters[[:space:]]*\\{", stanc_ret$model_code)
+  if (only_functions) {
+    # file_name is a collection of Stan functions rather than a model
+    cppcode <- rstan::expose_stan_functions(stanc_ret, dryRun = TRUE)
+    cpp_lines <- scan(text = cppcode, what = character(),
+                      sep = "\n", quiet = TRUE)
+    cpp_lines <- cpp_lines[cpp_lines != "#include <exporter.h>"]
+    cat("#include <exporter.h>",
+        "#include <stan/math/prim/mat/fun/Eigen.hpp>",
+        "#include <stan/model/standalone_functions_header.hpp>",
+        file = file.path(pkgdir, "src",
+                         paste(basename(pkgdir), "types.h", sep = "_")),
+        sep = "\n")
+
+  } else { # actual Stan model
+    cppcode <- stanc_ret$cppcode
+    cppcode <- scan(text = cppcode, what = character(), sep = "\n", quiet = TRUE)
+    class_declaration <- grep("^class[[:space:]]+[A-Za-z_]", cppcode)
+    cppcode <- append(cppcode, values = "#include <stan_meta_header.hpp>",
+                      after = class_declaration - 1L)
+    # get license file (if any)
+    stan_license <- .read_license(dirname(file_name))
+    # Stan header file
+    hdr_name <- .stan_prefix(model_name, ".h")
+    .add_stanfile(file_lines = c(stan_license,
+                                "#ifndef MODELS_HPP",
+                                "#define MODELS_HPP",
+                                "#define STAN__SERVICES__COMMAND_HPP",
+                                "#include <rstan/rstaninc.hpp>",
+                                cppcode, "#endif"),
+                  pkgdir = pkgdir,
+                  "src", hdr_name,
+                  noedit = TRUE, msg = FALSE, warn = TRUE)
+    # create Rcpp module exposing C++ class as R ReferenceClass
+    suppressMessages({
+      cpp_lines <-
+        utils::capture.output(
+                Rcpp::exposeClass(class = paste0("rstantools_model_", model_name),
+                                  constructors = list(c("SEXP", "SEXP", "SEXP")),
+                                  fields = character(),
+                                  methods = c("call_sampler",
+                                              "param_names",
+                                              "param_names_oi",
+                                              "param_fnames_oi",
+                                              "param_dims",
+                                              "param_dims_oi",
+                                              "update_param_oi",
+                                              "param_oi_tidx",
+                                              "grad_log_prob",
+                                              "log_prob",
+                                              "unconstrain_pars",
+                                              "constrain_pars",
+                                              "num_pars_unconstrained",
+                                              "unconstrained_param_names",
+                                              "constrained_param_names",
+                                              "standalone_gqs"),
+                                  file = stdout(),
+                                  header = paste0('#include "', hdr_name, '"'),
+                                  module = paste0("stan_fit4",
+                                                  model_name, "_mod"),
+                                  CppClass = "rstan::stan_fit<stan_model, boost::random::ecuyer1988> ",
+                                  Rfile = FALSE)
+              )
+    })
+  }
   .add_stanfile(file_lines = cpp_lines,
                 pkgdir = pkgdir,
-                "src", .stan_prefix(model_name, ".cc"),
+                "src",
+                ifelse(only_functions, paste0(model_name, ".cpp"),
+                       .stan_prefix(model_name, ".cc")),
                 noedit = TRUE, msg = FALSE, warn = TRUE)
   return(invisible(NULL))
 }
@@ -248,6 +271,12 @@ rstan_config <- function(pkgdir = ".") {
 .update_stanmodels <- function(pkgdir) {
   model_names <- list.files(file.path(pkgdir, "inst", "stan"),
                             pattern = "*.stan$")
+  only_functions <- sapply(model_names, FUN = function(nm) {
+      lns <- readLines(file.path(pkgdir, "inst", "stan", nm))
+      return( grepl("functions[[:space:]]*\\{" , lns) &&
+            !grepl("parameters[[:space:]]*\\{", lns) )
+    })
+  model_names <- model_names[!only_functions]
   model_names <- gsub("[.]stan$", "", model_names)
   if (length(model_names) == 0) {
     stanmodels <- .rstantools_noedit("stanmodels.R")
