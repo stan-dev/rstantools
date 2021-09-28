@@ -175,7 +175,7 @@ rstan_config <- function(pkgdir = ".") {
   # create c++ code
   stanc_ret <- rstan::stanc(file_name, allow_undefined = TRUE,
                             obfuscate_model_name = FALSE)
-  only_functions <- grepl("functions[[:space:]]*\\{",  stanc_ret$model_code) &&
+  only_functions <- grepl("functions[[:space:]]*\\{",  stanc_ret$model_code) &
                    !grepl("parameters[[:space:]]*\\{", stanc_ret$model_code)
   if (only_functions) {
     # file_name is a collection of Stan functions rather than a model
@@ -183,6 +183,19 @@ rstan_config <- function(pkgdir = ".") {
     cpp_lines <- scan(text = cppcode, what = character(),
                       sep = "\n", quiet = TRUE)
     cpp_lines <- cpp_lines[cpp_lines != "#include <exporter.h>"]
+
+    # Stanc3 gives 'auto' return type for standalone functions, which
+    #   causes errors with Rcpp::export, so need to replace the auto
+    #   return with the plain type from the main definition
+    if(utils::packageVersion('rstan') >= 2.26) {
+      # Extract line numbers of functions to be exported
+      decl_lines = grep("// \\[\\[Rcpp::export]]",cpp_lines) + 1
+
+      # Replace auto return type with function plain type
+      for(i in 1:length(decl_lines)) {
+        cpp_lines[decl_lines[i]] <- .replace_auto(decl_lines[i],cppcode, cpp_lines)
+      }
+    }
     cat("#include <exporter.h>",
         "#include <stan/math/prim/mat/fun/Eigen.hpp>",
         "#include <stan/model/standalone_functions_header.hpp>",
@@ -273,8 +286,8 @@ rstan_config <- function(pkgdir = ".") {
                             pattern = "*.stan$")
   only_functions <- sapply(model_names, FUN = function(nm) {
       lns <- readLines(file.path(pkgdir, "inst", "stan", nm))
-      return( grepl("functions[[:space:]]*\\{" , lns) &&
-            !grepl("parameters[[:space:]]*\\{", lns) )
+      return(any(grepl("functions[[:space:]]*\\{" , lns)) &
+            !any(grepl("parameters[[:space:]]*\\{", lns)) )
     })
   model_names <- model_names[!only_functions]
   model_names <- gsub("[.]stan$", "", model_names)
@@ -304,4 +317,47 @@ rstan_config <- function(pkgdir = ".") {
                     stanmodels[(load_line+2):nlines])
   }
   stanmodels
+}
+
+# Replace auto return type in function exports with the plain type from the main body.
+.replace_auto <- function(decl_line, cppcode, cpp_lines) {
+  # Extract the name of function
+  decl = cpp_lines[decl_line]
+  decl = gsub("auto ","",decl,fixed=T)
+  decl = sub("\\(.*","",decl,perl=T)
+
+  # Replace newlines with blank spaces
+  t3 = gsub("\n"," ",cppcode,fixed=T)
+
+  # Identify code segment containing first declaration of function
+  sf1 = strsplit(t3,decl,fixed=T)[[1]][1]
+  sf2 = tail(strsplit(sf1,"template",fixed=T)[[1]],1)
+
+  # Get location of type promotion (if present)
+  promote_start = regexec("stan::promote_args_t<",sf2)[[1]]
+  
+  if(promote_start > 0) {
+
+    str_t = strsplit(sf2,"")[[1]]
+    promote_end = promote_start + attr(promote_start,'match.length')
+  
+    count = 1
+
+    while(count > 0 & promote_end < length(str_t)) {
+      count = count + ifelse(str_t[promote_end] == "<", 1, 
+                             ifelse(str_t[promote_end] == ">", -1,0))
+      promote_end = promote_end + 1
+    }
+
+    sf2 = paste0(c(str_t[1:(promote_start-1)], "double",
+                   str_t[promote_end:length(str_t)]),
+                 collapse = "")
+  }
+
+  # Extract return type declaration and replace promoted scalar
+  #  type with double
+  rtn_type = strsplit(sf2,"<typename(.*?)> ")[[1]][2]
+
+  # Update model code with type declarations
+  gsub("auto ", rtn_type, cpp_lines[decl_line],fixed=T)
 }
