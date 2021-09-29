@@ -176,7 +176,11 @@ rstan_config <- function(pkgdir = ".") {
   stanc_ret <- rstan::stanc(file_name, allow_undefined = TRUE,
                             obfuscate_model_name = FALSE)
   only_functions <- grepl("functions[[:space:]]*\\{",  stanc_ret$model_code) &
-                   !grepl("parameters[[:space:]]*\\{", stanc_ret$model_code)
+                    !grepl("data[[:space:]]*\\{", stanc_ret$model_code) &
+                    !grepl("parameters[[:space:]]*\\{", stanc_ret$model_code) &
+                    !grepl("transformed[[:space:]]parameters[[:space:]]*\\{", stanc_ret$model_code) &
+                    !grepl("model[[:space:]]*\\{", stanc_ret$model_code) &
+                    !grepl("generated[[:space:]]quantities[[:space:]]*\\{", stanc_ret$model_code)
   if (only_functions) {
     # file_name is a collection of Stan functions rather than a model
     cppcode <- rstan::expose_stan_functions(stanc_ret, dryRun = TRUE)
@@ -287,7 +291,11 @@ rstan_config <- function(pkgdir = ".") {
   only_functions <- sapply(model_names, FUN = function(nm) {
       lns <- readLines(file.path(pkgdir, "inst", "stan", nm))
       return(any(grepl("functions[[:space:]]*\\{" , lns)) &
-            !any(grepl("parameters[[:space:]]*\\{", lns)) )
+            !any(grepl("data[[:space:]]*\\{", lns)) &
+            !any(grepl("parameters[[:space:]]*\\{", lns)) &
+            !any(grepl("transformed[[:space:]]parameters[[:space:]]*\\{", lns)) &
+            !any(grepl("model[[:space:]]*\\{", lns)) &
+            !any(grepl("generated[[:space:]]quantities[[:space:]]*\\{", lns)) )
     })
   model_names <- model_names[!only_functions]
   model_names <- gsub("[.]stan$", "", model_names)
