@@ -330,41 +330,41 @@ rstan_config <- function(pkgdir = ".") {
 # Replace auto return type in function exports with the plain type from the main body.
 .replace_auto <- function(decl_line, cppcode, cpp_lines) {
   # Extract the name of function
-  decl = cpp_lines[decl_line]
-  decl = gsub("auto ","",decl,fixed=T)
-  decl = sub("\\(.*","",decl,perl=T)
+  decl <- cpp_lines[decl_line]
+  decl <- gsub("auto ","",decl,fixed=T)
+  decl <- sub("\\(.*","",decl,perl=T)
 
   # Replace newlines with blank spaces
-  t3 = gsub("\n"," ",cppcode,fixed=T)
+  t3 <- gsub("\n"," ",cppcode,fixed=T)
 
   # Identify code segment containing first declaration of function
-  sf1 = strsplit(t3,decl,fixed=T)[[1]][1]
-  sf2 = tail(strsplit(sf1,"template",fixed=T)[[1]],1)
+  sf1 <- strsplit(t3,decl,fixed=T)[[1]][1]
+  sf2 <- tail(strsplit(sf1,";",fixed=T)[[1]],1)
 
   # Get location of type promotion (if present)
-  promote_start = regexec("stan::promote_args_t<",sf2)[[1]]
+  promote_start <- regexec("stan::promote_args_t<",sf2)[[1]]
   
   if(promote_start > 0) {
 
-    str_t = strsplit(sf2,"")[[1]]
-    promote_end = promote_start + attr(promote_start,'match.length')
+    str_t <- strsplit(sf2,"")[[1]]
+    promote_end <- promote_start + attr(promote_start,'match.length')
   
-    count = 1
+    count <- 1
 
     while(count > 0 & promote_end < length(str_t)) {
-      count = count + ifelse(str_t[promote_end] == "<", 1, 
+      count <- count + ifelse(str_t[promote_end] == "<", 1, 
                              ifelse(str_t[promote_end] == ">", -1,0))
-      promote_end = promote_end + 1
+      promote_end <- promote_end + 1
     }
 
-    sf2 = paste0(c(str_t[1:(promote_start-1)], "double",
+    sf2 <- paste0(c(str_t[1:(promote_start-1)], "double",
                    str_t[promote_end:length(str_t)]),
                  collapse = "")
   }
 
   # Extract return type declaration and replace promoted scalar
   #  type with double
-  rtn_type = strsplit(sf2,"<typename(.*?)> ")[[1]][2]
+  rtn_type <- gsub("template <typename(.*?)> ","",sf2)
 
   # Update model code with type declarations
   gsub("auto ", rtn_type, cpp_lines[decl_line],fixed=T)
