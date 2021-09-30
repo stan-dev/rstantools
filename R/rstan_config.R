@@ -213,6 +213,9 @@ rstan_config <- function(pkgdir = ".") {
     class_declaration <- grep("^class[[:space:]]+[A-Za-z_]", cppcode)
     cppcode <- append(cppcode, values = "#include <stan_meta_header.hpp>",
                       after = class_declaration - 1L)
+    stanc3_declaration <- grep("#define USE_STANC3", cppcode)
+    cppcode <- append(cppcode, values = "#include <rstan/rstaninc.hpp>",
+                      after = stanc3_declaration)
     # get license file (if any)
     stan_license <- .read_license(dirname(file_name))
     # Stan header file
@@ -221,7 +224,6 @@ rstan_config <- function(pkgdir = ".") {
                                 "#ifndef MODELS_HPP",
                                 "#define MODELS_HPP",
                                 "#define STAN__SERVICES__COMMAND_HPP",
-                                "#include <rstan/rstaninc.hpp>",
                                 cppcode, "#endif"),
                   pkgdir = pkgdir,
                   "src", hdr_name,
