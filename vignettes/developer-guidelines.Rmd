@@ -6,7 +6,7 @@ output:
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Developer Guidelines}
+  %\VignetteIndexEntry{Guidelines for Developers of R Packages Interfacing with Stan}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,7 +17,7 @@ One of the coolest things about working on a project like Stan has been seeing
 some of our users begin to develop tools for making Stan more accessible to
 audiences that may otherwise not benefit from what Stan offers. In particular,
 recently we have started seeing a growing number of R packages that provide
-high-level interfaces to Stan, using the [__rstan__](https://mc-stan.org/rstan) 
+high-level interfaces to Stan, using the [__rstan__](https://mc-stan.org/rstan/) 
 package for estimating models without requiring that the user be familiar with 
 the Stan modeling language itself.
 
@@ -56,7 +56,7 @@ package should be an exception definitely let us know.
 which you should use to create the basic structure of your package. (As of
 `v2.0.0` this replaces the `rstan_package_skeleton` function.) This will set up
 a package with functionality for pre-compiled Stan programs, in the style of the
-[__rstanarm__](https://mc-stan.org/rstanarm) package (source code:
+[__rstanarm__](https://mc-stan.org/rstanarm/) package (source code:
 https://github.com/stan-dev/rstanarm).
 
 * Use version control (e.g., git).
@@ -171,10 +171,10 @@ decent grammar and actual sentences wherever possible.
 
 ### Recommended resources
 
-* Hadley Wickham's [book on R packages](http://r-pkgs.had.co.nz/). If you are 
-interested in developing an R package that interfaces with Stan but are not an 
-experienced package developer, we recommend Hadley's book, which is free to read
-online. Even if you are an experienced developer of R packages, Hadley's book is
+* Hadley Wickham and Jenny Bryan's [book on R packages](https://r-pkgs.org/). If you 
+are interested in developing an R package that interfaces with Stan but are not an 
+experienced package developer, we recommend this book, which is free to read
+online. Even if you are an experienced developer of R packages, the book is
 still a great resource.
 
 * If you need help setting up your package or have questions about these 

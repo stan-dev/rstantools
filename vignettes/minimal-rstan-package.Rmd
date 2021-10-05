@@ -30,7 +30,7 @@ if(dir.exists(PATH)) {
 
 In this vignette we will walk through the steps necessary for creating an
 R package that depends on Stan by creating a package with one function
-that fits a simple linear regression. Before continuing, we recommend that you first read the other vignette [_Guidelines for Developers of R Packages Interfacing with Stan_](http://mc-stan.org/rstantools/articles/developer-guidelines.html).
+that fits a simple linear regression. Before continuing, we recommend that you first read the other vignette [_Guidelines for Developers of R Packages Interfacing with Stan_](https://mc-stan.org/rstantools/articles/developer-guidelines.html).
 
 ## Creating the package skeleton
 
@@ -156,7 +156,7 @@ model {
   y ~ normal(intercept + beta * x, sigma);
 }
 "
-cat(stan_prog, file = file.path(PATH, "inst", "stan", "lm.stan"))
+writeLines(stan_prog, con = file.path(PATH, "inst", "stan", "lm.stan"))
 rstan_config(PATH)
 ```
 
@@ -213,7 +213,7 @@ lm_stan <- function(x, y, ...) {
   return(out)
 }
 "
-cat(Rcode, file = file.path(PATH, "R", "lm_stan.R"))
+writeLines(Rcode, con = file.path(PATH, "R", "lm_stan.R"))
 ```
 
 When __roxygen2__ documentation is enabled, a top-level package file
@@ -236,17 +236,18 @@ information about the package.
 With __roxygen__ documentation enabled, we need to generate the documentation
 for `lm_stan` and update the `NAMESPACE` so the function is exported, i.e.,
 available to users when the package is installed.  This can be done with the
-function `roxygen2::roxygenize()`.
+function `roxygen2::roxygenize()`, which needs to be called twice initially.
 
+```{r, results = "hide"}
+example(source) # defines the sourceDir() function
+```
 ```{r, eval = FALSE}
-try(roxygen2::roxygenize(load_code = roxygen2::load_source), silent = TRUE)
-pkgbuild::compile_dll()
+try(roxygen2::roxygenize(load_code = sourceDir), silent = TRUE)
 roxygen2::roxygenize()
 ```
 ```{r, echo=FALSE}
-try(roxygen2::roxygenize(PATH, load_code = roxygen2::load_source), silent = TRUE)
+try(roxygen2::roxygenize(PATH, load_code = sourceDir), silent = TRUE)
 rm(lm_stan)
-pkgbuild::compile_dll(PATH)
 roxygen2::roxygenize(PATH)
 ```
 
@@ -320,6 +321,6 @@ The following steps are required if one is using `devtools`:
 
 * Ask a question at the [Stan Forums](https://discourse.mc-stan.org/)
 
-* [R packages](http://r-pkgs.had.co.nz/) by Hadley Wickham provides a solid
-foundation in R package development as well as the release process.
+* [R packages](https://r-pkgs.org/) by Hadley Wickham and Jenny Bryan provides
+a solid foundation in R package development as well as the release process.
 
