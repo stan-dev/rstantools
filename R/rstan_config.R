@@ -213,13 +213,19 @@ rstan_config <- function(pkgdir = ".") {
     class_declaration <- grep("^class[[:space:]]+[A-Za-z_]", cppcode)
     cppcode <- append(cppcode, values = "#include <stan_meta_header.hpp>",
                       after = class_declaration - 1L)
-    stanc3_declaration <- grep("#define USE_STANC3", cppcode)
-    cppcode <- append(cppcode, values = "#include <rstan/rstaninc.hpp>",
-                      after = stanc3_declaration)
-    # get license file (if any)
-    stan_license <- .read_license(dirname(file_name))
+    # If stan model generated using stanc3, need to make sure that the rstan files are
+    #   included after USE_STANC3 has been defined
+    if(utils::packageVersion('rstan') >= 2.26) {
+      stanc3_declaration <- grep("#define USE_STANC3", cppcode)
+      cppcode <- append(cppcode, values = "#include <rstan/rstaninc.hpp>",
+                        after = stanc3_declaration + 1)
+    } else {
+      cppcode <- c("#include <rstan/rstaninc.hpp>", cppcode)
+    }
     # Stan header file
     hdr_name <- .stan_prefix(model_name, ".h")
+    # get license file (if any)
+    stan_license <- .read_license(dirname(file_name))
     .add_stanfile(file_lines = c(stan_license,
                                 "#ifndef MODELS_HPP",
                                 "#define MODELS_HPP",
@@ -341,7 +347,7 @@ rstan_config <- function(pkgdir = ".") {
 
   # Identify code segment containing first declaration of function
   sf1 <- strsplit(t3,decl,fixed=T)[[1]][1]
-  sf2 <- tail(strsplit(sf1,";",fixed=T)[[1]],1)
+  sf2 <- utils::tail(strsplit(sf1,";",fixed=T)[[1]],1)
 
   # Get location of type promotion (if present)
   promote_start <- regexec("stan::promote_args_t<",sf2)[[1]]
