@@ -250,76 +250,76 @@ try(roxygen2::roxygenize(PATH, load_code = sourceDir), silent = TRUE)
 roxygen2::roxygenize(PATH)
 ```
 
-## Install and use
+<!-- ## Install and use -->
 
-Finally, the package is ready to be installed:
+<!-- Finally, the package is ready to be installed: -->
 
-```{r,eval=FALSE}
-# using ../rstanlm because already inside the rstanlm directory
-install.packages("../rstanlm", repos = NULL, type = "source")
-```
-```{r,echo=FALSE}
-install.packages(PATH, repos = NULL, type = "source")
-```
+<!-- ```{r,eval=FALSE} -->
+<!-- # using ../rstanlm because already inside the rstanlm directory -->
+<!-- install.packages("../rstanlm", repos = NULL, type = "source") -->
+<!-- ``` -->
+<!-- ```{r,echo=FALSE} -->
+<!-- install.packages(PATH, repos = NULL, type = "source") -->
+<!-- ``` -->
 
-It is also possible to use `devtools::install(quick=FALSE)` to install the
-package. The argument `quick=FALSE` is necessary if you want to recompile the
-Stan models. Going forward, if you only make a  change to the R code or the
-documentation, you can set `quick=TRUE` to speed up the process, or use
-`devtools::load_all()`.
+<!-- It is also possible to use `devtools::install(quick=FALSE)` to install the -->
+<!-- package. The argument `quick=FALSE` is necessary if you want to recompile the -->
+<!-- Stan models. Going forward, if you only make a  change to the R code or the -->
+<!-- documentation, you can set `quick=TRUE` to speed up the process, or use -->
+<!-- `devtools::load_all()`. -->
 
-After installation, the package can be loaded and used like any other R package:
+<!-- After installation, the package can be loaded and used like any other R package: -->
 
-```{r, eval=FALSE}
-library("rstanlm")
-```
+<!-- ```{r, eval=FALSE} -->
+<!-- library("rstanlm") -->
+<!-- ``` -->
 
-```{r}
-fit <- lm_stan(y = rnorm(10), x = rnorm(10), 
-               # arguments passed to sampling
-               iter = 2000, refresh = 500)
-print(fit)
-```
+<!-- ```{r} -->
+<!-- fit <- lm_stan(y = rnorm(10), x = rnorm(10),  -->
+<!--                # arguments passed to sampling -->
+<!--                iter = 2000, refresh = 500) -->
+<!-- print(fit) -->
+<!-- ``` -->
 
-```{r, echo=FALSE}
-unlink(PATH, recursive = TRUE, force = TRUE)
-```
+<!-- ```{r, echo=FALSE} -->
+<!-- unlink(PATH, recursive = TRUE, force = TRUE) -->
+<!-- ``` -->
 
-## Advanced options
+<!-- ## Advanced options -->
 
-Details can be found in the documentation for `rstan_create_package()` so we
-only mention some of these briefly here:
+<!-- Details can be found in the documentation for `rstan_create_package()` so we -->
+<!-- only mention some of these briefly here: -->
 
-* Running `rstan_create_package()` with `auto_config = TRUE` (the default value)
-automatically synchronizes the Stan C++ files with the `.stan` model files
-located in `inst/stan`, although this creates a dependency of your package on
-__rstantools__ itself (i.e., __rstantools__ must be installed for your package
-to work).  Setting `auto_config = FALSE` removes this dependency, at the cost of
-having to manually synchronize Stan C++ files by running `rstan_config()` every
-time a package `.stan` file is added, removed, or even just modified.
+<!-- * Running `rstan_create_package()` with `auto_config = TRUE` (the default value) -->
+<!-- automatically synchronizes the Stan C++ files with the `.stan` model files -->
+<!-- located in `inst/stan`, although this creates a dependency of your package on -->
+<!-- __rstantools__ itself (i.e., __rstantools__ must be installed for your package -->
+<!-- to work).  Setting `auto_config = FALSE` removes this dependency, at the cost of -->
+<!-- having to manually synchronize Stan C++ files by running `rstan_config()` every -->
+<!-- time a package `.stan` file is added, removed, or even just modified. -->
 
-* The function `use_rstan()` can be used to add Stan functionality to an
-existing package, instead of building the package from scratch.
-  * Note: If you are already using roxygen in your package, you'll have to use
-    roxygen to update your Namespace file via the `R/<package-name>-package.R` file.
-    Check the roxygen documentation for more details.
+<!-- * The function `use_rstan()` can be used to add Stan functionality to an -->
+<!-- existing package, instead of building the package from scratch. -->
+<!--   * Note: If you are already using roxygen in your package, you'll have to use -->
+<!--     roxygen to update your Namespace file via the `R/<package-name>-package.R` file. -->
+<!--     Check the roxygen documentation for more details. -->
 
-## Adding additional Stan models to an existing R package with Stan models
+<!-- ## Adding additional Stan models to an existing R package with Stan models -->
 
-One may add additional Stan models to an existing package.
-The following steps are required if one is using `devtools`:
+<!-- One may add additional Stan models to an existing package. -->
+<!-- The following steps are required if one is using `devtools`: -->
 
-1.  Add new Stan file, e.g., `inst/stan/new.stan`
-2.  Run `pkgbuild::compile_dll()` to preform a fake R CMD install.
-3.  Run  `roxygen2::roxygenize()` to update the documentation.
-4.  Run ` devtools::install()` to install the package locally.
+<!-- 1.  Add new Stan file, e.g., `inst/stan/new.stan` -->
+<!-- 2.  Run `pkgbuild::compile_dll()` to preform a fake R CMD install. -->
+<!-- 3.  Run  `roxygen2::roxygenize()` to update the documentation. -->
+<!-- 4.  Run ` devtools::install()` to install the package locally. -->
 
-## Links
+<!-- ## Links -->
 
-* [_Guidelines for Developers of R Packages Interfacing with Stan_](https://mc-stan.org/rstantools/articles/developer-guidelines.html)
+<!-- * [_Guidelines for Developers of R Packages Interfacing with Stan_](https://mc-stan.org/rstantools/articles/developer-guidelines.html) -->
 
-* Ask a question at the [Stan Forums](https://discourse.mc-stan.org/)
+<!-- * Ask a question at the [Stan Forums](https://discourse.mc-stan.org/) -->
 
-* [R packages](https://r-pkgs.org/) by Hadley Wickham and Jenny Bryan provides
-a solid foundation in R package development as well as the release process.
+<!-- * [R packages](https://r-pkgs.org/) by Hadley Wickham and Jenny Bryan provides -->
+<!-- a solid foundation in R package development as well as the release process. -->
 
