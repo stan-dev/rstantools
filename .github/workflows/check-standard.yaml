@@ -45,7 +45,7 @@ jobs:
           extra-packages: rcmdcheck BH RcppParallel RcppEigen Rcpp rstan StanHeaders
 
       - name: Check against CRAN StanHeaders and CRAN RStan
-      - uses: r-lib/actions/check-r-package@v1
+        uses: r-lib/actions/check-r-package@v1
 
       - name: Install Development StanHeaders and CRAN RStan
         run: |
@@ -54,7 +54,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Check against Development StanHeaders and CRAN RStan
-      - uses: r-lib/actions/check-r-package@v1
+        uses: r-lib/actions/check-r-package@v1
 
       - name: Install Development StanHeaders and Development RStan
         run: |
@@ -63,7 +63,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Check against Development StanHeaders and Development RStan
-      - uses: r-lib/actions/check-r-package@v1
+        uses: r-lib/actions/check-r-package@v1
 
       - name: Show testthat output
         if: always()
