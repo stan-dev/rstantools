@@ -247,7 +247,6 @@ roxygen2::roxygenize()
 ```
 ```{r, echo=FALSE}
 try(roxygen2::roxygenize(PATH, load_code = sourceDir), silent = TRUE)
-rm(lm_stan)
 roxygen2::roxygenize(PATH)
 ```
 
