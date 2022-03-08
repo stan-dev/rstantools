@@ -42,6 +42,11 @@ rstan_config <- function(pkgdir = ".") {
   # get stan model files
   stan_files <- list.files(file.path(pkgdir, "inst", "stan"),
                            full.names = TRUE, pattern = "\\.stan$")
+  stan_files <- c(stan_files,
+                  list.files(file.path(pkgdir, "inst", "stan"),
+                            full.names = TRUE,
+                            pattern = "\\.stanfunctions$",
+                            recursive = T))
   if (length(stan_files) != 0) {
     # add R & src folders in case run from configure[.win] script
     .add_standir(pkgdir, "R", msg = FALSE, warn = FALSE)
@@ -173,8 +178,18 @@ rstan_config <- function(pkgdir = ".") {
   ## path to src/stan_files
   ## stan_path <- file.path(pkgdir, "src", "stan_files")
   # create c++ code
+  # .stanfunction compatibility only available after 2.29, so need
+  # to manually wrap function definitions in functions { } before calling stanc
+  if (grepl("\\.stanfunctions$", file_name) &
+      (utils::packageVersion('rstan') < 2.29)) {
+    mod <- readLines(file_name)
+    file_name <- paste0(.basename_noext(file_name), "_wrapped.stanfunctions")
+    cat("functions {", mod, "}", sep = "\n",
+        file = file_name)
+  }
   stanc_ret <- rstan::stanc(file_name, allow_undefined = TRUE,
-                            obfuscate_model_name = FALSE)
+                            obfuscate_model_name = FALSE,
+                            isystem = file.path(pkgdir, "inst", "stan"))
   only_functions <- grepl("functions[[:space:]]*\\{",  stanc_ret$model_code) &
                     !grepl("data[[:space:]]*\\{", stanc_ret$model_code) &
                     !grepl("parameters[[:space:]]*\\{", stanc_ret$model_code) &
