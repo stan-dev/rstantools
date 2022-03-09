@@ -41,12 +41,8 @@ rstan_config <- function(pkgdir = ".") {
   pkgdir <- .check_pkgdir(pkgdir) # check if package root directory
   # get stan model files
   stan_files <- list.files(file.path(pkgdir, "inst", "stan"),
-                           full.names = TRUE, pattern = "\\.stan$")
-  stan_files <- c(stan_files,
-                  list.files(file.path(pkgdir, "inst", "stan"),
-                            full.names = TRUE,
-                            pattern = "\\.stanfunctions$",
-                            recursive = T))
+                           full.names = TRUE,
+                           pattern = "(\\.stan$)|(\\.stanfunctions$)")
   if (length(stan_files) != 0) {
     # add R & src folders in case run from configure[.win] script
     .add_standir(pkgdir, "R", msg = FALSE, warn = FALSE)
@@ -180,7 +176,7 @@ rstan_config <- function(pkgdir = ".") {
   # create c++ code
   # .stanfunction compatibility only available after 2.29, so need
   # to manually wrap function definitions in functions { } before calling stanc
-  if (grepl("\\.stanfunctions$", file_name) &
+  if (grepl("\\.stanfunctions$", file_name) &&
       (utils::packageVersion('rstan') < 2.29)) {
     mod <- readLines(file_name)
     file_name <- paste0(.basename_noext(file_name), "_wrapped.stanfunctions")
@@ -366,16 +362,16 @@ rstan_config <- function(pkgdir = ".") {
 
   # Get location of type promotion (if present)
   promote_start <- regexec("stan::promote_args_t<",sf2)[[1]]
-  
+
   if(promote_start > 0) {
 
     str_t <- strsplit(sf2,"")[[1]]
     promote_end <- promote_start + attr(promote_start,'match.length')
-  
+
     count <- 1
 
     while(count > 0 & promote_end < length(str_t)) {
-      count <- count + ifelse(str_t[promote_end] == "<", 1, 
+      count <- count + ifelse(str_t[promote_end] == "<", 1,
                              ifelse(str_t[promote_end] == ">", -1,0))
       promote_end <- promote_end + 1
     }
