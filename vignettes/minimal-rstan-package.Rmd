@@ -245,7 +245,7 @@ example(source) # defines the sourceDir() function
 try(roxygen2::roxygenize(load_code = sourceDir), silent = TRUE)
 roxygen2::roxygenize()
 ```
-```{r, echo=FALSE}
+```{r, echo=FALSE, results="hide"}
 try(roxygen2::roxygenize(PATH, load_code = sourceDir), silent = TRUE)
 roxygen2::roxygenize(PATH)
 ```
