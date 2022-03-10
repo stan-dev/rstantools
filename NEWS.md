@@ -1,4 +1,4 @@
-# rstantools 2.1.1.9000
+# rstantools 2.2.0
 
 (Github issue/PR numbers in parentheses)
 
@@ -6,6 +6,11 @@
 models to an existing R package that already has Stan models. (#79, @rerickson-usgs) 
 
 * Fixed R CMD check NOTE "configure does not appear to have a #! interpreter line". (#83)
+
+* Switch to GitHub Actions for CI. (#90, @andrjohns)
+
+* Ensure compatibility with future versions of RStan. (#85, #94, @andrjohns, @hsbadr)
+
 
 # rstantools 2.1.1
 

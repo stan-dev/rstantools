@@ -1,9 +1,9 @@
 # rstantools <img src="man/figures/stanlogo.png" align="right" width="120" />
 
 <!-- badges: start -->
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/rstantools?color=blue)](https://cran.r-project.org/package=rstantools)
-[![Downloads](https://cranlogs.r-pkg.org/badges/rstantools?color=blue)](https://cran.rstudio.com/package=rstantools)
-[![Travis-CI Build Status](https://travis-ci.org/stan-dev/rstantools.svg?branch=master)](https://travis-ci.org/stan-dev/rstantools)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/rstantools?color=blue)](https://cran.r-project.org/web/packages/rstantools)
+[![RStudio_CRAN_mirror_downloads_badge](https://cranlogs.r-pkg.org/badges/rstantools?color=blue)](https://cran.r-project.org/web/packages/rstantools)
+[![R-CMD-check](https://github.com/stan-dev/rstantools/workflows/R-CMD-check/badge.svg)](https://github.com/stan-dev/rstantools/actions)
 <!-- badges: end -->
 
 ### Overview 
