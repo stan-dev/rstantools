@@ -9,7 +9,11 @@ models to an existing R package that already has Stan models. (#79, @rerickson-u
 
 * Switch to GitHub Actions for CI. (#90, @andrjohns)
 
+* Deprecate automatic creation of `.travis.yml` file. We now recommend the use
+of GitHub Actions. (#89)
+
 * Ensure compatibility with future versions of RStan. (#85, #94, @andrjohns, @hsbadr)
+
 
 
 # rstantools 2.1.1
