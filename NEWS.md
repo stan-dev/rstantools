@@ -7,13 +7,14 @@ models to an existing R package that already has Stan models. (#79, @rerickson-u
 
 * Fixed R CMD check NOTE "configure does not appear to have a #! interpreter line". (#83)
 
+* Use writeLines instead of cat to fix line endings issue reported by CRAN. (#87)
+
 * Switch to GitHub Actions for CI. (#90, @andrjohns)
 
 * Deprecate automatic creation of `.travis.yml` file. We now recommend the use
 of GitHub Actions. (#89)
 
 * Ensure compatibility with future versions of RStan. (#85, #94, @andrjohns, @hsbadr)
-
 
 
 # rstantools 2.1.1
