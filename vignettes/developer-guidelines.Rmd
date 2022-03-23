@@ -21,31 +21,24 @@ high-level interfaces to Stan, using the [__rstan__](https://mc-stan.org/rstan/)
 package for estimating models without requiring that the user be familiar with 
 the Stan modeling language itself.
 
-This is a great development and we would like to support such efforts going 
+This is a great development and we would like to support such efforts going
 forward, but to-date we have made little effort to coordinate the development of
-these packages. To avoid a Wild West, so to speak, of Stan-based R packages, we 
-think it is important that developers make every effort to adhere to certain 
+these packages. To avoid a Wild West, so to speak, of Stan-based R packages, we
+think it is important that developers make every effort to adhere to certain
 guidelines in order to ensure these packages are of the highest possible quality
 and provide the best possible experience for users. To that end, in this post we
-present a set of recommendations for the development of R packages that 
-interface with Stan. These recommendations are based on software design 
-principles we value as well as many things we are learning as we continue 
-developing our __rstanarm__ package and review packages being developed by 
-others.
+present a set of recommendations for the development of R packages that
+interface with Stan. These recommendations are based on software design
+principles we value as well as many things we are learning as we continue
+developing our own packages and review packages being developed by others. There
+are exceptions to some of these recommendations (e.g., the __brms__ package is a
+sensible exception to one of guidelines about Stan code), but we strongly
+recommend trying to follow them whenever possible.
 
-Of course anyone is free to develop a package based on Stan, even if they ignore
-these recommendations. However, both because we feel strongly about these 
-recommendations and because we are seeing an increase in the number of requests
-for help (and our time is unfortunately limited), we will loosely enforce these
-guidelines by 
-
-1. prioritizing giving feedback to developers who follow them over those who
-choose not to, and
-2. refraining from promoting packages that ignore them. 
-
-That said, we are open to some limited exceptions (e.g., the __brms__ package is
-a sensible exception to one of guidelines about Stan code). If you think your 
-package should be an exception definitely let us know.
+These recommendations are not set in stone. We expect them to evolve and we very
+much appreciate feedback on how they can be improved. And, of course, we look
+forward to seeing the packages you develop using Stan, so please let us know
+about them!
 
 
 ## Guidelines for R packages providing interfaces to Stan
@@ -68,15 +61,17 @@ development, not only when officially released.  We recommend you add a note to
 your README file on how to install the development version of your package, like
 in the [__bayesplot__ README](https://github.com/stan-dev/bayesplot#installation)
 
-* Unit testing is essential. There are several R packages that make it 
-relatively easy to write tests for your package. Most of our R packages 
-(e.g., __rstanarm__, __brms__, __bayesplot__, __shinystan__, __loo__) use the 
-[__testthat__](https://github.com/r-lib/testthat) package for this purpose, but
-if you prefer a different testing framework that's fine. The 
-[__covr__](https://github.com/r-lib/covr) package is useful for calculating 
-the line coverage of your tests, and we recommend reaching a high level of coverage
+* Unit testing is essential. There are several R packages that make it
+relatively easy to write tests for your package. Most of our R packages (e.g.,
+__rstanarm__, __brms__, __bayesplot__, __shinystan__, __loo__ and others) use
+the [__testthat__](https://github.com/r-lib/testthat) package for this purpose,
+but if you prefer a different testing framework that's fine. The
+[__covr__](https://github.com/r-lib/covr) package is useful for calculating the
+line coverage of your tests, and we recommend reaching a high level of coverage
 before releasing a package. Good line coverage does not guarantee high quality
-tests, but it's a good first step.
+tests, but it's a good first step. We also recommend setting up automatic
+testing of your package using GitHub Actions. See
+https://github.com/r-lib/actions for useful templates.
 
 ### Stan code
 
@@ -130,7 +125,7 @@ defaults really are.
 
 ### R code and documentation
 
-* Functions that provide useful post-estimation functionality should be given 
+* Functions/methods that provide useful post-estimation functionality should be given 
 the same names as the corresponding functions in __rstanarm__ (if applicable). 
 For example, `posterior_predict()` to draw from the posterior predictive 
 distribution, `posterior_interval()` for posterior uncertainty intervals, etc. To 
@@ -163,10 +158,16 @@ better version. If it is not already available then there is a good chance we
 will be interested in including it in __bayesplot__ if the plot would also be
 useful for other developers.
 
+* The [__posterior__](https://mc-stan.org/posterior/) package (new in 2021)
+provides state of the art posterior inference diagnostics, various summaries of
+draws in convenient formats, and functionality for converting between (and
+manipulating) many different useful formats of draws from posterior or prior
+distributions. We recommend using this functionality in your package or
+recommending it to your users.
+
 * Take documentation seriously. The documentation won't be perfect (we
 constantly find holes in the doc for the R packages in the Stan ecosystem), but
-you should make every effort to provide clear and thorough documentation, using
-decent grammar and actual sentences wherever possible.
+you should make every effort to provide clear and thorough documentation. 
 
 
 ### Recommended resources
@@ -182,12 +183,3 @@ guidelines the best places to go are the [Stan
 Forums](https://discourse.mc-stan.org) and the [GitHub issue 
 tracker](https://github.com/stan-dev/rstantools/issues) for the __rstantools__ 
 package.
-
-
-## Concluding remarks
-
-These guidelines are not set in stone. We expect them to evolve and we very much
-appreciate feedback on how they can be improved. And, of course, we look forward
-to seeing the packages you develop using Stan, so please let us know about them!
-
--- The Stan Development Team

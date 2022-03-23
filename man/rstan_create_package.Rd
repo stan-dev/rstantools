@@ -12,7 +12,7 @@ rstan_create_package(
   open = TRUE,
   stan_files = character(),
   roxygen = TRUE,
-  travis = TRUE,
+  travis = FALSE,
   license = TRUE,
   auto_config = TRUE
 )
@@ -35,9 +35,9 @@ roxygen tags for the required import lines. See the \strong{Note} section below
 for advice specific to the latest versions of \pkg{roxygen2}.}
 
 \item{travis}{Should a \code{.travis.yml} file be added to the package directory?
-Defaults to \code{TRUE}.  While the file contains some presets to help with
-compilation issues, at present it is not guaranteed to work on
-\href{https://travis-ci.org/}{travis-ci} without manual adjustments.}
+This argument is now deprecated. We recommend using GitHub Actions to set
+up automated testings for your package. See
+https://github.com/r-lib/actions for useful templates.}
 
 \item{license}{Logical or character; whether or not to paste the contents of
 a \code{license.stan} file at the top of all Stan code, or path to such a
@@ -48,7 +48,7 @@ file.  If \code{TRUE} (the default) adds the \verb{GPL (>= 3)} license (see
 whenever the package gets installed (see \strong{Details}). Defaults to \code{TRUE}.}
 }
 \description{
-\if{html}{\figure{stanlogo.png}{options: width="25px" alt="https://mc-stan.org/about/logo/"}}
+\if{html}{\figure{stanlogo.png}{options: width="25" alt="https://mc-stan.org/about/logo/"}}
 The \code{rstan_create_package()} function helps get you started developing a
 new \R package that interfaces with Stan via the \pkg{rstan} package. First
 the basic package structure is set up via \code{\link[usethis:create_package]{usethis::create_package()}}.
