@@ -185,7 +185,9 @@ rstan_config <- function(pkgdir = ".") {
   }
   stanc_ret <- rstan::stanc(file_name, allow_undefined = TRUE,
                             obfuscate_model_name = FALSE,
-                            isystem = file.path(pkgdir, "inst", "stan"))
+                            isystem = c(dirname(file_name), getwd(),
+                                        file.path(pkgdir, "inst", "stan"),
+                                        file.path(pkgdir, "inst", "include")))
   only_functions <- grepl("functions[[:space:]]*\\{",  stanc_ret$model_code) &
                     !grepl("data[[:space:]]*\\{", stanc_ret$model_code) &
                     !grepl("parameters[[:space:]]*\\{", stanc_ret$model_code) &
