@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rstantools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
       </span>
     </div>
 
@@ -131,43 +131,53 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+<div id="rstantools-" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#rstantools-" class="anchor"></a>rstantools <img src="reference/figures/stanlogo.png" align="right" width="120">
+</h1></div>
+<!-- badges: start -->
 
-
-<p><br></p>
-<div style="text-align:left">
-<span><a href="http://mc-stan.org"> <img src="https://raw.githubusercontent.com/stan-dev/logos/master/logo_tm.png" width="100" alt="Stan Logo"></a>
-<h2>
-<strong>rstantools</strong>
-</h2>
-<h4>
-Tools for developers of R packages interfacing with Stan
-</h4>
-</span>
-</div>
-<p><br> The <strong>rstantools</strong> package provides various tools for developers of R packages interfacing with <a href="https://mc-stan.org">Stan</a>, including functions to set up the required package structure, S3 generic methods to unify function naming across Stan-based R packages, and vignettes with guidelines for developers.</p>
-<div id="getting-started" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting Started</h2>
-<p>To get started building a package see the two <strong>rstantools</strong> vignettes for developers:</p>
+<div id="overview" class="section level3">
+<h3 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h3>
+<p>The <strong>rstantools</strong> package provides tools for developing R packages interfacing with <a href="https://mc-stan.org/">Stan</a>. The package vignettes provide guidelines and recommendations for developers as well as a demonstration of creating a working R package with a pre-compiled Stan program.</p>
 <ul>
-<li><p><a href="http://mc-stan.org/rstantools/articles/developer-guidelines.html">Guidelines for Developers of R Packages Interfacing with Stan</a></p></li>
-<li><p><a href="http://mc-stan.org/rstantools/articles/minimal-rstan-package.html">Step by step guide for creating a package that depends on RStan</a></p></li>
+<li><p><a href="https://mc-stan.org/rstantools/articles/developer-guidelines.html">Guidelines for developers of R Packages interfacing with Stan</a></p></li>
+<li><p><a href="https://mc-stan.org/rstantools/articles/minimal-rstan-package.html">Step by step guide for creating a package that depends on RStan</a></p></li>
 </ul>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>Install the latest release from <strong>CRAN</strong></p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"rstantools"</span>)</pre></div>
-<p>Install latest development version from GitHub (requires <a href="https://github.com/r-lib/remotes">remotes</a> package):</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"remotes"</span>)) {
-  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
-}
-
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"stan-dev/rstantools"</span>)</pre></div>
+<div id="resources" class="section level3">
+<h3 class="hasAnchor">
+<a href="#resources" class="anchor"></a>Resources</h3>
+<ul>
+<li>
+<a href="https://mc-stan.org/rstantools">mc-stan.org/rstantools</a> (online documentation, vignettes)</li>
+<li>
+<a href="https://discourse.mc-stan.org">Ask a question</a> (Stan Forums on Discourse)</li>
+<li>
+<a href="https://github.com/stan-dev/rstantools/issues">Open an issue</a> (GitHub issues for bug reports, feature requests)</li>
+</ul>
+</div>
+<div id="installation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h3>
+<ul>
+<li>Install from CRAN:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"rstantools"</span><span class="op">)</span></code></pre></div>
+<ul>
+<li>Install latest development version from GitHub (requires <a href="https://github.com/r-lib/remotes">remotes</a> package):</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org">"remotes"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+<span class="op">}</span>
+  
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"stan-dev/rstantools"</span><span class="op">)</span></code></pre></div>
 <p>This installation from GitHub will not build the vignettes, but we recommend viewing the them online at <a href="https://mc-stan.org/rstantools/articles/">mc-stan.org/rstantools/articles</a>.</p>
 </div>
-
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -204,8 +214,8 @@ Tools for developers of R packages interfacing with Stan
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/web/packages/rstantools"><img src="https://www.r-pkg.org/badges/version/rstantools?color=blue" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://travis-ci.org/stan-dev/rstantools"><img src="https://travis-ci.org/stan-dev/rstantools.svg?branch=master" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://cran.rstudio.com/package=rstantools"><img src="https://cranlogs.r-pkg.org/badges/rstantools?color=blue" alt="Downloads"></a></li>
+<li><a href="https://cran.r-project.org/web/packages/rstantools"><img src="https://cranlogs.r-pkg.org/badges/rstantools?color=blue" alt="RStudio_CRAN_mirror_downloads_badge"></a></li>
+<li><a href="https://github.com/stan-dev/rstantools/actions"><img src="https://github.com/stan-dev/rstantools/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 </div>
@@ -217,7 +227,7 @@ Tools for developers of R packages interfacing with Stan
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

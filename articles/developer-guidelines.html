@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rstantools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
       </span>
     </div>
 
@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -99,19 +99,19 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://twitter.com/mcmc_stan">
-    <span class="fas fa-twitter"></span>
+    <span class="fa fa-twitter"></span>
      
   </a>
 </li>
 <li>
   <a href="https://github.com/stan-dev/rstantools">
-    <span class="fas fa-github"></span>
+    <span class="fa fa-github"></span>
      
   </a>
 </li>
 <li>
   <a href="https://discourse.mc-stan.org/">
-    <span class="fas fa-users"></span>
+    <span class="fa fa-users"></span>
      
   </a>
 </li>
@@ -125,13 +125,13 @@
 
       
 
-      </header><script src="developer-guidelines_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><script src="developer-guidelines_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Guidelines for developers of R packages interfacing with Stan</h1>
                         <h4 class="author">Stan Development Team</h4>
             
-            <h4 class="date">Latest release: May 2021 (First version: November 2016)</h4>
+            <h4 class="date">Latest release: April 2022 (First version: November 2016)</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/stan-dev/rstantools/blob/master/vignettes/developer-guidelines.Rmd"><code>vignettes/developer-guidelines.Rmd</code></a></small>
       <div class="hidden name"><code>developer-guidelines.Rmd</code></div>
@@ -143,14 +143,9 @@
 <div id="note-to-developers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#note-to-developers" class="anchor"></a>Note to developers</h2>
-<p>One of the coolest things about working on a project like Stan has been seeing some of our users begin to develop tools for making Stan more accessible to audiences that may otherwise not benefit from what Stan offers. In particular, recently we have started seeing a growing number of R packages that provide high-level interfaces to Stan, using the <a href="https://mc-stan.org/rstan"><strong>rstan</strong></a> package for estimating models without requiring that the user be familiar with the Stan modeling language itself.</p>
-<p>This is a great development and we would like to support such efforts going forward, but to-date we have made little effort to coordinate the development of these packages. To avoid a Wild West, so to speak, of Stan-based R packages, we think it is important that developers make every effort to adhere to certain guidelines in order to ensure these packages are of the highest possible quality and provide the best possible experience for users. To that end, in this post we present a set of recommendations for the development of R packages that interface with Stan. These recommendations are based on software design principles we value as well as many things we are learning as we continue developing our <strong>rstanarm</strong> package and review packages being developed by others.</p>
-<p>Of course anyone is free to develop a package based on Stan, even if they ignore these recommendations. However, both because we feel strongly about these recommendations and because we are seeing an increase in the number of requests for help (and our time is unfortunately limited), we will loosely enforce these guidelines by</p>
-<ol style="list-style-type: decimal">
-<li>prioritizing giving feedback to developers who follow them over those who choose not to, and</li>
-<li>refraining from promoting packages that ignore them.</li>
-</ol>
-<p>That said, we are open to some limited exceptions (e.g., the <strong>brms</strong> package is a sensible exception to one of guidelines about Stan code). If you think your package should be an exception definitely let us know.</p>
+<p>One of the coolest things about working on a project like Stan has been seeing some of our users begin to develop tools for making Stan more accessible to audiences that may otherwise not benefit from what Stan offers. In particular, recently we have started seeing a growing number of R packages that provide high-level interfaces to Stan, using the <a href="https://mc-stan.org/rstan/"><strong>rstan</strong></a> package for estimating models without requiring that the user be familiar with the Stan modeling language itself.</p>
+<p>This is a great development and we would like to support such efforts going forward, but to-date we have made little effort to coordinate the development of these packages. To avoid a Wild West, so to speak, of Stan-based R packages, we think it is important that developers make every effort to adhere to certain guidelines in order to ensure these packages are of the highest possible quality and provide the best possible experience for users. To that end, in this post we present a set of recommendations for the development of R packages that interface with Stan. These recommendations are based on software design principles we value as well as many things we are learning as we continue developing our own packages and review packages being developed by others. There are exceptions to some of these recommendations (e.g., the <strong>brms</strong> package is a sensible exception to one of guidelines about Stan code), but we strongly recommend trying to follow them whenever possible.</p>
+<p>These recommendations are not set in stone. We expect them to evolve and we very much appreciate feedback on how they can be improved. And, of course, we look forward to seeing the packages you develop using Stan, so please let us know about them!</p>
 </div>
 <div id="guidelines-for-r-packages-providing-interfaces-to-stan" class="section level2">
 <h2 class="hasAnchor">
@@ -159,10 +154,10 @@
 <h3 class="hasAnchor">
 <a href="#general-package-structure-and-development" class="anchor"></a>General package structure and development</h3>
 <ul>
-<li><p>The <strong>rstantools</strong> package provides the <code><a href="../reference/rstan_create_package.html">rstan_create_package()</a></code> function, which you should use to create the basic structure of your package. (As of <code>v2.0.0</code> this replaces the <code>rstan_package_skeleton</code> function.) This will set up a package with functionality for pre-compiled Stan programs, in the style of the <a href="https://mc-stan.org/rstanarm"><strong>rstanarm</strong></a> package (source code: <a href="https://github.com/stan-dev/rstanarm" class="uri">https://github.com/stan-dev/rstanarm</a>).</p></li>
+<li><p>The <strong>rstantools</strong> package provides the <code><a href="../reference/rstan_create_package.html">rstan_create_package()</a></code> function, which you should use to create the basic structure of your package. (As of <code>v2.0.0</code> this replaces the <code>rstan_package_skeleton</code> function.) This will set up a package with functionality for pre-compiled Stan programs, in the style of the <a href="https://mc-stan.org/rstanarm/"><strong>rstanarm</strong></a> package (source code: <a href="https://github.com/stan-dev/rstanarm" class="uri">https://github.com/stan-dev/rstanarm</a>).</p></li>
 <li><p>Use version control (e.g., git).</p></li>
 <li><p>Unless you are developing proprietary private software, organize your code in a repository that is <em>public</em> on <a href="https://github.com/">GitHub</a> (or a similar service, but preferably GitHub). It should be public even at early stages of development, not only when officially released. We recommend you add a note to your README file on how to install the development version of your package, like in the <a href="https://github.com/stan-dev/bayesplot#installation"><strong>bayesplot</strong> README</a></p></li>
-<li><p>Unit testing is essential. There are several R packages that make it relatively easy to write tests for your package. Most of our R packages (e.g., <strong>rstanarm</strong>, <strong>brms</strong>, <strong>bayesplot</strong>, <strong>shinystan</strong>, <strong>loo</strong>) use the <a href="https://github.com/r-lib/testthat"><strong>testthat</strong></a> package for this purpose, but if you prefer a different testing framework that’s fine. The <a href="https://github.com/r-lib/covr"><strong>covr</strong></a> package is useful for calculating the line coverage of your tests, and we recommend reaching a high level of coverage before releasing a package. Good line coverage does not guarantee high quality tests, but it’s a good first step.</p></li>
+<li><p>Unit testing is essential. There are several R packages that make it relatively easy to write tests for your package. Most of our R packages (e.g., <strong>rstanarm</strong>, <strong>brms</strong>, <strong>bayesplot</strong>, <strong>shinystan</strong>, <strong>loo</strong> and others) use the <a href="https://github.com/r-lib/testthat"><strong>testthat</strong></a> package for this purpose, but if you prefer a different testing framework that’s fine. The <a href="https://github.com/r-lib/covr"><strong>covr</strong></a> package is useful for calculating the line coverage of your tests, and we recommend reaching a high level of coverage before releasing a package. Good line coverage does not guarantee high quality tests, but it’s a good first step. We also recommend setting up automatic testing of your package using GitHub Actions. See <a href="https://github.com/r-lib/actions" class="uri">https://github.com/r-lib/actions</a> for useful templates.</p></li>
 </ul>
 </div>
 <div id="stan-code" class="section level3">
@@ -185,25 +180,20 @@
 <h3 class="hasAnchor">
 <a href="#r-code-and-documentation" class="anchor"></a>R code and documentation</h3>
 <ul>
-<li><p>Functions that provide useful post-estimation functionality should be given the same names as the corresponding functions in <strong>rstanarm</strong> (if applicable). For example, <code><a href="../reference/posterior_predict.html">posterior_predict()</a></code> to draw from the posterior predictive distribution, <code><a href="../reference/posterior_interval.html">posterior_interval()</a></code> for posterior uncertainty intervals, etc. To make this easier, these and similar <strong>rstanarm</strong> functions have been converted to S3 methods for the stanreg objects created by <strong>rstanarm</strong> and the S3 generic functions are included here in the <strong>rstantools</strong> package. Your package should import the generics from <strong>rstantools</strong> for whichever functions you want to include in your package and then provide methods for the fitted model objects returned by your model-fitting functions. For some other functions (e.g. <code>as.matrix</code>) the generics are already available in base R or core R packages. To be clear, we are not saying that the naming conventions used in <strong>rstanarm</strong>/<strong>rstantools</strong> are necessarily optimal. (If you think that one of our function names should be changed please let us know and suggest an alternative. If it is a substantial improvement we may consider renaming the function and deprecating the current version.) Rather, this guideline is intended to make function names consistent across Stan-based R packages, which will improve the user experience for those users who want to take advantage of a variety of these packages. It will be a mess if every R package using Stan has different names for the same functionality.</p></li>
+<li><p>Functions/methods that provide useful post-estimation functionality should be given the same names as the corresponding functions in <strong>rstanarm</strong> (if applicable). For example, <code><a href="../reference/posterior_predict.html">posterior_predict()</a></code> to draw from the posterior predictive distribution, <code><a href="../reference/posterior_interval.html">posterior_interval()</a></code> for posterior uncertainty intervals, etc. To make this easier, these and similar <strong>rstanarm</strong> functions have been converted to S3 methods for the stanreg objects created by <strong>rstanarm</strong> and the S3 generic functions are included here in the <strong>rstantools</strong> package. Your package should import the generics from <strong>rstantools</strong> for whichever functions you want to include in your package and then provide methods for the fitted model objects returned by your model-fitting functions. For some other functions (e.g. <code>as.matrix</code>) the generics are already available in base R or core R packages. To be clear, we are not saying that the naming conventions used in <strong>rstanarm</strong>/<strong>rstantools</strong> are necessarily optimal. (If you think that one of our function names should be changed please let us know and suggest an alternative. If it is a substantial improvement we may consider renaming the function and deprecating the current version.) Rather, this guideline is intended to make function names consistent across Stan-based R packages, which will improve the user experience for those users who want to take advantage of a variety of these packages. It will be a mess if every R package using Stan has different names for the same functionality.</p></li>
 <li><p>The <a href="https://mc-stan.org/bayesplot/"><strong>bayesplot</strong></a> package serves as the back-end for plotting for <strong>rstanarm</strong> (see for example <code>pp_check.stanreg</code> and <code>plot.stanreg</code>), <strong>brms</strong>, and other packages, and we hope developers of other Stan-based R packages will also use it. You can see all the other R packages using <strong>bayesplot</strong> in the <em>Reverse dependencies</em> section of the <strong>bayesplot</strong> <a href="https://CRAN.R-project.org/package=bayesplot">CRAN page</a>. For any plot you intend to include in your package, if it is already available in <strong>bayesplot</strong> then we recommend using the available version or suggesting (or contributing) a better version. If it is not already available then there is a good chance we will be interested in including it in <strong>bayesplot</strong> if the plot would also be useful for other developers.</p></li>
-<li><p>Take documentation seriously. The documentation won’t be perfect (we constantly find holes in the doc for the R packages in the Stan ecosystem), but you should make every effort to provide clear and thorough documentation, using decent grammar and actual sentences wherever possible.</p></li>
+<li><p>The <a href="https://mc-stan.org/posterior/"><strong>posterior</strong></a> package (new in 2021) provides state of the art posterior inference diagnostics, various summaries of draws in convenient formats, and functionality for converting between (and manipulating) many different useful formats of draws from posterior or prior distributions. We recommend using this functionality in your package or recommending it to your users.</p></li>
+<li><p>Take documentation seriously. The documentation won’t be perfect (we constantly find holes in the doc for the R packages in the Stan ecosystem), but you should make every effort to provide clear and thorough documentation.</p></li>
 </ul>
 </div>
 <div id="recommended-resources" class="section level3">
 <h3 class="hasAnchor">
 <a href="#recommended-resources" class="anchor"></a>Recommended resources</h3>
 <ul>
-<li><p>Hadley Wickham’s <a href="http://r-pkgs.had.co.nz/">book on R packages</a>. If you are interested in developing an R package that interfaces with Stan but are not an experienced package developer, we recommend Hadley’s book, which is free to read online. Even if you are an experienced developer of R packages, Hadley’s book is still a great resource.</p></li>
+<li><p>Hadley Wickham and Jenny Bryan’s <a href="https://r-pkgs.org/">book on R packages</a>. If you are interested in developing an R package that interfaces with Stan but are not an experienced package developer, we recommend this book, which is free to read online. Even if you are an experienced developer of R packages, the book is still a great resource.</p></li>
 <li><p>If you need help setting up your package or have questions about these guidelines the best places to go are the <a href="https://discourse.mc-stan.org">Stan Forums</a> and the <a href="https://github.com/stan-dev/rstantools/issues">GitHub issue tracker</a> for the <strong>rstantools</strong> package.</p></li>
 </ul>
 </div>
-</div>
-<div id="concluding-remarks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#concluding-remarks" class="anchor"></a>Concluding remarks</h2>
-<p>These guidelines are not set in stone. We expect them to evolve and we very much appreciate feedback on how they can be improved. And, of course, we look forward to seeing the packages you develop using Stan, so please let us know about them!</p>
-<p>– The Stan Development Team</p>
 </div>
   </div>
 
@@ -222,7 +212,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

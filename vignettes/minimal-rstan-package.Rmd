@@ -6,7 +6,7 @@ output:
   rmarkdown::html_vignette:
     toc: true
 params:
-  EVAL: !r TRUE
+  EVAL: !r identical(Sys.getenv("NOT_CRAN"), "true")
 vignette: >
   %\VignetteIndexEntry{Step by step guide}
   %\VignetteEngine{knitr::rmarkdown}
@@ -238,6 +238,9 @@ for `lm_stan` and update the `NAMESPACE` so the function is exported, i.e.,
 available to users when the package is installed.  This can be done with the
 function `roxygen2::roxygenize()`, which needs to be called twice initially.
 
+```{r, results = "hide"}
+example(source) # defines the sourceDir() function
+```
 ```{r, eval = FALSE}
 try(roxygen2::roxygenize(load_code = sourceDir), silent = TRUE)
 roxygen2::roxygenize()
@@ -272,7 +275,7 @@ library("rstanlm")
 ```
 
 ```{r}
-fit <- lm_stan(y = rnorm(10), x = rnorm(10),
+fit <- lm_stan(y = rnorm(10), x = rnorm(10), 
                # arguments passed to sampling
                iter = 2000, refresh = 500)
 print(fit)

@@ -84,7 +84,7 @@ in the rstanarm package for an example." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rstantools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
       </span>
     </div>
 
@@ -187,10 +187,10 @@ correspond to greater uncertainty. See
 in the <span class="pkg">rstanarm</span> package for an example.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>posterior_interval</span>(<span class='no'>object</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>posterior_interval</span><span class='op'>(</span><span class='va'>object</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>posterior_interval</span>(<span class='no'>object</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>posterior_interval</span><span class='op'>(</span><span class='va'>object</span>, prob <span class='op'>=</span> <span class='fl'>0.9</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -243,15 +243,16 @@ can be found in the vignettes included with <span class="pkg">rstantools</span> 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Default method takes a numeric matrix (of posterior draws)</span>
-<span class='no'>draws</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span> * <span class='fl'>5</span>), <span class='fl'>100</span>, <span class='fl'>5</span>) <span class='co'># fake draws</span>
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>draws</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"theta_"</span>, <span class='fl'>1</span>:<span class='fl'>5</span>)
-<span class='fu'>posterior_interval</span>(<span class='no'>draws</span>)</div><div class='output co'>#&gt;                5%      95%
+<span class='va'>draws</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span> <span class='op'>*</span> <span class='fl'>5</span><span class='op'>)</span>, <span class='fl'>100</span>, <span class='fl'>5</span><span class='op'>)</span> <span class='co'># fake draws</span>
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>draws</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"theta_"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
+<span class='fu'>posterior_interval</span><span class='op'>(</span><span class='va'>draws</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                5%      95%
 #&gt; theta_1 -1.865365 1.683664
 #&gt; theta_2 -1.517411 1.882336
 #&gt; theta_3 -1.568718 1.618074
 #&gt; theta_4 -1.397015 1.842534
 #&gt; theta_5 -1.774352 1.521312</div><div class='input'>
-# Also see help("posterior_interval", package = "rstanarm")
+<span class='co'># Also see help("posterior_interval", package = "rstanarm")</span>
 
 </div></pre>
   </div>
@@ -269,7 +270,7 @@ can be found in the vignettes included with <span class="pkg">rstantools</span> 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
