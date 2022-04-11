@@ -21,7 +21,7 @@
 #' @aliases rstan_package_skeleton
 #'
 #' @description
-#'   \if{html}{\figure{stanlogo.png}{options: width="25px" alt="https://mc-stan.org/about/logo/"}}
+#'   \if{html}{\figure{stanlogo.png}{options: width="25" alt="https://mc-stan.org/about/logo/"}}
 #'   The `rstan_create_package()` function helps get you started developing a
 #'   new \R package that interfaces with Stan via the \pkg{rstan} package. First
 #'   the basic package structure is set up via [usethis::create_package()].
@@ -50,9 +50,9 @@
 #'   roxygen tags for the required import lines. See the **Note** section below
 #'   for advice specific to the latest versions of \pkg{roxygen2}.
 #' @param travis Should a `.travis.yml` file be added to the package directory?
-#'   Defaults to `TRUE`.  While the file contains some presets to help with
-#'   compilation issues, at present it is not guaranteed to work on
-#'   [travis-ci](https://travis-ci.org/) without manual adjustments.
+#'   This argument is now deprecated. We recommend using GitHub Actions to set
+#'   up automated testings for your package. See
+#'   https://github.com/r-lib/actions for useful templates.
 #' @template args-license
 #' @template args-auto_config
 #'
@@ -125,7 +125,7 @@ rstan_create_package <- function(path,
                                  open = TRUE,
                                  stan_files = character(),
                                  roxygen = TRUE,
-                                 travis = TRUE,
+                                 travis = FALSE,
                                  license = TRUE,
                                  auto_config = TRUE) {
   if (!requireNamespace("usethis", quietly = TRUE)) {
@@ -230,18 +230,24 @@ rstan_create_package <- function(path,
     to = file.path(pkgdir, "inst", "stan", basename(stan_files))
   )
   if (roxygen) .add_roxygen(pkgdir)
-  if (travis) .add_travis(pkgdir)
+  if (travis) {
+    .add_travis(pkgdir)
+    warning(
+      "The 'travis' argument is deprecated. ",
+      "We recommend using GitHub Actions instead.",
+      call. = FALSE
+    )
+  }
   .add_gitignore_Rbuildignore(pkgdir, travis)
 
   message("Configuring Stan compile and module export instructions ...")
   rstan_config(pkgdir)
 
-  cat(
-    readLines(.system_file("Read_and_delete_me")), "\n",
-    file = file.path(pkgdir, "Read-and-delete-me"),
-    sep = "\n",
-    append = TRUE
-  )
+  # open = "at" implies text is appended
+  con <- file(file.path(pkgdir, "Read-and-delete-me"), open = "at")
+  writeLines(readLines(.system_file("Read_and_delete_me")), con)
+  close(con)
+
   message(
     domain = NA,
     sprintf(

@@ -98,24 +98,8 @@
     if (acc) {
       # create/overwrite file
       if (msg) message("Adding ", basename(dest_file), " file ...")
-      cat(file_lines, sep = "\n", file = dest_file) # can't this fail?
+      writeLines(file_lines, con = dest_file)
     }
   }
-  ## acc <- has_file && !is_stanfile # create stan file if acc = TRUE
-  ## if (acc) {
-  ##   # non-stan file found: don't overwrite
-  ##   if (warn) .warning_nowrite(file.path(basename(pkgdir), ...))
-  ## } else {
-  ##   # stan file found: only overwrite if changed
-  ##   if (noedit && (file_lines[1] != noedit_msg)) {
-  ##     # add "noedit" to top of file
-  ##     file_lines <- c(noedit_msg, "", file_lines)
-  ##   }
-  ##   old_lines <- readLines(dest_file)
-  ##   acc <- !identical(old_lines, file_lines)
-  ##   if (acc) {
-  ##     cat(file_lines, sep = "\n", file = dest_file) # can't this fail?
-  ##   }
-  ## }
   invisible(acc)
 }

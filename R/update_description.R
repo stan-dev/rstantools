@@ -73,11 +73,6 @@
   if(acc) {
     if(msg) message("Updating DESCRIPTION ...")
     desc_pkg$write()
-    ## cat(desc_pkg$str(normalize = FALSE), "\n",
-    ##     file = file.path(pkgdir, "DESCRIPTION"))
-    ## dep_fields <- dep_fields[dep_fields %in% colnames(desc_pkg)]
-    ## write.dcf(desc_pkg, file = file.path(pkgdir, "DESCRIPTION"),
-    ##           keep.white = dep_fields)
   }
   if(!auto_config && msg) {
     if(has_rstantools) {
