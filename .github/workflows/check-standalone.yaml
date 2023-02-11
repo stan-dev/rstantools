@@ -57,7 +57,7 @@ jobs:
           install.packages('rstan', type='source')
         shell: Rscript {0}
 
-      - name: Check against CRAN StanHeaders and CRAN RStan
+      - name: Check against Development StanHeaders and CRAN RStan
         run: |
           rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
         shell: Rscript {0}
@@ -69,7 +69,7 @@ jobs:
           install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
         shell: Rscript {0}
 
-      - name: Check against CRAN StanHeaders and CRAN RStan
+      - name: Check against Development StanHeaders and Development RStan
         run: |
           rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
         shell: Rscript {0}
