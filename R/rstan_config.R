@@ -179,9 +179,9 @@ rstan_config <- function(pkgdir = ".") {
   if (grepl("\\.stanfunctions$", file_name) &&
       (utils::packageVersion('rstan') < 2.29)) {
     mod <- readLines(file_name)
-    file_name <- paste0(.basename_noext(file_name), "_wrapped.stanfunctions")
-    cat("functions {", mod, "}", sep = "\n",
-        file = file_name)
+    if (!any(grepl("\\bfunctions \\{", mod))) {
+      cat("functions {", mod, "}", sep = "\n", file = file_name)
+    }
   }
   stanc_ret <- rstan::stanc(file_name, allow_undefined = TRUE,
                             obfuscate_model_name = FALSE,
@@ -215,7 +215,7 @@ rstan_config <- function(pkgdir = ".") {
     }
     cat("#include <exporter.h>",
         "#include <stan/math/prim/mat/fun/Eigen.hpp>",
-        "#include <stan/model/standalone_functions_header.hpp>",
+        "#include <stan/math/prim/meta.hpp>",
         file = file.path(pkgdir, "src",
                          paste(basename(pkgdir), "types.h", sep = "_")),
         sep = "\n")
@@ -351,41 +351,23 @@ rstan_config <- function(pkgdir = ".") {
 # Replace auto return type in function exports with the plain type from the main body.
 .replace_auto <- function(decl_line, cppcode, cpp_lines) {
   # Extract the name of function
-  decl <- cpp_lines[decl_line]
-  decl <- gsub("auto ","",decl,fixed=T)
-  decl <- sub("\\(.*","",decl,perl=T)
+  fun_name <- cpp_lines[decl_line]
+  fun_name <- gsub("auto ","",fun_name,fixed=T)
+  fun_name <- sub("\\(.*","",fun_name,perl=T)
 
-  # Replace newlines with blank spaces
-  t3 <- gsub("\n"," ",cppcode,fixed=T)
+  struct_start <- grep(paste0("struct ", fun_name, "_functor"), cpp_lines)
+  struct_op_start <- grep("operator()", cpp_lines[-(1:struct_start)])[1] + struct_start
 
-  # Identify code segment containing first declaration of function
-  sf1 <- strsplit(t3,decl,fixed=T)[[1]][1]
-  sf2 <- utils::tail(strsplit(sf1,";",fixed=T)[[1]],1)
+  rtn_type <- paste0(cpp_lines[struct_start:struct_op_start], collapse = " ")
 
-  # Get location of type promotion (if present)
-  promote_start <- regexec("stan::promote_args_t<",sf2)[[1]]
+  rm_operator <- gsub("operator().*", "", rtn_type)
+  rm_struct_decl <- gsub(".*\\{", "", rm_operator)
+  repl_dbl <- gsub("T([0-9])*__", "double", rm_struct_decl)
 
-  if(promote_start > 0) {
-
-    str_t <- strsplit(sf2,"")[[1]]
-    promote_end <- promote_start + attr(promote_start,'match.length')
-
-    count <- 1
-
-    while(count > 0 & promote_end < length(str_t)) {
-      count <- count + ifelse(str_t[promote_end] == "<", 1,
-                             ifelse(str_t[promote_end] == ">", -1,0))
-      promote_end <- promote_end + 1
-    }
-
-    sf2 <- paste0(c(str_t[1:(promote_start-1)], "double",
-                   str_t[promote_end:length(str_t)]),
-                 collapse = "")
-  }
 
   # Extract return type declaration and replace promoted scalar
   #  type with double
-  rtn_type <- gsub("template <typename(.*?)> ","",sf2)
+  rtn_type <- gsub("template <typename(.*?)> ", "", repl_dbl)
 
   # Update model code with type declarations
   gsub("auto ", rtn_type, cpp_lines[decl_line],fixed=T)

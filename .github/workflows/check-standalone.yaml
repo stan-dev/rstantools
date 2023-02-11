@@ -1,0 +1,73 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+name: Stanfunctions Support
+
+jobs:
+  stanfunctions-support:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-latest,   r: 'release'}
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: local::. rcmdcheck BH RcppParallel RcppEigen Rcpp rstan StanHeaders
+
+      - name: Checkout lgpr package
+        run: |
+          git clone https://github.com/andrjohns/lgpr
+          cd lgpr && git checkout function-exports
+
+      - name: Check against CRAN StanHeaders and CRAN RStan
+        run: |
+          rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
+
+      - name: Install Development StanHeaders and CRAN RStan
+        run: |
+          Sys.setenv(MAKEFLAGS=paste0("-j",parallel::detectCores()))
+          install.packages("StanHeaders", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+          install.packages('rstan', type='source')
+        shell: Rscript {0}
+
+      - name: Check against CRAN StanHeaders and CRAN RStan
+        run: |
+          rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
+
+      - name: Install Development StanHeaders and Development RStan
+        run: |
+          Sys.setenv(MAKEFLAGS=paste0("-j",parallel::detectCores()))
+          install.packages("StanHeaders", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+          install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+        shell: Rscript {0}
+
+      - name: Check against CRAN StanHeaders and CRAN RStan
+        run: |
+          rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
+
