@@ -180,7 +180,7 @@ rstan_config <- function(pkgdir = ".") {
       (utils::packageVersion('rstan') < 2.29)) {
     mod <- readLines(file_name)
     if (!any(grepl("\\bfunctions(\\s*|)\\{", mod))) {
-      writeLines("functions {", mod, "}", sep = "\n", con = file_name)
+      writeLines(c("functions {", mod, "}"), sep = "\n", con = file_name)
     }
   }
   stanc_ret <- rstan::stanc(file_name, allow_undefined = TRUE,
