@@ -6,10 +6,10 @@ on:
   pull_request:
     branches: [main, master]
 
-name: R-CMD-check
+name: Stanfunctions Support
 
 jobs:
-  R-CMD-check:
+  stanfunctions-support:
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
@@ -18,12 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
-          # Vignette building hangs infinitely on Windows GHA, so disable for now
-          #- {os: windows-latest, r: 'release'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -42,10 +38,17 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: rcmdcheck BH RcppParallel RcppEigen Rcpp rstan StanHeaders
+          extra-packages: local::. rcmdcheck BH RcppParallel RcppEigen Rcpp rstan StanHeaders RCurl
+
+      - name: Checkout lgpr package
+        run: |
+          git clone https://github.com/andrjohns/lgpr
+          cd lgpr && git checkout function-exports
 
       - name: Check against CRAN StanHeaders and CRAN RStan
-        uses: r-lib/actions/check-r-package@v2
+        run: |
+          rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
+        shell: Rscript {0}
 
       - name: Install Development StanHeaders and CRAN RStan
         run: |
@@ -55,7 +58,9 @@ jobs:
         shell: Rscript {0}
 
       - name: Check against Development StanHeaders and CRAN RStan
-        uses: r-lib/actions/check-r-package@v2
+        run: |
+          rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
+        shell: Rscript {0}
 
       - name: Install Development StanHeaders and Development RStan
         run: |
@@ -65,16 +70,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Check against Development StanHeaders and Development RStan
-        uses: r-lib/actions/check-r-package@v2
+        run: |
+          rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
+        shell: Rscript {0}
 
-      - name: Show testthat output
-        if: always()
-        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@main
-        with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
