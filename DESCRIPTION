@@ -1,8 +1,8 @@
 Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
-Version: 2.2.0.9000
-Date: 2022-04-05
+Version: 2.3.0
+Date: 2023-03-07
 Authors@R:
     c(person(given = "Jonah",
              family = "Gabry",
@@ -53,6 +53,6 @@ Suggests:
     roxygen2 (>= 6.0.1),
     rmarkdown,
     rstudioapi
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.2
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

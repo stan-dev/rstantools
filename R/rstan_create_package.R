@@ -117,7 +117,6 @@
 #'   on GitHub.
 #' @template seealso-vignettes
 #' @template seealso-get-help
-#' @template seealso-useR2016-video
 #'
 rstan_create_package <- function(path,
                                  fields = NULL,
