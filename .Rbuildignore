@@ -13,3 +13,4 @@ man-roxygen/*
 vignettes/rstanlm
 ^CRAN-RELEASE$
 .github/*
+rstanlm
