@@ -30,9 +30,4 @@ can be found in the vignettes included with \pkg{rstantools} and at
 your package let us know on the the \href{https://discourse.mc-stan.org}{Stan Forums}
 or at the \pkg{rstantools} GitHub \href{https://github.com/stan-dev/rstantools/issues}{issue tracker}.
 }
-
-\itemize{
-\item The useR2016 presentation
-\href{https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/How-to-Use-RStan-to-Estimate-Models-in-External-R-Packages}{How to Use (R)Stan to Estimate Models in External R Packages.}
-}
 }
