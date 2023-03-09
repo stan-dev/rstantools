@@ -93,13 +93,13 @@ rstan_config <- function(pkgdir = ".") {
   all_files <- list.files(file.path(pkgdir, "src"), full.names = FALSE)
   # reduce to stan model files
   src_files <- all_files[grepl("*[.](cc|h)$", all_files)]
-  src_files <- src_files[grepl(.stan_prefix(start=TRUE), src_files)]
+  src_files <- src_files[grepl(.stan_prefix(start = TRUE), src_files)]
   # make sure 1st line is "don't edit"
   src_line1 <- sapply(file.path(pkgdir, "src", src_files), readLines, n = 1)
   src_files <- src_files[(src_line1 == .rstantools_noedit("foo.h")) |
                          (src_line1 == .rstantools_noedit("foo.cc"))]
   # stan model names corresponding to inactive stan files
-  rm_names <- gsub(.stan_prefix(start=TRUE), "", src_files)
+  rm_names <- gsub(.stan_prefix(start = TRUE), "", src_files)
   rm_names <- unique(gsub("[.](cc|h)$", "", rm_names))
   rm_names <- rm_names[!(rm_names %in% gsub("[.]stan$", "", stan_files))]
   if (length(rm_names) > 0) {
@@ -355,8 +355,8 @@ rstan_config <- function(pkgdir = ".") {
 .replace_auto <- function(decl_line, next_decl, cppcode, cpp_lines) {
   # Extract the name of function
   fun_name <- paste0(cpp_lines[decl_line:next_decl], collapse = " ")
-  fun_name <- gsub("auto ","",fun_name,fixed=T)
-  fun_name <- sub("\\(.*","",fun_name,perl=T)
+  fun_name <- gsub("auto ", "", fun_name, fixed = TRUE)
+  fun_name <- sub("\\(.*", "", fun_name, perl = TRUE)
 
   # Depending on the version of stanc3, the standalone functions
   # with a plain return type can either be wrapped in a struct as a functor,
@@ -393,5 +393,5 @@ rstan_config <- function(pkgdir = ".") {
   #  type with double
   rtn_type <- gsub("template <typename(.*?)> ", "", repl_dbl)
   # Update model code with type declarations
-  gsub("auto", rtn_type, cpp_lines[decl_line], fixed=T)
+  gsub("auto", rtn_type, cpp_lines[decl_line], fixed = TRUE)
 }
