@@ -14,3 +14,4 @@ vignettes/rstanlm
 ^CRAN-RELEASE$
 .github/*
 rstanlm
+^CRAN-SUBMISSION$
