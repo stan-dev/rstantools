@@ -1,3 +1,9 @@
+# rstantools 2.3.0
+
+* Updated C++ standard to C++17 (#100)
+* Updated the handling of exporting standalone stan functions in packages for compatibility with the 2.26 (and beyond) versions of StanHeaders and rstan (#101)
+* Added Andrew Johnson (@andrjohns) as an author 
+
 # rstantools 2.2.0
 
 (Github issue/PR numbers in parentheses)

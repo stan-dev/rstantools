@@ -1,9 +1,9 @@
 Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
-Version: 2.2.0
-Date: 2022-04-05
-Authors@R: 
+Version: 2.3.0
+Date: 2023-03-09
+Authors@R:
     c(person(given = "Jonah",
              family = "Gabry",
              role = c("aut", "cre"),
@@ -18,7 +18,7 @@ Authors@R:
              email = "mlysy@uwaterloo.ca"),
       person(given = "Andrew",
              family = "Johnson",
-             role = "ctb"),
+             role = "aut"),
       person(given = "Hamada S.",
              family = "Badr",
              role = "ctb"),
@@ -32,9 +32,9 @@ Authors@R:
              family = "Columbia University",
              role = "cph"))
 Description: Provides various tools for developers of R packages interfacing
-    with 'Stan' <https://mc-stan.org>, including functions to set up the required 
-    package structure, S3 generics and default methods to unify function naming 
-    across 'Stan'-based R packages, and vignettes with recommendations for 
+    with 'Stan' <https://mc-stan.org>, including functions to set up the required
+    package structure, S3 generics and default methods to unify function naming
+    across 'Stan'-based R packages, and vignettes with recommendations for
     developers.
 License: GPL (>=3)
 URL: https://mc-stan.org/rstantools/, https://discourse.mc-stan.org/
@@ -53,6 +53,6 @@ Suggests:
     roxygen2 (>= 6.0.1),
     rmarkdown,
     rstudioapi
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.2
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
