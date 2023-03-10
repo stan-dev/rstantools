@@ -24,3 +24,4 @@ this function yourself in order to pass \verb{R CMD check} in \R
 \verb{>= 3.4}. If you used \code{rstan_package_skeleton()} in \pkg{rstantools} version
 \verb{1.2.1} or later then this has already been done automatically.
 }
+\keyword{internal}
