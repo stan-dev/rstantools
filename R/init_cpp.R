@@ -24,6 +24,7 @@
 #' `1.2.1` or later then this has already been done automatically.
 #'
 #' @export
+#' @keywords internal
 #' @param name The name of your package as a string.
 #' @param path The path to the root directory for your package as a string. If
 #'   not specified it is assumed that this is already the current working
@@ -32,6 +33,7 @@
 #'   necessary `init.cpp` file to the package's `src/` directory.
 #'
 init_cpp <- function(name, path) {
+  .Deprecated()
   file <- file.path("src", "init.cpp")
   if (!missing(path))
     file <- file.path(path, file)
