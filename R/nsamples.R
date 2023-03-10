@@ -1,4 +1,4 @@
-#' Extract the number of posterior samples stored in a fitted Bayesian model.
+#' Generic function for extracting the number of posterior samples
 #'
 #' @export
 #' @keywords internal
