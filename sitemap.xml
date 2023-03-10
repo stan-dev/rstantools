@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://mc-stan.org/rstantools/404.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/articles/developer-guidelines.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/articles/minimal-rstan-package.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/authors.html</loc>
+  </url>
+  <url>
     <loc>https://mc-stan.org/rstantools/index.html</loc>
   </url>
   <url>
+    <loc>https://mc-stan.org/rstantools/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/reference/LOO-prediction.html</loc>
+  </url>
+  <url>
     <loc>https://mc-stan.org/rstantools/reference/bayes_R2.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/reference/index.html</loc>
   </url>
   <url>
     <loc>https://mc-stan.org/rstantools/reference/init_cpp.html</loc>
   </url>
   <url>
     <loc>https://mc-stan.org/rstantools/reference/log_lik.html</loc>
-  </url>
-  <url>
-    <loc>https://mc-stan.org/rstantools/reference/loo-prediction.html</loc>
   </url>
   <url>
     <loc>https://mc-stan.org/rstantools/reference/nsamples.html</loc>
@@ -50,11 +77,5 @@
   </url>
   <url>
     <loc>https://mc-stan.org/rstantools/reference/use_rstan.html</loc>
-  </url>
-  <url>
-    <loc>https://mc-stan.org/rstantools/articles/developer-guidelines.html</loc>
-  </url>
-  <url>
-    <loc>https://mc-stan.org/rstantools/articles/minimal-rstan-package.html</loc>
   </url>
 </urlset>
