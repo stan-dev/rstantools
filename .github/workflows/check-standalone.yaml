@@ -38,7 +38,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::. rcmdcheck BH RcppParallel RcppEigen Rcpp rstan StanHeaders RCurl
+          extra-packages: local::. rcmdcheck BH RcppParallel RcppEigen Rcpp rstan StanHeaders RCurl remotes
 
       - name: Checkout lgpr package
         run: |
@@ -70,6 +70,18 @@ jobs:
         shell: Rscript {0}
 
       - name: Check against Development StanHeaders and Development RStan
+        run: |
+          rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
+        shell: Rscript {0}
+
+      - name: Install Experimental StanHeaders and Experimental RStan
+        run: |
+          Sys.setenv(MAKEFLAGS=paste0("-j",parallel::detectCores()))
+          remotes::install_github("stan-dev/rstan@experimental", subdir="StanHeaders")
+          remotes::install_github("stan-dev/rstan@experimental", subdir="rstan/rstan")
+        shell: Rscript {0}
+
+      - name: Check against Experimental StanHeaders and Experimental RStan
         run: |
           rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
         shell: Rscript {0}

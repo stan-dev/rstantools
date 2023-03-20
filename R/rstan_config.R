@@ -373,7 +373,7 @@ rstan_config <- function(pkgdir = ".") {
     rm_prev <- gsub(".*\\{", "", rm_operator)
   } else {
     # Find first declaration of function (will be the forward declaration)
-    first_decl <- grep(fun_name, cpp_lines)[1]
+    first_decl <- grep(paste0(fun_name,"\\("), cpp_lines)[1]
 
     # The return type will be between the function name and the semicolon terminating
     # the previous line
