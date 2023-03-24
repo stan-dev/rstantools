@@ -191,7 +191,7 @@ rstan_config <- function(pkgdir = ".") {
                     !grepl("generated[[:space:]]quantities[[:space:]]*\\{", stanc_ret$model_code)
   if (only_functions) {
     # file_name is a collection of Stan functions rather than a model
-    cppcode <- rstan::expose_stan_functions(stanc_ret, dryRun = TRUE)
+    cppcode <- suppressWarnings(suppressMessages(rstan::expose_stan_functions(stanc_ret, dryRun = TRUE)))
     cpp_lines <- scan(text = cppcode, what = character(),
                       sep = "\n", quiet = TRUE)
     cpp_lines <- cpp_lines[cpp_lines != "#include <exporter.h>"]
