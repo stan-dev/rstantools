@@ -191,7 +191,7 @@ rstan_config <- function(pkgdir = ".") {
                     !grepl("generated[[:space:]]quantities[[:space:]]*\\{", stanc_ret$model_code)
   if (only_functions) {
     # file_name is a collection of Stan functions rather than a model
-    cppcode <- rstan::expose_stan_functions(stanc_ret, dryRun = TRUE)
+    cppcode <- suppressWarnings(suppressMessages(rstan::expose_stan_functions(stanc_ret, dryRun = TRUE)))
     cpp_lines <- scan(text = cppcode, what = character(),
                       sep = "\n", quiet = TRUE)
     cpp_lines <- cpp_lines[cpp_lines != "#include <exporter.h>"]
@@ -211,7 +211,7 @@ rstan_config <- function(pkgdir = ".") {
     }
     # The default template parameters emitted by stanc3 can error under some clang versions
     cpp_lines <- gsub(">* = 0>", ">* = nullptr>", cpp_lines, fixed = TRUE)
-    eigen_incl <- ifelse(utils::packageVersion('rstan') >= 2.31,
+    eigen_incl <- ifelse(utils::packageVersion('StanHeaders') >= 2.31,
                          "#include <stan/math/prim/fun/Eigen.hpp>",
                          "#include <stan/math/prim/mat/fun/Eigen.hpp>")
     cat("#include <exporter.h>",
