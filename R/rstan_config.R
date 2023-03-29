@@ -143,21 +143,19 @@ rstan_config <- function(pkgdir = ".") {
 # return: whether or not file(s) were successfully added/removed
 .setup_Makevars <- function(pkgdir, add = TRUE) {
   noedit_msg <- .rstantools_noedit("foo")
+  mkv_name <- ifelse(.Platform$OS.type == "windows", "Makevars.win", "Makevars")
   if (add) {
-    acc <- sapply(c("Makevars", "Makevars.win"), function(mkv_name) {
-      makevars <- readLines(.system_file(mkv_name))
-      .add_stanfile(makevars, pkgdir, "src", mkv_name,
+    makevars <- readLines(.system_file(mkv_name))
+    acc <- .add_stanfile(makevars, pkgdir, "src", mkv_name,
                     noedit = TRUE, msg = FALSE, warn = TRUE)
-    })
   } else {
-    acc <- sapply(c("Makevars", "Makevars.win"), function(mkv_name) {
-      noedit_msg <- .rstantools_noedit(mkv_name)
-      mkv_name <- file.path(pkgdir, "src", mkv_name)
-      if(file.exists(mkv_name) &&
-         (readLines(mkv_name, n = 1) == noedit_msg)) {
-        file.remove(mkv_name) # Stan file found.  remove it
-      } else FALSE # no stan file found
-    })
+    noedit_msg <- .rstantools_noedit(mkv_name)
+    mkv_name <- file.path(pkgdir, "src", mkv_name)
+    acc <- FALSE
+    if(file.exists(mkv_name) &&
+        (readLines(mkv_name, n = 1) == noedit_msg)) {
+      acc <-  file.remove(mkv_name) # Stan file found.  remove it
+    }
   }
   acc
 }
@@ -193,7 +191,7 @@ rstan_config <- function(pkgdir = ".") {
                     !grepl("generated[[:space:]]quantities[[:space:]]*\\{", stanc_ret$model_code)
   if (only_functions) {
     # file_name is a collection of Stan functions rather than a model
-    cppcode <- rstan::expose_stan_functions(stanc_ret, dryRun = TRUE)
+    cppcode <- suppressWarnings(suppressMessages(rstan::expose_stan_functions(stanc_ret, dryRun = TRUE)))
     cpp_lines <- scan(text = cppcode, what = character(),
                       sep = "\n", quiet = TRUE)
     cpp_lines <- cpp_lines[cpp_lines != "#include <exporter.h>"]
@@ -213,7 +211,7 @@ rstan_config <- function(pkgdir = ".") {
     }
     # The default template parameters emitted by stanc3 can error under some clang versions
     cpp_lines <- gsub(">* = 0>", ">* = nullptr>", cpp_lines, fixed = TRUE)
-    eigen_incl <- ifelse(utils::packageVersion('rstan') >= 2.31,
+    eigen_incl <- ifelse(utils::packageVersion('StanHeaders') >= 2.31,
                          "#include <stan/math/prim/fun/Eigen.hpp>",
                          "#include <stan/math/prim/mat/fun/Eigen.hpp>")
     cat("#include <exporter.h>",
@@ -373,7 +371,7 @@ rstan_config <- function(pkgdir = ".") {
     rm_prev <- gsub(".*\\{", "", rm_operator)
   } else {
     # Find first declaration of function (will be the forward declaration)
-    first_decl <- grep(fun_name, cpp_lines)[1]
+    first_decl <- grep(paste0(fun_name,"\\("), cpp_lines)[1]
 
     # The return type will be between the function name and the semicolon terminating
     # the previous line
