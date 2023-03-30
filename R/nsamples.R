@@ -6,6 +6,5 @@
 #' @template args-dots
 #'
 nsamples <- function(object, ...) {
-  .Deprecated("ndraws from the posterior package")
   UseMethod("nsamples")
 }
