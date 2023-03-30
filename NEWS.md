@@ -1,6 +1,6 @@
 # rstantools 2.3.1
 
-* Deprecated `nsamples` and `init_cpp`. (#105)
+* Deprecated `init_cpp`. (#105)
 * Bugfix for standalone functions under 2.31 (#110)
 * Only add Makevars for current platform. (#109)
 * Suppress false-positive warning for standalone functions. (#111)
