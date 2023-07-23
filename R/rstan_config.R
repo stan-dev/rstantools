@@ -199,7 +199,7 @@ rstan_config <- function(pkgdir = ".") {
     # Stanc3 gives 'auto' return type for standalone functions, which
     #   causes errors with Rcpp::export, so need to replace the auto
     #   return with the plain type from the main definition
-    if(utils::packageVersion('rstan') >= 2.26) {
+    if(utils::packageVersion('rstan') >= "2.26") {
       # Extract line numbers of functions to be exported
       decl_lines = grep("// \\[\\[Rcpp::export]]",cpp_lines) + 1
 
@@ -211,7 +211,7 @@ rstan_config <- function(pkgdir = ".") {
     }
     # The default template parameters emitted by stanc3 can error under some clang versions
     cpp_lines <- gsub(">* = 0>", ">* = nullptr>", cpp_lines, fixed = TRUE)
-    eigen_incl <- ifelse(utils::packageVersion('StanHeaders') >= 2.31,
+    eigen_incl <- ifelse(utils::packageVersion('StanHeaders') >= "2.31",
                          "#include <stan/math/prim/fun/Eigen.hpp>",
                          "#include <stan/math/prim/mat/fun/Eigen.hpp>")
     cat("#include <exporter.h>",
@@ -229,7 +229,7 @@ rstan_config <- function(pkgdir = ".") {
                       after = class_declaration - 1L)
     # If stan model generated using stanc3, need to make sure that the rstan files are
     #   included after USE_STANC3 has been defined
-    if(utils::packageVersion('rstan') >= 2.26) {
+    if(utils::packageVersion('rstan') >= "2.26") {
       stanc3_declaration <- grep("#define USE_STANC3", cppcode)
       cppcode <- append(cppcode, values = "#include <rstan/rstaninc.hpp>",
                         after = stanc3_declaration + 1)
