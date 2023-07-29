@@ -32,15 +32,12 @@ R package with a pre-compiled Stan program.
 install.packages("rstantools")
 ```
 
-* Install latest development version from GitHub (requires [remotes](https://github.com/r-lib/remotes) package):
+* Install latest development version from GitHub:
 
 ```r
-if (!require("remotes")) {
-  install.packages("remotes")
-}
-  
+# install.packages("remotes")
 remotes::install_github("stan-dev/rstantools")
 ```
 
 This installation from GitHub will not build the vignettes, but we recommend 
-viewing the them online at [mc-stan.org/rstantools/articles](https://mc-stan.org/rstantools/articles/).
+viewing them online at [mc-stan.org/rstantools/articles](https://mc-stan.org/rstantools/articles/).
