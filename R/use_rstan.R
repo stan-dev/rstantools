@@ -39,6 +39,7 @@
 #'   Stan C++ code.
 #' 1. If `NAMESPACE` file is generic (i.e., created by [rstan_create_package()]),
 #'   append `import(Rcpp, methods)`, `importFrom(rstan, sampling)`,
+#'   `importFrom(rstantools, rstan_config)`, `importFrom(RcppParallel, RcppParallelLibs)`,
 #'   and `useDynLib` directives.  If `NAMESPACE` is not generic, display message
 #'   telling user what to add to `NAMESPACE` for themselves.
 #'
@@ -130,6 +131,8 @@ use_rstan <- function(pkgdir = ".", license = TRUE, auto_config = TRUE) {
   req_lines <- c("import(Rcpp)",
                  "import(methods)",
                  "importFrom(rstan, sampling)",
+                 "importFrom(rstantools, rstan_config)",
+                 "importFrom(RcppParallel, RcppParallelLibs)",
                  paste0("useDynLib(", basename(pkgdir),
                         ", .registration = TRUE)"))
   ## lib_req <- c(methods = NA, rcpp = NA, dynlib = NA)
@@ -168,11 +171,21 @@ use_rstan <- function(pkgdir = ".", license = TRUE, auto_config = TRUE) {
       msg_lines <- c(msg_lines, req_lines[3])
       acc <- TRUE
     }
+    if (!.has_import(namespc, pkg = "rstantools", fun = "rstan_config")) {
+      # importFrom(rstantools, rstan_config)
+      msg_lines <- c(msg_lines, req_lines[4])
+      acc <- TRUE
+    }
+    if (!.has_import(namespc, pkg = "RcppParallel", fun = "RcppParallelLibs")) {
+      # importFrom(RcppParallel, RcppParallelLibs)
+      msg_lines <- c(msg_lines, req_lines[5])
+      acc <- TRUE
+    }
     dynlib <- paste0("^useDynLib[(]", basename(pkgdir),
                      ",[.]registration=TRUE[)]")
     if (!any(grepl(dynlib, namespc))) {
       # useDynLib(RSTAN_PACKAGE_NAME, .registration = TRUE)
-      msg_lines <- c(msg_lines, req_lines[4])
+      msg_lines <- c(msg_lines, req_lines[6])
       acc <- TRUE
     }
     if (acc && msg) {

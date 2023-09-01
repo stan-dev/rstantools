@@ -9,6 +9,8 @@
 #' @import methods
 #' @import Rcpp
 #' @importFrom rstan sampling
+#' @importFrom rstantools rstan_config
+#' @importFrom RcppParallel RcppParallelLibs
 #'
 #' @references
 #' RSTAN_REFERENCE
