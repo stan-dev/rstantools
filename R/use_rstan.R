@@ -172,12 +172,12 @@ use_rstan <- function(pkgdir = ".", license = TRUE, auto_config = TRUE) {
       acc <- TRUE
     }
     if (!.has_import(namespc, pkg = "rstantools", fun = "rstan_config")) {
-      # importFrom(rstan, sampling)
+      # importFrom(rstantools, rstan_config)
       msg_lines <- c(msg_lines, req_lines[3])
       acc <- TRUE
     }
     if (!.has_import(namespc, pkg = "RcppParallel", fun = "RcppParallelLibs")) {
-      # importFrom(rstan, sampling)
+      # importFrom(RcppParallel, RcppParallelLibs)
       msg_lines <- c(msg_lines, req_lines[3])
       acc <- TRUE
     }
