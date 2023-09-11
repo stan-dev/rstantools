@@ -38,7 +38,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::. rcmdcheck BH RcppParallel RcppEigen Rcpp rstan StanHeaders RCurl remotes
+          extra-packages: local::. rcmdcheck BH RcppParallel RcppEigen Rcpp rstan StanHeaders RCurl remotes V8
 
       - name: Checkout lgpr package
         run: |
