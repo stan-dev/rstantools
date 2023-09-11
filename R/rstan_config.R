@@ -199,7 +199,7 @@ rstan_config <- function(pkgdir = ".") {
     # Stanc3 gives 'auto' return type for standalone functions, which
     #   causes errors with Rcpp::export, so need to replace the auto
     #   return with the plain type from the main definition
-    if(utils::packageVersion('rstan') >= "2.26") {
+    if(utils::packageVersion('rstan') >= "2.26" && utils::packageVersion('StanHeaders') < "2.33") {
       # Extract line numbers of functions to be exported
       decl_lines = grep("// \\[\\[Rcpp::export]]",cpp_lines) + 1
 
