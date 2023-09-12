@@ -38,11 +38,12 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::. rcmdcheck BH RcppParallel RcppEigen Rcpp rstan StanHeaders RCurl remotes
+          extra-packages: local::. rcmdcheck BH RcppParallel RcppEigen Rcpp rstan StanHeaders RCurl remotes V8
 
       - name: Checkout lgpr package
         run: |
-          git clone https://github.com/jtimonen/lgpr
+          git clone https://github.com/andrjohns/lgpr
+          cd lgpr && git checkout array-syntax
 
       - name: Check against CRAN StanHeaders and CRAN RStan
         run: |
