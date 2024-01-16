@@ -30,7 +30,7 @@ project.}
 in the package.}
 
 \item{roxygen}{Should \pkg{roxygen2} be used for documentation?  Defaults to
-\code{TRUE}. If so, a file `R/{pkgname}-package.R`` is added to the package with
+\code{TRUE}. If so, a file \code{R/{pkgname}-package.R} is added to the package with
 roxygen tags for the required import lines. See the \strong{Note} section below
 for advice specific to the latest versions of \pkg{roxygen2}.}
 

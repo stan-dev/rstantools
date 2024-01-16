@@ -46,7 +46,7 @@
 #' @param stan_files A character vector with paths to `.stan` files to include
 #'   in the package.
 #' @param roxygen Should \pkg{roxygen2} be used for documentation?  Defaults to
-#'   `TRUE`. If so, a file `R/{pkgname}-package.R`` is added to the package with
+#'   `TRUE`. If so, a file `R/{pkgname}-package.R` is added to the package with
 #'   roxygen tags for the required import lines. See the **Note** section below
 #'   for advice specific to the latest versions of \pkg{roxygen2}.
 #' @param travis Should a `.travis.yml` file be added to the package directory?
