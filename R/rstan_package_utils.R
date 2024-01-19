@@ -114,6 +114,7 @@
 #' @param ... Additional arguments passed to \code{\link{source}}
 #'
 #' @return \code{NULL}
+#' @export
 rstantools_load_code <- function(path, trace = TRUE, ...) {
   op <- options(); on.exit(options(op)) # to reset after each 
   for (nm in list.files(path, pattern = "[.][RrSsQq]$")) {
