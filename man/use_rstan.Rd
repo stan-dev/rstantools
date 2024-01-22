@@ -41,6 +41,7 @@ Stan C++ classes to \R.
 Stan C++ code.
 \item If \code{NAMESPACE} file is generic (i.e., created by \code{\link[=rstan_create_package]{rstan_create_package()}}),
 append \code{import(Rcpp, methods)}, \code{importFrom(rstan, sampling)},
+\code{importFrom(rstantools, rstan_config)}, \code{importFrom(RcppParallel, RcppParallelLibs)},
 and \code{useDynLib} directives.  If \code{NAMESPACE} is not generic, display message
 telling user what to add to \code{NAMESPACE} for themselves.
 }

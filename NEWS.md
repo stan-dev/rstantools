@@ -1,3 +1,10 @@
+# rstantools 2.4.0
+
+* Update to match CRAN's patched version by @jgabry in #114
+* Include additional template imports to suppress NOTEs by @andrjohns in #115
+* Fix packages with stanfunctions under rstan 2.33+ by @andrjohns in #117
+
+
 # rstantools 2.3.1
 
 * Deprecated `init_cpp`. (#105)
