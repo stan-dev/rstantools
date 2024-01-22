@@ -94,8 +94,7 @@ for(ii in 1:ntest) {
       skip_on_cran()
       skip_on_travis()
     }
-    example(source) # defines the sourceDir() function
-    try(roxygen2::roxygenize(pkg_dest_path, load_code = sourceDir), silent = TRUE)
+    try(roxygen2::roxygenize(pkg_dest_path, load_code = rstantools_load_code), silent = TRUE)
     pkgbuild::compile_dll(pkg_dest_path)
     tmp <- capture.output(load_out <- pkgload::load_all(pkg_dest_path,
                                                  export_all = TRUE,

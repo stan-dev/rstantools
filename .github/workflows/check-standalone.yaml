@@ -42,8 +42,7 @@ jobs:
 
       - name: Checkout lgpr package
         run: |
-          git clone https://github.com/andrjohns/lgpr
-          cd lgpr && git checkout array-syntax
+          git clone https://github.com/jtimonen/lgpr
 
       - name: Check against CRAN StanHeaders and CRAN RStan
         run: |

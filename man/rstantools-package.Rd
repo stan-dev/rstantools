@@ -30,4 +30,31 @@ can be found in the vignettes included with \pkg{rstantools} and at
 your package let us know on the the \href{https://discourse.mc-stan.org}{Stan Forums}
 or at the \pkg{rstantools} GitHub \href{https://github.com/stan-dev/rstantools/issues}{issue tracker}.
 }
+
+Useful links:
+\itemize{
+  \item \url{https://mc-stan.org/rstantools/}
+  \item \url{https://discourse.mc-stan.org/}
+  \item Report bugs at \url{https://github.com/stan-dev/rstantools/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Jonah Gabry \email{jsg2201@columbia.edu}
+
+Authors:
+\itemize{
+  \item Ben Goodrich \email{benjamin.goodrich@columbia.edu}
+  \item Martin Lysy \email{mlysy@uwaterloo.ca}
+  \item Andrew Johnson
+}
+
+Other contributors:
+\itemize{
+  \item Hamada S. Badr [contributor]
+  \item Marco Colombo [contributor]
+  \item Stefan Siegert [contributor]
+  \item Trustees of Columbia University [copyright holder]
+}
+
 }

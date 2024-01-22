@@ -103,3 +103,24 @@
   }
   invisible(acc)
 }
+
+#' Helper function for loading code in roxygenise
+#'
+#' Adapted from the \code{sourceDir} function defined
+#' by \code{example(source)}.
+#'
+#' @param path Path to directory containing code to load
+#' @param trace Whether to print file names as they are loaded
+#' @param ... Additional arguments passed to \code{\link{source}}
+#'
+#' @return \code{NULL}
+#' @export
+rstantools_load_code <- function(path, trace = TRUE, ...) {
+  op <- options(); on.exit(options(op)) # to reset after each 
+  for (nm in list.files(path, pattern = "[.][RrSsQq]$")) {
+    if (trace) cat(nm, ":")
+    source(file.path(path, nm), ...)
+    if (trace) cat("\n")
+    options(op)
+  }
+}
