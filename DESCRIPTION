@@ -2,7 +2,7 @@ Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
 Version: 2.4.0
-Date: 2024-01-16
+Date: 2024-01-22
 Authors@R:
     c(person(given = "Jonah",
              family = "Gabry",
