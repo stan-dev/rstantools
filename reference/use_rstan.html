@@ -18,7 +18,7 @@ containing Stan programs use rstan_create_package() instead."><meta property="og
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rstantools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.4.0</span>
       </span>
     </div>
 
@@ -153,6 +153,7 @@ Stan C++ classes to <span style="R">R</span>.</p></li>
 Stan C++ code.</p></li>
 <li><p>If <code>NAMESPACE</code> file is generic (i.e., created by <code><a href="rstan_create_package.html">rstan_create_package()</a></code>),
 append <code>import(Rcpp, methods)</code>, <code>importFrom(rstan, sampling)</code>,
+<code>importFrom(rstantools, rstan_config)</code>, <code>importFrom(RcppParallel, RcppParallelLibs)</code>,
 and <code>useDynLib</code> directives.  If <code>NAMESPACE</code> is not generic, display message
 telling user what to add to <code>NAMESPACE</code> for themselves.</p></li>
 </ol><p>When <code>auto_config = TRUE</code>, a <code>configure[.win]</code> file is added to the
@@ -186,7 +187,7 @@ program <code>"foo.stan"</code> you would use <code>rstan::sampling(stanmodels$f
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

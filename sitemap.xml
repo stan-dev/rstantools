@@ -4,6 +4,9 @@
     <loc>https://mc-stan.org/rstantools/404.html</loc>
   </url>
   <url>
+    <loc>https://mc-stan.org/rstantools/CONTRIBUTING.html</loc>
+  </url>
+  <url>
     <loc>https://mc-stan.org/rstantools/LICENSE-text.html</loc>
   </url>
   <url>
@@ -76,6 +79,36 @@
     <loc>https://mc-stan.org/rstantools/reference/rstantools-package.html</loc>
   </url>
   <url>
+    <loc>https://mc-stan.org/rstantools/reference/rstantools_load_code.html</loc>
+  </url>
+  <url>
     <loc>https://mc-stan.org/rstantools/reference/use_rstan.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/revdep/library.noindex/rstantools/new/Rcpp/doc/index.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/revdep/library.noindex/rstantools/new/Rcpp/html/00Index.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/revdep/library.noindex/rstantools/new/cli/html/00Index.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/revdep/library.noindex/rstantools/new/desc/html/00Index.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/revdep/library.noindex/rstantools/new/rstantools/html/00Index.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/revdep/library.noindex/rstantools/old/rstantools/doc/developer-guidelines.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/revdep/library.noindex/rstantools/old/rstantools/doc/index.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/revdep/library.noindex/rstantools/old/rstantools/doc/minimal-rstan-package.html</loc>
+  </url>
+  <url>
+    <loc>https://mc-stan.org/rstantools/revdep/library.noindex/rstantools/old/rstantools/html/00Index.html</loc>
   </url>
 </urlset>

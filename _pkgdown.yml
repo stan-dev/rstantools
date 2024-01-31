@@ -10,7 +10,7 @@ navbar:
   title: "rstantools"
   left:
     - icon: fa-home fa-lg
-      href: index.html 
+      href: index.html
     - text: "Vignettes"
       href: articles/index.html
     - text: "Functions"
@@ -78,6 +78,7 @@ reference:
       - rstan_create_package
       - use_rstan
       - rstan_config
+      - rstantools_load_code
   - title: "Generics"
     desc: >
       S3 generics (and some default methods) for adding functionality

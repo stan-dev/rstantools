@@ -1,10 +1,10 @@
-pandoc: 2.19.2
-pkgdown: 2.0.6
+pandoc: 3.1.1
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   developer-guidelines: developer-guidelines.html
   minimal-rstan-package: minimal-rstan-package.html
-last_built: 2023-03-29T21:38Z
+last_built: 2024-01-31T15:47Z
 urls:
   reference: https://mc-stan.org/rstantools/reference
   article: https://mc-stan.org/rstantools/articles
