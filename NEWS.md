@@ -1,3 +1,7 @@
+# rstantools 2.4.0.9000
+
+Items for next release go here
+
 # rstantools 2.4.0
 
 * Update to match CRAN's patched version by @jgabry in #114
