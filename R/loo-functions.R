@@ -60,11 +60,32 @@ loo_pit.default <- function(object, y, lw, ...) {
 
 # internal ----------------------------------------------------------------
 .loo_pit <- function(y, yrep, lw) {
-  vapply(seq_len(ncol(yrep)), function(j) {
-    sel <- yrep[, j] <= y[j]
-    .exp_log_sum_exp(lw[sel, j])
+  if (is.null(lw) || !all(is.finite(lw))) {
+    stop("lw needs to be not null and finite.")
+  }
+  pits <- vapply(seq_len(ncol(yrep)), function(j) {
+    sel_min <- yrep[, j] < y[j]
+    pit <- .exp_log_sum_exp(lw[sel_min, j])
+    sel_sup <- yrep[, j] == y[j]
+    if (any(sel_sup)) {
+      # randomized PIT for discrete y (see, e.g., Czado, C., Gneiting, T.,
+      # Held, L.: Predictive model assessment for count data.
+      # Biometrics 65(4), 1254–1261 (2009).)
+      pit_sup <- pit + .exp_log_sum_exp(lw[sel_sup, j])
+      pit <- stats::runif(1, pit, pit_sup)
+    }
+    pit
   }, FUN.VALUE = 1)
+  if (any(pits > 1)) {
+    warning(cat(
+      "Some PIT values larger than 1! Largest: ",
+      max(pits),
+      "\nRounding PIT > 1 to 1."
+    ))
+  }
+  pmin(1, pits)
 }
+
 .exp_log_sum_exp <- function(x) {
   m <- suppressWarnings(max(x))
   exp(m + log(sum(exp(x - m))))

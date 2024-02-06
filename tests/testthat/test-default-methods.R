@@ -2,6 +2,13 @@ context("default methods")
 set.seed(1111)
 x <- matrix(rnorm(150), 50, 3)
 y <- rnorm(ncol(x))
+lw <- matrix(rnorm(150), 50, 3)
+lw <- sweep(
+  lw,
+  MARGIN = 2,
+  STATS = matrixStats::colLogSumExps(lw),
+  check.margin = FALSE
+)
 
 test_that("posterior_interval.default hasn't changed", {
   expect_equal_to_reference(
@@ -28,10 +35,16 @@ test_that("prior_summary.default works", {
   expect_null(prior_summary(list(abc = "prior_info")))
 })
 test_that("loo_pit.default works", {
-  lw <- matrix(rnorm(150), 50, 3)
   expect_equal_to_reference(
     loo_pit(x, y, lw),
     "loo_pit.RDS"
+  )
+})
+test_that("loo_pit-default works for discrete data", {
+  set.seed(1111)
+  expect_equal_to_reference(
+    loo_pit(round(x), round(y), lw),
+    "loo_pit_discrete.RDS"
   )
 })
 test_that("bayes_R2.default hasn't changed", {
@@ -81,5 +94,4 @@ test_that(".pred_errors throws errors", {
   expect_error(.pred_errors(x[,1], y), "is.matrix(object) is not TRUE",
                fixed = TRUE)
 })
-
 
