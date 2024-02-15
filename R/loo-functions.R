@@ -10,12 +10,15 @@
 #' @return `loo_predict()`, `loo_linpred()`, and `loo_pit()`
 #'   (probability integral transform) methods should return a vector with length
 #'   equal to the number of observations in the data.
+#'   For discrete observations, probability integral transform is randomised to
+#'   ensure theoretical uniformity. Fix random seed for reproducible results 
+#'   with discrete data. For more details, see Czado et al. (2009).
 #'   `loo_predictive_interval()` methods should return a two-column matrix
 #'   formatted in the same way as for [predictive_interval()].
 #'
 #' @template seealso-rstanarm-pkg
 #' @template seealso-vignettes
-#'
+#' @template reference-randomised-pit
 
 #' @rdname loo-prediction
 #' @export
