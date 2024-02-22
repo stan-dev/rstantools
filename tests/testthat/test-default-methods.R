@@ -6,7 +6,7 @@ lw <- matrix(rnorm(150), 50, 3)
 lw <- sweep(
   lw,
   MARGIN = 2,
-  STATS = apply(lw, 2, \(col) log(sum(exp(col)))),
+  STATS = apply(lw, 2, function(col) log(sum(exp(col)))),
   check.margin = FALSE
 )
 
