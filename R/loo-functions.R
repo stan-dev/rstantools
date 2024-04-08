@@ -7,9 +7,9 @@
 #' @template args-object
 #' @template args-dots
 #'
-#' @return `loo_predict()`, `loo_linpred()`, and `loo_pit()`
-#'   (probability integral transform) methods should return a vector with length
-#'   equal to the number of observations in the data.
+#' @return `loo_predict()`, `loo_epred()`, `loo_linpred()`, and `loo_pit()`
+#'   (probability integral transform) methods should return a vector with
+#'   length equal to the number of observations in the data.
 #'   For discrete observations, probability integral transform is randomised to
 #'   ensure theoretical uniformity. Fix random seed for reproducible results 
 #'   with discrete data. For more details, see Czado et al. (2009).
@@ -24,6 +24,12 @@
 #' @export
 loo_linpred <- function(object, ...) {
   UseMethod("loo_linpred")
+}
+
+#' @rdname loo-prediction
+#' @export
+loo_epred <- function(object, ...) {
+  UseMethod("loo_epred")
 }
 
 #' @rdname loo-prediction
