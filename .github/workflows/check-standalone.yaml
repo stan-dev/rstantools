@@ -78,13 +78,14 @@ jobs:
         with:
           repository: stan-dev/rstan
           ref: experimental
-          path: ~/rstan
+          path: rstan
+          submodules: 'recursive'
 
       - name: Install Experimental StanHeaders and Experimental RStan
         run: |
           Sys.setenv(MAKEFLAGS=paste0("-j",parallel::detectCores()))
-          install.packages("~/rstan/StanHeaders", type = "source", repos = NULL)
-          install.packages("~/rstan/rstan/rstan", type = "source", repos = NULL)
+          install.packages("rstan/StanHeaders", type = "source", repos = NULL)
+          install.packages("rstan/rstan/rstan", type = "source", repos = NULL)
         shell: Rscript {0}
 
       - name: Check against Experimental StanHeaders and Experimental RStan
