@@ -217,6 +217,8 @@ rstan_config <- function(pkgdir = ".") {
     cat("#include <exporter.h>",
         eigen_incl,
         "#include <stan/math/prim/meta.hpp>",
+        # Make stan::rng_t typedef available
+        "#include <stan/services/util/create_rng.hpp>",
         file = file.path(pkgdir, "src",
                          paste(basename(pkgdir), "types.h", sep = "_")),
         sep = "\n")
@@ -236,6 +238,7 @@ rstan_config <- function(pkgdir = ".") {
     } else {
       cppcode <- c("#include <rstan/rstaninc.hpp>", cppcode)
     }
+    cppcode <- gsub("boost::ecuyer1988", "stan::rng_t", cppcode, fixed = TRUE)
     # Stan header file
     hdr_name <- .stan_prefix(model_name, ".h")
     # get license file (if any)
@@ -275,7 +278,7 @@ rstan_config <- function(pkgdir = ".") {
                                   header = paste0('#include "', hdr_name, '"'),
                                   module = paste0("stan_fit4",
                                                   model_name, "_mod"),
-                                  CppClass = "rstan::stan_fit<stan_model, boost::random::ecuyer1988> ",
+                                  CppClass = "rstan::stan_fit<stan_model, stan::rng_t> ",
                                   Rfile = FALSE)
               )
     })
