@@ -236,6 +236,9 @@ rstan_config <- function(pkgdir = ".") {
     } else {
       cppcode <- c("#include <rstan/rstaninc.hpp>", cppcode)
     }
+    if (utils::packageVersion('StanHeaders') >= "2.34") {
+      cppcode <- gsub("boost::ecuyer1988", "stan::rng_t", cppcode, fixed = TRUE)
+    }
     # Stan header file
     hdr_name <- .stan_prefix(model_name, ".h")
     # get license file (if any)
