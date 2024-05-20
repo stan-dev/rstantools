@@ -236,6 +236,8 @@ rstan_config <- function(pkgdir = ".") {
     } else {
       cppcode <- c("#include <rstan/rstaninc.hpp>", cppcode)
     }
+    rng_type <- ifelse(utils::packageVersion('StanHeaders') >= "2.34",
+                       "stan::rng_t", "boost::ecuyer1988")
     if (utils::packageVersion('StanHeaders') >= "2.34") {
       cppcode <- gsub("boost::ecuyer1988", "stan::rng_t", cppcode, fixed = TRUE)
     }
@@ -278,7 +280,7 @@ rstan_config <- function(pkgdir = ".") {
                                   header = paste0('#include "', hdr_name, '"'),
                                   module = paste0("stan_fit4",
                                                   model_name, "_mod"),
-                                  CppClass = "rstan::stan_fit<stan_model, boost::random::ecuyer1988> ",
+                                  CppClass = paste0("rstan::stan_fit<stan_model, ", rng_type, "> "),
                                   Rfile = FALSE)
               )
     })
