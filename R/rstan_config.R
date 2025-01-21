@@ -214,7 +214,7 @@ rstan_config <- function(pkgdir = ".") {
     eigen_incl <- ifelse(utils::packageVersion('StanHeaders') >= "2.31",
                          "#include <stan/math/prim/fun/Eigen.hpp>",
                          "#include <stan/math/prim/mat/fun/Eigen.hpp>")
-    pkgname <- gsub("Package: ", "", readLines("DESCRIPTION", n = 1))
+    pkgname <- unname(read.dcf("DESCRIPTION", "Package")[1, 1])
     cat("#include <exporter.h>",
         eigen_incl,
         "#include <stan/math/prim/meta.hpp>",
