@@ -2,7 +2,6 @@
 #'
 #' @name rstantools-package
 #' @aliases rstantools
-#' @docType package
 #'
 #' @description
 #' \if{html}{
@@ -21,7 +20,7 @@
 #'
 #' @importFrom RcppParallel RcppParallelLibs
 #'
-NULL
+"_PACKAGE"
 
 
 # internal ----------------------------------------------------------------
