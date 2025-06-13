@@ -29,12 +29,12 @@ jobs:
           type: full
 
       - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: github::r-lib/revdepcheck
 
-      - name: Run Reverse Dependency Checks
-        run: |
-          revdepcheck::revdep_check(num_workers = 3)
-          revdepcheck::revdep_summary()
+      - name: Build package
+        run: R CMD BUILD .
+        
+      - name: Run reverse dependency checks
+        run: tools::check_packages_in_dir(getwd(), reverse = list(), Ncpus = 3)
         shell: Rscript {0}
+        
           
