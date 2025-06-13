@@ -31,7 +31,7 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
 
       - name: Build package
-        run: R CMD BUILD .
+        run: R CMD BUILD . --no-build-vignettes
         
       - name: Run reverse dependency checks
         run: tools::check_packages_in_dir(getwd(), reverse = list(), Ncpus = 3)
