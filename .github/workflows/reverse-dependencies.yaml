@@ -29,9 +29,11 @@ jobs:
           type: full
 
       - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: local::.
 
       - name: Build package
-        run: R CMD BUILD . --no-build-vignettes
+        run: R CMD BUILD .
         
       - name: Run reverse dependency checks
         run: tools::check_packages_in_dir(getwd(), reverse = list(), Ncpus = 3)
