@@ -41,7 +41,8 @@ jobs:
       - name: Install additional package deps
         run: |
           install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://cloud.r-project.org'))
-          install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE) 
+          install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE)
+        shell: Rscript {0} 
           
       - name: Build package
         run: R CMD BUILD .
