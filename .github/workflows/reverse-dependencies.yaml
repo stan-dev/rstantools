@@ -26,23 +26,28 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache: 'always'
-          extra-packages: rcmdcheck BH RcppParallel RcppEigen Rcpp rstan github::r-lib/revdepcheck github::stan-dev/cmdstanr
+          extra-packages: rcmdcheck BH RcppParallel RcppEigen Rcpp rstan github::CraigWangStat/eggCountsExtra
       
       - name: Install R Package Build Dependencies
         uses: r-hub/actions/setup-r-sysreqs@v1
         with:
           type: full      
           
-      - name: Install additional deps
+      - name: Install additional system deps
         run: |
           brew install jags openjdk
           R CMD javareconf
+          
+      - name: Install additional package deps
+        run: |
+          install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://cloud.r-project.org'))
+          install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE) 
           
       - name: Build package
         run: R CMD BUILD .
         
       - name: Install dependencies
-        run: pak::pak(paste0("deps::", revdepcheck::cran_revdeps('rstantools')))
+        run: pak::pak(revdepcheck::cran_revdeps('rstantools'), dependencies = TRUE)
         shell: Rscript {0}
         
       - name: Run reverse dependency checks
