@@ -42,7 +42,7 @@ jobs:
         run: R CMD BUILD .
         
       - name: Install dependencies
-        run: pak::pak(paste0("pkg_deps::", revdepcheck::cran_revdeps('rstantools')))
+        run: pak::pak(paste0("deps::", revdepcheck::cran_revdeps('rstantools')))
         shell: Rscript {0}
         
       - name: Run reverse dependency checks
