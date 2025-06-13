@@ -43,6 +43,7 @@ jobs:
         
       - name: Install dependencies
         run: pak::pak(revdepcheck::cran_revdeps('rstantools'), dependencies = TRUE)
+        shell: Rscript {0}
         
       - name: Run reverse dependency checks
         run: |
