@@ -42,14 +42,15 @@ jobs:
         run: |
           install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://cloud.r-project.org'))
           install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE)
+          install.packages("glmmADMB", repos=c("http://R-Forge.R-project.org", 'https://cloud.r-project.org'))
         shell: Rscript {0} 
           
+      - name: Install dependencies
+        run: install.packages(revdepcheck::cran_revdeps('rstantools'), dependencies = TRUE)
+        shell: Rscript {0}
+        
       - name: Build package
         run: R CMD BUILD .
-        
-      - name: Install dependencies
-        run: pak::pak(revdepcheck::cran_revdeps('rstantools'), dependencies = TRUE)
-        shell: Rscript {0}
         
       - name: Run reverse dependency checks
         run: |
