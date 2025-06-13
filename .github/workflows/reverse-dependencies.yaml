@@ -26,15 +26,15 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache: 'always'
-          extra-packages: rcmdcheck BH RcppParallel RcppEigen Rcpp rstan github::r-lib/revdepcheck
+          extra-packages: rcmdcheck BH RcppParallel RcppEigen Rcpp rstan
       
+      - name: Install R Package Build Dependencies
+        uses: r-hub/actions/setup-r-sysreqs@v1
+        with:
+          type: full      
+          
       - name: Build package
         run: R CMD BUILD .
-        
-      - name: install dependencies
-        run:
-          pak::pak(revdepcheck::cran_revdeps('rstantools'))
-        shell: Rscript {0}
         
       - name: Run reverse dependency checks
         run: |
