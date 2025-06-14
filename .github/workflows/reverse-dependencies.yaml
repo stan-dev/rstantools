@@ -29,7 +29,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::.
+          extra-packages: rstanarm local::.
 
       - name: Install R Package Build Dependencies
         uses: r-hub/actions/setup-r-sysreqs@v1
@@ -53,7 +53,7 @@ jobs:
             mode = "wb"
           )
 
-          pak::pak(revdep_details[,"Package"])
+          pak::pak(revdep_details[,"Package"], dependencies = TRUE)
 
           tools::check_packages_in_dir("./revdepchecks", Ncpus = 3)
         shell: Rscript {0}
