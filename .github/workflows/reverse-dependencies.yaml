@@ -55,6 +55,8 @@ jobs:
 
           pak::pak(revdep_details[,"Package"])
 
+          tools::check_packages_in_dir("./revdepchecks", Ncpus = 3)
+
           res <- tools::check_packages_in_dir_details("revdepchecks/")
           res_error <- res[res$Status == "ERROR", ]
 
