@@ -65,7 +65,7 @@ jobs:
 
           pak::pak(revdep_details[,"Package"])
 
-          tools::check_packages_in_dir("./revdepchecks", Ncpus = 3)
+          tools::check_packages_in_dir("./revdepchecks", Ncpus = 4)
 
           res <- tools::check_packages_in_dir_details("revdepchecks/")
           saveRDS(res, file = "batch-${{ matrix.batch }}-status.rds")
