@@ -14,9 +14,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        batch: [1, 2, 3, 4, 5]
+        batch: [1]
 
-    name: Reverse dependency checks
+    name: Reverse dependency checks (batch ${{ matrix.batch }})
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -49,7 +49,7 @@ jobs:
 
           download.file(
             url = paste0(revdep_details[,"Repository"], "/", pkg_tar_names),
-            destfile = file.path(getwd(), , pkg_tar_names),
+            destfile = file.path(getwd(), "revdepchecks", pkg_tar_names),
             method = "libcurl",
             mode = "wb"
           )
