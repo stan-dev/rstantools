@@ -83,9 +83,15 @@ jobs:
           files <- list.files(pattern = "batch-\\d+-status.rds")
           res <- do.call(rbind.data.frame, lapply(files, readRDS))
           saveRDS(res, file = "revdep-status.rds")
+
+          res_error <- res[res$Status == "ERROR", ]
+          if (nrow(res_error) > 0) {
+            stop("Error in: ", paste(res_error$Package, collapse=", "))
+          }
         shell: Rscript {0}
 
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: revdep-status
           path: revdep-status.rds
