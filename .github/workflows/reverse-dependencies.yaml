@@ -11,6 +11,10 @@ name: Reverse Dependency Checks
 jobs:
   revdep-checks:
     runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        batch: [1, 2, 3, 4, 5]
 
     name: Reverse dependency checks
 
@@ -26,35 +30,29 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache: 'always'
-          extra-packages: rcmdcheck BH RcppParallel RcppEigen Rcpp rstan github::CraigWangStat/eggCountsExtra
-      
+          extra-packages: local::.
+
       - name: Install R Package Build Dependencies
         uses: r-hub/actions/setup-r-sysreqs@v1
         with:
-          type: full      
-          
-      - name: Install additional system deps
+          type: full
+
+      - name: Check reverse dependencies (batch ${{ matrix.batch }})
         run: |
-          brew install jags openjdk
-          R CMD javareconf
-          
-      - name: Install additional package deps
-        run: |
-          install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://cloud.r-project.org'))
-          install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE)
-          install.packages("glmmADMB", repos=c("http://R-Forge.R-project.org", 'https://cloud.r-project.org'))
-        shell: Rscript {0} 
-          
-      - name: Install dependencies
-        run: pak::pak(revdepcheck::cran_revdeps('rstantools'), dependencies = TRUE)
+          revdeps <- tools::package_dependencies("rstantools", reverse = TRUE, which = "all")$rstantools
+          revdeps <- split(revdeps,  cut(seq_along(revdeps), 5, labels = FALSE))
+          curr_revdeps <- revdeps[[${{ matrix.batch }}]]
+
+          revdep_details <- available.packages()[available.packages()[,"Package"] %in% curr_revdeps,]
+          pkg_tar_names <- paste0(revdep_details[,"Package"], "_", revdep_details[,"Version"], ".tar.gz")
+          dir.create("./revdepchecks")
+
+          download.file(
+            url = paste0(revdep_details[,"Repository"], "/", pkg_tar_names),
+            destfile = file.path(getwd(), , pkg_tar_names),
+            method = "libcurl",
+            mode = "wb"
+          )
+
+          tools::check_packages_in_dir("./revdepchecks", Ncpus = 3)
         shell: Rscript {0}
-        
-      - name: Build package
-        run: R CMD BUILD .
-        
-      - name: Run reverse dependency checks
-        run: |
-          tools::check_packages_in_dir(getwd(), reverse = list(), Ncpus = 3)
-        shell: Rscript {0}
-        
-          
