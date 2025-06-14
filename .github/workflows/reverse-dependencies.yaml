@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        batch: [1, 2, 3, 4, 5]
+        batch: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     name: Reverse dependency checks (batch ${{ matrix.batch }})
 
@@ -39,7 +39,7 @@ jobs:
       - name: Check reverse dependencies (batch ${{ matrix.batch }})
         run: |
           revdeps <- tools::package_dependencies("rstantools", reverse = TRUE, which = "all")$rstantools
-          revdeps <- split(revdeps,  cut(seq_along(revdeps), 5, labels = FALSE))
+          revdeps <- split(revdeps,  cut(seq_along(revdeps), 10, labels = FALSE))
           curr_revdeps <- revdeps[[${{ matrix.batch }}]]
 
           revdep_details <- available.packages()[available.packages()[,"Package"] %in% curr_revdeps,]
@@ -55,5 +55,10 @@ jobs:
 
           pak::pak(revdep_details[,"Package"])
 
-          tools::check_packages_in_dir("./revdepchecks", Ncpus = 3)
+          res <- tools::check_packages_in_dir_details("revdepchecks/")
+          res_error <- res[res$Status == "ERROR", ]
+
+          if (nrow(res_error) > 0) {
+            stop("Error in: ", paste(res_error$Package, collapse=", "))
+          }
         shell: Rscript {0}
