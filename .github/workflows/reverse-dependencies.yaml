@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        batch: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        batch: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
     name: Reverse dependency checks (batch ${{ matrix.batch }})
 
@@ -37,12 +37,19 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: rstanarm BH RcppEigen RcppParallel local::.
+          extra-packages:
+            local::. rstanarm BH RcppEigen RcppParallel github::ecmerkle/blavsam
+            bioc::DESeq2 github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra
+
+      - name: Install additional R dependencies
+        run: |
+          install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE)
+          install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://cloud.r-project.org'))
 
       - name: Check reverse dependencies (batch ${{ matrix.batch }})
         run: |
           revdeps <- tools::package_dependencies("rstantools", reverse = TRUE, which = "all")$rstantools
-          revdeps <- split(revdeps,  cut(seq_along(revdeps), 10, labels = FALSE))
+          revdeps <- split(revdeps,  cut(seq_along(revdeps), 15, labels = FALSE))
           curr_revdeps <- revdeps[[${{ matrix.batch }}]]
 
           revdep_details <- available.packages()[available.packages()[,"Package"] %in% curr_revdeps,]
@@ -77,10 +84,16 @@ jobs:
     if: always()
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: revdep-results
+          pattern: revdep-batch-*
+          merge-multiple: true
+
       - name: Combine reverse dependency check results
         run: |
-          files <- list.files(pattern = "batch-\\d+-status.rds")
+          files <- list.files("revdep-results", pattern = "*.rds")
           res <- do.call(rbind.data.frame, lapply(files, readRDS))
           saveRDS(res, file = "revdep-status.rds")
 
