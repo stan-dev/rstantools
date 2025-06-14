@@ -45,6 +45,7 @@ jobs:
         run: |
           install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE)
           install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://cloud.r-project.org'))
+        shell: Rscript {0}
 
       - name: Check reverse dependencies (batch ${{ matrix.batch }})
         run: |
