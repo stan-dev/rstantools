@@ -29,7 +29,6 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          cache: 'always'
           extra-packages: local::.
 
       - name: Install R Package Build Dependencies
