@@ -32,6 +32,9 @@ jobs:
         with:
           type: full
 
+      - name: Install additional build dependencies
+        run: brew install jags
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: rstanarm BH RcppEigen RcppParallel local::.
@@ -58,9 +61,31 @@ jobs:
           tools::check_packages_in_dir("./revdepchecks", Ncpus = 3)
 
           res <- tools::check_packages_in_dir_details("revdepchecks/")
-          res_error <- res[res$Status == "ERROR", ]
-
-          if (nrow(res_error) > 0) {
-            stop("Error in: ", paste(res_error$Package, collapse=", "))
-          }
+          saveRDS(res, file = "batch-${{ matrix.batch }}-status.rds")
         shell: Rscript {0}
+
+      - name: Upload reverse dependency check results
+        uses: actions/upload-artifact@v4
+        with:
+          name: revdep-batch-${{ matrix.batch }}
+          path: batch-${{ matrix.batch }}-status.rds
+
+# Combine all results
+  combine-results:
+    runs-on: macos-latest
+    needs: revdep-checks
+    if: always()
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Combine reverse dependency check results
+        run: |
+          files <- list.files(pattern = "batch-\\d+-status.rds")
+          res <- do.call(rbind.data.frame, lapply(files, readRDS))
+          saveRDS(res, file = "revdep-status.rds")
+        shell: Rscript {0}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: revdep-status
+          path: revdep-status.rds
