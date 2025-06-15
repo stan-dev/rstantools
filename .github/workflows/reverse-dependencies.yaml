@@ -61,9 +61,6 @@ jobs:
             mode = "wb"
           )
 
-          # Install binaries to avoid building nested dependencies from source
-          pak::pak(revdep_details[,"Package"])
-
           tools::check_packages_in_dir("./revdepchecks", Ncpus = 2, check_args=c("--no-manual"))
 
           res <- tools::check_packages_in_dir_details("revdepchecks/")
