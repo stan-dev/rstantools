@@ -42,6 +42,7 @@ jobs:
           extra-packages:
             local::. rstanarm BH RcppEigen RcppParallel github::ecmerkle/blavsam
             bioc::DESeq2 github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra
+            bioc::Rgraphviz
 
       - name: Install additional R dependencies
         run: |
