@@ -14,9 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        batch: [1
-        #, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-        ]
+        batch: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
     name: Reverse dependency checks (batch ${{ matrix.batch }})
 
@@ -48,7 +46,7 @@ jobs:
       - name: Check reverse dependencies (batch ${{ matrix.batch }})
         run: |
           revdeps <- tools::package_dependencies("rstantools", reverse = TRUE, which = "all")$rstantools
-          revdeps <- split(revdeps,  cut(seq_along(revdeps), 25, labels = FALSE))
+          revdeps <- split(revdeps,  cut(seq_along(revdeps), 20, labels = FALSE))
           curr_revdeps <- revdeps[[${{ matrix.batch }}]]
           available_source_packages <- available.packages(type = "source")
 
@@ -63,6 +61,7 @@ jobs:
             mode = "wb"
           )
 
+          # Install binaries to avoid building nested dependencies from source
           pak::pak(revdep_details[,"Package"])
 
           tools::check_packages_in_dir("./revdepchecks", Ncpus = 4, check_args=c("--no-manual"))
