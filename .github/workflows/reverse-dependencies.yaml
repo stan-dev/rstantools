@@ -27,15 +27,15 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v2
       - uses: r-lib/actions/setup-r@v2
 
-      - name: Install additional build dependencies
-        run: sudo apt install jags
+      #- name: Install additional build dependencies
+      #  run: sudo apt-get install -y jags libmagick++-dev
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages:
             local::. rstanarm BH RcppEigen RcppParallel github::ecmerkle/blavsam
             bioc::DESeq2 github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra
-            bioc::Rgraphviz
+            bioc::Rgraphviz rJava terra runjags magick
 
       - name: Install additional R dependencies
         run: |
