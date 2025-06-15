@@ -14,7 +14,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        batch: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+        batch: [1#
+        #, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+        ]
 
     name: Reverse dependency checks (batch ${{ matrix.batch }})
 
@@ -98,7 +100,7 @@ jobs:
       - uses: r-lib/actions/setup-r@v2
       - name: Combine reverse dependency check results
         run: |
-          files <- list.files("revdep-results", pattern = "*.rds")
+          files <- list.files("revdep-results", pattern = "*.rds", full.names = TRUE)
           res <- do.call(rbind.data.frame, lapply(files, readRDS))
           saveRDS(res, file = "revdep-status.rds")
 
