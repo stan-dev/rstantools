@@ -28,6 +28,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: r-lib/actions/setup-pandoc@v2
       - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
 
       #- name: Install R Package Build Dependencies
       #  uses: r-hub/actions/setup-r-sysreqs@v1
@@ -55,8 +57,9 @@ jobs:
           revdeps <- tools::package_dependencies("rstantools", reverse = TRUE, which = "all")$rstantools
           revdeps <- split(revdeps,  cut(seq_along(revdeps), 15, labels = FALSE))
           curr_revdeps <- revdeps[[${{ matrix.batch }}]]
+          available_source_packages <- available.packages(type = "source")
 
-          revdep_details <- available.packages()[available.packages()[,"Package"] %in% curr_revdeps,]
+          revdep_details <- available_source_packages[available_source_packages[,"Package"] %in% curr_revdeps,]
           pkg_tar_names <- paste0(revdep_details[,"Package"], "_", revdep_details[,"Version"], ".tar.gz")
           dir.create("./revdepchecks")
 
