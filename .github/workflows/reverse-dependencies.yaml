@@ -94,6 +94,7 @@ jobs:
           pattern: revdep-batch-*
           merge-multiple: true
 
+      - uses: r-lib/actions/setup-r@v2
       - name: Combine reverse dependency check results
         run: |
           files <- list.files("revdep-results", pattern = "*.rds")
