@@ -48,7 +48,7 @@ jobs:
       - name: Check reverse dependencies (batch ${{ matrix.batch }})
         run: |
           revdeps <- tools::package_dependencies("rstantools", reverse = TRUE, which = "all")$rstantools
-          revdeps <- split(revdeps,  cut(seq_along(revdeps), 15, labels = FALSE))
+          revdeps <- split(revdeps,  cut(seq_along(revdeps), 25, labels = FALSE))
           curr_revdeps <- revdeps[[${{ matrix.batch }}]]
           available_source_packages <- available.packages(type = "source")
 
