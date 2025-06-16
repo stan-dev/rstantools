@@ -10,7 +10,7 @@ name: Reverse Dependency Checks
 
 jobs:
   revdep-checks:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
@@ -36,10 +36,10 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages:
-            local::. rstanarm BH RcppEigen RcppParallel github::ecmerkle/blavsam
-            bioc::DESeq2 github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra
-            bioc::Rgraphviz rJava terra runjags magick geostan
+          extra-packages: local::.
+          #  local::. rstanarm BH RcppEigen RcppParallel github::ecmerkle/blavsam
+          #  bioc::DESeq2 github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra
+          #  bioc::Rgraphviz rJava terra runjags magick geostan
 
       - name: Install additional R dependencies
         run: |
