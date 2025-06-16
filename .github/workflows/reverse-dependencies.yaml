@@ -39,7 +39,7 @@ jobs:
           extra-packages:
             local::. rstanarm BH RcppEigen RcppParallel github::ecmerkle/blavsam
             bioc::DESeq2 github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra
-            bioc::Rgraphviz rJava terra runjags magick
+            bioc::Rgraphviz rJava terra runjags magick geostan
 
       - name: Install additional R dependencies
         run: |
