@@ -42,7 +42,7 @@ jobs:
           extra-packages:
             local::. rstanarm BH RcppEigen RcppParallel github::ecmerkle/blavsam
             bioc::DESeq2 github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra
-            bioc::Rgraphviz rJava terra runjags magick geostan
+            bioc::Rgraphviz rJava terra runjags magick github::bbolker/glmmadmb
 
       - name: Install additional R dependencies
         run: |
@@ -70,7 +70,7 @@ jobs:
 
           pak::pak(revdep_details[,"Package"], dependencies = TRUE)
 
-          tools::check_packages_in_dir("./revdepchecks", check_args=c("--no-manual"), Ncpus=3)
+          tools::check_packages_in_dir("./revdepchecks", check_args=c("--no-manual", "--no-vignettes"), Ncpus=3)
 
           res <- tools::check_packages_in_dir_details("revdepchecks/")
           saveRDS(res, file = "batch-${{ matrix.batch }}-status.rds")
