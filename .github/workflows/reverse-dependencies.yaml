@@ -15,10 +15,8 @@ jobs:
       fail-fast: false
       matrix:
         batch: [
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-          #, 11,
-          #12,
-          #13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,12, 13, 14, 15, 16, 17, 18, 19, 20
+          #, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
         ]
 
     name: Reverse dependency checks (batch ${{ matrix.batch }})
@@ -26,6 +24,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      MAKEFLAGS: '-j4'
 
     steps:
       - uses: actions/checkout@v4
@@ -43,7 +42,7 @@ jobs:
         with:
           extra-packages:
             local::. github::ecmerkle/blavsam github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra github::bbolker/glmmadmb
-            SparseChol rstanarm
+            SparseChol rstanarm emmeans priorsense splines2 RWiener rtdists mice arm R.rsp rjags spdep
 
       - name: Install additional R dependencies
         run: |
@@ -54,7 +53,7 @@ jobs:
       - name: Check reverse dependencies (batch ${{ matrix.batch }})
         run: |
           revdeps <- tools::package_dependencies("rstantools", reverse = TRUE, which = "all")$rstantools
-          revdeps <- split(revdeps,  cut(seq_along(revdeps), 10, labels = FALSE))
+          revdeps <- split(revdeps,  cut(seq_along(revdeps), 20, labels = FALSE))
           curr_revdeps <- revdeps[[${{ matrix.batch }}]]
           available_source_packages <- available.packages(type = "source")
 
@@ -76,8 +75,12 @@ jobs:
             print(pkg)
             res <- rcmdcheck::rcmdcheck(
               pkg,
-              args=c("--as-cran","--no-manual"),
-              env=c("_R_CHECK_CRAN_INCOMING_"="false", "_R_CHECK_DONTTEST_EXAMPLES_"="false")
+              args=c("--as-cran","--no-manual", "--no-vignettes"),
+              env=c(
+                "_R_CHECK_CRAN_INCOMING_"="false",
+                "_R_CHECK_DONTTEST_EXAMPLES_"="false",
+                "MAKEFLAGS"="-j4"
+              )
             )
             if (length(res$errors) > 0) {
               stop(res$errors)
