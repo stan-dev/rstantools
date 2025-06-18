@@ -10,7 +10,7 @@ name: Reverse Dependency Checks
 
 jobs:
   revdep-checks:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -29,22 +29,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: 'recursive'
       - uses: r-lib/actions/setup-pandoc@v2
       - uses: r-lib/actions/setup-r@v2
-
-      - name: Install R Package Build Dependencies on MacOS
-        uses: r-hub/actions/setup-r-sysreqs@v1
         with:
-          type: 'full'
+          use-public-rspm: true
+
+      #- name: Install R Package Build Dependencies on MacOS
+      #  uses: r-hub/actions/setup-r-sysreqs@v1
+      #  with:
+      #    type: 'full'
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages:
-            local::. rstanarm BH RcppEigen RcppParallel github::ecmerkle/blavsam
-            bioc::DESeq2 github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra
-            bioc::Rgraphviz rJava terra runjags magick github::bbolker/glmmadmb
+            local::. github::ecmerkle/blavsam
+            github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra
+            github::bbolker/glmmadmb
 
       - name: Install additional R dependencies
         run: |
@@ -64,7 +64,7 @@ jobs:
           dir.create("./revdepchecks")
 
           download.file(
-            url = paste0(revdep_details[,"Repository"], "/", pkg_tar_names),
+            url = paste0("https://cloud.r-project.org/src/contrib/", pkg_tar_names),
             destfile = file.path(getwd(), "revdepchecks", pkg_tar_names),
             method = "libcurl",
             mode = "wb"
@@ -73,9 +73,13 @@ jobs:
           pak::pak(revdep_details[,"Package"], dependencies = TRUE)
 
           tools::check_packages_in_dir("./revdepchecks", check_args=c("--no-manual", "--no-vignettes"), Ncpus=3)
+          rcmdcheck::rcmdcheck(
+            file.path(getwd(), "revdepchecks", pkg_tar_names),
+            args=c("--as-cran","--no-manual"),
+            env=c("_R_CHECK_CRAN_INCOMING_"="false", "_R_CHECK_DONTTEST_EXAMPLES_"="false"))
 
-          res <- tools::check_packages_in_dir_details("revdepchecks/")
-          saveRDS(res, file = "batch-${{ matrix.batch }}-status.rds")
+          #res <- tools::check_packages_in_dir_details("revdepchecks/")
+          #saveRDS(res, file = "batch-${{ matrix.batch }}-status.rds")
         shell: Rscript {0}
 
       - name: Upload reverse dependency check results
@@ -84,35 +88,35 @@ jobs:
           name: revdep-batch-${{ matrix.batch }}
           path: batch-${{ matrix.batch }}-status.rds
 
-  combine-results:
-    runs-on: ubuntu-latest
-    needs: revdep-checks
-    if: always()
+#  combine-results:
+#    runs-on: ubuntu-latest
+#    needs: revdep-checks
+#    if: always()
+#
+#    steps:
+#      - name: Download All Artifacts
+#        uses: actions/download-artifact@v4
+#        with:
+#          path: revdep-results
+#          pattern: revdep-batch-*
+#          merge-multiple: true
 
-    steps:
-      - name: Download All Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: revdep-results
-          pattern: revdep-batch-*
-          merge-multiple: true
+#      - uses: r-lib/actions/setup-r@v2
+#      - name: Combine reverse dependency check results
+#        run: |
+#          files <- list.files("revdep-results", pattern = "*.rds", full.names = TRUE)
+#          res <- do.call(rbind.data.frame, lapply(files, readRDS))
+#          write.table(res, file = "revdep-results.csv", sep = ",", row.names = FALSE)
 
-      - uses: r-lib/actions/setup-r@v2
-      - name: Combine reverse dependency check results
-        run: |
-          files <- list.files("revdep-results", pattern = "*.rds", full.names = TRUE)
-          res <- do.call(rbind.data.frame, lapply(files, readRDS))
-          write.table(res, file = "revdep-results.csv", sep = ",", row.names = FALSE)
+#          res_error <- res[res$Status == "ERROR", ]
+#          if (nrow(res_error) > 0) {
+#            stop("The following packages had check errors: ", paste(res_error$Package, collapse=", "),
+#                 call. = FALSE)
+#          }
+#        shell: Rscript {0}
 
-          res_error <- res[res$Status == "ERROR", ]
-          if (nrow(res_error) > 0) {
-            stop("The following packages had check errors: ", paste(res_error$Package, collapse=", "),
-                 call. = FALSE)
-          }
-        shell: Rscript {0}
-
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: revdep-status
-          path: revdep-results.csv
+#      - uses: actions/upload-artifact@v4
+#        if: always()
+#        with:
+#          name: revdep-status
+#          path: revdep-results.csv
