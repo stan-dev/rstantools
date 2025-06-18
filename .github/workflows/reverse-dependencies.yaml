@@ -40,7 +40,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::.
+          extra-packages: local::. rcmdcheck
           #  local::. github::ecmerkle/blavsam github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra github::bbolker/glmmadmb
           #  SparseChol rstanarm emmeans priorsense splines2 RWiener rtdists mice arm R.rsp rjags spdep github::topipa/iwmm
           #  Rgraphviz graph jagsUI bindrcpp gganimate gifski transformr
@@ -69,7 +69,8 @@ jobs:
             mode = "wb"
           )
 
-          install.packages(revdep_details[,"Package"], dependencies = TRUE)
+          pak::pkg_deps(revdep_details[,"Package"], dependencies = TRUE)
+          pak::pak(revdep_details[,"Package"])
 
           #tools::check_packages_in_dir("./revdepchecks", check_args=c("--no-manual", "--no-vignettes"), Ncpus=3)
           for (pkg in file.path(getwd(), "revdepchecks", pkg_tar_names)) {
