@@ -40,15 +40,16 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages:
-            local::. github::ecmerkle/blavsam github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra github::bbolker/glmmadmb
-            SparseChol rstanarm emmeans priorsense splines2 RWiener rtdists mice arm R.rsp rjags spdep github::topipa/iwmm
+          extra-packages: local::.
+          #  local::. github::ecmerkle/blavsam github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra github::bbolker/glmmadmb
+          #  SparseChol rstanarm emmeans priorsense splines2 RWiener rtdists mice arm R.rsp rjags spdep github::topipa/iwmm
+          #  Rgraphviz graph jagsUI bindrcpp gganimate gifski transformr
 
-      - name: Install additional R dependencies
-        run: |
-          install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE)
-          install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://cloud.r-project.org'))
-        shell: Rscript {0}
+      #- name: Install additional R dependencies
+      #  run: |
+      #    install.packages("INLA",repos=c(getOption("repos"),INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE)
+      #    install.packages('cmdstanr', repos = c('https://stan-dev.r-universe.dev', 'https://cloud.r-project.org'))
+      #  shell: Rscript {0}
 
       - name: Check reverse dependencies (batch ${{ matrix.batch }})
         run: |
@@ -68,7 +69,7 @@ jobs:
             mode = "wb"
           )
 
-          pak::pak(revdep_details[,"Package"], dependencies = TRUE)
+          install.packages(revdep_details[,"Package"], dependencies = TRUE)
 
           #tools::check_packages_in_dir("./revdepchecks", check_args=c("--no-manual", "--no-vignettes"), Ncpus=3)
           for (pkg in file.path(getwd(), "revdepchecks", pkg_tar_names)) {
@@ -79,6 +80,7 @@ jobs:
               env=c(
                 "_R_CHECK_CRAN_INCOMING_"="false",
                 "_R_CHECK_DONTTEST_EXAMPLES_"="false",
+                "_R_CHECK_FORCE_SUGGESTS_"="false",
                 "MAKEFLAGS"="-j4"
               )
             )
