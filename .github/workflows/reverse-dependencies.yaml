@@ -42,9 +42,8 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages:
-            local::. github::ecmerkle/blavsam
-            github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra
-            github::bbolker/glmmadmb
+            local::. github::ecmerkle/blavsam github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra github::bbolker/glmmadmb
+            SparseChol rstanarm
 
       - name: Install additional R dependencies
         run: |
@@ -75,21 +74,25 @@ jobs:
           #tools::check_packages_in_dir("./revdepchecks", check_args=c("--no-manual", "--no-vignettes"), Ncpus=3)
           for (pkg in file.path(getwd(), "revdepchecks", pkg_tar_names)) {
             print(pkg)
-            rcmdcheck::rcmdcheck(
+            res <- rcmdcheck::rcmdcheck(
               pkg,
               args=c("--as-cran","--no-manual"),
-              env=c("_R_CHECK_CRAN_INCOMING_"="false", "_R_CHECK_DONTTEST_EXAMPLES_"="false"))
+              env=c("_R_CHECK_CRAN_INCOMING_"="false", "_R_CHECK_DONTTEST_EXAMPLES_"="false")
+            )
+            if (length(res$errors) > 0) {
+              stop(res$errors)
+            }
           }
 
           #res <- tools::check_packages_in_dir_details("revdepchecks/")
           #saveRDS(res, file = "batch-${{ matrix.batch }}-status.rds")
         shell: Rscript {0}
 
-      - name: Upload reverse dependency check results
-        uses: actions/upload-artifact@v4
-        with:
-          name: revdep-batch-${{ matrix.batch }}
-          path: batch-${{ matrix.batch }}-status.rds
+#      - name: Upload reverse dependency check results
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: revdep-batch-${{ matrix.batch }}
+#          path: batch-${{ matrix.batch }}-status.rds
 
 #  combine-results:
 #    runs-on: ubuntu-latest
