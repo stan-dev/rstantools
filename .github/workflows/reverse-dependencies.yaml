@@ -42,7 +42,7 @@ jobs:
         with:
           extra-packages:
             local::. github::ecmerkle/blavsam github::stan-dev/cmdstanr github::CraigWangStat/eggCountsExtra github::bbolker/glmmadmb
-            SparseChol rstanarm emmeans priorsense splines2 RWiener rtdists mice arm R.rsp rjags spdep
+            SparseChol rstanarm emmeans priorsense splines2 RWiener rtdists mice arm R.rsp rjags spdep github::topipa/iwmm
 
       - name: Install additional R dependencies
         run: |
