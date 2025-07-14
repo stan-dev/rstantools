@@ -2,7 +2,9 @@
 
 Items for next release go here
 
-Extended `loo_pit()` for discrete data.
+* Extended `loo_pit()` for discrete data.
+* Fix regression (introduced in 2.4.0) in the compilation of packages with
+custom Stan functions by @mcol in #137
 
 # rstantools 2.4.0
 
