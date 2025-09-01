@@ -1,3 +1,5 @@
+# rstantools (development version)
+
 # rstantools 2.5.0
 
 * Extended `loo_pit()` for discrete data by @TeemuSailynoja in #121
