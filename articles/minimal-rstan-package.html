@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rstantools</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.5.0</span>
       </span>
     </div>
 
@@ -135,7 +135,7 @@ depends on RStan</h1>
                         <h4 data-toc-skip class="author">Stefan Siegert,
 Jonah Gabry, Martin Lysy, and Ben Goodrich</h4>
             
-            <h4 data-toc-skip class="date">2024-01-31</h4>
+            <h4 data-toc-skip class="date">2025-09-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/stan-dev/rstantools/blob/HEAD/vignettes/minimal-rstan-package.Rmd" class="external-link"><code>vignettes/minimal-rstan-package.Rmd</code></a></small>
       <div class="hidden name"><code>minimal-rstan-package.Rmd</code></div>
@@ -173,7 +173,7 @@ using Stan.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://mc-stan.org/rstantools/">"rstantools"</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/rstan_create_package.html">rstan_create_package</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'rstanlm'</span><span class="op">)</span></span></code></pre></div>
-<pre><code>This is rstantools version 2.4.0</code></pre>
+<pre><code>This is rstantools version 2.5.0</code></pre>
 <pre><code>Creating package skeleton for package: rstanlm</code></pre>
 <pre><code> [34mPackage [39m: rstanlm
  [34mTitle [39m: What the Package Does (One Line, Title Case)
@@ -185,7 +185,7 @@ using Stan.</p>
     pick a license
  [34mEncoding [39m: UTF-8
  [34mRoxygen [39m: list(markdown = TRUE)
- [34mRoxygenNote [39m: 7.3.0</code></pre>
+ [34mRoxygenNote [39m: 7.3.2</code></pre>
 <pre><code>Creating inst/stan/include directory ...</code></pre>
 <pre><code>Creating inst/include directory ...</code></pre>
 <pre><code>Creating src directory ...</code></pre>
@@ -235,7 +235,7 @@ License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.0
+RoxygenNote: 7.3.2
 Biarch: true
 Depends: 
     R (&gt;= 3.4.0)
@@ -244,7 +244,7 @@ Imports:
     Rcpp (&gt;= 0.12.0),
     RcppParallel (&gt;= 5.0.1),
     rstan (&gt;= 2.18.1),
-    rstantools (&gt;= 2.4.0)
+    rstantools (&gt;= 2.5.0)
 LinkingTo: 
     BH (&gt;= 1.66.0),
     Rcpp (&gt;= 0.12.0),
@@ -372,7 +372,7 @@ code:</p>
 <span><span class="co">#' @importFrom RcppParallel RcppParallelLibs</span></span>
 <span><span class="co">#'</span></span>
 <span><span class="co">#' @references</span></span>
-<span><span class="co">#' Stan Development Team (NA). RStan: the R interface to Stan. R package version 2.32.3. https://mc-stan.org</span></span>
+<span><span class="co">#' Stan Development Team (NA). RStan: the R interface to Stan. R package version 2.32.7. https://mc-stan.org</span></span>
 <span><span class="co">#'</span></span>
 <span><span class="cn">NULL</span></span></code></pre>
 <p>The <code>#' @description</code> section can be manually edited to
@@ -407,7 +407,7 @@ initially.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># using ../rstanlm because already inside the rstanlm directory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"../rstanlm"</span>, repos <span class="op">=</span> <span class="cn">NULL</span>, type <span class="op">=</span> <span class="st">"source"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>Installing package into '/private/var/folders/s0/zfzm55px2nd2v__zlw5xfj2h0000gn/T/RtmpErQ6Pd/temp_libpath10fd07a3b0be3'
+<pre><code>Installing package into '/private/var/folders/s0/zfzm55px2nd2v__zlw5xfj2h0000gn/T/RtmpgOcxUf/temp_libpath1468d4578d789'
 (as 'lib' is unspecified)</code></pre>
 <p>It is also possible to use
 <code>devtools::install(quick=FALSE)</code> to install the package. The
@@ -426,8 +426,8 @@ R package:</p>
 <pre><code>
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 1).
 Chain 1: 
-Chain 1: Gradient evaluation took 6.2e-05 seconds
-Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.62 seconds.
+Chain 1: Gradient evaluation took 8.9e-05 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.89 seconds.
 Chain 1: Adjust your expectations accordingly!
 Chain 1: 
 Chain 1: 
@@ -438,15 +438,15 @@ Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 1: Iteration: 1500 / 2000 [ 75%]  (Sampling)
 Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 1: 
-Chain 1:  Elapsed Time: 0.364 seconds (Warm-up)
-Chain 1:                0.361 seconds (Sampling)
-Chain 1:                0.725 seconds (Total)
+Chain 1:  Elapsed Time: 0.362 seconds (Warm-up)
+Chain 1:                0.365 seconds (Sampling)
+Chain 1:                0.727 seconds (Total)
 Chain 1: 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 2).
 Chain 2: 
-Chain 2: Gradient evaluation took 3.1e-05 seconds
-Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.31 seconds.
+Chain 2: Gradient evaluation took 4e-05 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.4 seconds.
 Chain 2: Adjust your expectations accordingly!
 Chain 2: 
 Chain 2: 
@@ -457,15 +457,15 @@ Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 2: Iteration: 1500 / 2000 [ 75%]  (Sampling)
 Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 2: 
-Chain 2:  Elapsed Time: 0.371 seconds (Warm-up)
-Chain 2:                0.374 seconds (Sampling)
-Chain 2:                0.745 seconds (Total)
+Chain 2:  Elapsed Time: 0.366 seconds (Warm-up)
+Chain 2:                0.367 seconds (Sampling)
+Chain 2:                0.733 seconds (Total)
 Chain 2: 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 3).
 Chain 3: 
-Chain 3: Gradient evaluation took 3.1e-05 seconds
-Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.31 seconds.
+Chain 3: Gradient evaluation took 3.6e-05 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.36 seconds.
 Chain 3: Adjust your expectations accordingly!
 Chain 3: 
 Chain 3: 
@@ -476,15 +476,15 @@ Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 3: Iteration: 1500 / 2000 [ 75%]  (Sampling)
 Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 3: 
-Chain 3:  Elapsed Time: 0.342 seconds (Warm-up)
-Chain 3:                0.337 seconds (Sampling)
-Chain 3:                0.679 seconds (Total)
+Chain 3:  Elapsed Time: 0.379 seconds (Warm-up)
+Chain 3:                0.329 seconds (Sampling)
+Chain 3:                0.708 seconds (Total)
 Chain 3: 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 4).
 Chain 4: 
-Chain 4: Gradient evaluation took 3.1e-05 seconds
-Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.31 seconds.
+Chain 4: Gradient evaluation took 6e-05 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.6 seconds.
 Chain 4: Adjust your expectations accordingly!
 Chain 4: 
 Chain 4: 
@@ -495,9 +495,9 @@ Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 4: Iteration: 1500 / 2000 [ 75%]  (Sampling)
 Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 4: 
-Chain 4:  Elapsed Time: 0.344 seconds (Warm-up)
-Chain 4:                0.316 seconds (Sampling)
-Chain 4:                0.66 seconds (Total)
+Chain 4:  Elapsed Time: 0.394 seconds (Warm-up)
+Chain 4:                0.347 seconds (Sampling)
+Chain 4:                0.741 seconds (Total)
 Chain 4: </code></pre>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
@@ -505,13 +505,13 @@ Chain 4: </code></pre>
 4 chains, each with iter=2000; warmup=1000; thin=1; 
 post-warmup draws per chain=1000, total post-warmup draws=4000.
 
-           mean se_mean   sd  2.5%   25%   50%   75% 97.5% n_eff Rhat
-intercept  0.10    0.01 0.46 -0.76 -0.20  0.09  0.38  1.06  1647    1
-beta       0.00    0.01 0.41 -0.84 -0.26  0.01  0.26  0.82  2015    1
-sigma      1.09    0.01 0.33  0.65  0.86  1.03  1.25  1.92  1475    1
-lp__      -4.99    0.04 1.37 -8.41 -5.66 -4.65 -3.97 -3.35  1132    1
+           mean se_mean   sd   2.5%   25%   50%   75% 97.5% n_eff Rhat
+intercept  0.06    0.01 0.47  -0.87 -0.22  0.06  0.35  1.02  2490    1
+beta      -0.09    0.01 0.48  -1.04 -0.37 -0.09  0.19  0.87  2434    1
+sigma      1.44    0.01 0.47   0.84  1.13  1.35  1.65  2.58  1153    1
+lp__      -7.42    0.05 1.47 -11.13 -8.09 -7.05 -6.36 -5.76   923    1
 
-Samples were drawn using NUTS(diag_e) at Wed Jan 31 08:48:14 2024.
+Samples were drawn using NUTS(diag_e) at Mon Sep  1 13:07:09 2025.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
@@ -594,7 +594,7 @@ well as the release process.</p></li>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>
