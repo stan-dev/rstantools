@@ -214,11 +214,15 @@ rstan_config <- function(pkgdir = ".") {
     eigen_incl <- ifelse(utils::packageVersion('StanHeaders') >= "2.31",
                          "#include <stan/math/prim/fun/Eigen.hpp>",
                          "#include <stan/math/prim/mat/fun/Eigen.hpp>")
+    pkgname <- tryCatch(unname(read.dcf("DESCRIPTION", "Package")[1, 1]),
+                        warning = function(w) {
+                          basename(pkgdir)
+                        })
     cat("#include <exporter.h>",
         eigen_incl,
         "#include <stan/math/prim/meta.hpp>",
         file = file.path(pkgdir, "src",
-                         paste(basename(pkgdir), "types.h", sep = "_")),
+                         paste(pkgname, "types.h", sep = "_")),
         sep = "\n")
 
   } else { # actual Stan model
@@ -235,6 +239,11 @@ rstan_config <- function(pkgdir = ".") {
                         after = stanc3_declaration + 1)
     } else {
       cppcode <- c("#include <rstan/rstaninc.hpp>", cppcode)
+    }
+    rng_type <- ifelse(utils::packageVersion('StanHeaders') >= "2.34",
+                       "stan::rng_t", "boost::ecuyer1988")
+    if (utils::packageVersion('StanHeaders') >= "2.34") {
+      cppcode <- gsub("boost::ecuyer1988", "stan::rng_t", cppcode, fixed = TRUE)
     }
     # Stan header file
     hdr_name <- .stan_prefix(model_name, ".h")
@@ -275,7 +284,7 @@ rstan_config <- function(pkgdir = ".") {
                                   header = paste0('#include "', hdr_name, '"'),
                                   module = paste0("stan_fit4",
                                                   model_name, "_mod"),
-                                  CppClass = "rstan::stan_fit<stan_model, boost::random::ecuyer1988> ",
+                                  CppClass = paste0("rstan::stan_fit<stan_model, ", rng_type, "> "),
                                   Rfile = FALSE)
               )
     })

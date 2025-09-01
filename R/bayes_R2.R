@@ -18,10 +18,10 @@
 #'
 #'
 #' @references
-#' Andrew Gelman, Ben Goodrich, Jonah Gabry, and Aki Vehtari (2018). R-squared
-#' for Bayesian regression models. *The American Statistician*, to appear.
+#' Andrew Gelman, Ben Goodrich, Jonah Gabry, and Aki Vehtari (2019). R-squared
+#' for Bayesian regression models. *The American Statistician*, 73(3):307-309.
 #' DOI: 10.1080/00031305.2018.1549100.
-#' ([Preprint](http://www.stat.columbia.edu/~gelman/research/published/bayes_R2_v3.pdf),
+#' ([Preprint](https://sites.stat.columbia.edu/gelman/research/published/bayes_R2_v3.pdf),
 #' [Notebook](https://avehtari.github.io/bayes_R2/bayes_R2.html))
 #'
 #'

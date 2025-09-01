@@ -3,6 +3,7 @@
 \name{loo-prediction}
 \alias{loo-prediction}
 \alias{loo_linpred}
+\alias{loo_epred}
 \alias{loo_predict}
 \alias{loo_predictive_interval}
 \alias{loo_pit}
@@ -10,6 +11,8 @@
 \title{Generic functions for LOO predictions}
 \usage{
 loo_linpred(object, ...)
+
+loo_epred(object, ...)
 
 loo_predict(object, ...)
 
@@ -32,14 +35,23 @@ same length as the number of columns in the matrix used as \code{object}.}
 the same length as the number of columns in the matrix used as \code{object}.}
 }
 \value{
-\code{loo_predict()}, \code{loo_linpred()}, and \code{loo_pit()}
-(probability integral transform) methods should return a vector with length
-equal to the number of observations in the data.
+\code{loo_predict()}, \code{loo_epred()}, \code{loo_linpred()}, and \code{loo_pit()}
+(probability integral transform) methods should return a vector with
+length equal to the number of observations in the data.
+For discrete observations, probability integral transform is randomised to
+ensure theoretical uniformity. Fix random seed for reproducible results
+with discrete data. For more details, see Czado et al. (2009).
 \code{loo_predictive_interval()} methods should return a two-column matrix
 formatted in the same way as for \code{\link[=predictive_interval]{predictive_interval()}}.
 }
 \description{
 See the methods in the \pkg{rstanarm} package for examples.
+}
+\references{
+Czado, C., Gneiting, T., and Held, L. (2009).
+Predictive Model Assessment for Count Data.
+\emph{Biometrics}. 65(4), 1254-1261.
+\doi{10.1111/j.1541-0420.2009.01191.x}.
 }
 \seealso{
 \itemize{

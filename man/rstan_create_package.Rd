@@ -114,7 +114,13 @@ must be manually configured by running \code{\link[=rstan_config]{rstan_config()
 \code{stanmodel} files in \code{inst/stan} are added, removed, or modified.
 
 In order to enable Stan functionality, \pkg{\link{rstantools}}
-copies some files to your package.  Since these files are licensed as GPL= 3, the same license applies to your package should you choose todistribute it.  Even if you don't use \pkg{\link{rstantools}} to createyour package, it is likely that you will be linking to \pkg{\link{Rcpp}} toexport the Stan C++ stanmodel objects to \R.  Since\pkg{\link{Rcpp}} is released under GPL >= 2, the same license would applyto your package upon distribution.
+copies some files to your package.  Since these files are licensed as
+GPL >= 3, the same license applies to your package should you choose to
+distribute it.  Even if you don't use \pkg{\link{rstantools}} to create
+your package, it is likely that you will be linking to \pkg{Rcpp} to
+export the Stan C++ \code{stanmodel} objects to \R.  Since
+\pkg{Rcpp} is released under GPL >= 2, the same license would apply
+to your package upon distribution.
 
 Authors willing to license their Stan programs of general interest
 under the GPL are invited to contribute their \code{.stan} files and
