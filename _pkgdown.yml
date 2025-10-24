@@ -1,0 +1,80 @@
+url: https://mc-stan.org/rstantools
+
+destination: "."
+
+template:
+  package: pkgdownconfig
+
+navbar:
+  title: "rstantools"
+
+  structure:
+    left: [home, vignettes, functions, news, pkgs, stan]
+    right: [search, bluesky, forum, github, lightswitch]
+
+  components:
+    pkgs:
+      text: Other Packages
+      menu:
+        - text: bayesplot
+          href: https://mc-stan.org/bayesplot
+        - text: cmdstanr
+          href: https://mc-stan.org/cmdstanr
+        - text: loo
+          href: https://mc-stan.org/loo
+        - text: posterior
+          href: https://mc-stan.org/posterior
+        - text: projpred
+          href: https://mc-stan.org/projpred
+        - text: rstan
+          href: https://mc-stan.org/rstan
+        - text: rstanarm
+          href: https://mc-stan.org/rstanarm
+        - text: shinystan
+          href: https://mc-stan.org/shinystan
+
+articles:
+  - title: "Recommendations for R package development with Stan"
+    desc: >
+      This vignette provides many recommendations for developers interested in
+      creating an R package that interface with Stan. Topics include
+      development best practices, precompiling Stan programs, R code and
+      documentation, and more.
+    contents:
+      - developer-guidelines
+  - title: "Step-by-step guide"
+    desc: >
+      This vignette walks through the steps required to set up a package with
+      a precompiled Stan model, from creating the initial package structure to
+      adding the precompiled Stan program and writing the R function that users
+      will call to fit the model.
+    contents:
+      - minimal-rstan-package
+
+reference:
+  - title: "Package structure"
+    desc: >
+      Creating the basic structure of a Stan-based R package or add
+      Stan programs to an existing package.
+    contents:
+      - rstantools-package
+      - rstan_create_package
+      - use_rstan
+      - rstan_config
+      - rstantools_load_code
+  - title: "Generics"
+    desc: >
+      S3 generics (and some default methods) for adding functionality
+      to your package using the same naming conventions as **rstanarm**
+      and other Stan-based R packages.
+    contents:
+      - bayes_R2
+      - log_lik
+      - loo-prediction
+      - posterior_interval
+      - posterior_epred
+      - posterior_linpred
+      - posterior_predict
+      - predictive_error
+      - predictive_interval
+      - prior_summary
