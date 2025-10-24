@@ -42,7 +42,7 @@ articles:
       documentation, and more.
     contents:
       - developer-guidelines
-  - title: "Step-by-step guide"
+  - title: "Step by step guide for creating a package that depends on RStan"
     desc: >
       This vignette walks through the steps required to set up a package with
       a precompiled Stan model, from creating the initial package structure to

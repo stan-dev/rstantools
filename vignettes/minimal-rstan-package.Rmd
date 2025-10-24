@@ -262,7 +262,7 @@ documentation, you can set `quick=TRUE` to speed up the process, or use
 
 After installation, the package can be loaded and used like any other R package:
 
-```{r}
+```{r, eval=FALSE}
 library("rstanlm")
 ```
 
