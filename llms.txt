@@ -1,0 +1,129 @@
+# rstantools
+
+### Overview
+
+The **rstantools** package provides tools for developing R packages
+interfacing with [Stan](https://mc-stan.org/). The package vignettes
+provide guidelines and recommendations for developers as well as a
+demonstration of creating a working R package with a pre-compiled Stan
+program.
+
+- [Guidelines for developers of R Packages interfacing with
+  Stan](https://mc-stan.org/rstantools/articles/developer-guidelines.html)
+
+- [Step by step guide for creating a package that depends on
+  RStan](https://mc-stan.org/rstantools/articles/minimal-rstan-package.html)
+
+### Resources
+
+- [mc-stan.org/rstantools](https://mc-stan.org/rstantools) (online
+  documentation, vignettes)
+- [Ask a question](https://discourse.mc-stan.org) (Stan Forums on
+  Discourse)
+- [Open an issue](https://github.com/stan-dev/rstantools/issues) (GitHub
+  issues for bug reports, feature requests)
+
+### Installation
+
+- Install from CRAN:
+
+``` r
+install.packages("rstantools")
+```
+
+- Install latest development version from GitHub:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("stan-dev/rstantools")
+```
+
+This installation from GitHub will not build the vignettes, but we
+recommend viewing them online at
+[mc-stan.org/rstantools/articles](https://mc-stan.org/rstantools/articles/).
+
+# Package index
+
+## Package structure
+
+Creating the basic structure of a Stan-based R package or add Stan
+programs to an existing package.
+
+- [`rstantools-package`](https://mc-stan.org/rstantools/reference/rstantools-package.md)
+  [`rstantools`](https://mc-stan.org/rstantools/reference/rstantools-package.md)
+  :
+
+  Tools for Developing R Packages Interfacing with Stan
+
+- [`rstan_create_package()`](https://mc-stan.org/rstantools/reference/rstan_create_package.md)
+  :
+
+  Create a new R package with compiled Stan programs
+
+- [`use_rstan()`](https://mc-stan.org/rstantools/reference/use_rstan.md)
+  : Add Stan infrastructure to an existing package
+
+- [`rstan_config()`](https://mc-stan.org/rstantools/reference/rstan_config.md)
+  : Configure system files for compiling Stan source code
+
+- [`rstantools_load_code()`](https://mc-stan.org/rstantools/reference/rstantools_load_code.md)
+  : Helper function for loading code in roxygenise
+
+## Generics
+
+S3 generics (and some default methods) for adding functionality to your
+package using the same naming conventions as **rstanarm** and other
+Stan-based R packages.
+
+- [`bayes_R2()`](https://mc-stan.org/rstantools/reference/bayes_R2.md)
+  [`loo_R2()`](https://mc-stan.org/rstantools/reference/bayes_R2.md) :
+  Generic function and default method for Bayesian R-squared
+- [`log_lik()`](https://mc-stan.org/rstantools/reference/log_lik.md) :
+  Generic function for pointwise log-likelihood
+- [`loo_linpred()`](https://mc-stan.org/rstantools/reference/loo-prediction.md)
+  [`loo_epred()`](https://mc-stan.org/rstantools/reference/loo-prediction.md)
+  [`loo_predict()`](https://mc-stan.org/rstantools/reference/loo-prediction.md)
+  [`loo_predictive_interval()`](https://mc-stan.org/rstantools/reference/loo-prediction.md)
+  [`loo_pit()`](https://mc-stan.org/rstantools/reference/loo-prediction.md)
+  : Generic functions for LOO predictions
+- [`posterior_interval()`](https://mc-stan.org/rstantools/reference/posterior_interval.md)
+  : Generic function and default method for posterior uncertainty
+  intervals
+- [`posterior_epred()`](https://mc-stan.org/rstantools/reference/posterior_epred.md)
+  : Generic function for accessing the posterior distribution of the
+  conditional expectation
+- [`posterior_linpred()`](https://mc-stan.org/rstantools/reference/posterior_linpred.md)
+  : Generic function for accessing the posterior distribution of the
+  linear predictor
+- [`posterior_predict()`](https://mc-stan.org/rstantools/reference/posterior_predict.md)
+  : Generic function for drawing from the posterior predictive
+  distribution
+- [`predictive_error()`](https://mc-stan.org/rstantools/reference/predictive_error.md)
+  : Generic function and default method for predictive errors
+- [`predictive_interval()`](https://mc-stan.org/rstantools/reference/predictive_interval.md)
+  : Generic function for predictive intervals
+- [`prior_summary()`](https://mc-stan.org/rstantools/reference/prior_summary.md)
+  : Generic function for extracting information about prior
+  distributions
+
+# Articles
+
+### Recommendations for R package development with Stan
+
+This vignette provides many recommendations for developers interested in
+creating an R package that interface with Stan. Topics include
+development best practices, precompiling Stan programs, R code and
+documentation, and more.
+
+- [Guidelines for Developers of R Packages Interfacing with
+  Stan](https://mc-stan.org/rstantools/articles/developer-guidelines.md):
+
+### Step-by-step guide
+
+This vignette walks through the steps required to set up a package with
+a precompiled Stan model, from creating the initial package structure to
+adding the precompiled Stan program and writing the R function that
+users will call to fit the model.
+
+- [Step by step guide for creating a package that depends on
+  RStan](https://mc-stan.org/rstantools/articles/minimal-rstan-package.md):
