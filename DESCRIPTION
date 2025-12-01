@@ -52,8 +52,7 @@ Suggests:
     pkgload,
     roxygen2 (>= 6.0.1),
     rmarkdown,
-    rstudioapi,
-    devtools
+    rstudioapi
 RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
