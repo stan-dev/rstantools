@@ -50,7 +50,7 @@ jobs:
       - name: Install Development StanHeaders and CRAN RStan
         run: |
           Sys.setenv(MAKEFLAGS=paste0("-j",parallel::detectCores()))
-          install.packages("StanHeaders", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+          install.packages("StanHeaders", repos = c("https://stan-dev.r-universe.dev", getOption("repos")))
           install.packages('rstan', type='source')
         shell: Rscript {0}
 
@@ -60,8 +60,8 @@ jobs:
       - name: Install Development StanHeaders and Development RStan
         run: |
           Sys.setenv(MAKEFLAGS=paste0("-j",parallel::detectCores()))
-          install.packages("StanHeaders", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
-          install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+          install.packages("StanHeaders", repos = c("https://stan-dev.r-universe.dev", getOption("repos")))
+          install.packages("rstan", repos = c("https://stan-dev.r-universe.dev", getOption("repos")))
         shell: Rscript {0}
 
       - name: Check against Development StanHeaders and Development RStan
