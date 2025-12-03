@@ -26,7 +26,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -74,7 +74,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Checkout RStan Experimental branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           repository: stan-dev/rstan
           ref: experimental
