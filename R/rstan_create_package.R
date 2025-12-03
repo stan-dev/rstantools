@@ -118,32 +118,26 @@
 #' @template seealso-vignettes
 #' @template seealso-get-help
 #'
-rstan_create_package <- function(
-  path,
-  fields = NULL,
-  rstudio = TRUE,
-  open = TRUE,
-  stan_files = character(),
-  roxygen = TRUE,
-  travis = FALSE,
-  license = TRUE,
-  auto_config = TRUE
-) {
+rstan_create_package <- function(path,
+                                 fields = NULL,
+                                 rstudio = TRUE,
+                                 open = TRUE,
+                                 stan_files = character(),
+                                 roxygen = TRUE,
+                                 travis = FALSE,
+                                 license = TRUE,
+                                 auto_config = TRUE) {
   if (!requireNamespace("usethis", quietly = TRUE)) {
-    stop(
-      "Please install package 'usethis' to use function 'rstan_create_package'.",
-      call. = FALSE
-    )
+    stop("Please install package 'usethis' to use function 'rstan_create_package'.",
+         call. = FALSE)
   }
   DIR <- dirname(path)
   name <- basename(path)
   .check_stan_ext(stan_files)
 
   if (rstudio && !requireNamespace("rstudioapi", quietly = TRUE)) {
-    stop(
-      "Please install package 'rstudioapi' to use option 'rstudio = TRUE'.",
-      call. = FALSE
-    )
+    stop("Please install package 'rstudioapi' to use option 'rstudio = TRUE'.",
+         call. = FALSE)
     rstudio <- rstudio && rstudioapi::isAvailable()
   }
   if (open && rstudio) {
@@ -175,48 +169,28 @@ rstan_create_package <- function(
 # check stan extensions
 .check_stan_ext <- function(stan_files) {
   if (length(stan_files) && !all(grepl("\\.stan$", stan_files))) {
-    stop(
-      "All files named in 'stan_files' must end ",
-      "with a '.stan' extension.",
-      call. = FALSE
-    )
+    stop("All files named in 'stan_files' must end ",
+         "with a '.stan' extension.", call. = FALSE)
   }
 }
 
 # add travis file
 .add_travis <- function(pkgdir) {
   travis_file <- readLines(.system_file("travis.yml"))
-  .add_stanfile(
-    gsub("RSTAN_PACKAGE_NAME", basename(pkgdir), travis_file),
-    pkgdir,
-    ".travis.yml",
-    noedit = FALSE,
-    msg = TRUE,
-    warn = FALSE
-  )
+  .add_stanfile(gsub("RSTAN_PACKAGE_NAME", basename(pkgdir), travis_file),
+                pkgdir, ".travis.yml",
+                noedit = FALSE, msg = TRUE, warn = FALSE)
 }
 
 # add .gitignore and .Rbuildignore files
 .add_gitignore_Rbuildignore <- function(pkgdir, travis) {
   gitignore_files <- c("^rcppExports.cpp$", "^stanExports_*")
-  .add_stanfile(
-    gitignore_files,
-    pkgdir,
-    ".gitignore",
-    noedit = FALSE,
-    msg = TRUE,
-    warn = FALSE
-  )
+  .add_stanfile(gitignore_files, pkgdir, ".gitignore",
+                noedit = FALSE, msg = TRUE, warn = FALSE)
 
   Rbuildignore_files <- c(gitignore_files, if (travis) "^\\.travis\\.yml$")
-  .add_stanfile(
-    Rbuildignore_files,
-    pkgdir,
-    ".Rbuildignore",
-    noedit = FALSE,
-    msg = TRUE,
-    warn = FALSE
-  )
+  .add_stanfile(Rbuildignore_files, pkgdir, ".Rbuildignore",
+                noedit = FALSE, msg = TRUE, warn = FALSE)
 }
 
 # add R/mypkg-package.R file with roxygen import comments
@@ -225,15 +199,9 @@ rstan_create_package <- function(
   pkg_file <- readLines(.system_file("rstanpkg-package.R"))
   pkg_file <- gsub("RSTAN_PACKAGE_NAME", basename(pkgdir), pkg_file)
   pkg_file <- gsub("RSTAN_REFERENCE", .rstan_reference(), pkg_file)
-  .add_stanfile(
-    pkg_file,
-    pkgdir,
-    "R",
-    paste0(basename(pkgdir), "-package.R"),
-    noedit = FALSE,
-    msg = TRUE,
-    warn = FALSE
-  )
+  .add_stanfile(pkg_file, pkgdir,
+                "R", paste0(basename(pkgdir), "-package.R"),
+                noedit = FALSE, msg = TRUE, warn = FALSE)
   desc_pkg <- desc::description$new(file.path(pkgdir, "DESCRIPTION"))
   desc_pkg$set(Encoding = "UTF-8")
   desc_pkg$write()
@@ -242,40 +210,25 @@ rstan_create_package <- function(
 # reference to rstan package
 .rstan_reference <- function() {
   has_version <- utils::packageDescription("rstan", fields = "Version")
-  version_year <- substr(
-    utils::packageDescription("rstan", fields = "Date"),
-    1,
-    4
-  )
+  version_year <- substr(utils::packageDescription("rstan", fields = "Date"), 1, 4)
   paste0(
-    "Stan Development Team (",
-    version_year,
-    "). ",
+    "Stan Development Team (", version_year,"). ",
     "RStan: the R interface to Stan. ",
-    "R package version ",
-    has_version,
-    ". ",
+    "R package version ", has_version, ". ",
     "https://mc-stan.org"
   )
 }
 
 # add stan functionality to package
-.rstan_make_pkg <- function(
-  pkgdir,
-  stan_files,
-  roxygen,
-  travis,
-  license,
-  auto_config
-) {
+.rstan_make_pkg <- function(pkgdir, stan_files,
+                            roxygen, travis, license, auto_config) {
+
   use_rstan(pkgdir, license = license, auto_config = auto_config)
   file.copy(
     from = stan_files,
     to = file.path(pkgdir, "inst", "stan", basename(stan_files))
   )
-  if (roxygen) {
-    .add_roxygen(pkgdir)
-  }
+  if (roxygen) .add_roxygen(pkgdir)
   if (travis) {
     .add_travis(pkgdir)
     warning(
@@ -347,6 +300,7 @@ rstan_create_package <- function(
 
 ## error:
 ##   - when {dir/file}.create fails even though it doesn't exist
+
 
 ## ok stan_meta_header.hpp is problematic, because want to warn if already exists, but only if it's there from before...
 
