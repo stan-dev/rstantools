@@ -1,4 +1,4 @@
-# rstantools <img src="man/figures/logo.svg.png" align="right" width="120" />
+# rstantools <img src="man/figures/logo.svg" align="right" width="120" />
 
 <!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/rstantools?color=blue)](https://cran.r-project.org/web/packages/rstantools)

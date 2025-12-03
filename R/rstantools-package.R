@@ -5,7 +5,7 @@
 #'
 #' @description
 #' \if{html}{
-#'   \figure{logo.svg.png}{options: width="50" alt="mc-stan.org"}
+#'   \figure{logo.svg}{options: width="50" alt="mc-stan.org"}
 #' } *Stan Development Team*
 #'
 #' The \pkg{rstantools} package provides various tools for developers of \R
