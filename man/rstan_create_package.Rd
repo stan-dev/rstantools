@@ -48,7 +48,7 @@ file.  If \code{TRUE} (the default) adds the \verb{GPL (>= 3)} license (see
 whenever the package gets installed (see \strong{Details}). Defaults to \code{TRUE}.}
 }
 \description{
-\if{html}{\figure{stanlogo.png}{options: width="25" alt="https://mc-stan.org/about/logo/"}}
+\if{html}{\figure{logo.svg.png}{options: width="25" alt="https://mc-stan.org/about/logo/"}}
 The \code{rstan_create_package()} function helps get you started developing a
 new \R package that interfaces with Stan via the \pkg{rstan} package. First
 the basic package structure is set up via \code{\link[usethis:create_package]{usethis::create_package()}}.

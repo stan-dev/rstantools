@@ -7,7 +7,7 @@
 \title{Tools for Developing \R Packages Interfacing with Stan}
 \description{
 \if{html}{
-  \figure{stanlogo.png}{options: width="50" alt="mc-stan.org"}
+  \figure{logo.svg.png}{options: width="50" alt="mc-stan.org"}
 } \emph{Stan Development Team}
 
 The \pkg{rstantools} package provides various tools for developers of \R
@@ -40,7 +40,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jonah Gabry \email{jsg2201@columbia.edu}
+\strong{Maintainer}: Jonah Gabry \email{jgabry@gmail.com}
 
 Authors:
 \itemize{

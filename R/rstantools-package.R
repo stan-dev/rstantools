@@ -5,7 +5,7 @@
 #'
 #' @description
 #' \if{html}{
-#'   \figure{stanlogo.png}{options: width="50" alt="mc-stan.org"}
+#'   \figure{logo.svg.png}{options: width="50" alt="mc-stan.org"}
 #' } *Stan Development Team*
 #'
 #' The \pkg{rstantools} package provides various tools for developers of \R
@@ -26,7 +26,8 @@
 # internal ----------------------------------------------------------------
 
 # release reminders (for devtools)
-release_questions <- function() { # nocov start
+release_questions <- function() {
+  # nocov start
   c(
     "Have you updated the developer guidelines in the vignette?"
   )

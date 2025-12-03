@@ -5,6 +5,9 @@ destination: "."
 template:
   package: pkgdownconfig
 
+development:
+  mode: auto
+
 navbar:
   title: "rstantools"
 
