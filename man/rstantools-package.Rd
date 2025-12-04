@@ -40,7 +40,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jonah Gabry \email{jsg2201@columbia.edu}
+\strong{Maintainer}: Jonah Gabry \email{jgabry@gmail.com}
 
 Authors:
 \itemize{
