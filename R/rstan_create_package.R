@@ -140,14 +140,16 @@ rstan_create_package <- function(path,
          call. = FALSE)
     rstudio <- rstudio && rstudioapi::isAvailable()
   }
+
+  if (file.exists(path)) {
+    stop("Directory '", path, "' already exists.", call. = FALSE)
+  }
+
   if (open && rstudio) {
     on.exit(rstudioapi::openProject(file.path(DIR, name), newSession = TRUE))
   }
 
   # run usethis::create_package()
-  if (file.exists(path)) {
-    stop("Directory '", path, "' already exists.", call. = FALSE)
-  }
   message("Creating package skeleton for package: ", name, domain = NA)
   suppressMessages(
     usethis::create_package(
