@@ -35,10 +35,11 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
+          extra-repositories: 'https://stan-dev.r-universe.dev'
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: local::. rcmdcheck BH RcppParallel RcppEigen Rcpp rstan StanHeaders RCurl remotes V8
+          extra-packages: local::. rcmdcheck BH RcppParallel RcppEigen Rcpp RCurl remotes V8
 
       - name: Checkout lgpr package
         run: |
@@ -46,6 +47,7 @@ jobs:
 
       - name: Check against CRAN StanHeaders and CRAN RStan
         run: |
+          install.packages(c("StanHeaders", "rstan"))
           rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
         shell: Rscript {0}
 
@@ -72,24 +74,3 @@ jobs:
         run: |
           rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
         shell: Rscript {0}
-
-      - name: Checkout RStan Experimental branch
-        uses: actions/checkout@v6
-        with:
-          repository: stan-dev/rstan
-          ref: experimental
-          path: rstan
-          submodules: 'recursive'
-
-      - name: Install Experimental StanHeaders and Experimental RStan
-        run: |
-          Sys.setenv(MAKEFLAGS=paste0("-j",parallel::detectCores()))
-          install.packages("rstan/StanHeaders", type = "source", repos = NULL)
-          install.packages("rstan/rstan/rstan", type = "source", repos = NULL)
-        shell: Rscript {0}
-
-      - name: Check against Experimental StanHeaders and Experimental RStan
-        run: |
-          rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
-        shell: Rscript {0}
-
