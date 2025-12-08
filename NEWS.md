@@ -1,8 +1,13 @@
-# rstantools 2.4.0.9000
+# rstantools (development version)
 
-Items for next release go here
+# rstantools 2.5.0
 
-Extended `loo_pit()` for discrete data.
+* Extended `loo_pit()` for discrete data by @TeemuSailynoja in #121
+* Add `loo_epred()` by @avehtari in #122
+* Fix stanfunctions failures with new Stan RNG by @andrjohns in #125
+* Add handling for new RNG type in Stan by @andrjohns in #126
+* Fix regression (introduced in 2.4.0) in the compilation of packages with custom Stan functions by @mcol in #137
+* Fix roxygen2 warning by @mcol in #136
 
 # rstantools 2.4.0
 
