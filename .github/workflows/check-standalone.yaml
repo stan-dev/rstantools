@@ -34,7 +34,7 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
-          use-public-rspm: true
+          use-public-rspm: false
           extra-repositories: 'https://stan-dev.r-universe.dev'
 
       - uses: r-lib/actions/setup-r-dependencies@v2
@@ -47,15 +47,18 @@ jobs:
 
       - name: Check against CRAN StanHeaders and CRAN RStan
         run: |
-          install.packages(c("StanHeaders", "rstan"))
+          cran <- "https://packagemanager.posit.co/cran/latest"
+          install.packages(c("StanHeaders", "rstan"), repos = cran)
           rcmdcheck::rcmdcheck(path = "lgpr", args = c("--no-manual", "--as-cran"), build_args = "--no-manual")
         shell: Rscript {0}
 
       - name: Install Development StanHeaders and CRAN RStan
         run: |
           Sys.setenv(MAKEFLAGS=paste0("-j",parallel::detectCores()))
-          install.packages("StanHeaders", repos = c("https://stan-dev.r-universe.dev", getOption("repos")))
-          install.packages('rstan', type='source')
+          stan_universe <- "https://stan-dev.r-universe.dev"
+          cran <- "https://packagemanager.posit.co/cran/latest"
+          install.packages("StanHeaders", repos = stan_universe)
+          install.packages("rstan", repos = cran, type = "source")
         shell: Rscript {0}
 
       - name: Check against Development StanHeaders and CRAN RStan
@@ -66,8 +69,8 @@ jobs:
       - name: Install Development StanHeaders and Development RStan
         run: |
           Sys.setenv(MAKEFLAGS=paste0("-j",parallel::detectCores()))
-          install.packages("StanHeaders", repos = c("https://stan-dev.r-universe.dev", getOption("repos")))
-          install.packages("rstan", repos = c("https://stan-dev.r-universe.dev", getOption("repos")))
+          stan_universe <- "https://stan-dev.r-universe.dev"
+          install.packages(c("StanHeaders", "rstan"), repos = stan_universe)
         shell: Rscript {0}
 
       - name: Check against Development StanHeaders and Development RStan
