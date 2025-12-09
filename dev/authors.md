@@ -21,7 +21,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/stan-dev/rstantools/blob/new-pkgdown-theme/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/stan-dev/rstantools/blob/master/DESCRIPTION)
 
 Gabry J, Goodrich B, Lysy M, Johnson A (2025). *rstantools: Tools for
 Developing R Packages Interfacing with 'Stan'*. R package version

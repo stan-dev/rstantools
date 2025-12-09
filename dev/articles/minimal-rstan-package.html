@@ -101,9 +101,9 @@
                         <h4 data-toc-skip class="author">Stefan Siegert,
 Jonah Gabry, Martin Lysy, and Ben Goodrich</h4>
             
-            <h4 data-toc-skip class="date">2025-12-03</h4>
+            <h4 data-toc-skip class="date">2025-12-09</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/stan-dev/rstantools/blob/new-pkgdown-theme/vignettes/minimal-rstan-package.Rmd" class="external-link"><code>vignettes/minimal-rstan-package.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/stan-dev/rstantools/blob/master/vignettes/minimal-rstan-package.Rmd" class="external-link"><code>vignettes/minimal-rstan-package.Rmd</code></a></small>
       <div class="d-none name"><code>minimal-rstan-package.Rmd</code></div>
     </div>
 
@@ -349,7 +349,8 @@ provided specific information about the package.</p>
 generate the documentation for <code>lm_stan</code> and update the
 <code>NAMESPACE</code> so the function is exported, i.e., available to
 users when the package is installed. This can be done with the function
-<code>devtools::document()</code>.</p>
+<code><a href="https://roxygen2.r-lib.org/reference/roxygenize.html" class="external-link">roxygen2::roxygenize()</a></code>, which needs to be called twice
+initially.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">roxygen2</span><span class="fu">::</span><span class="fu"><a href="https://roxygen2.r-lib.org/reference/roxygenize.html" class="external-link">roxygenize</a></span><span class="op">(</span>load_code <span class="op">=</span> <span class="va">rstantools_load_code</span><span class="op">)</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">roxygen2</span><span class="fu">::</span><span class="fu"><a href="https://roxygen2.r-lib.org/reference/roxygenize.html" class="external-link">roxygenize</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -389,8 +390,8 @@ R package:</p>
 <pre><code>
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 1).
 Chain 1: 
-Chain 1: Gradient evaluation took 9.4e-05 seconds
-Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.94 seconds.
+Chain 1: Gradient evaluation took 0.000106 seconds
+Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.06 seconds.
 Chain 1: Adjust your expectations accordingly!
 Chain 1: 
 Chain 1: 
@@ -401,15 +402,15 @@ Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 1: Iteration: 1500 / 2000 [ 75%]  (Sampling)
 Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 1: 
-Chain 1:  Elapsed Time: 0.565 seconds (Warm-up)
-Chain 1:                0.597 seconds (Sampling)
-Chain 1:                1.162 seconds (Total)
+Chain 1:  Elapsed Time: 0.572 seconds (Warm-up)
+Chain 1:                0.604 seconds (Sampling)
+Chain 1:                1.176 seconds (Total)
 Chain 1: 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 2).
 Chain 2: 
-Chain 2: Gradient evaluation took 6.6e-05 seconds
-Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.66 seconds.
+Chain 2: Gradient evaluation took 6.7e-05 seconds
+Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.67 seconds.
 Chain 2: Adjust your expectations accordingly!
 Chain 2: 
 Chain 2: 
@@ -420,15 +421,15 @@ Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 2: Iteration: 1500 / 2000 [ 75%]  (Sampling)
 Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 2: 
-Chain 2:  Elapsed Time: 0.588 seconds (Warm-up)
-Chain 2:                0.478 seconds (Sampling)
-Chain 2:                1.066 seconds (Total)
+Chain 2:  Elapsed Time: 0.594 seconds (Warm-up)
+Chain 2:                0.484 seconds (Sampling)
+Chain 2:                1.078 seconds (Total)
 Chain 2: 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 3).
 Chain 3: 
-Chain 3: Gradient evaluation took 6.6e-05 seconds
-Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.66 seconds.
+Chain 3: Gradient evaluation took 7.7e-05 seconds
+Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.77 seconds.
 Chain 3: Adjust your expectations accordingly!
 Chain 3: 
 Chain 3: 
@@ -439,15 +440,15 @@ Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 3: Iteration: 1500 / 2000 [ 75%]  (Sampling)
 Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 3: 
-Chain 3:  Elapsed Time: 0.58 seconds (Warm-up)
-Chain 3:                0.542 seconds (Sampling)
-Chain 3:                1.122 seconds (Total)
+Chain 3:  Elapsed Time: 0.594 seconds (Warm-up)
+Chain 3:                0.558 seconds (Sampling)
+Chain 3:                1.152 seconds (Total)
 Chain 3: 
 
 SAMPLING FOR MODEL 'lm' NOW (CHAIN 4).
 Chain 4: 
-Chain 4: Gradient evaluation took 6.6e-05 seconds
-Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.66 seconds.
+Chain 4: Gradient evaluation took 6.8e-05 seconds
+Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.68 seconds.
 Chain 4: Adjust your expectations accordingly!
 Chain 4: 
 Chain 4: 
@@ -458,9 +459,9 @@ Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
 Chain 4: Iteration: 1500 / 2000 [ 75%]  (Sampling)
 Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
 Chain 4: 
-Chain 4:  Elapsed Time: 0.56 seconds (Warm-up)
-Chain 4:                0.605 seconds (Sampling)
-Chain 4:                1.165 seconds (Total)
+Chain 4:  Elapsed Time: 0.575 seconds (Warm-up)
+Chain 4:                0.625 seconds (Sampling)
+Chain 4:                1.2 seconds (Total)
 Chain 4: </code></pre>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
@@ -474,7 +475,7 @@ beta      -0.07    0.01 0.46  -0.95 -0.35 -0.08  0.21  0.89  2029 1.00
 sigma      1.44    0.01 0.46   0.85  1.13  1.35  1.65  2.56  1216 1.00
 lp__      -7.38    0.05 1.45 -11.12 -8.03 -7.00 -6.33 -5.76   867 1.01
 
-Samples were drawn using NUTS(diag_e) at Wed Dec  3 18:50:47 2025.
+Samples were drawn using NUTS(diag_e) at Tue Dec  9 17:44:36 2025.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at 
 convergence, Rhat=1).</code></pre>
