@@ -44,7 +44,7 @@ LazyData: true
 SystemRequirements: pandoc, C++14
 Imports: desc, stats, utils, Rcpp (>= 0.12.16), RcppParallel (>= 5.0.1)
 Suggests:
-    rstan (>= 2.17.2),
+    rstan (>= 2.36.0),
     usethis (>= 1.5.1),
     testthat (>= 2.0.0),
     knitr,
