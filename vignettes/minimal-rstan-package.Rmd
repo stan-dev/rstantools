@@ -8,7 +8,7 @@ output:
 params:
   EVAL: !r identical(Sys.getenv("NOT_CRAN"), "true")
 vignette: >
-  %\VignetteIndexEntry{Step by step guide}
+  %\VignetteIndexEntry{Step by step guide for creating a package that depends on RStan}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -235,13 +235,14 @@ information about the package.
 
 With __roxygen__ documentation enabled, we need to generate the documentation
 for `lm_stan` and update the `NAMESPACE` so the function is exported, i.e.,
-available to users when the package is installed.  This can be done with the
+available to users when the package is installed. This can be done with the
 function `roxygen2::roxygenize()`, which needs to be called twice initially.
 
 ```{r, eval = FALSE}
 try(roxygen2::roxygenize(load_code = rstantools_load_code), silent = TRUE)
 roxygen2::roxygenize()
 ```
+
 ```{r, echo=FALSE, results="hide"}
 try(roxygen2::roxygenize(PATH, load_code = rstantools_load_code), silent = TRUE)
 roxygen2::roxygenize(PATH)
