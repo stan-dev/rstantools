@@ -21,7 +21,7 @@
 #' @aliases rstan_package_skeleton
 #'
 #' @description
-#'   \if{html}{\figure{stanlogo.png}{options: width="25" alt="https://mc-stan.org/about/logo/"}}
+#'   \if{html}{\figure{logo.svg}{options: width="25" alt="https://mc-stan.org/about/logo/"}}
 #'   The `rstan_create_package()` function helps get you started developing a
 #'   new \R package that interfaces with Stan via the \pkg{rstan} package. First
 #'   the basic package structure is set up via [usethis::create_package()].
