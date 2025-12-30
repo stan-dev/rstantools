@@ -41,10 +41,10 @@ URL: https://mc-stan.org/rstantools/, https://discourse.mc-stan.org/
 BugReports: https://github.com/stan-dev/rstantools/issues
 Encoding: UTF-8
 LazyData: true
-SystemRequirements: pandoc, C++14
+SystemRequirements: pandoc, C++17
 Imports: desc, stats, utils, Rcpp (>= 0.12.16), RcppParallel (>= 5.0.1)
 Suggests:
-    rstan (>= 2.17.2),
+    rstan (>= 2.36.0),
     usethis (>= 1.5.1),
     testthat (>= 2.0.0),
     knitr,
