@@ -1,3 +1,5 @@
+# rstantools (development version)
+
 # rstantools 2.6.0
 
 * New pkgdown theme by @VisruthSK in #141

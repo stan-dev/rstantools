@@ -1,7 +1,7 @@
 Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
-Version: 2.6.0
+Version: 2.6.0.9000
 Date: 2026-01-10
 Authors@R:
     c(person(given = "Jonah",
