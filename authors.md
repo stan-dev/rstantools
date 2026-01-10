@@ -23,7 +23,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/stan-dev/rstantools/blob/v2.6.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/stan-dev/rstantools/blob/master/DESCRIPTION)
 
 Gabry J, Goodrich B, Lysy M, Johnson A (2026). *rstantools: Tools for
 Developing R Packages Interfacing with 'Stan'*. R package version 2.6.0,
