@@ -1,6 +1,16 @@
 # Changelog
 
-## rstantools (development version)
+## rstantools 2.6.0
+
+CRAN release: 2026-01-10
+
+- New pkgdown theme by [@VisruthSK](https://github.com/VisruthSK) in
+  [\#141](https://github.com/stan-dev/rstantools/issues/141)
+- Do not open project on error by [@karchjd](https://github.com/karchjd)
+  in [\#145](https://github.com/stan-dev/rstantools/issues/145)
+- Remove C++14 from SystemRequirements by
+  [@jgabry](https://github.com/jgabry) in
+  [\#150](https://github.com/stan-dev/rstantools/issues/150)
 
 ## rstantools 2.5.0
 
