@@ -16,6 +16,8 @@
 
 - **Stefan Siegert**. Contributor.
 
+- **Visruth Srimath Kandali**. Contributor.
+
 - **Trustees of Columbia University**. Copyright holder.
 
 ## Citation
@@ -23,14 +25,14 @@
 Source:
 [`DESCRIPTION`](https://github.com/stan-dev/rstantools/blob/master/DESCRIPTION)
 
-Gabry J, Goodrich B, Lysy M, Johnson A (2025). *rstantools: Tools for
+Gabry J, Goodrich B, Lysy M, Johnson A (2026). *rstantools: Tools for
 Developing R Packages Interfacing with 'Stan'*. R package version
-2.5.0.9000, <https://mc-stan.org/rstantools/>.
+2.6.0.9000, <https://mc-stan.org/rstantools/>.
 
     @Manual{,
       title = {rstantools: Tools for Developing R Packages Interfacing with 'Stan'},
       author = {Jonah Gabry and Ben Goodrich and Martin Lysy and Andrew Johnson},
-      year = {2025},
-      note = {R package version 2.5.0.9000},
+      year = {2026},
+      note = {R package version 2.6.0.9000},
       url = {https://mc-stan.org/rstantools/},
     }
