@@ -1,8 +1,8 @@
 Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
-Version: 2.5.0.9000
-Date: 2025-08-31
+Version: 2.6.0
+Date: 2026-01-10
 Authors@R:
     c(person(given = "Jonah",
              family = "Gabry",
@@ -28,6 +28,9 @@ Authors@R:
       person(given = "Stefan",
              family = "Siegert",
              role = "ctb"),
+      person(given = "Visruth", 
+             family = "Srimath Kandali", 
+             role = "ctb"),       
       person(given = "Trustees of",
              family = "Columbia University",
              role = "cph"))

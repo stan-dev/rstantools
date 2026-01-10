@@ -1,4 +1,9 @@
-# rstantools (development version)
+# rstantools 2.6.0
+
+* New pkgdown theme by @VisruthSK in #141
+* Do not open project on error by @karchjd in #145
+* Remove C++14 from SystemRequirements by @jgabry in #150
+
 
 # rstantools 2.5.0
 
