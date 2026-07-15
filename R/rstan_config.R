@@ -44,6 +44,9 @@ rstan_config <- function(pkgdir = ".") {
                            full.names = TRUE,
                            pattern = "(\\.stan$)|(\\.stanfunctions$)")
   if (length(stan_files) != 0) {
+    if (is_excepted(pkgdir) && (utils::packageVersion("StanHeaders") >= "2.36")) {
+      .update_deprecations(pkgdir, stan_files)
+    }
     # add R & src folders in case run from configure[.win] script
     .add_standir(pkgdir, "R", msg = FALSE, warn = FALSE)
     .add_standir(pkgdir, "src", msg = FALSE, warn = FALSE)
@@ -401,4 +404,25 @@ rstan_config <- function(pkgdir = ".") {
   rtn_type <- gsub("template <typename(.*?)> ", "", repl_dbl)
   # Update model code with type declarations
   gsub("auto", rtn_type, cpp_lines[decl_line], fixed = TRUE)
+}
+
+.update_deprecations <- function(pkgdir, stan_files) {
+  pkg_dcf <- read.dcf(file.path(pkgdir, "DESCRIPTION"))
+  pkg_nm <- pkg_dcf[1, "Package"]
+
+  post_process <- post_processing[[pkg_nm]]
+  if (is.null(post_process)) {
+    post_process <- function(x) x
+  }
+  ctx <- QuickJSR::JSContext$new(stack_size = 4 * 1024 * 1024)
+  ctx$source(system.file("stanc.2.32.js", package = "rstantools", mustWork = TRUE))
+  stanc_process <- utils::getFromNamespace("stanc_process", "rstan")
+  sapply(stan_files, function(stanfile) {
+    model_code <- stanc_process(stanfile)
+    model_code <- ctx$call("stanc", "dummy", model_code, as.array("print-canonical"))$result
+    model_code <- post_process(model_code)
+    writeLines(model_code, con = stanfile)
+    invisible(NULL)
+  })
+  invisible(NULL)
 }
