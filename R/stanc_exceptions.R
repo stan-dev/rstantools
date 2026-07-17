@@ -1,11 +1,3 @@
-is_excepted <- function(pkgdir) {
-  pkg_dcf <- read.dcf(file.path(pkgdir, "DESCRIPTION"))
-  pkg_nm <- pkg_dcf[1, "Package"]
-  pkg_ver <- pkg_dcf[1, "Version"]
-
-  isTRUE(stanc_exceptions[[pkg_nm]] == pkg_ver)
-}
-
 stanc_exceptions <- list(
   AovBay = "0.1.0",
   baggr = "0.8.2",
@@ -52,7 +44,7 @@ stanc_exceptions <- list(
 )
 
 # Additional deprecations not covered by 2.32 stanc3 canonicalise
-post_processing <- list(
+stan_post_process <- list(
   publipha = function(model_code) {
     model_code <- gsub("real (lower|upper)", "real \\1_par", model_code)
     model_code <- gsub("normal_(cdf|lccdf|lcdf)\\((-)?(upper|lower)(,| \\|)", "normal_\\1(\\2\\3_par |", model_code)
@@ -65,5 +57,16 @@ post_processing <- list(
   cbq = function(model_code) {
     model_code <- gsub("offset", "offset_par", model_code, fixed = TRUE)
     model_code
+  }
+)
+
+cpp_pre_process <- list(
+  survstan = function(cpp_code) {
+    cpp_code <- gsub("offset_par", "offset", cpp_code, fixed = TRUE)
+    cpp_code
+  },
+  cbq = function(cpp_code) {
+    cpp_code <- gsub("offset_par", "offset", cpp_code, fixed = TRUE)
+    cpp_code
   }
 )
