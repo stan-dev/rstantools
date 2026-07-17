@@ -368,7 +368,7 @@ rstan_config <- function(pkgdir = ".") {
                     stanmodels[(model_line+2):load_line],
                     load_module,
                     stanmodels[(load_line+2):nlines])
-    if (is_excepted && !is.null(cpp_pre_process[[pkg_name]])) {
+    if (!is.null(cpp_pre_process[[pkg_name]])) {
       process_fun <- c("process_fun <- ", deparse(cpp_pre_process[[pkg_name]]))
 
       process_text <- c(

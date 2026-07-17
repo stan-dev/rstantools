@@ -68,5 +68,10 @@ cpp_pre_process <- list(
   cbq = function(cpp_code) {
     cpp_code <- gsub("offset_par", "offset", cpp_code, fixed = TRUE)
     cpp_code
+  },
+  # rstan 2.32 does not account for new stanc mangling
+  disbayes = function(cpp_code) {
+    cpp_code <- gsub("_stan_mips", "mips", cpp_code, fixed = TRUE)
+    cpp_code
   }
 )
