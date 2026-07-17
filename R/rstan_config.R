@@ -232,6 +232,7 @@ rstan_config <- function(pkgdir = ".") {
     cat("#include <exporter.h>",
         eigen_incl,
         "#include <stan/math/prim/meta.hpp>",
+        "#include <stan/services/util/create_rng.hpp>",
         file = file.path(pkgdir, "src",
                          paste(pkgname, "types.h", sep = "_")),
         sep = "\n")
