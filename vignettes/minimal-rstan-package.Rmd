@@ -234,12 +234,11 @@ information about the package.
 
 With __roxygen__ documentation enabled, we need to generate the documentation
 for `lm_stan` and update the `NAMESPACE` so the function is exported, i.e.,
-available to users when the package is installed. This can be done with the
-available to users when the package is installed. Load the R source files directly when running `roxygen2::roxygenize()`, then call `rstan_config()` to
+available to users when the package is installed. Load the R source files
+directly when running `roxygen2::roxygenize()`, then call `rstan_config()` to
 generate the Stan C++ code:
 
 ```{r, eval = FALSE}
-try(roxygen2::roxygenize(load_code = rstantools_load_code), silent = TRUE)
 roxygen2::roxygenize(load_code = roxygen2::load_source)
 rstantools::rstan_config()
 ```
