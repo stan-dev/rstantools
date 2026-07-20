@@ -85,6 +85,7 @@ then adds the infrastructure required to compile and export `stanmodel`
 objects. In the package root directory, the user's Stan source code is
 located in:
 
+
     inst/
       |_stan/
       |   |_include/
@@ -94,6 +95,7 @@ located in:
 All `.stan` files containing instructions to build a `stanmodel` object
 must be placed in `inst/stan`. Other `.stan` files go in any `stan/`
 subdirectory, to be invoked by Stan's `#include` mechanism, e.g.,
+
 
     #include "include/mylib.stan"
     #include "data/preprocess.stan"

@@ -62,10 +62,10 @@ quantiles, with `prob` defaulting to `0.9`.
 ytilde <- matrix(rnorm(100 * 5, sd = 2), 100, 5) # fake draws
 predictive_interval(ytilde, prob = 0.8)
 #>            10%      90%
-#> [1,] -3.317022 2.292091
+#> [1,] -3.317022 2.428411
 #> [2,] -2.707817 2.573733
-#> [3,] -2.627796 1.853548
-#> [4,] -2.018837 2.446523
+#> [3,] -2.627796 2.032464
+#> [4,] -2.092631 2.380482
 #> [5,] -2.267105 2.457976
 
 # Also see help("predictive_interval", package = "rstanarm")

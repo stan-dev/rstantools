@@ -69,7 +69,7 @@ posterior_interval(draws)
 #> theta_2 -1.517411 1.882336
 #> theta_3 -1.568718 1.618074
 #> theta_4 -1.397015 1.842534
-#> theta_5 -1.774352 1.490540
+#> theta_5 -1.774352 1.521312
 
 # Also see help("posterior_interval", package = "rstanarm")
 ```

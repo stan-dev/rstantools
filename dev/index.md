@@ -28,12 +28,14 @@ program.
 - Install from CRAN:
 
 ``` r
+
 install.packages("rstantools")
 ```
 
 - Install latest development version from GitHub:
 
 ``` r
+
 # install.packages("remotes")
 remotes::install_github("stan-dev/rstantools")
 ```
