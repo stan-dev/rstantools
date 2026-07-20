@@ -383,8 +383,8 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 2).
     Chain 2: 
-    Chain 2: Gradient evaluation took 2e-06 seconds
-    Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.02 seconds.
+    Chain 2: Gradient evaluation took 3e-06 seconds
+    Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.03 seconds.
     Chain 2: Adjust your expectations accordingly!
     Chain 2: 
     Chain 2: 
@@ -396,8 +396,8 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
     Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
     Chain 2: 
     Chain 2:  Elapsed Time: 0.009 seconds (Warm-up)
-    Chain 2:                0.009 seconds (Sampling)
-    Chain 2:                0.018 seconds (Total)
+    Chain 2:                0.008 seconds (Sampling)
+    Chain 2:                0.017 seconds (Total)
     Chain 2: 
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 3).
@@ -415,8 +415,8 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
     Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
     Chain 3: 
     Chain 3:  Elapsed Time: 0.009 seconds (Warm-up)
-    Chain 3:                0.008 seconds (Sampling)
-    Chain 3:                0.017 seconds (Total)
+    Chain 3:                0.007 seconds (Sampling)
+    Chain 3:                0.016 seconds (Total)
     Chain 3: 
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 4).
@@ -433,9 +433,9 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
     Chain 4: Iteration: 1500 / 2000 [ 75%]  (Sampling)
     Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
     Chain 4: 
-    Chain 4:  Elapsed Time: 0.01 seconds (Warm-up)
-    Chain 4:                0.009 seconds (Sampling)
-    Chain 4:                0.019 seconds (Total)
+    Chain 4:  Elapsed Time: 0.009 seconds (Warm-up)
+    Chain 4:                0.008 seconds (Sampling)
+    Chain 4:                0.017 seconds (Total)
     Chain 4: 
 
 ``` r
@@ -453,7 +453,7 @@ print(fit)
     sigma      1.64    0.01 0.54   0.96  1.27  1.53  1.86  3.01  1465    1
     lp__      -8.48    0.04 1.45 -12.34 -9.12 -8.12 -7.44 -6.80  1235    1
 
-    Samples were drawn using NUTS(diag_e) at Mon Jul 20 15:43:21 2026.
+    Samples were drawn using NUTS(diag_e) at Mon Jul 20 16:55:48 2026.
     For each parameter, n_eff is a crude measure of effective sample size,
     and Rhat is the potential scale reduction factor on split chains (at 
     convergence, Rhat=1).
