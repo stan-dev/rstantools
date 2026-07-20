@@ -53,7 +53,7 @@ Suggests:
     knitr,
     pkgbuild,
     pkgload,
-    roxygen2 (>= 6.0.1),
+    roxygen2 (>= 7.0.0),
     rmarkdown,
     rstudioapi
 VignetteBuilder: knitr
