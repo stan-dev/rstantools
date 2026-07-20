@@ -44,6 +44,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Jonah Gabry \email{jgabry@gmail.com}
   \item Ben Goodrich \email{benjamin.goodrich@columbia.edu}
   \item Martin Lysy \email{mlysy@uwaterloo.ca}
   \item Andrew Johnson
@@ -54,6 +55,7 @@ Other contributors:
   \item Hamada S. Badr [contributor]
   \item Marco Colombo [contributor]
   \item Stefan Siegert [contributor]
+  \item Visruth Srimath Kandali [contributor]
   \item Trustees of Columbia University [copyright holder]
 }
 

@@ -157,7 +157,6 @@ model {
 }
 "
 writeLines(stan_prog, con = file.path(PATH, "inst", "stan", "lm.stan"))
-rstan_config(PATH)
 ```
 
 The `inst/stan` subdirectory can contain additional Stan programs if
@@ -179,7 +178,7 @@ the package functions.  The following comment block placed in `lm_stan.R`
 ensures that the function has a help file and that it is added to the package
 `NAMESPACE`:
 
-```{r}
+```{r, eval=FALSE}
 # Save this file as `R/lm_stan.R`
 
 #' Bayesian linear regression with Stan
@@ -235,17 +234,18 @@ information about the package.
 
 With __roxygen__ documentation enabled, we need to generate the documentation
 for `lm_stan` and update the `NAMESPACE` so the function is exported, i.e.,
-available to users when the package is installed. This can be done with the
-function `roxygen2::roxygenize()`, which needs to be called twice initially.
+available to users when the package is installed. Load the R source files
+directly when running `roxygen2::roxygenize()`, then call `rstan_config()` to
+generate the Stan C++ code:
 
 ```{r, eval = FALSE}
-try(roxygen2::roxygenize(load_code = rstantools_load_code), silent = TRUE)
-roxygen2::roxygenize()
+roxygen2::roxygenize(load_code = roxygen2::load_source)
+rstantools::rstan_config()
 ```
 
 ```{r, echo=FALSE, results="hide"}
-try(roxygen2::roxygenize(PATH, load_code = rstantools_load_code), silent = TRUE)
-roxygen2::roxygenize(PATH)
+roxygen2::roxygenize(PATH, load_code = roxygen2::load_source)
+rstan_config(PATH)
 ```
 
 ## Install and use
@@ -268,11 +268,8 @@ documentation, you can set `quick=TRUE` to speed up the process, or use
 
 After installation, the package can be loaded and used like any other R package:
 
-```{r, eval=FALSE}
-library("rstanlm")
-```
-
 ```{r}
+library(rstanlm)
 fit <- lm_stan(y = rnorm(10), x = rnorm(10), 
                # arguments passed to sampling
                iter = 2000, refresh = 500)
