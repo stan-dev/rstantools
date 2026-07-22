@@ -376,9 +376,9 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
     Chain 1: Iteration: 1500 / 2000 [ 75%]  (Sampling)
     Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
     Chain 1: 
-    Chain 1:  Elapsed Time: 0.01 seconds (Warm-up)
-    Chain 1:                0.01 seconds (Sampling)
-    Chain 1:                0.02 seconds (Total)
+    Chain 1:  Elapsed Time: 0.009 seconds (Warm-up)
+    Chain 1:                0.009 seconds (Sampling)
+    Chain 1:                0.018 seconds (Total)
     Chain 1: 
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 2).
@@ -453,7 +453,7 @@ print(fit)
     sigma      1.64    0.01 0.54   0.96  1.27  1.53  1.86  3.01  1465    1
     lp__      -8.48    0.04 1.45 -12.34 -9.12 -8.12 -7.44 -6.80  1235    1
 
-    Samples were drawn using NUTS(diag_e) at Wed Jul 22 15:05:25 2026.
+    Samples were drawn using NUTS(diag_e) at Wed Jul 22 16:24:20 2026.
     For each parameter, n_eff is a crude measure of effective sample size,
     and Rhat is the potential scale reduction factor on split chains (at 
     convergence, Rhat=1).
