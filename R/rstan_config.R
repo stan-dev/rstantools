@@ -369,7 +369,9 @@ rstan_config <- function(pkgdir = ".") {
                     stanmodels[(model_line+2):load_line],
                     load_module,
                     stanmodels[(load_line+2):nlines])
-    if (!is.null(cpp_pre_process[[pkg_name]])) {
+    # disbayes does not need stanc exception, but uses a variable name ('mips') that
+    # gets mangled by stanc which rstan 2.32 does not support
+    if (!is.null(cpp_pre_process[[pkg_name]]) && (is_excepted || pkg_name == "disbayes")) {
       process_fun <- c("process_fun <- ", deparse(cpp_pre_process[[pkg_name]]))
 
       process_text <- c(
@@ -446,8 +448,12 @@ rstan_config <- function(pkgdir = ".") {
   sapply(stan_files, function(stanfile) {
     model_code <- stanc_process(stanfile)
     model_code <- ctx$call("stanc", "dummy", model_code, as.array("print-canonical"))$result
-    model_code <- post_process(model_code)
-    writeLines(model_code, con = stanfile)
+
+    # Only overwrite Stan file if stanc succeeded
+    if (!is.null(model_code)) {
+      model_code <- post_process(model_code)
+      writeLines(model_code, con = stanfile)
+    }
     invisible(NULL)
   })
   invisible(NULL)

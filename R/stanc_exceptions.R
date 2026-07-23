@@ -46,27 +46,27 @@ stanc_exceptions <- list(
 # Additional deprecations not covered by 2.32 stanc3 canonicalise
 stan_post_process <- list(
   publipha = function(model_code) {
-    model_code <- gsub("real (lower|upper)", "real \\1_par", model_code)
-    model_code <- gsub("normal_(cdf|lccdf|lcdf)\\((-)?(upper|lower)(,| \\|)", "normal_\\1(\\2\\3_par |", model_code)
+    model_code <- gsub("real \\b(lower|upper)\\b", "real \\1_par", model_code)
+    model_code <- gsub("normal_(cdf|lccdf|lcdf)\\((-)?\\b(upper|lower)\\b(,| \\|)", "normal_\\1(\\2\\3_par |", model_code)
     model_code
   },
   survstan = function(model_code) {
-    model_code <- gsub("offset", "offset_par", model_code, fixed = TRUE)
+    model_code <- gsub("\\boffset\\b", "offset_par", model_code)
     model_code
   },
   cbq = function(model_code) {
-    model_code <- gsub("offset", "offset_par", model_code, fixed = TRUE)
+    model_code <- gsub("\\boffset\\b", "offset_par", model_code)
     model_code
   }
 )
 
 cpp_pre_process <- list(
   survstan = function(cpp_code) {
-    cpp_code <- gsub("offset_par", "offset", cpp_code, fixed = TRUE)
+    cpp_code <- gsub("\\boffset_par\\b", "offset", cpp_code)
     cpp_code
   },
   cbq = function(cpp_code) {
-    cpp_code <- gsub("offset_par", "offset", cpp_code, fixed = TRUE)
+    cpp_code <- gsub("\\boffset_par\\b", "offset", cpp_code)
     cpp_code
   },
   # rstan 2.32 does not account for new stanc mangling
