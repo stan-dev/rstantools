@@ -62,11 +62,11 @@ stan_post_process <- list(
 
 cpp_pre_process <- list(
   survstan = function(cpp_code) {
-    cpp_code <- gsub("\\boffset_par\\b", "offset", cpp_code)
+    cpp_code <- gsub("offset_par", "offset", cpp_code, fixed = TRUE)
     cpp_code
   },
   cbq = function(cpp_code) {
-    cpp_code <- gsub("\\boffset_par\\b", "offset", cpp_code)
+    cpp_code <- gsub("offset_par", "offset", cpp_code, fixed = TRUE)
     cpp_code
   },
   # rstan 2.32 does not account for new stanc mangling
