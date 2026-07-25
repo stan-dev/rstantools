@@ -39,16 +39,27 @@
 #'
 rstan_config <- function(pkgdir = ".") {
   pkgdir <- .check_pkgdir(pkgdir) # check if package root directory
+  pkg_dcf <- read.dcf(file.path(pkgdir, "DESCRIPTION"))
+  pkg_name <- pkg_dcf[1, "Package"]
+  pkg_ver <- pkg_dcf[1, "Version"]
+
   # get stan model files
   stan_files <- list.files(file.path(pkgdir, "inst", "stan"),
                            full.names = TRUE,
                            pattern = "(\\.stan$)|(\\.stanfunctions$)")
   if (length(stan_files) != 0) {
+    is_excepted <- isTRUE(stanc_exceptions[[pkg_name]] == pkg_ver) && (utils::packageVersion("StanHeaders") >= "2.36")
+
+    if (is_excepted) {
+      .update_deprecations(pkg_name, stan_files)
+    }
+
     # add R & src folders in case run from configure[.win] script
     .add_standir(pkgdir, "R", msg = FALSE, warn = FALSE)
     .add_standir(pkgdir, "src", msg = FALSE, warn = FALSE)
     # convert all .stan files to .cc/.hpp pairs
-    sapply(stan_files, .make_cc, pkgdir = pkgdir)
+    sapply(stan_files, .make_cc, pkgdir = pkgdir, pkg_name = pkg_name,
+          is_excepted = is_excepted)
     # update package Makevars
     acc <- .setup_Makevars(pkgdir, add = TRUE)
     ## .add_Makevars(pkgdir)
@@ -65,7 +76,7 @@ rstan_config <- function(pkgdir = ".") {
   # register exported modules as native routines
   Rcpp::compileAttributes(pkgdir)
   # update R/stanmodels.R with current set of models
-  stanmodels <- .update_stanmodels(pkgdir)
+  stanmodels <- .update_stanmodels(pkgdir, pkg_name, is_excepted)
   acc <- acc | .add_stanfile(stanmodels, pkgdir, "R", "stanmodels.R")
   invisible(acc)
 }
@@ -167,7 +178,7 @@ rstan_config <- function(pkgdir = ".") {
 # If the .stan file has a functions block but no parameters block, then there
 # is no module definition but the functions are compiled and exported to the
 # package's namespace.
-.make_cc <- function(file_name, pkgdir) {
+.make_cc <- function(file_name, pkgdir, pkg_name, is_excepted) {
   model_name <- sub("[.]stan$", "", basename(file_name)) # model name
   ## path to src/stan_files
   ## stan_path <- file.path(pkgdir, "src", "stan_files")
@@ -221,6 +232,7 @@ rstan_config <- function(pkgdir = ".") {
     cat("#include <exporter.h>",
         eigen_incl,
         "#include <stan/math/prim/meta.hpp>",
+        "#include <stan/services/util/create_rng.hpp>",
         file = file.path(pkgdir, "src",
                          paste(pkgname, "types.h", sep = "_")),
         sep = "\n")
@@ -244,6 +256,9 @@ rstan_config <- function(pkgdir = ".") {
                        "stan::rng_t", "boost::ecuyer1988")
     if (utils::packageVersion('StanHeaders') >= "2.34") {
       cppcode <- gsub("boost::ecuyer1988", "stan::rng_t", cppcode, fixed = TRUE)
+    }
+    if (is_excepted && !is.null(cpp_pre_process[[pkg_name]])) {
+      cppcode <- cpp_pre_process[[pkg_name]](cppcode)
     }
     # Stan header file
     hdr_name <- .stan_prefix(model_name, ".h")
@@ -316,7 +331,7 @@ rstan_config <- function(pkgdir = ".") {
 }
 
 # rewrites stanmodels.R reflecting current list of stan files
-.update_stanmodels <- function(pkgdir) {
+.update_stanmodels <- function(pkgdir, pkg_name, is_excepted) {
   model_names <- list.files(file.path(pkgdir, "inst", "stan"),
                             pattern = "*.stan$")
   only_functions <- sapply(model_names, FUN = function(nm) {
@@ -354,6 +369,25 @@ rstan_config <- function(pkgdir = ".") {
                     stanmodels[(model_line+2):load_line],
                     load_module,
                     stanmodels[(load_line+2):nlines])
+    # disbayes does not need stanc exception, but uses a variable name ('mips') that
+    # gets mangled by stanc which rstan 2.32 does not support
+    if (!is.null(cpp_pre_process[[pkg_name]]) && (is_excepted || pkg_name == "disbayes")) {
+      process_fun <- c("process_fun <- ", deparse(cpp_pre_process[[pkg_name]]))
+
+      process_text <- c(
+        "process_fun <- ", deparse(cpp_pre_process[[pkg_name]]),
+        "stanfit$model_code <- process_fun(stanfit$model_code)",
+        "stanfit$model_cpp$model_cppcode <- process_fun(stanfit$model_cpp$model_cppcode)"
+      )
+
+      insert_loc <- grep("# create stanmodel object$", stanmodels)
+      nlines <- length(stanmodels)
+      stanmodels <- c(
+        stanmodels[1:(insert_loc-1)],
+        process_text,
+        stanmodels[insert_loc:nlines]
+      )
+    }
   }
   stanmodels
 }
@@ -401,4 +435,26 @@ rstan_config <- function(pkgdir = ".") {
   rtn_type <- gsub("template <typename(.*?)> ", "", repl_dbl)
   # Update model code with type declarations
   gsub("auto", rtn_type, cpp_lines[decl_line], fixed = TRUE)
+}
+
+.update_deprecations <- function(pkg_name, stan_files) {
+  post_process <- stan_post_process[[pkg_name]]
+  if (is.null(post_process)) {
+    post_process <- function(x) x
+  }
+  ctx <- QuickJSR::JSContext$new(stack_size = 4 * 1024 * 1024)
+  ctx$source(system.file("stanc.2.32.js", package = "rstantools", mustWork = TRUE))
+  stanc_process <- utils::getFromNamespace("stanc_process", "rstan")
+  sapply(stan_files, function(stanfile) {
+    model_code <- stanc_process(stanfile)
+    model_code <- ctx$call("stanc", "dummy", model_code, as.array("print-canonical"))$result
+
+    # Only overwrite Stan file if stanc succeeded
+    if (!is.null(model_code)) {
+      model_code <- post_process(model_code)
+      writeLines(model_code, con = stanfile)
+    }
+    invisible(NULL)
+  })
+  invisible(NULL)
 }
