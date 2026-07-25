@@ -1,5 +1,16 @@
 # Changelog
 
+## rstantools (development version)
+
+## rstantools 2.7.0
+
+- Remove BH & RcppEigen from Suggests by
+  [@VisruthSK](https://github.com/VisruthSK) in
+  [\#158](https://github.com/stan-dev/rstantools/issues/158)
+- Allow deprecated Stan syntax for specified versions of specified
+  packages by [@andrjohns](https://github.com/andrjohns) in
+  [\#154](https://github.com/stan-dev/rstantools/issues/154)
+
 ## rstantools 2.6.0
 
 CRAN release: 2026-01-10

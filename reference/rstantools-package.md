@@ -37,6 +37,8 @@ Useful links:
 
 Authors:
 
+- Jonah Gabry <jgabry@gmail.com>
+
 - Ben Goodrich <benjamin.goodrich@columbia.edu>
 
 - Martin Lysy <mlysy@uwaterloo.ca>
@@ -50,5 +52,7 @@ Other contributors:
 - Marco Colombo \[contributor\]
 
 - Stefan Siegert \[contributor\]
+
+- Visruth Srimath Kandali \[contributor\]
 
 - Trustees of Columbia University \[copyright holder\]

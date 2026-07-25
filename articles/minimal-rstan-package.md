@@ -26,11 +26,12 @@ package will be **rstanlm**; it will fit a simple linear regression
 model using Stan.
 
 ``` r
+
 library("rstantools")
 rstan_create_package(path = 'rstanlm')
 ```
 
-    This is rstantools version 2.6.0
+    This is rstantools version 2.7.0
 
     Creating package skeleton for package: rstanlm
 
@@ -44,7 +45,7 @@ rstan_create_package(path = 'rstanlm')
         pick a license
      [34mEncoding [39m: UTF-8
      [34mRoxygen [39m: list(markdown = TRUE)
-     [34mRoxygenNote [39m: 7.3.3
+     [34mRoxygenNote [39m: 8.0.0
 
     Creating inst/stan/include directory ...
 
@@ -55,6 +56,7 @@ rstan_create_package(path = 'rstanlm')
     Updating DESCRIPTION ...
 
     Adding 'configure' files ...
+
 
     Next, add the following lines (e.g., via <package-name>-package.R if using roxygen) to your NAMESPACE:
 
@@ -90,6 +92,7 @@ will not need the call to
 [`setwd()`](https://rdrr.io/r/base/getwd.html).)
 
 ``` r
+
 setwd("rstanlm")
 list.files(all.files = TRUE)
 ```
@@ -100,6 +103,7 @@ list.files(all.files = TRUE)
     [10] "R"                  "Read-and-delete-me" "src"               
 
 ``` r
+
 file.show("DESCRIPTION")
 ```
 
@@ -113,7 +117,7 @@ file.show("DESCRIPTION")
         license
     Encoding: UTF-8
     Roxygen: list(markdown = TRUE)
-    RoxygenNote: 7.3.3
+    RoxygenNote: 8.0.0
     Biarch: true
     Depends: 
         R (>= 3.4.0)
@@ -122,7 +126,7 @@ file.show("DESCRIPTION")
         Rcpp (>= 0.12.0),
         RcppParallel (>= 5.0.1),
         rstan (>= 2.18.1),
-        rstantools (>= 2.6.0)
+        rstantools (>= 2.7.0)
     LinkingTo: 
         BH (>= 1.66.0),
         Rcpp (>= 0.12.0),
@@ -148,6 +152,7 @@ directory make sure to read it because it contains some important
 instructions about customizing your package:
 
 ``` r
+
 file.show("Read-and-delete-me")
 ```
 
@@ -166,6 +171,7 @@ You can move this file out of the directory, delete it, or list it in
 the `.Rbuildignore` file if you want to keep it in the directory.
 
 ``` r
+
 file.remove('Read-and-delete-me')
 ```
 
@@ -220,6 +226,7 @@ placed in `lm_stan.R` ensures that the function has a help file and that
 it is added to the package `NAMESPACE`:
 
 ``` r
+
 # Save this file as `R/lm_stan.R`
 
 #' Bayesian linear regression with Stan
@@ -244,6 +251,7 @@ to import necessary functions for other packages and to set up the
 package for compiling Stan C++ code:
 
 ``` r
+
 file.show(file.path("R", "rstanlm-package.R"))
 ```
 
@@ -274,18 +282,48 @@ specific information about the package.
 With **roxygen** documentation enabled, we need to generate the
 documentation for `lm_stan` and update the `NAMESPACE` so the function
 is exported, i.e., available to users when the package is installed.
-This can be done with the function
+Load the R source files directly when running
 [`roxygen2::roxygenize()`](https://roxygen2.r-lib.org/reference/roxygenize.html),
-which needs to be called twice initially.
+then call
+[`rstan_config()`](https://mc-stan.org/rstantools/reference/rstan_config.md)
+to generate the Stan C++ code:
 
 ``` r
-try(roxygen2::roxygenize(load_code = rstantools_load_code), silent = TRUE)
-roxygen2::roxygenize()
+
+roxygen2::roxygenize(load_code = roxygen2::load_source)
+rstantools::rstan_config()
 ```
 
      [1m [22mWriting  [34mNAMESPACE [39m
-     [1m [22m [36mℹ [39m Loading  [34mrstanlm [39m
-     [36mℹ [39m Re-compiling  [34m [34mrstanlm [34m [39m (debug build)
+    Loading required package: Rcpp
+
+    Loading required package: RcppParallel
+
+
+    Attaching package: 'RcppParallel'
+
+
+    The following object is masked from 'package:Rcpp':
+
+        LdFlags
+
+
+    Loading required package: rstan
+
+    Loading required package: StanHeaders
+
+
+    rstan version 2.32.7 (Stan version 2.32.2)
+
+
+    For execution on a local, multicore CPU with excess RAM we recommend calling
+    options(mc.cores = parallel::detectCores()).
+    To avoid recompilation of unchanged Stan programs, we recommend calling
+    rstan_options(auto_write = TRUE)
+    For within-chain threading using `reduce_sum()` or `map_rect()` Stan functions,
+    change `threads_per_chain` option:
+    rstan_options(threads_per_chain = 1)
+
 
      [1m [22m [31m✖ [39m rstanlm-package.R:18: `@docType "package"` is deprecated.
      [36mℹ [39m Please document "_PACKAGE" instead.
@@ -298,6 +336,7 @@ roxygen2::roxygenize()
 Finally, the package is ready to be installed:
 
 ``` r
+
 # using ../rstanlm because already inside the rstanlm directory
 install.packages("../rstanlm", repos = NULL, type = "source")
 ```
@@ -315,19 +354,18 @@ After installation, the package can be loaded and used like any other R
 package:
 
 ``` r
-library("rstanlm")
-```
 
-``` r
+library(rstanlm)
 fit <- lm_stan(y = rnorm(10), x = rnorm(10), 
                # arguments passed to sampling
                iter = 2000, refresh = 500)
 ```
 
+
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 1).
     Chain 1: 
-    Chain 1: Gradient evaluation took 0.000101 seconds
-    Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.01 seconds.
+    Chain 1: Gradient evaluation took 8e-06 seconds
+    Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.08 seconds.
     Chain 1: Adjust your expectations accordingly!
     Chain 1: 
     Chain 1: 
@@ -338,15 +376,15 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
     Chain 1: Iteration: 1500 / 2000 [ 75%]  (Sampling)
     Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
     Chain 1: 
-    Chain 1:  Elapsed Time: 0.567 seconds (Warm-up)
-    Chain 1:                0.628 seconds (Sampling)
-    Chain 1:                1.195 seconds (Total)
+    Chain 1:  Elapsed Time: 0.009 seconds (Warm-up)
+    Chain 1:                0.009 seconds (Sampling)
+    Chain 1:                0.018 seconds (Total)
     Chain 1: 
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 2).
     Chain 2: 
-    Chain 2: Gradient evaluation took 6.6e-05 seconds
-    Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.66 seconds.
+    Chain 2: Gradient evaluation took 3e-06 seconds
+    Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.03 seconds.
     Chain 2: Adjust your expectations accordingly!
     Chain 2: 
     Chain 2: 
@@ -357,15 +395,15 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
     Chain 2: Iteration: 1500 / 2000 [ 75%]  (Sampling)
     Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
     Chain 2: 
-    Chain 2:  Elapsed Time: 0.628 seconds (Warm-up)
-    Chain 2:                0.499 seconds (Sampling)
-    Chain 2:                1.127 seconds (Total)
+    Chain 2:  Elapsed Time: 0.009 seconds (Warm-up)
+    Chain 2:                0.009 seconds (Sampling)
+    Chain 2:                0.018 seconds (Total)
     Chain 2: 
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 3).
     Chain 3: 
-    Chain 3: Gradient evaluation took 6.6e-05 seconds
-    Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.66 seconds.
+    Chain 3: Gradient evaluation took 2e-06 seconds
+    Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.02 seconds.
     Chain 3: Adjust your expectations accordingly!
     Chain 3: 
     Chain 3: 
@@ -376,15 +414,15 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
     Chain 3: Iteration: 1500 / 2000 [ 75%]  (Sampling)
     Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
     Chain 3: 
-    Chain 3:  Elapsed Time: 0.581 seconds (Warm-up)
-    Chain 3:                0.543 seconds (Sampling)
-    Chain 3:                1.124 seconds (Total)
+    Chain 3:  Elapsed Time: 0.009 seconds (Warm-up)
+    Chain 3:                0.008 seconds (Sampling)
+    Chain 3:                0.017 seconds (Total)
     Chain 3: 
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 4).
     Chain 4: 
-    Chain 4: Gradient evaluation took 6.7e-05 seconds
-    Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.67 seconds.
+    Chain 4: Gradient evaluation took 2e-06 seconds
+    Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.02 seconds.
     Chain 4: Adjust your expectations accordingly!
     Chain 4: 
     Chain 4: 
@@ -395,12 +433,13 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
     Chain 4: Iteration: 1500 / 2000 [ 75%]  (Sampling)
     Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
     Chain 4: 
-    Chain 4:  Elapsed Time: 0.563 seconds (Warm-up)
-    Chain 4:                0.607 seconds (Sampling)
-    Chain 4:                1.17 seconds (Total)
+    Chain 4:  Elapsed Time: 0.01 seconds (Warm-up)
+    Chain 4:                0.009 seconds (Sampling)
+    Chain 4:                0.019 seconds (Total)
     Chain 4: 
 
 ``` r
+
 print(fit)
 ```
 
@@ -409,12 +448,12 @@ print(fit)
     post-warmup draws per chain=1000, total post-warmup draws=4000.
 
                mean se_mean   sd   2.5%   25%   50%   75% 97.5% n_eff Rhat
-    intercept  0.09    0.01 0.48  -0.89 -0.20  0.08  0.38  1.02  2396 1.00
-    beta      -0.07    0.01 0.46  -0.95 -0.35 -0.08  0.21  0.89  2029 1.00
-    sigma      1.44    0.01 0.46   0.85  1.13  1.35  1.65  2.56  1216 1.00
-    lp__      -7.38    0.05 1.45 -11.12 -8.03 -7.00 -6.33 -5.76   867 1.01
+    intercept  0.38    0.01 0.63  -0.89  0.01  0.39  0.77  1.63  1957    1
+    beta      -1.07    0.03 1.09  -3.17 -1.74 -1.10 -0.40  1.10  1899    1
+    sigma      1.64    0.01 0.54   0.96  1.27  1.53  1.86  3.01  1465    1
+    lp__      -8.48    0.04 1.45 -12.34 -9.12 -8.12 -7.44 -6.80  1235    1
 
-    Samples were drawn using NUTS(diag_e) at Sat Jan 10 17:24:10 2026.
+    Samples were drawn using NUTS(diag_e) at Sat Jul 25 07:54:09 2026.
     For each parameter, n_eff is a crude measure of effective sample size,
     and Rhat is the potential scale reduction factor on split chains (at 
     convergence, Rhat=1).
