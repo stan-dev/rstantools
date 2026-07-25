@@ -1,12 +1,12 @@
 Package: rstantools
 Type: Package
 Title: Tools for Developing R Packages Interfacing with 'Stan'
-Version: 2.6.0.9000
-Date: 2026-01-10
+Version: 2.7.0
+Date: 2026-07-25
 Authors@R:
     c(person(given = "Jonah",
              family = "Gabry",
-             role = c("aut", "cre"),
+             role = "aut",
              email = "jgabry@gmail.com"),
       person(given = "Ben",
              family = "Goodrich",
@@ -18,7 +18,8 @@ Authors@R:
              email = "mlysy@uwaterloo.ca"),
       person(given = "Andrew",
              family = "Johnson",
-             role = "aut"),
+             role = c("aut", "cre"),
+             email = "andrew.johnson@arjohnsonau.com"),
       person(given = "Hamada S.",
              family = "Badr",
              role = "ctb"),

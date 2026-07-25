@@ -1,5 +1,10 @@
 # rstantools (development version)
 
+# rstantools 2.7.0
+
+* Remove BH & RcppEigen from Suggests by @VisruthSK in #158
+* Allow deprecated Stan syntax for specified versions of specified packages by @andrjohns in #154
+
 # rstantools 2.6.0
 
 * New pkgdown theme by @VisruthSK in #141
