@@ -364,8 +364,8 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 1).
     Chain 1: 
-    Chain 1: Gradient evaluation took 8e-06 seconds
-    Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.08 seconds.
+    Chain 1: Gradient evaluation took 9e-06 seconds
+    Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.09 seconds.
     Chain 1: Adjust your expectations accordingly!
     Chain 1: 
     Chain 1: 
@@ -383,8 +383,8 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 2).
     Chain 2: 
-    Chain 2: Gradient evaluation took 3e-06 seconds
-    Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.03 seconds.
+    Chain 2: Gradient evaluation took 2e-06 seconds
+    Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.02 seconds.
     Chain 2: Adjust your expectations accordingly!
     Chain 2: 
     Chain 2: 
@@ -453,7 +453,7 @@ print(fit)
     sigma      1.64    0.01 0.54   0.96  1.27  1.53  1.86  3.01  1465    1
     lp__      -8.48    0.04 1.45 -12.34 -9.12 -8.12 -7.44 -6.80  1235    1
 
-    Samples were drawn using NUTS(diag_e) at Sat Jul 25 07:54:09 2026.
+    Samples were drawn using NUTS(diag_e) at Sun Jul 26 03:55:41 2026.
     For each parameter, n_eff is a crude measure of effective sample size,
     and Rhat is the potential scale reduction factor on split chains (at 
     convergence, Rhat=1).

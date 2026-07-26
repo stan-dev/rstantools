@@ -4,6 +4,8 @@
 
 ## rstantools 2.7.0
 
+CRAN release: 2026-07-25
+
 - Remove BH & RcppEigen from Suggests by
   [@VisruthSK](https://github.com/VisruthSK) in
   [\#158](https://github.com/stan-dev/rstantools/issues/158)
