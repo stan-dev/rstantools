@@ -31,7 +31,7 @@ library("rstantools")
 rstan_create_package(path = 'rstanlm')
 ```
 
-    This is rstantools version 2.7.0
+    This is rstantools version 2.7.1
 
     Creating package skeleton for package: rstanlm
 
@@ -45,7 +45,7 @@ rstan_create_package(path = 'rstanlm')
         pick a license
      [34mEncoding [39m: UTF-8
      [34mRoxygen [39m: list(markdown = TRUE)
-     [34mRoxygenNote [39m: 8.0.0
+     [34mRoxygenNote [39m: 8.1.0
 
     Creating inst/stan/include directory ...
 
@@ -117,7 +117,7 @@ file.show("DESCRIPTION")
         license
     Encoding: UTF-8
     Roxygen: list(markdown = TRUE)
-    RoxygenNote: 8.0.0
+    RoxygenNote: 8.1.0
     Biarch: true
     Depends: 
         R (>= 3.4.0)
@@ -126,7 +126,7 @@ file.show("DESCRIPTION")
         Rcpp (>= 0.12.0),
         RcppParallel (>= 5.0.1),
         rstan (>= 2.18.1),
-        rstantools (>= 2.7.0)
+        rstantools (>= 2.7.1)
     LinkingTo: 
         BH (>= 1.66.0),
         Rcpp (>= 0.12.0),
@@ -294,6 +294,7 @@ roxygen2::roxygenize(load_code = roxygen2::load_source)
 rstantools::rstan_config()
 ```
 
+     [1m [22m [36mℹ [39m Setting  [32mConfig/roxygen2/version [39m to  [34m"8.1.0" [39m
      [1m [22mWriting  [34mNAMESPACE [39m
     Loading required package: Rcpp
 
@@ -364,8 +365,8 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 1).
     Chain 1: 
-    Chain 1: Gradient evaluation took 9e-06 seconds
-    Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.09 seconds.
+    Chain 1: Gradient evaluation took 6e-06 seconds
+    Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
     Chain 1: Adjust your expectations accordingly!
     Chain 1: 
     Chain 1: 
@@ -376,9 +377,9 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
     Chain 1: Iteration: 1500 / 2000 [ 75%]  (Sampling)
     Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
     Chain 1: 
-    Chain 1:  Elapsed Time: 0.009 seconds (Warm-up)
-    Chain 1:                0.009 seconds (Sampling)
-    Chain 1:                0.018 seconds (Total)
+    Chain 1:  Elapsed Time: 0.01 seconds (Warm-up)
+    Chain 1:                0.01 seconds (Sampling)
+    Chain 1:                0.02 seconds (Total)
     Chain 1: 
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 2).
@@ -395,9 +396,9 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
     Chain 2: Iteration: 1500 / 2000 [ 75%]  (Sampling)
     Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
     Chain 2: 
-    Chain 2:  Elapsed Time: 0.009 seconds (Warm-up)
+    Chain 2:  Elapsed Time: 0.01 seconds (Warm-up)
     Chain 2:                0.009 seconds (Sampling)
-    Chain 2:                0.018 seconds (Total)
+    Chain 2:                0.019 seconds (Total)
     Chain 2: 
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 3).
@@ -414,9 +415,9 @@ fit <- lm_stan(y = rnorm(10), x = rnorm(10),
     Chain 3: Iteration: 1500 / 2000 [ 75%]  (Sampling)
     Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
     Chain 3: 
-    Chain 3:  Elapsed Time: 0.009 seconds (Warm-up)
+    Chain 3:  Elapsed Time: 0.01 seconds (Warm-up)
     Chain 3:                0.008 seconds (Sampling)
-    Chain 3:                0.017 seconds (Total)
+    Chain 3:                0.018 seconds (Total)
     Chain 3: 
 
     SAMPLING FOR MODEL 'lm' NOW (CHAIN 4).
@@ -453,7 +454,7 @@ print(fit)
     sigma      1.64    0.01 0.54   0.96  1.27  1.53  1.86  3.01  1465    1
     lp__      -8.48    0.04 1.45 -12.34 -9.12 -8.12 -7.44 -6.80  1235    1
 
-    Samples were drawn using NUTS(diag_e) at Sun Jul 26 03:55:41 2026.
+    Samples were drawn using NUTS(diag_e) at Fri Aug 28 14:12:07 2026.
     For each parameter, n_eff is a crude measure of effective sample size,
     and Rhat is the potential scale reduction factor on split chains (at 
     convergence, Rhat=1).
